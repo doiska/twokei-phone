@@ -1,5 +1,4 @@
-import { AppRoute } from "../os/components/AppRoute";
-
+import AppRoute from "@os/apps/components/AppRoute";
 export interface IApp {
     id: string;
     locale: string;
