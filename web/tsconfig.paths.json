@@ -2,27 +2,27 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
-            // "*": [
-            //     "@types/*/*"
-            // ],
             "@os/*": [
-                "./os/*"
+                "os/*"
             ],
             "@ui/*": [
-                "./ui/*"
+                "ui/*"
             ],
             "@apps/*": [
-                "./apps"
+                "apps/*"
             ],
             "@utils/*": [
-                "./utils/*"
+                "utils/*"
             ],
             "@common/*": [
-                "./common/*"
+                "common/*"
             ],
             "@typings/*": [
                 "../../typings/*"
-            ]
+            ],
+            "@styles/*": [
+                "styles/*"
+            ],
         }
     }
 }
