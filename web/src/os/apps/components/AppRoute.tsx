@@ -8,7 +8,7 @@ type AppRouteParams = {
     component: React.FC<any>
 }
 
-export const AppRoute: React.FC<AppRouteParams> = ({ id, emitOnOpen, component: Component, ...rest }) => {
+const AppRoute: React.FC<AppRouteParams> = ({ id, emitOnOpen, component: Component, ...rest }) => {
     return (
         <Route {...rest} children={() => (
             <AppWithStartup id={id} emitOnOpen={emitOnOpen}>
@@ -16,4 +16,6 @@ export const AppRoute: React.FC<AppRouteParams> = ({ id, emitOnOpen, component: 
             </AppWithStartup>
         )} />
     )
-} 
+}
+
+export default AppRoute;

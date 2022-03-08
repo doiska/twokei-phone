@@ -1,16 +1,12 @@
-import React, { memo, useEffect } from 'React';
-import { useNuiRequest } from 'fivem-nui-react-lib';
+import { memo, useEffect } from 'react';
+import fetchNui from '@utils/fetchNui';
 
 const Component: React.FC<{ children: any, id: string, emitOnOpen: boolean }> = ({ children, id, emitOnOpen }) => {
-    const Nui = useNuiRequest();
-
     useEffect(() => {
-        if (emitOnOpen) {
-            Nui.send(`tk:app:${id}`);
-        }
-    }, [Nui, id, emitOnOpen]);
+        if (emitOnOpen) fetchNui(`npwd:app:${id}`, undefined, {});
+    }, [id, emitOnOpen]);
     return children;
-}
+};
 
 const AppWithStartup = memo(Component, () => true);
 
