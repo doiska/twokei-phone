@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
@@ -18,8 +18,8 @@ ReactDOM.render(
                         <Routes>
                             <Route index element={<HomeApp />} />
                             {
-                                Apps.map((App) => (
-                                    <>{!App.disable && <App.Route key={App.id} />}</>
+                                Apps.map(({ id, disable, path, AppElement }) => (
+                                    <Route key={id} path={path} element={<AppElement />} />
                                 ))
                             }
                         </Routes>

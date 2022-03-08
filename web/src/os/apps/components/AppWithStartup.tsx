@@ -3,7 +3,7 @@ import fetchNui from '@utils/fetchNui';
 
 const Component: React.FC<{ children: any, id: string, emitOnOpen: boolean }> = ({ children, id, emitOnOpen }) => {
     useEffect(() => {
-        if (emitOnOpen) fetchNui(`npwd:app:${id}`, undefined, {});
+        if (emitOnOpen) fetchNui(`twokei-phone:app:${id}`, undefined, {});
     }, [id, emitOnOpen]);
     return children;
 };

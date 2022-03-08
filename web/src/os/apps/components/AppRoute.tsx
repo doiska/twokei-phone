@@ -1,21 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 import AppWithStartup from "./AppWithStartup";
 
-type AppRouteParams = {
+type AppElementParams = {
     id: string,
     emitOnOpen: boolean,
-    component: React.FC<any>
+    component: React.FC<any>,
 }
 
-const AppRoute: React.FC<AppRouteParams> = ({ id, emitOnOpen, component: Component, ...rest }) => {
-    return (
-        <Route {...rest} children={() => (
-            <AppWithStartup id={id} emitOnOpen={emitOnOpen}>
-                <Component />
-            </AppWithStartup>
-        )} />
-    )
+const AppElement: React.FC<AppElementParams> = ({ id, emitOnOpen, component: Component, ...rest }) => {
+    return (<AppWithStartup id={id} emitOnOpen={emitOnOpen}><Component /></AppWithStartup>)
 }
 
-export default AppRoute;
+export default AppElement;
