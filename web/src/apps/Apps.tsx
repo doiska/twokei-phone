@@ -12,11 +12,10 @@ export const Apps: IApp[] = [
         id: 'WHATSAPP',
         locale: 'APPS_WHATSAPP',
         disable: false,
-        path: '/whatsapp',
-        AppElement: () => <AppElement id="WHATSAPP" emitOnOpen={false} component={test}></AppElement>,
+        path: 'whatsapp',
+        AppElement: () => <AppElement id="WHATSAPP" emitOnOpen={false} component={tes}></AppElement>,
     }
 ]
 
-const test: React.FC = () => {
-    return <div></div>
-}
+const tes = () => <div className="text-white">tes</div>
+const teste = () => <div>teste</div>
