@@ -1,4 +1,5 @@
 import AppElement from "@os/apps/components/AppRoute";
+import AppWrapper from "@ui/components/AppWrapper";
 import { FaWhatsapp } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 export interface IApp {
@@ -22,5 +23,5 @@ export const Apps: IApp[] = [
     }
 ]
 
-const tes = () => <div className="text-white">tes</div>
+const tes = () => <AppWrapper className="text-white">tes</AppWrapper>
 const teste = () => <div>teste</div>
