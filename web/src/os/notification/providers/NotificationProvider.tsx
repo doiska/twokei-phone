@@ -45,7 +45,7 @@ interface NotificationContextProvider {
 
 export const NotificationsContext = createContext<NotificationContextProvider>({} as NotificationContextProvider);
 
-const NotificationProvider: React.FC = ({ children }) => {
+export const NotificationProvider: React.FC = ({ children }) => {
 
     // const isPhoneOpen = useRecoilValue(phoneState.visibility)
     // const isPhoneDisabled = useRecoilValue(phoneState.isPhoneDisabled);
