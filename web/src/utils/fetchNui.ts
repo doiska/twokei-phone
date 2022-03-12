@@ -9,6 +9,7 @@
 import { isEnvBrowser } from './misc';
 
 async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?: T): Promise<T> {
+
     const options = {
         method: 'post',
         headers: {
@@ -30,7 +31,7 @@ async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?
 
     const resourceName = (window as any).GetParentResourceName
         ? (window as any).GetParentResourceName()
-        : 'npwd';
+        : 'twokei';
 
     const resp = await fetch(`https://${resourceName}/${eventName}`, options);
 

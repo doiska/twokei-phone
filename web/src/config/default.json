@@ -1,0 +1,65 @@
+{
+    "provider": "",
+    "defaultLanguage": "pt_BR",
+    "cases": [
+        {
+            "label": "Default",
+            "value": "default.png"
+        }
+    ],
+    "wallpapers": [
+        {
+            "label": "doiska",
+            "value": "doiska.png"
+        }
+    ],
+    "languages": [
+        {
+            "label": "Português",
+            "value": "pt_BR"
+        },
+        {
+            "label": "English",
+            "value": "en_US"
+        }
+    ],
+    "ringtones": [
+        {
+            "label": "Lo-fi",
+            "value": "lofi"
+        }
+    ],
+    "notification": [
+        {
+            "label": "Killua",
+            "value": "killuahumble"
+        }
+    ],
+    "debug": {
+        "printLogs": true
+    },
+    "defaultPhoneSettings": {
+        "language": "pt_BR",
+        "wallpaper": {
+            "label": "Doiska",
+            "value": "doiska.png"
+        },
+        "case": {
+            "label": "Default",
+            "value": "default.png"
+        },
+        "zoom": 100,
+        "ringtone": {
+            "label": "Lo-fi",
+            "value": "lofi"
+        },
+        "ringtoneVolume": 100,
+        "callVolume": 100,
+        "notificationEnabled": true,
+        "notificationSound": {
+            "label": "Killua",
+            "value": "killuahumble"
+        },
+        "notificationSoundVolume": 100
+    }
+}
