@@ -1,5 +1,5 @@
+import AppWrapper from "@ui/components/AppWrapper";
 import React from "react";
-import { Route } from "react-router-dom";
 import AppWithStartup from "./AppWithStartup";
 
 type AppElementParams = {
@@ -8,8 +8,16 @@ type AppElementParams = {
     component: React.FC<any>,
 }
 
+const AppWrapperLazy = React.lazy(() => import('@ui/components/AppWrapper'));
+
 const AppElement: React.FC<AppElementParams> = ({ id, emitOnOpen, component: Component, ...rest }) => {
-    return (<AppWithStartup id={id} emitOnOpen={emitOnOpen}><Component /></AppWithStartup>)
+    return (
+        <AppWithStartup id={id} emitOnOpen={emitOnOpen}>
+            <AppWrapperLazy>
+                <Component />
+            </AppWrapperLazy>
+        </AppWithStartup>
+    )
 }
 
 export default AppElement;
