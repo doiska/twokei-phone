@@ -13,7 +13,7 @@ const Home: React.FC = () => {
             <div className="flex flex-col mt-8 px-1 h-full w-full items-center">
                 <div className="grid grid-cols-5 text-5xl gap-3">
                     {
-                        apps.map(({ path, icon: Icon, disable, color }) => <Link to={path}>{Icon}</Link>)
+                        apps.map(({ path, icon: Icon, disable, color, id }) => <Link key={id} to={path}>{Icon}</Link>)
                     }
                 </div>
             </div>
