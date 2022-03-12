@@ -10,7 +10,7 @@ export interface INotification {
     sound?: boolean;
     cantClose?: boolean;
     keepWhenPhoneClosed?: boolean;
-    onOpen?: (notification: INotification) => void;
+    onClick?: (notification: INotification) => void;
     onClose?: (notification: INotification) => void;
 }
 
@@ -52,7 +52,7 @@ export const NotificationProvider: React.FC = ({ children }) => {
 
     // const [ settings ] = useSettings();
 
-    const [barUncollapsed, setBarUncollapsed] = useState<boolean>(false);
+    const [barUncollapsed, setBarUncollapsed] = useState<boolean>(true);
     const [notifications, setNotifications] = useState<INotification[]>([]);
 
     const alertTimeout = useRef<NodeJS.Timeout>();
@@ -115,7 +115,7 @@ export const NotificationProvider: React.FC = ({ children }) => {
             setCurrentAlert({
                 ...n,
                 resolve,
-                onClickAlert: onExit(n.onOpen),
+                onClickAlert: onExit(n.onClick),
                 onCloseAlert: onExit(n.onClose),
             });
 

@@ -8,18 +8,18 @@ type INotificationItem = INotification & {
 
 export const NotificationItem: React.FC<INotificationItem> = ({ onClose, onClickClose, ...notification }) => {
 
-    const { title, notificationIcon, content, cantClose, onOpen, icon } = notification;
-
-    console.log(notification);
+    const { title, notificationIcon, content, cantClose, onClick, icon } = notification;
 
     return (
         <li
             className="flex flex-col relative bg-zinc-700 text-white h-full p-3 my-[0.5px] first:rounded-t-lg last:rounded-b-lg"
-            //TODO: style={{ paddingRight: cantClose ? '8px' : '28px' }}
             onClick={(e) => {
-                if (onOpen) {
-                    onOpen(notification);
+                if (onClick) {
+                    onClick(notification);
                     onClickClose(e);
+                }
+                else {
+                    onClose(e);
                 }
             }}
         >

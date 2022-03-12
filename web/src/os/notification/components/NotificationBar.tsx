@@ -10,32 +10,32 @@ const NotificationBar: React.FC = () => {
     const { addNotification, notifications, icons, removeNotification, barUncollapsed, setBarUncollapsed } = useNotifications();
 
     useEffect(() => {
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 20; i++) {
             addNotification({
                 app: 'appstyle' + i,
                 notificationIcon: <Md4K />,
-                title: 'Notification Title',
-                content: (<></>
-                    // <div className="flex flex-col justify-start gap-2 mt-2">
-                    //     <div className='flex flex-col gap-2'>
-                    //         <div className='avatar gap-2'>
-                    //             <div className='w-8 rounded'>
-                    //                 <img src="https://daisyui.com/tailwind-css-component-profile-1@94w.jpg" />
-                    //             </div>
-                    //             <span className='text-sm'>{`doiská ${new Date().toLocaleDateString('pt-BR')}`}<br />teste do sistema de mensagens</span>
-                    //         </div>
-                    //     </div>
+                title: 'Notification Title' + i,
+                // content: (
+                //     <div className="flex flex-col justify-start gap-2 mt-2">
+                //         <div className='flex flex-col gap-2'>
+                //             <div className='avatar gap-2'>
+                //                 <div className='w-8 rounded'>
+                //                     <img src="https://daisyui.com/tailwind-css-component-profile-1@94w.jpg" />
+                //                 </div>
+                //                 <span className='text-sm'>{`doiská ${new Date().toLocaleDateString('pt-BR')}`}<br />teste do sistema de mensagens</span>
+                //             </div>
+                //         </div>
 
-                    //     <div className='flex flex-row items-center justify-center text-xs gap-2 text-green-400' style={{ fontWeight: '600' }}>
-                    //         <span className='hover:bg-zinc-600 rounded-lg p-2 transition-all duration-200'>Responder</span>
-                    //         <span>|</span>
-                    //         <span className='hover:bg-zinc-600 rounded-lg p-2 transition-all duration-200'>Marcar como lida</span>
-                    //     </div>
-                    // </div>
-                )
+                //         <div className='flex flex-row items-center justify-center text-xs gap-2 text-green-400' style={{ fontWeight: '600' }}>
+                //             <span className='hover:bg-zinc-600 rounded-lg p-2 transition-all duration-200'>Responder</span>
+                //             <span>|</span>
+                //             <span className='hover:bg-zinc-600 rounded-lg p-2 transition-all duration-200'>Marcar como lida</span>
+                //         </div>
+                //     </div>
+                // )
             })
         }
-    }, [])
+    }, [false])
 
     useEffect(() => {
         if (notifications.length === 0)
@@ -66,7 +66,7 @@ const NotificationBar: React.FC = () => {
             </div>
             <NotificationList collapsed={barUncollapsed}>
                 {
-                    notifications.slice(0, 20).map((notification, idx) => {
+                    notifications.map((notification, idx) => {
                         return <NotificationItem
                             key={idx}
                             {...notification}
