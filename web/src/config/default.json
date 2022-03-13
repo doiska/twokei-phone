@@ -48,7 +48,7 @@
 			"label": "Default",
 			"value": "default.png"
 		},
-		"zoom": 100,
+		"zoom": 1,
 		"ringtone": {
 			"label": "Lo-fi",
 			"value": "lofi"
