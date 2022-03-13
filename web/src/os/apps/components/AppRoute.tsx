@@ -1,5 +1,6 @@
 import React from 'react';
 import AppWithFetch from './AppWithFetch';
+import AppWrapper from '@ui/components/AppWrapper';
 
 type AppElementParams = {
 	id: string;
@@ -7,14 +8,12 @@ type AppElementParams = {
 	component: React.FC<any>;
 };
 
-const AppWrapperLazy = React.lazy(() => import('@ui/components/AppWrapper'));
-
 const AppElement: React.FC<AppElementParams> = ({ id, emitOnOpen, component: Component, ...rest }) => {
 	return (
 		<AppWithFetch id={id} emitOnOpen={emitOnOpen}>
-			<AppWrapperLazy>
+			<AppWrapper>
 				<Component />
-			</AppWrapperLazy>
+			</AppWrapper>
 		</AppWithFetch>
 	);
 };
