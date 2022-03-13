@@ -1,14 +1,26 @@
 import React from 'react';
+import { useSettings } from '@apps/Settings/hooks/useSettings';
+import { usePhoneVisibility } from '@os/hooks/usePhoneVisibility';
 
 const PhoneWrapper: React.FC = ({ children }) => {
+	const [settings] = useSettings();
+	const { bottom } = usePhoneVisibility();
+
 	return (
 		<div className="relative h-screen w-screen">
-			<div className="absolute right-0 h-phone w-phone" style={{ position: 'fixed' }}>
+			<div
+				className="h-phone w-phone absolute"
+				style={{
+					position: 'fixed',
+					transformOrigin: 'right bottom',
+					transform: `scale(${settings.zoom})`,
+					bottom,
+				}}
+			>
 				<div
-					className="absolute z-[999] h-phone w-phone"
+					className="h-phone w-phone absolute z-[999]"
 					style={{
-						backgroundImage:
-							'url("https://github.com/project-error/npwd/blob/master/phone/public/media/frames/default.png?raw=true")',
+						backgroundImage: `url("/media/frames/${settings.case.value}")`,
 					}}
 				>
 					<div
