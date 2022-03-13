@@ -35,7 +35,7 @@ const SettingsApp: React.FC = () => {
      */
 
 	return (
-		<GenericApp className="bg-zinc-900">
+		<GenericApp>
 			<GenericHeader title="Configurações" />
 			<GenericBody>
 				<SettingsCategory title="Dispositivo" key={'Device'}>

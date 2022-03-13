@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useNavigationDisabledValue } from './Navigation.state';
+import { useNavigationDisabledValue } from './navigation.state';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IoChevronBack } from 'react-icons/io5';
 import { RiCheckboxBlankCircleLine } from 'react-icons/ri';
@@ -24,7 +24,7 @@ const NavigationBar: React.FC = () => {
 	};
 
 	return (
-		<div className="bg-neutral-800 text-large relative inset-x-0 bottom-0 z-10 h-[8%] w-full text-white shadow">
+		<div className="text-large relative inset-x-0 bottom-0 z-[10] w-full basis-[8%] bg-neutral-800 text-white shadow">
 			<div className="flex h-full w-full items-center justify-between px-12 text-lg">
 				<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
 					<SiLibrariesdotio />
