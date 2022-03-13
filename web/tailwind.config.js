@@ -1,5 +1,14 @@
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
+    daisyui: {
+        themes: [
+            {
+                phone: {
+                    "base-100": "#27272a"
+                }
+            }
+        ]
+    },
 	theme: {
 		extend: {
 			width: {
