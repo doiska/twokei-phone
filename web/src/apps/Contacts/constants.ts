@@ -2,8 +2,13 @@ import { Contact } from '@typings/contacts';
 
 export const BrowserContactsState: Contact[] = [
 	{
+		id: 0,
+		display: '123',
+		number: '123-456',
+	},
+    {
 		id: 1,
-		display: 'doiska',
+		display: 'doiská',
 		number: '123-456',
 	},
 	{

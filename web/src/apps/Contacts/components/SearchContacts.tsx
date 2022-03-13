@@ -15,7 +15,7 @@ const SearchContacts: React.FC = () => {
 	return (
 		<input
 			type="text"
-			className="input input-bordered input-xs w-full max-w-xs"
+			className="input input-sm mx-2 inline-flex w-full max-w-xs self-center transition-all duration-200 focus-visible:outline-0"
 			placeholder="Placeholder"
 			value={input}
 			onChange={(e) => setInput(e.target.value)}

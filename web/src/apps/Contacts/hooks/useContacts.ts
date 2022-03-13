@@ -43,6 +43,21 @@ export const contactsState = {
 			return contacts.filter((contact) => contact.display.match(regExp) || contact.number.match(regExp));
 		},
 	}),
+    filteredByStart: selector({
+        key: 'filteredByStart',
+        get: ({ get }) => {
+            const contacts: Contact[] = get(contactsState.filteredContacts);
+            let contactsByStart = [] as any as { [key: string]: Contact[] };
+
+            for(const contact of contacts) {
+                const letter = contact.display.substring(0, 1).toUpperCase() ?? '#';
+
+                const current = contactsByStart[`${letter}`] || [];
+                contactsByStart[`${letter}`] = [...current, contact];
+            }
+            return contactsByStart;
+        }
+    })
 };
 
 export const useContacts = () => useRecoilState(contactsState.contacts);
@@ -50,6 +65,7 @@ export const useSetContacts = () => useSetRecoilState(contactsState.contacts);
 export const useContactsValue = () => useRecoilValue(contactsState.contacts);
 
 export const useFilteredContacts = () => useRecoilValue(contactsState.filteredContacts);
+export const useFilteredContactsByInitial = () => useRecoilValue(contactsState.filteredByStart);
 
 export const useContactFilterInput = () => useRecoilState(contactsState.filterInput);
 export const useSetContactFilterInput = () => useSetRecoilState(contactsState.filterInput);
