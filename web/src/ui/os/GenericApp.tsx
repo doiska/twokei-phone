@@ -1,15 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 type Props = {
-    className?: string
-}
+	className?: string;
+};
 
 const GenericApp: React.FC<Props> = ({ children, className }) => {
-    return (
-        <div className={`h-full w-full flex flex-col ${className ?? ''}`}>
-            {children}
-        </div>
-    )
-}
+	return <div className={`flex h-full w-full flex-col ${className ?? ''}`}>{children}</div>;
+};
 
 export default GenericApp;

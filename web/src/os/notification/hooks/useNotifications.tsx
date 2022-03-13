@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import { NotificationsContext } from '@os/notification/providers/NotificationProvider';
 
 export const useNotifications = () => {
-    const context = useContext(NotificationsContext);
-    if (!context) {
-        throw new Error('useNotifications must be wrapped by NotificationsProvider');
-    }
-    return context;
+	const context = useContext(NotificationsContext);
+	if (!context) {
+		throw new Error('useNotifications must be wrapped by NotificationsProvider');
+	}
+	return context;
 };

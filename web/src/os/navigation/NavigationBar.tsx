@@ -6,41 +6,38 @@ import { IoChevronBack } from 'react-icons/io5';
 import { RiCheckboxBlankCircleLine } from 'react-icons/ri';
 import { SiLibrariesdotio } from 'react-icons/si';
 
-
 const NavigationBar: React.FC = () => {
+	const navigate = useNavigate();
+	const isDisabled = useNavigationDisabledValue();
+	const { pathname } = useLocation();
 
-    const navigate = useNavigate();
-    const isDisabled = useNavigationDisabledValue();
-    const { pathname } = useLocation();
+	console.log(pathname);
 
-    console.log(pathname);
+	const callGoBack = () => {
+		if (!isDisabled) navigate(-1);
+	};
 
-    const callGoBack = () => {
-        if (!isDisabled)
-            navigate(-1);
-    }
+	const callGoToMenu = () => {
+		if (!isDisabled) {
+			navigate('/');
+		}
+	};
 
-    const callGoToMenu = () => {
-        if (!isDisabled) {
-            navigate('/');
-        }
-    }
-
-    return (
-        <div className='w-full h-[8%] relative inset-x-0 bottom-0 z-10 bg-neutral-800 text-large text-white shadow'>
-            <div className='w-full h-full flex justify-between items-center px-12 text-lg'>
-                <a className="focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center">
-                    <SiLibrariesdotio />
-                </a>
-                <a className='focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center'>
-                    <RiCheckboxBlankCircleLine onClick={callGoToMenu} />
-                </a>
-                <a className='focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center'>
-                    <IoChevronBack onClick={callGoBack} />
-                </a>
-            </div>
-        </div>
-    )
-}
+	return (
+		<div className="bg-neutral-800 text-large relative inset-x-0 bottom-0 z-10 h-[8%] w-full text-white shadow">
+			<div className="flex h-full w-full items-center justify-between px-12 text-lg">
+				<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
+					<SiLibrariesdotio />
+				</a>
+				<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
+					<RiCheckboxBlankCircleLine onClick={callGoToMenu} />
+				</a>
+				<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
+					<IoChevronBack onClick={callGoBack} />
+				</a>
+			</div>
+		</div>
+	);
+};
 
 export default NavigationBar;
