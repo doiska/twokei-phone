@@ -1,14 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 const SettingsCategory: React.FC<{ title?: string }> = ({ title, children }) => {
-    return (
-        <div className='flex flex-col text-white p-2 gap-1 bg-zinc-800 rounded-xl mb-2'>
-            {title ? <span className='p-2'>{title}</span> : ''}
-            <div>
-                {children}
-            </div>
-        </div>
-    )
-}
+	return (
+		<div className="mb-2 flex flex-col gap-1 rounded-xl bg-zinc-800 p-2 text-white">
+			{title ? <span className="p-2">{title}</span> : ''}
+			<div>{children}</div>
+		</div>
+	);
+};
 
 export default SettingsCategory;

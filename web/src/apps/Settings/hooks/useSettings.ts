@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { settingsState } from '../state/settings.state';
 
 export const useSettings = () => useRecoilState(settingsState);

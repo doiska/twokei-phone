@@ -1,31 +1,15 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./src",
-        "paths": {
-            "@os/*": [
-                "os/*"
-            ],
-            "@ui/*": [
-                "ui/*"
-            ],
-            "@apps/*": [
-                "apps/*"
-            ],
-            "@utils/*": [
-                "utils/*"
-            ],
-            "@common/*": [
-                "common/*"
-            ],
-            "@typings/*": [
-                "../../typings/*"
-            ],
-            "@styles/*": [
-                "styles/*"
-            ],
-            "@config/*": [
-                "config/*"
-            ]
-        }
-    }
+	"compilerOptions": {
+		"baseUrl": "./src",
+		"paths": {
+			"@os/*": ["os/*"],
+			"@ui/*": ["ui/*"],
+			"@apps/*": ["apps/*"],
+			"@utils/*": ["utils/*"],
+			"@common/*": ["common/*"],
+			"@typings/*": ["../../typings/*"],
+			"@styles/*": ["styles/*"],
+			"@config/*": ["config/*"]
+		}
+	}
 }
