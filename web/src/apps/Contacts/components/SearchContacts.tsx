@@ -1,5 +1,6 @@
-import { useDebouce } from '@os/hooks/useDebouce';
 import React, { useEffect, useState } from 'react';
+
+import { useDebouce } from '@os/hooks/useDebouce';
 
 import { useSetContactFilterInput } from '../hooks/useContacts';
 

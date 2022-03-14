@@ -1,7 +1,7 @@
 import { ServerPromiseResp } from '@typings/common';
 import { Contact, ContactEvents } from '@typings/contacts';
 import fetchNui from '@utils/fetchNui';
-import { buildRespObj } from '@utils/misc';
+import { buildRespObj } from '@utils/nuiMisc';
 import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { BrowserContactsState } from '../constants';
@@ -17,7 +17,7 @@ export const contactsState = {
 					const resp = await fetchNui<ServerPromiseResp<Contact[]>>(
 						ContactEvents.GET_CONTACTS,
 						undefined,
-						buildRespObj(BrowserContactsState)
+						buildRespObj<Contact[]>(BrowserContactsState)
 					);
 					return resp.data ?? [];
 				} catch (error) {
