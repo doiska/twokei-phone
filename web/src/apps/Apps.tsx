@@ -1,9 +1,12 @@
 import React from 'react';
+import { FcSettings } from 'react-icons/fc';
 import { RiContactsBook2Fill, RiHomeGearFill } from 'react-icons/ri';
+
+import AppElement from '@os/apps/components/AppRoute';
 
 import { ContactsApp, ContactsDetails, ContactsPage } from '@apps/Contacts';
 import HomeApp from '@apps/Home/HomeApp';
-import AppElement from '@os/apps/components/AppRoute';
+import SettingsApp from '@apps/Settings/SettingsApp';
 
 type IRoute = {
 	path: string;
@@ -53,13 +56,13 @@ export const AllApps: IApp[] = [
 			},
 		],
 	},
-	// {
-	// 	id: 'SETTINGS',
-	// 	locale: 'APPS_SETTINGS',
-	// 	disable: false,
-	// 	icon: <FcSettings />,
-	// 	parent: { path: 'settings', element: <AppElement id="SETTINGS" emitOnOpen={false} component={SettingsApp} /> },
-	// },
+	{
+		id: 'SETTINGS',
+		locale: 'APPS_SETTINGS',
+		disable: false,
+		icon: <FcSettings />,
+		parent: { path: 'settings', element: <AppElement id="SETTINGS" emitOnOpen={false} component={SettingsApp} /> },
+	},
 ];
 
 export const Apps = AllApps.filter(({ disable }) => !disable);

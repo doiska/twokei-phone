@@ -1,9 +1,8 @@
-import { Contact } from '@typings/contacts';
 import React from 'react';
-import { AiOutlineUserDelete } from 'react-icons/ai';
-import { MdAddIcCall } from 'react-icons/md';
-import { TiContacts } from 'react-icons/ti';
+import { MdMessage, MdCall, MdEditNote } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+
+import { Contact } from '@typings/contacts';
 
 const ContactListItem: React.FC<Contact> = ({ id, display, number, avatar }) => {
 	const navigate = useNavigate();
@@ -23,14 +22,14 @@ const ContactListItem: React.FC<Contact> = ({ id, display, number, avatar }) => 
 				<span className="text-xs">{number}</span>
 			</div>
 			<div className="mr-3 flex flex-row gap-2 text-lg">
-				<button onClick={() => showInfo(id)}>
-					<TiContacts />
+				<button>
+					<MdMessage />
 				</button>
 				<button>
-					<MdAddIcCall />
+					<MdCall />
 				</button>
 				<button>
-					<AiOutlineUserDelete />
+					<MdEditNote onClick={() => showInfo(id)} />
 				</button>
 			</div>
 		</li>
