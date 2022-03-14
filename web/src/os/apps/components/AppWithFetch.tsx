@@ -1,9 +1,10 @@
 import { memo, useEffect } from 'react';
+
 import fetchNui from '@utils/fetchNui';
 
-const Component: React.FC<{ children: any; id: string; emitOnOpen: boolean }> = ({ children, id, emitOnOpen }) => {
+const Component: React.FC<{ children: JSX.Element; id: string; emitOnOpen: boolean }> = ({ children, id, emitOnOpen }) => {
 	useEffect(() => {
-		if (emitOnOpen) fetchNui(`twokei-phone:app:${id}`, undefined, {});
+		if (emitOnOpen) fetchNui(`tkphone:app:${id}`, undefined, {});
 	}, [id, emitOnOpen]);
 	return children;
 };

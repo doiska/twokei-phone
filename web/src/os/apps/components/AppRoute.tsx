@@ -1,6 +1,8 @@
 import React from 'react';
-import AppWithFetch from './AppWithFetch';
+
 import AppWrapper from '@ui/components/AppWrapper';
+
+import AppWithFetch from './AppWithFetch';
 
 type AppElementParams = {
 	id: string;
