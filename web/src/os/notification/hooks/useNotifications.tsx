@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import { NotificationsContext } from '@os/notification/providers/NotificationProvider';
 
 export const useNotifications = () => {

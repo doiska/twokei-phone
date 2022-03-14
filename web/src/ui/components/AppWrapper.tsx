@@ -9,11 +9,7 @@ export interface AppWrapperTypes {
 
 const AppWrapper: React.FC<AppWrapperTypes> = ({ children, style, handleClickAway, className, ...props }) => {
 	return (
-		<div
-			{...props}
-			className={`relative m-0 flex h-full min-h-[720px] w-full flex-col p-0  ${className ?? ''}`}
-			style={style ?? {}}
-		>
+		<div {...props} className={`relative m-0 flex h-full w-full flex-col p-0  ${className ?? ''}`} style={style ?? {}}>
 			{children}
 		</div>
 	);

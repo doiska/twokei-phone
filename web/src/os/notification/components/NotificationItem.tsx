@@ -1,24 +1,28 @@
-import React, { memo } from 'react';
+import React from 'react';
+
 import { INotification } from '../providers/NotificationProvider';
 
+/**
+ *
+ * onCloseNotification is called when the user clicks the close button and dont opens the notification
+ * onClickCloseNotification is called when the user opens the notification
+ */
+
 type INotificationItem = INotification & {
-	onClose: (e: any) => void;
-	onClickClose: (e: any) => void;
+	onCloseNotification: (e: React.MouseEvent) => void;
 };
 
-const NotificationItem: React.FC<INotificationItem> = ({ onClose, onClickClose, ...notification }) => {
-	const { title, notificationIcon, content, cantClose, onClick, icon } = notification;
+const NotificationItem = ({ onCloseNotification, ...notification }: INotificationItem) => {
+	const { title, notificationIcon, content, onClick, icon } = notification;
 
 	return (
 		<li
 			className="relative my-[0.5px] flex h-full flex-col bg-zinc-700 p-3 text-white first:rounded-t-lg last:rounded-b-lg"
-			onClick={(e) => {
-				if (onClick) {
-					onClick(notification);
-					onClickClose(e);
-				} else {
-					onClose(e);
-				}
+			onClick={(e: React.MouseEvent) => {
+				// if (onClick) {
+				// 	onClick(notification);
+				// }
+				onCloseNotification(e);
 			}}
 		>
 			<div className="flex flex-row items-center gap-1 text-[12px]">

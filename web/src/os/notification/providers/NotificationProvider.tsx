@@ -1,5 +1,7 @@
 import React, { createContext, useState, useCallback, useMemo, useRef, useEffect } from 'react';
 
+import { usePhoneVisibility } from '@os/hooks/usePhoneVisibility';
+
 export interface INotification {
 	app: string;
 	id?: string;
@@ -15,8 +17,8 @@ export interface INotification {
 }
 
 type INotificationAlert = INotification & {
-	onClickAlert(e?: any): void;
-	onCloseAlert(e?: any): void;
+	onClickAlert(e?: unknown): void;
+	onCloseAlert(e?: unknown): void;
 	resolve(): void;
 };
 
@@ -46,10 +48,7 @@ interface NotificationContextProvider {
 export const NotificationsContext = createContext<NotificationContextProvider>({} as NotificationContextProvider);
 
 export const NotificationProvider: React.FC = ({ children }) => {
-	// const isPhoneOpen = useRecoilValue(phoneState.visibility)
-	// const isPhoneDisabled = useRecoilValue(phoneState.isPhoneDisabled);
-
-	// const [ settings ] = useSettings();
+	const { visibility: isPhoneOpen, phoneDisabled: isPhoneDisabled } = usePhoneVisibility();
 
 	const [barUncollapsed, setBarUncollapsed] = useState<boolean>(true);
 	const [notifications, setNotifications] = useState<INotification[]>([]);
@@ -60,20 +59,17 @@ export const NotificationProvider: React.FC = ({ children }) => {
 	const [currentAlert, setCurrentAlert] = useState<INotificationAlert>();
 
 	useEffect(() => {
-		if (/*isPhoneOpen &&*/ currentAlert && !currentAlert.keepWhenPhoneClosed) {
+		if (isPhoneOpen && currentAlert && !currentAlert.keepWhenPhoneClosed) {
 			currentAlert.resolve();
 		}
-	}, [, /*isPhoneOpen*/ currentAlert]);
+	}, [isPhoneOpen, currentAlert]);
 
 	const addNotification = useCallback(
 		(value: INotification) => {
-			// if(isPhoneDisabled)
-			// return;
+			if (isPhoneDisabled) return;
 			setNotifications((all) => [value, ...all]);
 		},
-		[
-			/*isPhoneDisabled*/
-		]
+		[isPhoneDisabled]
 	);
 
 	const updateNotification = useCallback((idx: number, value: INotification) => {
@@ -86,9 +82,9 @@ export const NotificationProvider: React.FC = ({ children }) => {
 
 	const removeNotification = (idx: number) => {
 		setNotifications((all) => {
-			const updated = all;
+			const updated = [...all];
 			updated.splice(idx, 1);
-			return [...updated];
+			return updated;
 		});
 	};
 
@@ -114,11 +110,13 @@ export const NotificationProvider: React.FC = ({ children }) => {
 					res();
 				};
 
+				//TODO: check any
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const onExit = (cb: any) => () => {
 					cb?.(n);
 
-					if (alertTimeout) {
-						clearTimeout(alertTimeout.current!);
+					if (alertTimeout && alertTimeout.current) {
+						clearTimeout(alertTimeout.current);
 					}
 					resolve();
 				};
