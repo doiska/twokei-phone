@@ -1,6 +1,8 @@
 import React from 'react';
-import { useSettings } from '@apps/Settings/hooks/useSettings';
+
 import { usePhoneVisibility } from '@os/hooks/usePhoneVisibility';
+
+import { useSettings } from '@apps/Settings/hooks/useSettings';
 
 const PhoneWrapper: React.FC = ({ children }) => {
 	const [settings] = useSettings();
@@ -25,7 +27,7 @@ const PhoneWrapper: React.FC = ({ children }) => {
 				>
 					<div
 						id="phone"
-						className="absolute bottom-[100px] left-[50px] right-[50px] top-[100px] flex flex-col overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat"
+						className="absolute bottom-[100px] left-[50px] right-[50px] top-[100px] flex flex-col overflow-hidden rounded-2xl"
 					>
 						{children}
 					</div>

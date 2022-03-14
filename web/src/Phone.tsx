@@ -1,12 +1,14 @@
 import React from 'react';
-import NotificationBar from '@os/notification/components/NotificationBar';
-import NavigationBar from '@os/navigation/NavigationBar';
-import PhoneWrapper from './PhoneWrapper';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import HomeApp from '@apps/Home/HomeApp';
-import LoadingSpinner from '@ui/components/LoadingSpinner';
-import { useApps } from '@os/hooks/useApp';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
+import LoadingSpinner from '@ui/components/LoadingSpinner';
+
+import { useApps } from '@os/hooks/useApp';
+import NavigationBar from '@os/navigation/NavigationBar';
+import NotificationBar from '@os/notification/components/NotificationBar';
+
+import PhoneWrapper from './PhoneWrapper';
 
 const Phone = () => {
 	const { apps } = useApps();
@@ -15,10 +17,10 @@ const Phone = () => {
 	return (
 		<PhoneWrapper>
 			<NotificationBar />
-			<div className="flex w-full basis-[90%] flex-col">
+			<div className="h-full max-h-[90%] w-full flex-1">
 				<React.Suspense fallback={<LoadingSpinner />}>
 					<TransitionGroup component={null}>
-						<CSSTransition key={location.key} classNames="fade" timeout={300}>
+						<CSSTransition key={location.key} classNames="page" timeout={300}>
 							<Routes>
 								{apps.map(({ id, parent: { element, path }, childrens }) => {
 									return (

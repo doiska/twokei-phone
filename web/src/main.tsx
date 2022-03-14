@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
-
-import { BrowserRouter as Router } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import PhoneProviders from 'PhoneProviders';
-import Phone from './Phone';
+import { RecoilRoot } from 'recoil';
 
 import './styles/main.css';
 
