@@ -1,15 +1,13 @@
-import React from 'react';
-
 import GenericApp from '@ui/os/GenericApp';
 import GenericBody from '@ui/os/GenericBody';
 import GenericHeader from '@ui/os/GenericHeader';
-import SettingsCategory from './components/SettingsCategory';
-import { SettingsItemRange, SettingsItemSelect, SettingsItemToggle } from './components/SettingItem';
-
-import { IoIosNotificationsOutline } from 'react-icons/io';
+import React from 'react';
 import { AiOutlineSound } from 'react-icons/ai';
+import { IoIosNotificationsOutline } from 'react-icons/io';
+
+import { SettingsItemRange, SettingsItemSelect, SettingsItemToggle } from './components/SettingItem';
+import SettingsCategory from './components/SettingsCategory';
 import { useSettings } from './hooks/useSettings';
-import fetchNui from '@utils/fetchNui';
 
 const SettingsApp: React.FC = () => {
 	const [settings, setSettings] = useSettings();

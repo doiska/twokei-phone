@@ -3,6 +3,7 @@ import { Contact, ContactEvents } from '@typings/contacts';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/misc';
 import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+
 import { BrowserContactsState } from '../constants';
 
 export const contactsState = {
@@ -47,7 +48,7 @@ export const contactsState = {
         key: 'filteredByStart',
         get: ({ get }) => {
             const contacts: Contact[] = get(contactsState.filteredContacts);
-            let contactsByStart = [] as any as { [key: string]: Contact[] };
+            const contactsByStart = [] as unknown as { [key: string]: Contact[] };
 
             for(const contact of contacts) {
                 const letter = contact.display.substring(0, 1).toUpperCase() ?? '#';

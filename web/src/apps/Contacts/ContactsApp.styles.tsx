@@ -1,3 +1,5 @@
+import React from 'react';
+
 const ContactCategory: React.FC<{ title?: string }> = ({ title, children }) => {
 	return (
 		<ul className="flex flex-col text-white">

@@ -1,11 +1,11 @@
-import React from 'react';
 import { Contact } from '@typings/contacts';
-import { TiContacts } from 'react-icons/ti';
-import { MdAddIcCall } from 'react-icons/md';
+import React from 'react';
 import { AiOutlineUserDelete } from 'react-icons/ai';
+import { MdAddIcCall } from 'react-icons/md';
+import { TiContacts } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
 
-const ContactListItem: React.FC<Contact & { id: any }> = ({ id, display, number, avatar }) => {
+const ContactListItem: React.FC<Contact> = ({ id, display, number, avatar }) => {
 	const navigate = useNavigate();
 	const showInfo = (contactId: number) => navigate(`/contacts/${contactId}`);
 

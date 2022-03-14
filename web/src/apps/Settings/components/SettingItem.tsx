@@ -6,7 +6,7 @@ type Props = {
 	label: string;
 	icon: JSX.Element;
 	value: boolean | string | number;
-	onCommit: (event: React.SyntheticEvent | Event, value: any) => void;
+	onCommit: (event: React.SyntheticEvent | Event, value: unknown) => void;
 };
 
 const SettingsItemRange: React.FC<Props> = ({ label, icon, value, onCommit }) => {

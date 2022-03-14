@@ -11,7 +11,7 @@ const SettingsItemBody: React.FC<{ icon: JSX.Element }> = ({ children, icon }) =
 	);
 };
 
-const SettingsItemLabel: React.FC<{ label: string; value?: any }> = ({ label, value, children }) => {
+const SettingsItemLabel: React.FC<{ label: string; value?: string }> = ({ label, value }) => {
 	return (
 		<div className="flex flex-1 flex-col">
 			<span className="label-text">{label}</span>

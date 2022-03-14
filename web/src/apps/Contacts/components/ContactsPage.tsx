@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { ContactCategory } from '../ContactsApp.styles';
 import { useFilteredContactsByInitial } from '../hooks/useContacts';
 import ContactListItem from './ContactListItem';

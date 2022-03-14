@@ -5,7 +5,9 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+        "format": "prettier-eslint --write \"{,!(node_modules)/**/}*.{ts,tsx}\""
+
 	},
 	"dependencies": {
 		"autoprefixer": "^10.4.2",
@@ -26,10 +28,19 @@
 		"@types/react": "^17.0.33",
 		"@types/react-dom": "^17.0.10",
 		"@types/react-transition-group": "^4.4.4",
+		"@typescript-eslint/eslint-plugin": "^5.14.0",
+		"@typescript-eslint/parser": "^5.14.0",
 		"@vitejs/plugin-react": "^1.0.7",
 		"commitizen": "^4.2.4",
 		"cz-conventional-changelog": "3.3.0",
+		"eslint": "^8.11.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import-helpers": "^1.2.1",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-react": "^7.29.4",
 		"husky": "^7.0.4",
+		"prettier": "^2.5.1",
+		"prettier-eslint-cli": "^5.0.1",
 		"react-icons": "^4.3.1",
 		"tailwindcss": "^3.0.23",
 		"typescript": "^4.5.4",

@@ -1,5 +1,6 @@
 import { useDebouce } from '@os/hooks/useDebouce';
 import React, { useEffect, useState } from 'react';
+
 import { useSetContactFilterInput } from '../hooks/useContacts';
 
 const SearchContacts: React.FC = () => {

@@ -1,13 +1,9 @@
-import React, { useCallback } from 'react';
-import AppElement from '@os/apps/components/AppRoute';
+import React from 'react';
+import { RiContactsBook2Fill, RiHomeGearFill } from 'react-icons/ri';
 
-import { FcSettings } from 'react-icons/fc';
-import { RiContactsBook2Fill } from 'react-icons/ri';
-
-import HomeApp from '@apps/Home/HomeApp';
 import { ContactsApp, ContactsDetails, ContactsPage } from '@apps/Contacts';
-import SettingsApp from '@apps/Settings/SettingsApp';
-import { Route } from 'react-router-dom';
+import HomeApp from '@apps/Home/HomeApp';
+import AppElement from '@os/apps/components/AppRoute';
 
 type IRoute = {
 	path: string;
@@ -31,6 +27,7 @@ export const AllApps: IApp[] = [
 		locale: 'APPS_HOME',
 		disable: false,
 		hidden: true,
+		icon: <RiHomeGearFill />,
 		parent: {
 			path: '',
 			element: <AppElement id="HOME" emitOnOpen={false} component={HomeApp} />,

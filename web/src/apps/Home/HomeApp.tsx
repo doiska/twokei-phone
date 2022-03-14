@@ -1,5 +1,5 @@
-import React from 'react';
 import { useApps } from '@os/hooks/useApp';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -10,7 +10,7 @@ const Home: React.FC = () => {
 			<div className="grid grid-cols-5 gap-3 text-5xl">
 				{apps
 					.filter(({ hidden, icon }) => !hidden && icon)
-					.map(({ icon: Icon, disable, color, id, parent: { path } }) => (
+					.map(({ icon: Icon, id, parent: { path } }) => (
 						<Link key={id} to={path}>
 							{Icon}
 						</Link>
