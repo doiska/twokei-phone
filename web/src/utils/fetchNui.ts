@@ -7,7 +7,7 @@
  */
 //  import LogDebugEvent from '../os/debug/LogDebugEvents';
 import LogEvent from '@os/debug/LogEvent';
-import { isEnvBrowser } from './misc';
+import { isEnvBrowser } from './nuiMisc';
 
 async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?: T): Promise<T> {
 	const options = {

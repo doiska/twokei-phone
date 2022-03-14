@@ -20,5 +20,5 @@ export interface IPhoneSettings {
 }
 
 export enum SettingsEvents {
-    NUI_SETTINGS_UPDATE = 'twokei:nui:settingsUpdated'
+    NUI_SETTINGS_UPDATE = 'tkphone:nui:settingsUpdated'
 }
