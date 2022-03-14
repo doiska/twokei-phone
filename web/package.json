@@ -6,14 +6,14 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-        "format": "prettier-eslint --write \"{,!(node_modules)/**/}*.{ts,tsx}\""
-
+		"format": "prettier-eslint --write \"src/**/*.{ts,tsx}\""
 	},
 	"dependencies": {
 		"autoprefixer": "^10.4.2",
 		"daisyui": "^2.6.4",
 		"fivem-nui-react-lib": "^2.2.8",
 		"postcss": "^8.4.8",
+		"qs": "^6.10.3",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-indiana-drag-scroll": "^2.1.0",
@@ -25,6 +25,7 @@
 		"@sentry/react": "^6.18.2",
 		"@sentry/tracing": "^6.18.2",
 		"@types/node": "^17.0.21",
+		"@types/qs": "^6.9.7",
 		"@types/react": "^17.0.33",
 		"@types/react-dom": "^17.0.10",
 		"@types/react-transition-group": "^4.4.4",
@@ -42,6 +43,7 @@
 		"prettier": "^2.5.1",
 		"prettier-eslint-cli": "^5.0.1",
 		"react-icons": "^4.3.1",
+		"react-toastify": "^8.2.0",
 		"tailwindcss": "^3.0.23",
 		"typescript": "^4.5.4",
 		"vite": "^2.8.0",

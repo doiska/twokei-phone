@@ -32,6 +32,8 @@
                     "/^react/",
                     "module",
                     "/^@shared/",
+                    "/^@os/",
+                    "/^@apps/",
                     [
                         "parent",
                         "sibling",
@@ -45,5 +47,8 @@
             }
         ],
         "react/prop-types": "off"
-    }
+    },
+    "ignorePatterns": [
+        "*.js"
+    ]
 }
