@@ -49,11 +49,13 @@
 			"value": "default.png"
 		},
 		"zoom": 1,
-		"ringtone": {
+        "ringtoneEnabled": true,
+		"ringtoneSound": {
 			"label": "Lo-fi",
 			"value": "lofi"
 		},
-		"ringtoneVolume": 100,
+		"ringtoneSoundVolume": 100,
+
 		"callVolume": 100,
 		"notificationEnabled": true,
 		"notificationSound": {

@@ -9,7 +9,8 @@ export interface IPhoneSettings {
     case: SettingOption;
     zoom: number;
 
-    ringtone: SettingOption;
+    ringtoneEnabled: boolean;
+    ringtoneSound: SettingOption;
     ringtoneVolume: number;
 
     callVolume: number;
