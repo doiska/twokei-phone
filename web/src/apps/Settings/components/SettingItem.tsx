@@ -9,7 +9,15 @@ type Props = {
 	onCommit: (event: React.SyntheticEvent | Event, value: unknown) => void;
 };
 
-const SettingsItemRange: React.FC<Props> = ({ label, icon, value, onCommit }) => {
+const SettingsItemRange: React.FC<Props & { min?: number; max?: number; step?: number }> = ({
+	label,
+	icon,
+	value,
+	onCommit,
+	min,
+	max,
+	step,
+}) => {
 	const [range, setRange] = useState<string>(value as string);
 
 	return (
@@ -18,8 +26,9 @@ const SettingsItemRange: React.FC<Props> = ({ label, icon, value, onCommit }) =>
 			<SettingsItemOption>
 				<input
 					type="range"
-					min={0}
-					max={100}
+					min={min ?? 0}
+					max={max ?? 100}
+					step={step ?? 1}
 					className="toggle-primary"
 					onChange={(e) => setRange(e.target.value)}
 					onMouseUp={(e) => onCommit(e, range)}
@@ -46,19 +55,25 @@ const SettingsItemToggle: React.FC<Props> = ({ label, icon, value, onCommit }) =
 };
 
 type PropsWithOptions = Props & {
-	options: {
-		label: string;
-		value: string;
-	}[];
+	onOpen(e: unknown): void;
+	options: Record<string, string>[];
 };
 
-const SettingsItemSelect: React.FC<PropsWithOptions> = ({ label, icon, value, onCommit, options }) => {
-	console.log(value);
+const SettingsItemSelect: React.FC<PropsWithOptions> = ({ label, icon, value, onCommit, onOpen, options }) => {
 	return (
 		<SettingsItemBody icon={icon}>
 			<SettingsItemLabel label={label} />
 			<SettingsItemOption>
-				<select
+				<div
+					className="border-1 border-blue"
+					onClick={() => {
+						console.log('click');
+						onOpen?.(options);
+					}}
+				>
+					{value} | {label}
+				</div>
+				{/* <select
 					className="select select-bordered w-full max-w-xs"
 					value={value as string}
 					onChange={(e) => onCommit(e, e.target.value)}
@@ -68,7 +83,7 @@ const SettingsItemSelect: React.FC<PropsWithOptions> = ({ label, icon, value, on
 							{optLabel}
 						</option>
 					))}
-				</select>
+				</select> */}
 			</SettingsItemOption>
 		</SettingsItemBody>
 	);
