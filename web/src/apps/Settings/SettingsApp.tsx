@@ -1,14 +1,12 @@
 import React from 'react';
-import { AiOutlineSound, AiOutlineZoomIn } from 'react-icons/ai';
-import { BsPhone } from 'react-icons/bs';
-import { IoIosNotificationsOutline } from 'react-icons/io';
+import { AiOutlineNotification, AiOutlineSound } from 'react-icons/ai';
 
 import { useContextMenu } from '@ui/hooks/useContextMenu';
 import GenericApp from '@ui/os/GenericApp';
 import GenericBody from '@ui/os/GenericBody';
 import GenericHeader from '@ui/os/GenericHeader';
 
-import { SettingsItemRange, SettingsItemSelect, SettingsItemToggle } from './components/SettingItem';
+import { SettingsItemSelect, SettingsItemToggle } from './components/SettingItem';
 import SettingsCategory from './components/SettingsCategory';
 import { useSettings } from './hooks/useSettings';
 
@@ -16,102 +14,54 @@ const SettingsApp: React.FC = () => {
 	const [settings, setSettings] = useSettings();
 	const [openMenu, closeMenu, ContextMenu, isMenuOpen] = useContextMenu();
 
-	const handleSettingsChange = (key: string | number, value: unknown) => {
-		if (typeof value === 'string') {
-			const splited = value.split('-');
-			if (splited.length > 1) {
-				value = {
-					label: splited[0],
-					value: splited[1],
-				};
-			}
-			console.log(value);
+	const handleSettingsChange = (key: string | number, value: unknown, label?: unknown) => {
+		if (label) {
+			setSettings({
+				...settings,
+				[key]: {
+					label: label,
+					value: value,
+				},
+			});
+		} else {
+			setSettings({ ...settings, [key]: value });
 		}
-
-		setSettings({ ...settings, [key]: value });
 	};
 
 	/**
-        language: SettingOption;
-        wallpaper: SettingOption;
-        case: SettingOption;
-        zoom: number;
+    language: string;
+    wallpaper: SettingOption;
+    case: SettingOption;
+    zoom: number;
 
-        ringtoneEnabled: boolean;
-        ringtoneSound: SettingOption;
-        ringtoneVolume: number;
+    ringtoneEnabled: boolean;
+    ringtoneSound: SettingOption;
+    ringtoneVolume: number;
 
-        callVolume: number;
+    callVolume: number;
 
-        notificationEnabled: boolean;
-        notificationSound: SettingOption;
-        notificationSoundVolume: number;
+    notificationEnabled: boolean;
+    notificationSound: SettingOption;
+    notificationSoundVolume: number;
      */
 
 	return (
 		<GenericApp>
 			<GenericHeader title="Configurações" />
 			<GenericBody>
-				<SettingsCategory title="Dispositivo" key={'Device'}>
-					<SettingsItemSelect
-						onOpen={openMenu}
-						label={'Language'}
-						value={settings.language}
-						icon={<IoIosNotificationsOutline />}
-						onCommit={(e, val) => handleSettingsChange('language', val)}
-						options={[
-							{
-								label: 'Português',
-								value: 'pt_BR',
-							},
-							{
-								label: 'English',
-								value: 'en_US',
-							},
-						]}
-					/>
-					<SettingsItemSelect
-						onOpen={openMenu}
-						label={'Case'}
-						value={settings.case.value}
-						icon={<BsPhone />}
-						onCommit={(e, val) => handleSettingsChange('case', val)}
-						options={[
-							{
-								label: 'Padrão',
-								value: 'default.png',
-							},
-						]}
-					/>
-					<SettingsItemRange
-						label={'Zoom'}
-						value={settings.zoom}
-						icon={<AiOutlineZoomIn />}
-						onCommit={(e, val) => handleSettingsChange('zoom', val)}
-						min={0.5}
-						max={1}
-						step={0.1}
-					/>
-				</SettingsCategory>
-				<SettingsCategory title="Mensagens" key={'Messages'}>
+				<SettingsCategory>
 					<SettingsItemToggle
-						label={'Receber notificações'}
+						label={'Notificações'}
+						icon={<AiOutlineNotification />}
 						value={settings.notificationEnabled}
-						icon={<IoIosNotificationsOutline />}
-						onCommit={(e, val) => handleSettingsChange('notificationEnabled', val)}
-					/>
-					<SettingsItemRange
-						label={'Volume da notificação'}
-						value={settings.ringtoneVolume}
-						icon={<AiOutlineSound />}
-						onCommit={(e, val) => handleSettingsChange('notificationSoundVolume', val)}
+						onCommit={(e, v) => handleSettingsChange('notificationEnabled', v)}
 					/>
 					<SettingsItemSelect
+						label={'Som de notificação'}
+						value={settings.notificationSound.label}
+						icon={<AiOutlineSound />}
+						onCommit={(e, v, k) => handleSettingsChange('notificationSound', v, k)}
 						onOpen={openMenu}
-						label={'Som da notificação'}
-						value={settings.notificationSound.value}
-						icon={<IoIosNotificationsOutline />}
-						onCommit={(e, val) => handleSettingsChange('notificationSound', val)}
 						options={[
 							{
 								label: 'Padrão',
@@ -124,32 +74,7 @@ const SettingsApp: React.FC = () => {
 						]}
 					/>
 				</SettingsCategory>
-				<SettingsCategory title="Chamadas" key={'Calls'}>
-					<SettingsItemRange
-						label={'Volume do toque'}
-						value={settings.ringtoneVolume}
-						icon={<AiOutlineSound />}
-						onCommit={(e, val) => handleSettingsChange('ringtoneVolume', val)}
-					/>
-					<SettingsItemSelect
-						onOpen={openMenu}
-						label={'Som do toque'}
-						value={settings.notificationSound.value}
-						icon={<IoIosNotificationsOutline />}
-						onCommit={(e, val) => handleSettingsChange('ringtone', val)}
-						options={[
-							{
-								label: 'Padrão',
-								value: 'default',
-							},
-							{
-								label: 'Lo-fi',
-								value: 'lofi',
-							},
-						]}
-					/>
-				</SettingsCategory>
-				<ContextMenu />
+				{<ContextMenu />}
 			</GenericBody>
 		</GenericApp>
 	);
