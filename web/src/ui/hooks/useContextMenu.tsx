@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { SettingOption } from '@typings/settings';
-import ContextMenu, { IContextMenuOption } from '@ui/components/ContextMenu';
+import ContextMenu, { IContextMenuOption } from '@ui/components/contextmenu/ContextMenu';
 
 type UseContextMenu = [(opts?: IContextMenuOption[]) => void, () => void, () => JSX.Element, boolean];
 
@@ -26,7 +26,6 @@ const useContextMenu = (_options?: IContextMenuOption[]): UseContextMenu => {
 	const onClose = () => setOpen(false);
 
 	const onOpen = (opts?: IContextMenuOption[]) => {
-		console.log(opts);
 		setOptions(opts ?? []);
 		setOpen(true);
 	};
