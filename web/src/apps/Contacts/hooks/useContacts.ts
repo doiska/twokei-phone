@@ -12,7 +12,6 @@ export const contactsState = {
 		default: selector({
 			key: 'contactsListDefault',
 			get: async () => {
-				console.log(`Contacts`, BrowserContactsState);
 				try {
 					const resp = await fetchNui<ServerPromiseResp<Contact[]>>(
 						ContactEvents.GET_CONTACTS,
@@ -44,21 +43,21 @@ export const contactsState = {
 			return contacts.filter((contact) => contact.display.match(regExp) || contact.number.match(regExp));
 		},
 	}),
-    filteredByStart: selector({
-        key: 'filteredByStart',
-        get: ({ get }) => {
-            const contacts: Contact[] = get(contactsState.filteredContacts);
-            const contactsByStart = [] as unknown as { [key: string]: Contact[] };
+	filteredByStart: selector({
+		key: 'filteredByStart',
+		get: ({ get }) => {
+			const contacts: Contact[] = get(contactsState.filteredContacts);
+			const contactsByStart = [] as unknown as { [key: string]: Contact[] };
 
-            for(const contact of contacts) {
-                const letter = contact.display.substring(0, 1).toUpperCase() ?? '#';
+			for (const contact of contacts) {
+				const letter = contact.display.substring(0, 1).toUpperCase() ?? '#';
 
-                const current = contactsByStart[`${letter}`] || [];
-                contactsByStart[`${letter}`] = [...current, contact];
-            }
-            return contactsByStart;
-        }
-    })
+				const current = contactsByStart[`${letter}`] || [];
+				contactsByStart[`${letter}`] = [...current, contact];
+			}
+			return contactsByStart;
+		},
+	}),
 };
 
 export const useContacts = () => useRecoilState(contactsState.contacts);
