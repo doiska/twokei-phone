@@ -7,10 +7,10 @@ import AppWithFetch from './AppWithFetch';
 type AppElementParams = {
 	id: string;
 	emitOnOpen: boolean;
-	component: React.FC<any>;
+	component: React.FC<unknown>;
 };
 
-const AppElement: React.FC<AppElementParams> = ({ id, emitOnOpen, component: Component, ...rest }) => {
+const AppElement: React.FC<AppElementParams> = ({ id, emitOnOpen, component: Component }) => {
 	return (
 		<AppWithFetch id={id} emitOnOpen={emitOnOpen}>
 			<AppWrapper>

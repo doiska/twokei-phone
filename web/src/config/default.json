@@ -41,8 +41,8 @@
 	"defaultPhoneSettings": {
 		"language": "pt_BR",
 		"wallpaper": {
-			"label": "Doiska",
-			"value": "doiska.png"
+			"label": "Padrão",
+			"value": "default.jpg"
 		},
 		"case": {
 			"label": "Default",
