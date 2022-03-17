@@ -7,14 +7,32 @@
 }
 .page-enter-active {
 	opacity: 1;
-	transition: all 300ms ease-out;
+	transition: all 250ms;
 }
 .page-exit {
+	height: 0;
 	opacity: 0;
 }
 .page-exit-active {
-	opacity: 0;
-	transition: all 300ms ease-out;
+	transition: all 250ms;
+}
+
+/* FADE */
+
+.fade-enter-active {
+	height: 0;
+}
+
+.fade-enter {
+	height: auto;
+}
+
+.fade-exit {
+	height: auto;
+}
+
+.fade-exit-active {
+	height: 0px;
 }
 
 body {

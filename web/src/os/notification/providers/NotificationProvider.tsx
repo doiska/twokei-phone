@@ -38,6 +38,7 @@ interface NotificationContextProvider {
 	removeAlerts(): void;
 	addNotification(notification: INotification): void;
 	removeNotification(idx: number): void;
+	removeAllNotifications(): void;
 	updateId(id: string, value: Partial<INotification>): void;
 	removeId(id: string): void;
 	hasNotification(id: string): INotification | null;
@@ -86,6 +87,10 @@ export const NotificationProvider: React.FC = ({ children }) => {
 			updated.splice(idx, 1);
 			return updated;
 		});
+	};
+
+	const removeAllNotifications = () => {
+		setNotifications([]);
 	};
 
 	const hasAppNotification = useCallback(
@@ -184,7 +189,12 @@ export const NotificationProvider: React.FC = ({ children }) => {
 
 	const icons: INotificationIcon[] = useMemo(() => {
 		return notifications.reduce((icons: INotificationIcon[], curr) => {
-			const find = icons.findIndex((i: INotificationIcon) => (i.key = curr.app));
+			const find = icons.findIndex((i: INotificationIcon) => {
+				console.log(i.key, curr.app);
+				return i.key === curr.app;
+			});
+
+			console.log(find);
 
 			if (find !== -1) {
 				icons[find].badge++;
@@ -211,6 +221,7 @@ export const NotificationProvider: React.FC = ({ children }) => {
 				removeAlerts,
 				addNotification,
 				removeNotification,
+				removeAllNotifications,
 				updateId,
 				removeId,
 				hasNotification,

@@ -4,17 +4,28 @@ import { Md4K } from 'react-icons/md';
 
 import { useNotifications } from '@os/notification/hooks/useNotifications';
 
-import NotificationItem from './NotificationItem';
 import NotificationList from './NotificationList';
 
 const NotificationBar: React.FC = () => {
-	const { addNotification, notifications, icons, removeNotification, barUncollapsed, setBarUncollapsed } = useNotifications();
+	const {
+		notifications,
+		icons,
+
+		addNotification,
+		removeNotification,
+		removeAllNotifications,
+
+		barUncollapsed,
+		setBarUncollapsed,
+	} = useNotifications();
+
 	const notificationBarRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		for (let i = 0; i < 20; i++) {
+		for (let i = 1; i < 20; i++) {
 			addNotification({
-				app: 'appstyle' + i,
+				id: `appstyle_${i % 2}`,
+				app: `appstyle_${i % 2}`,
 				notificationIcon: <Md4K />,
 				title: 'Notification Title' + i,
 			});
@@ -29,16 +40,18 @@ const NotificationBar: React.FC = () => {
 		<>
 			<div
 				ref={notificationBarRef}
-				className="relative flex w-full basis-[4%] flex-nowrap items-center justify-between bg-gray-300 px-2 text-black hover:cursor-pointer"
+				className="z-[100] flex w-full flex-nowrap items-center justify-between px-2 [text-shadow:0_4px_8px_rgba(0,0,0,0.70)] hover:cursor-pointer"
 				onClick={() => setBarUncollapsed((curr) => !curr)}
 				tabIndex={0}
 			>
-				<div className="flex basis-10/12">
-					<span className="justify-self-end">{new Date().toLocaleString('pt-BR', { timeStyle: 'short' })}</span>
-					{icons.map(({ key, badge, icon }) => {
-						<div key={key} className="mt-2">
-							{badge} {icon ?? 'icon'}
-						</div>;
+				<div className="flex basis-10/12 items-center">
+					<span className="justify-self-end pr-1">{new Date().toLocaleString('pt-BR', { timeStyle: 'short' })}</span>
+					{icons.map(({ key, icon }) => {
+						return (
+							<div key={key} className="indicator text">
+								{icon ?? 'icon'}
+							</div>
+						);
 					})}
 				</div>
 				<div className="flex basis-2/12 items-center justify-end">
@@ -48,24 +61,12 @@ const NotificationBar: React.FC = () => {
 					</span>
 				</div>
 			</div>
-			<NotificationList collapsed={barUncollapsed} notificationBarRef={notificationBarRef}>
-				{notifications.map((notification, idx) => {
-					return (
-						<NotificationItem
-							key={notification.id ?? idx}
-							{...notification}
-							onCloseNotification={(e: React.MouseEvent) => {
-								e.stopPropagation();
-
-								if (notification.onClose) {
-									notification.onClose?.(notification);
-								}
-								removeNotification(idx);
-							}}
-						/>
-					);
-				})}
-			</NotificationList>
+			<NotificationList
+				collapsed={barUncollapsed}
+				notificationBarRef={notificationBarRef}
+				notifications={notifications}
+				onDismiss={(idx?: number) => (idx !== undefined ? removeNotification(idx) : removeAllNotifications())}
+			/>
 		</>
 	);
 };

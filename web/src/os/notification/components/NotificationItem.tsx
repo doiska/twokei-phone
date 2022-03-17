@@ -17,16 +17,17 @@ const NotificationItem = ({ onCloseNotification, ...notification }: INotificatio
 
 	return (
 		<li
-			className="relative my-[0.5px] flex h-full flex-col bg-zinc-700 p-3 text-white first:rounded-t-lg last:rounded-b-lg"
+			className="relative my-[0.5px] flex flex-col bg-zinc-700 p-3 text-white transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
 			onClick={(e: React.MouseEvent) => {
-				// if (onClick) {
-				// 	onClick(notification);
-				// }
+				if (onClick) {
+					onClick(notification);
+				}
+
 				onCloseNotification(e);
 			}}
 		>
 			<div className="flex flex-row items-center gap-1 text-[12px]">
-				<span>{notificationIcon}</span>
+				<span>{icon ?? notificationIcon}</span>
 				<span>{title}</span>
 			</div>
 			<span>{content}</span>
