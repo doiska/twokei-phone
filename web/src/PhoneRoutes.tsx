@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import LoadingSpinner from '@ui/components/LoadingSpinner';
@@ -25,6 +25,7 @@ const PhoneRoutes: React.FC = () => {
 								</Route>
 							);
 						})}
+						{/* TODO: DEFAULT REDIRECT <Route path="*" element={<>asdsda</>}></Route> */}
 					</Routes>
 				</CSSTransition>
 			</TransitionGroup>
