@@ -4,7 +4,7 @@ import { RiContactsBook2Fill, RiHomeGearFill } from 'react-icons/ri';
 
 import AppElement from '@os/apps/components/AppRoute';
 
-import { ContactsApp, ContactsDetails, ContactsPage } from '@apps/Contacts';
+import { ContactsApp, ContactsDetails, ContactsPage, ContactDetailsEdit } from '@apps/Contacts';
 import HomeApp from '@apps/Home/HomeApp';
 import SettingsApp from '@apps/Settings/SettingsApp';
 
@@ -53,6 +53,10 @@ export const AllApps: IApp[] = [
 			{
 				path: ':id',
 				element: <ContactsDetails />,
+			},
+			{
+				path: 'edit/:id',
+				element: <ContactDetailsEdit />,
 			},
 		],
 	},

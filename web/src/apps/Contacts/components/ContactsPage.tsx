@@ -2,8 +2,8 @@ import React from 'react';
 
 import { ContactCategory } from '../ContactsApp.styles';
 import { useFilteredContactsByInitial } from '../hooks/useContacts';
-import ContactListItem from './ContactListItem';
-import SearchContacts from './SearchContacts';
+import ContactListItem from './list/ContactListItem';
+import SearchContacts from './list/SearchContacts';
 
 const ContactsPage: React.FC = () => {
 	const filteredContacts = useFilteredContactsByInitial();
