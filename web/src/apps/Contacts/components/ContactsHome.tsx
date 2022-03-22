@@ -5,7 +5,7 @@ import { useFilteredContactsByInitial } from '../hooks/useContacts';
 import ContactListItem from './list/ContactListItem';
 import SearchContacts from './list/SearchContacts';
 
-const ContactsPage: React.FC = () => {
+const ContactsHome: React.FC = () => {
 	const filteredContacts = useFilteredContactsByInitial();
 
 	return (
@@ -24,4 +24,4 @@ const ContactsPage: React.FC = () => {
 	);
 };
 
-export default ContactsPage;
+export default ContactsHome;

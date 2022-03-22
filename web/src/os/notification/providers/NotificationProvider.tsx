@@ -190,11 +190,8 @@ export const NotificationProvider: React.FC = ({ children }) => {
 	const icons: INotificationIcon[] = useMemo(() => {
 		return notifications.reduce((icons: INotificationIcon[], curr) => {
 			const find = icons.findIndex((i: INotificationIcon) => {
-				console.log(i.key, curr.app);
 				return i.key === curr.app;
 			});
-
-			console.log(find);
 
 			if (find !== -1) {
 				icons[find].badge++;

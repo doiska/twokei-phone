@@ -2,6 +2,7 @@ import React, { memo, useEffect, useRef } from 'react';
 import { MdBatteryFull } from 'react-icons/md';
 import { Md4K } from 'react-icons/md';
 
+import usePhoneTime from '@os/hooks/usePhoneTime';
 import { useNotifications } from '@os/notification/hooks/useNotifications';
 
 import NotificationList from './NotificationList';
@@ -18,6 +19,8 @@ const NotificationBar: React.FC = () => {
 		barUncollapsed,
 		setBarUncollapsed,
 	} = useNotifications();
+
+	const { now } = usePhoneTime();
 
 	const notificationBarRef = useRef<HTMLDivElement>(null);
 
@@ -45,8 +48,8 @@ const NotificationBar: React.FC = () => {
 				tabIndex={0}
 			>
 				<div className="flex basis-10/12 items-center">
-					<span className="justify-self-end pr-1">{new Date().toLocaleString('pt-BR', { timeStyle: 'short' })}</span>
-					{icons.map(({ key, icon }) => {
+					<span className="justify-self-end pr-1">{now.toLocaleString('pt-BR', { timeStyle: 'short' })}</span>
+					{icons?.map(({ key, icon }) => {
 						return (
 							<div key={key} className="indicator text">
 								{icon ?? 'icon'}

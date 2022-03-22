@@ -1,18 +1,15 @@
 import React from 'react';
 import { FcSettings } from 'react-icons/fc';
-import { RiContactsBook2Fill, RiHomeGearFill } from 'react-icons/ri';
+import { RiContactsBook2Fill, RiHomeGearFill, RiWhatsappLine } from 'react-icons/ri';
+import { RouteObject } from 'react-router-dom';
 
-import AppElement from '@os/apps/components/AppRoute';
+import AppRoute from '@os/apps/components/AppRoute';
 
-import { ContactsApp, ContactsDetails, ContactsPage, ContactDetailsEdit } from '@apps/Contacts';
+import ContactsRoutes from '@apps/Contacts/ContactsRoutes';
 import HomeApp from '@apps/Home/HomeApp';
+import MessagesRoutes from '@apps/Messages/MessagesRoutes';
 import SettingsApp from '@apps/Settings/SettingsApp';
 
-type IRoute = {
-	path: string;
-	element: React.FC | JSX.Element;
-	index?: boolean;
-};
 export interface IApp {
 	id: string;
 	locale: string;
@@ -20,8 +17,7 @@ export interface IApp {
 	disable?: boolean;
 	icon?: JSX.Element;
 	color?: string;
-	parent: IRoute;
-	childrens?: IRoute[];
+	routes: RouteObject;
 }
 
 export const AllApps: IApp[] = [
@@ -31,9 +27,9 @@ export const AllApps: IApp[] = [
 		disable: false,
 		hidden: true,
 		icon: <RiHomeGearFill />,
-		parent: {
-			path: '',
-			element: <AppElement id="HOME" emitOnOpen={false} component={HomeApp} />,
+		routes: {
+			path: '/',
+			element: <AppRoute id="HOME" emitOnOpen={false} component={HomeApp} />,
 		},
 	},
 	{
@@ -41,31 +37,24 @@ export const AllApps: IApp[] = [
 		locale: 'APPS_CONTACTS',
 		disable: false,
 		icon: <RiContactsBook2Fill className="text-gray-600" />,
-		parent: {
-			path: 'contacts',
-			element: <AppElement id="CONTACTS" emitOnOpen={false} component={ContactsApp} />,
-		},
-		childrens: [
-			{
-				path: '',
-				element: <ContactsPage />,
-			},
-			{
-				path: ':id',
-				element: <ContactsDetails />,
-			},
-			{
-				path: 'edit/:id',
-				element: <ContactDetailsEdit />,
-			},
-		],
+		routes: ContactsRoutes,
 	},
 	{
 		id: 'SETTINGS',
 		locale: 'APPS_SETTINGS',
 		disable: false,
 		icon: <FcSettings />,
-		parent: { path: 'settings', element: <AppElement id="SETTINGS" emitOnOpen={false} component={SettingsApp} /> },
+		routes: {
+			path: '/settings',
+			element: <AppRoute id="SETTINGS" emitOnOpen={true} component={SettingsApp} />,
+		},
+	},
+	{
+		id: 'WHATSAPP',
+		locale: 'APPS_WHATSAPP',
+		disable: false,
+		icon: <RiWhatsappLine className="text-whatsapp-light-green" />,
+		routes: MessagesRoutes,
 	},
 ];
 

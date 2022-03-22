@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useApps } from '@os/hooks/useApp';
+import usePhoneTime from '@os/hooks/usePhoneTime';
 
-const Home: React.FC = () => {
+const HomeApp: React.FC = () => {
 	const { apps } = useApps();
+	const { now } = usePhoneTime();
 
-	const [hour, minute] = new Date().toLocaleString('pt-BR', { timeStyle: 'short' }).split(':');
-	const [dayOfWeek, date] = new Date().toLocaleString('pt-BR', { year: undefined, dateStyle: 'full' }).split(',');
+	const [hour, minute] = now.toLocaleString('pt-BR', { timeStyle: 'short' }).split(':');
+	const [dayOfWeek, date] = now.toLocaleString('pt-BR', { year: undefined, dateStyle: 'full' }).split(',');
 
 	return (
 		<div className="flex h-full w-full flex-col items-center">
@@ -21,8 +23,8 @@ const Home: React.FC = () => {
 				<div className="grid grid-cols-4 gap-3 pb-5 text-5xl">
 					{apps
 						.filter(({ hidden, icon }) => !hidden && icon)
-						.map(({ icon: Icon, id, parent: { path } }) => (
-							<Link key={id} to={path}>
+						.map(({ icon: Icon, id, routes: { path } }) => (
+							<Link key={id} to={path ?? '/'}>
 								{Icon}
 							</Link>
 						))}
@@ -32,4 +34,4 @@ const Home: React.FC = () => {
 	);
 };
 
-export default Home;
+export default HomeApp;

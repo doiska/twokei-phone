@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { useLocation, useRoutes } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import LoadingSpinner from '@ui/components/LoadingSpinner';
@@ -7,26 +7,15 @@ import LoadingSpinner from '@ui/components/LoadingSpinner';
 import { useApps } from '@os/hooks/useApp';
 
 const PhoneRoutes: React.FC = () => {
-	const { apps } = useApps();
 	const location = useLocation();
+	const { apps } = useApps();
+	const routes = useRoutes(apps.map((app) => app.routes));
 
 	return (
 		<React.Suspense fallback={<LoadingSpinner />}>
 			<TransitionGroup component={null}>
 				<CSSTransition key={location.key} classNames="page" timeout={500}>
-					<Routes>
-						{apps.map(({ id, parent: { element, path }, childrens }) => {
-							return (
-								<Route key={id} path={path} element={element}>
-									{childrens &&
-										childrens?.map(({ element: childrenElement, path: childrenPath }) => {
-											return <Route key={`${id}-${path}`} path={childrenPath} element={childrenElement} />;
-										})}
-								</Route>
-							);
-						})}
-						{/* TODO: DEFAULT REDIRECT <Route path="*" element={<>asdsda</>}></Route> */}
-					</Routes>
+					{routes}
 				</CSSTransition>
 			</TransitionGroup>
 		</React.Suspense>

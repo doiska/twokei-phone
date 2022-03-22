@@ -9,17 +9,18 @@ type EditableInput = {
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const ContactDetailsEditableItem: React.FC<EditableInput> = ({ label, icon, type, value, className, onChange }) => {
+const ContactDetailsEditableItem: React.FC<EditableInput> = ({ icon, type, value, className, onChange }) => {
 	return (
-		<div className={`flex flex-row content-center items-center justify-center`}>
-			{label ? <label>{label}</label> : ''}
-			<input
-				className={`input h-fit w-full max-w-xs focus:outline-none ${className}`}
-				type={type}
-				onChange={onChange}
-				value={value}
-			></input>
-			<span>{icon}</span>
+		<div className={`flex w-80 flex-row content-center items-center justify-start gap-1 rounded-full bg-zinc-800 p-1`}>
+			<span className="ml-3 inline-flex items-center">{icon}</span>
+			<div className="flex w-full">
+				<input
+					className={`input h-fit w-full focus:outline-none ${className}`}
+					value={value}
+					type={type}
+					onChange={onChange}
+				></input>
+			</div>
 		</div>
 	);
 };

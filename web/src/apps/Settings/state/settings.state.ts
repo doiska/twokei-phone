@@ -34,7 +34,9 @@ const localStorageUpdateEffect: AtomEffect<IPhoneSettings> = ({ setSelf, onSet }
 		if (newValue instanceof DefaultValue) {
 			localStorage.removeItem(key);
 		} else {
-			console.log('localStorage update ', key, newValue);
+			console.group('Local Storage Settings Update');
+			console.table(newValue);
+			console.groupEnd();
 			localStorage.setItem(key, JSON.stringify(newValue));
 		}
 	});

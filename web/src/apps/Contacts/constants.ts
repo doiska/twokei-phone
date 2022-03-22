@@ -9,7 +9,7 @@ export const BrowserContactsState: Contact[] = [
 	{
 		id: 1,
 		display: 'doiská',
-		number: '123-456',
+		number: '0147-0147',
 	},
 	{
 		id: 2,

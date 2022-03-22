@@ -7,20 +7,26 @@ import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 
 import { useContactActions } from '../hooks/useContactActions';
+import { useContactsNUI } from '../hooks/useContactsNUI';
 
-const ContactsDetails = () => {
+const ContactsDetails: React.FC = () => {
 	const navigate = useNavigate();
+	const { deleteContact } = useContactsNUI();
 	const { getContact } = useContactActions();
+
 	const { id } = useParams();
 	const contact = getContact(parseInt(id ?? ''));
 
+	const goBack = () => navigate('/contacts');
+
 	useEffect(() => {
-		if (!id || !contact) navigate('/contacts');
+		if (!id || !contact) goBack();
 	}, []);
 
 	if (!id || !contact) return <></>;
 
 	const { display, avatar, number } = contact;
+	const handleContactDelete = () => deleteContact({ id: contact.id });
 
 	return (
 		<>
@@ -61,15 +67,21 @@ const ContactsDetails = () => {
 					<div className="flex-1" />
 
 					<div className="flex flex-row justify-around p-3">
-						<div className="flex flex-col items-center" onClick={() => navigate('edit')}>
+						<div className="flex cursor-pointer flex-col items-center" onClick={() => navigate('edit')}>
 							<IoPencil className="text-xl" />
 							<span className="text-sm">Editar</span>
 						</div>
-						<div className="flex flex-col items-center">
+						<div className="flex cursor-pointer flex-col items-center">
 							<IoShareSocialOutline className="text-xl" onClick={() => navigate('share')} />
 							<span className="text-sm">Compartilhar</span>
 						</div>
-						<div className="flex flex-col items-center" onClick={() => navigate('delete')}>
+						<div
+							className="flex cursor-pointer flex-col items-center"
+							onClick={() => {
+								handleContactDelete();
+								goBack();
+							}}
+						>
 							<IoRemoveCircleOutline className="text-xl" />
 							<span className="text-sm">Excluir</span>
 						</div>

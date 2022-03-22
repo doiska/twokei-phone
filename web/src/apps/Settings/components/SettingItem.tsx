@@ -5,6 +5,7 @@ import { IContextMenuOption } from '@ui/components/contextmenu/ContextMenu';
 import { SettingsItemBody, SettingsItemLabel, SettingsItemOption } from '../Settings.styles';
 
 type Props = {
+	title?: string;
 	label: string;
 	icon: JSX.Element;
 	value: boolean | string | number;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const SettingsItemRange: React.FC<Props & { min?: number; max?: number; step?: number }> = ({
+	title,
 	label,
 	icon,
 	value,
@@ -24,7 +26,7 @@ const SettingsItemRange: React.FC<Props & { min?: number; max?: number; step?: n
 
 	return (
 		<SettingsItemBody icon={icon}>
-			<SettingsItemLabel label={label} value={range} />
+			<SettingsItemLabel label={title ?? label} value={range} />
 			<SettingsItemOption>
 				<input
 					value={range}
@@ -41,10 +43,10 @@ const SettingsItemRange: React.FC<Props & { min?: number; max?: number; step?: n
 	);
 };
 
-const SettingsItemToggle: React.FC<Props> = ({ label, icon, value, onCommit }) => {
+const SettingsItemToggle: React.FC<Props> = ({ title, label, icon, value, onCommit }) => {
 	return (
 		<SettingsItemBody icon={icon}>
-			<SettingsItemLabel label={label} />
+			<SettingsItemLabel label={title ?? label} />
 			<SettingsItemOption>
 				<input
 					className="toggle self-end"
@@ -62,10 +64,10 @@ type PropsWithOptions = Props & {
 	options: IContextMenuOption[];
 };
 
-const SettingsItemSelect: React.FC<PropsWithOptions> = ({ label, icon, value, onCommit, onOpen, options }) => {
+const SettingsItemSelect: React.FC<PropsWithOptions> = ({ title, label, icon, value, onCommit, onOpen, options }) => {
 	return (
 		<SettingsItemBody icon={icon}>
-			<SettingsItemLabel label={label} value={value as string} /*icon={icon}*/ />
+			<SettingsItemLabel label={title ?? label} /*icon={icon}*/ />
 			<SettingsItemOption>
 				<div
 					className="border-1 border-blue"
@@ -79,7 +81,7 @@ const SettingsItemSelect: React.FC<PropsWithOptions> = ({ label, icon, value, on
 						onOpen?.(options);
 					}}
 				>
-					<label className="text-sm text-blue-300">{value}</label>
+					<label className="text-sm text-blue-300">{label}</label>
 				</div>
 			</SettingsItemOption>
 		</SettingsItemBody>

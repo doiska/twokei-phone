@@ -11,6 +11,12 @@ module.exports = {
     },
 	theme: {
 		extend: {
+            colors: {
+                'whatsapp-teal': "#128C7E",
+                'whatsapp-teal-dark': "#075E54",
+                'whatsapp-light-green': "#25D366",
+                'whatsapp-blue': "#34B7F1"
+            },
 			width: {
 				phone: '500px',
 			},

@@ -4,13 +4,14 @@
 	"version": "0.0.0",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc && vite build",
+		"build": "tsc && vite build --base=./",
 		"preview": "vite preview",
 		"format": "prettier-eslint --write \"src/**/*.{ts,tsx}\""
 	},
-	"dependencies": {
+    "dependencies": {
 		"autoprefixer": "^10.4.2",
 		"daisyui": "^2.6.4",
+		"dayjs": "^1.11.0",
 		"fivem-nui-react-lib": "^2.2.8",
 		"postcss": "^8.4.8",
 		"qs": "^6.10.3",
