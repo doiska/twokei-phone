@@ -29,7 +29,7 @@ const PhoneWrapper: React.FC = ({ children }) => {
 						id="phone"
 						className="absolute bottom-[100px] left-[50px] right-[50px] top-[100px] overflow-hidden rounded-2xl bg-cover bg-center"
 						style={{
-							backgroundImage: `url(media/background/${settings.wallpaper.value})`,
+							backgroundImage: `url(/media/background/${settings.wallpaper.value})`,
 						}}
 					>
 						{children}
