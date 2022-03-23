@@ -6,6 +6,7 @@ import { contactsState, useSetContacts } from './useContacts';
 interface IUseContactActions {
 	getContact: (id: number) => Contact | null;
 	getContactByNumber: (number: string) => Contact | null;
+	getContactsByNumber: (number: string[]) => Contact[] | null;
 	getDisplayByNumber: (number: string) => string | null;
 	getPictureByNumber: (number: string) => string | null;
 
@@ -75,6 +76,25 @@ export const useContactActions = (): IUseContactActions => {
 		[]
 	);
 
+	const getContactsByNumber = useRecoilCallback<[string[]], Contact[] | null>(
+		({ snapshot }) =>
+			(number: string[]) => {
+				const { state, contents } = snapshot.getLoadable(contactsState.contacts);
+
+				if (state !== 'hasValue') return null;
+
+				const found = [];
+
+				for (const contact of contents) {
+					if (number.indexOf(contact.number) !== -1) {
+						found.push(contact);
+					}
+				}
+				return found;
+			},
+		[]
+	);
+
 	const addLocalContact = useRecoilCallback<[Contact], void>(
 		({ snapshot }) =>
 			(newContact: Contact) => {
@@ -120,9 +140,9 @@ export const useContactActions = (): IUseContactActions => {
 	return {
 		getContact,
 		getContactByNumber,
+		getContactsByNumber,
 		getDisplayByNumber,
 		getPictureByNumber,
-
 		addLocalContact,
 		updateLocalContact,
 		deleteLocalContact,
