@@ -5,7 +5,7 @@ export interface Message {
 	author: string;
 	is_embed?: boolean;
 	embed?: any;
-    date: number
+	date: number;
 }
 
 export interface PreDBMessage {
@@ -31,7 +31,7 @@ export interface MessageConversation {
 	id: number;
 	label: string;
 	conversationList: string;
-	source?: string;
+	source: string;
 	isGroupChat: boolean;
 	unread?: number;
 	unreadCount?: number;
@@ -65,8 +65,7 @@ export interface CreateConversationGroupResult {
 }
 
 export enum MessageEvents {
-
-    FETCH_MESSAGES = 'tkphone:messages:fetch',
+	FETCH_MESSAGES = 'tkphone:messages:fetch',
 
 	FETCH_MESSAGE_CONVERSATIONS = 'tkphone:messages:fetchMessageGroups',
 	FETCH_MESSAGE_CONVERSATIONS_SUCCESS = 'tkphone:messages:fetchMessageGroups:success',
