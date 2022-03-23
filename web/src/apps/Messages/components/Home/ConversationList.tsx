@@ -53,7 +53,7 @@ const ConversationList: React.FC = () => {
 	};
 
 	return (
-		<div className="mt-1.5 flex w-full flex-col">
+		<div className="flex h-full w-full flex-col py-1.5">
 			{[...filteredConversations]
 				.sort((a, b) => {
 					return b.updatedAt && a.updatedAt ? b.updatedAt - a.updatedAt : 0;

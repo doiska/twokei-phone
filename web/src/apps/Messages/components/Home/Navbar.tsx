@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
 	const navigate = useNavigate();
 
 	return (
-		<MainHeader>
+		<MainHeader className="flex-col">
 			<div className="flex flex-1 flex-row items-center px-3 text-lg">
 				<span className="basis-[80%] text-white drop-shadow-2xl">WhatsApp</span>
 				<div className="flex flex-1 flex-row justify-end">

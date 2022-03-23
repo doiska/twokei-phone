@@ -69,7 +69,7 @@ const ListItem: React.FC<IProps> = ({ conversation, latestMessage, handleClick }
 
 	return (
 		<div
-			className="flex h-[10%] max-h-[10%] w-full flex-row gap-4 p-1 shadow-sm"
+			className="flex h-[10%] max-h-[10%] w-full cursor-pointer flex-row gap-4 p-1 shadow-sm"
 			onClick={() => handleClick(conversation)}
 		>
 			<Avatar width="w-12" className="my-0 h-full items-center gap-0 text-center">

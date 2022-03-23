@@ -8,7 +8,7 @@ const MessagesHome: React.FC = () => {
 	return (
 		<>
 			<Navbar />
-			<MainBody>
+			<MainBody className="bg-white">
 				<ConversationList />
 			</MainBody>
 		</>

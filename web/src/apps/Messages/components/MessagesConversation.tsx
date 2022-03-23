@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
 
@@ -10,14 +10,17 @@ import useMessages from '../hooks/useMessages';
 import { MainBody } from '../MessagesApp.styles';
 import { findParticipants } from '../utils/helpers';
 import Chat from './Chats/Chat';
+import ChatInput from './Chats/ChatInput';
 import ChatNavbar, { INavbar } from './Chats/ChatNavbar';
 
 const MessagesConversation: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
 	const { fetchMessages } = useMessageAPI();
+	const navigate = useNavigate();
 
-	if (!id) return <></>;
-
+	if (!id) {
+		return <></>;
+	}
 	const { activeConversation, setActiveConversation, getConversationById } = useMessages();
 	const { getLabelOrContact, getConversationSource } = useMessageActions();
 
@@ -29,7 +32,6 @@ const MessagesConversation: React.FC = () => {
 	const conversation = getConversationById(parseInt(id));
 
 	if (!conversation) {
-		console.log('no conversation');
 		return <></>;
 	}
 
@@ -50,6 +52,7 @@ const MessagesConversation: React.FC = () => {
 				...NavbarProps,
 				label: contact.display,
 				avatar: contact.avatar,
+				description: '',
 			};
 		}
 	} else {
@@ -67,12 +70,19 @@ const MessagesConversation: React.FC = () => {
 	}
 
 	return (
-		<>
+		<div className="flex h-full w-full flex-col">
 			<ChatNavbar {...NavbarProps} />
-			<MainBody>
+			<MainBody
+				className="bg-gray-700"
+				style={{
+					backgroundImage:
+						'url(https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png)',
+				}}
+			>
 				<Chat />
+				<ChatInput />
 			</MainBody>
-		</>
+		</div>
 	);
 };
 

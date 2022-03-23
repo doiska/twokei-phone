@@ -29,6 +29,7 @@ export const AllApps: IApp[] = [
 		icon: <RiHomeGearFill />,
 		routes: {
 			path: '/',
+			index: true,
 			element: <AppRoute id="HOME" emitOnOpen={false} component={HomeApp} />,
 		},
 	},
