@@ -44,7 +44,7 @@ const useMessages = (): IUseMessages => {
 
 	const goToConversation = useCallback(
 		(id: number) => {
-			if (!id || !navigate) return;
+			if (!navigate) return;
 
 			setCurrentConversationId(id);
 			navigate(`/messages/conversations/${id}`);

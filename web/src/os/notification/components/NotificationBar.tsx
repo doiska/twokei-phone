@@ -43,7 +43,7 @@ const NotificationBar: React.FC = () => {
 		<>
 			<div
 				ref={notificationBarRef}
-				className="z-[100] flex w-full flex-nowrap items-center justify-between px-2 [text-shadow:0_4px_8px_rgba(0,0,0,0.70)] hover:cursor-pointer"
+				className="z-[100] flex w-full basis-[3%] flex-nowrap items-center justify-between px-2 [text-shadow:0_4px_8px_rgba(0,0,0,0.70)] hover:cursor-pointer"
 				onClick={() => setBarUncollapsed((curr) => !curr)}
 				tabIndex={0}
 			>

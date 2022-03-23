@@ -90,12 +90,13 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const setMessageRead = useCallback(
 		(conversationId: number) => {
-			fetchNui<ServerPromiseResp<void>>(MessageEvents.SET_READ_MESSAGE).then((resp) => {
-				if (resp.status !== 'ok' || !resp.data) {
+			fetchNui<ServerPromiseResp<void>>(MessageEvents.SET_READ_MESSAGE, {}, { status: 'ok' }).then((resp) => {
+				if (resp.status !== 'ok') {
 					//TODO: error
 					return;
 				}
 
+				console.log(`Updating ${conversationId} read state for messages`);
 				setMessageReadState(conversationId, 0);
 			});
 		},
@@ -169,13 +170,11 @@ export const useMessageAPI = (): UseMessageAPI => {
 				},
 				MockServerResp
 			).then((resp) => {
-				if (resp.status !== 'ok' || !resp.data) {
-					return;
-				}
+				console.log(`Mock data`, MockServerResp);
+				console.log(`Response `, resp);
+				if (resp.status !== 'ok') return;
 
-				if (conversationId !== -1) resp.data = resp.data.filter((m) => m.conversationId === conversationId);
-
-				setMessages(resp.data);
+				setMessages(resp.data ?? []);
 			});
 		},
 		[setMessages]
