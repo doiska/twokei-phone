@@ -70,7 +70,7 @@ export const useMessageActions = (): MessageActions => {
 					conversationId,
 					embed,
 					is_embed,
-                    date: Date.now()
+					date: Date.now(),
 				},
 			]);
 		},
@@ -84,19 +84,22 @@ export const useMessageActions = (): MessageActions => {
 		[setMessages]
 	);
 
-	const setMessageReadState = useCallback((conversationId: number, unreadCount: number) => {
-		setConversation((curr) =>
-			curr.map((message) => {
-				if (message.id === conversationId) {
-					return {
-						...message,
-						unreadCount: unreadCount,
-					};
-				}
-				return message;
-			})
-		);
-	}, []);
+	const setMessageReadState = useCallback(
+		(conversationId: number, unreadCount: number) => {
+			setConversation((curr) =>
+				curr.map((message) => {
+					if (message.id === conversationId) {
+						return {
+							...message,
+							unreadCount: unreadCount,
+						};
+					}
+					return message;
+				})
+			);
+		},
+		[setConversation]
+	);
 
 	const getLabelOrContact = useCallback(
 		(conversation: MessageConversation): string => {
