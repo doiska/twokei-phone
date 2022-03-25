@@ -8,8 +8,8 @@ interface IUseContactActions {
 	getContactByNumber: (number: string) => Contact | null;
 	getContactsByNumber: (number: string[]) => Contact[] | null;
 	getDisplayByNumber: (number: string) => string | null;
+	getDisplayListByNumber: (number: string[]) => string[];
 	getPictureByNumber: (number: string) => string | null;
-
 	addLocalContact: (newContact: Contact) => void;
 	updateLocalContact: (newContact: Contact) => void;
 	deleteLocalContact: (id: number) => void;
@@ -47,6 +47,19 @@ export const useContactActions = (): IUseContactActions => {
 		[]
 	);
 
+	const getDisplayListByNumber = useRecoilCallback<[string[]], string[]>(({ snapshot }) => (number: string[]) => {
+		const { state, contents } = snapshot.getLoadable(contactsState.contacts);
+
+		if (state !== 'hasValue') return [];
+
+		const newList = [...number];
+
+		for (const contact of contents) {
+			newList[number.indexOf(contact.number)] = contact.display;
+		}
+		return newList;
+	});
+
 	const getPictureByNumber = useRecoilCallback<[string], string | null>(
 		({ snapshot }) =>
 			(number: string) => {
@@ -76,12 +89,12 @@ export const useContactActions = (): IUseContactActions => {
 		[]
 	);
 
-	const getContactsByNumber = useRecoilCallback<[string[]], Contact[] | null>(
+	const getContactsByNumber = useRecoilCallback<[string[]], Contact[]>(
 		({ snapshot }) =>
 			(number: string[]) => {
 				const { state, contents } = snapshot.getLoadable(contactsState.contacts);
 
-				if (state !== 'hasValue') return null;
+				if (state !== 'hasValue') return [];
 
 				const found = [];
 
@@ -142,6 +155,7 @@ export const useContactActions = (): IUseContactActions => {
 		getContactByNumber,
 		getContactsByNumber,
 		getDisplayByNumber,
+		getDisplayListByNumber,
 		getPictureByNumber,
 		addLocalContact,
 		updateLocalContact,
