@@ -13,13 +13,18 @@ const ContextMenuItem: React.FC<IContextMenuItem> = ({ option, onClose }) => {
 	console.log(option);
 
 	return (
-		<span className={`${selected ? 'text-blue-300' : 'text-white'}`}>
+		<span
+			className={`cursor-pointer rounded-md p-1 text-sm transition-all hover:bg-zinc-900 ${
+				selected ? 'text-blue-300' : 'text-white'
+			}`}
+		>
 			<option
 				key={key ?? label}
 				label={label}
 				onClick={(e) => {
 					console.log(e);
 					if (onClick) onClick(e, option);
+
 					onClose();
 				}}
 			/>
