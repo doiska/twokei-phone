@@ -22,14 +22,14 @@ const PhoneWrapper: React.FC = ({ children }) => {
 				<div
 					className="h-phone w-phone absolute z-[999]"
 					style={{
-						backgroundImage: `url("/media/frames/${settings.case.value}")`,
+						backgroundImage: `url("./media/frames/${settings.case.value}")`,
 					}}
 				>
 					<div
 						id="phone"
 						className="absolute bottom-[100px] left-[50px] right-[50px] top-[100px] overflow-hidden rounded-2xl bg-cover bg-center"
 						style={{
-							backgroundImage: `url(/media/background/${settings.wallpaper.value})`,
+							backgroundImage: `url(./media/background/${settings.wallpaper.value})`,
 						}}
 					>
 						{children}

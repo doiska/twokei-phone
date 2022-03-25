@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
@@ -22,11 +22,11 @@ Sentry.init({
 
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
+		<HashRouter>
 			<RecoilRoot>
 				<PhoneProviders />
 			</RecoilRoot>
-		</BrowserRouter>
+		</HashRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

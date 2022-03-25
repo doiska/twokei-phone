@@ -1,6 +1,8 @@
 node_modules
-yarn.lock
 vite-env.d.ts
+
+package-lock.json
+*.lock
 *.lock
 
 # Logs

@@ -2,6 +2,7 @@
 	"name": "twokei-phone",
 	"private": true,
 	"version": "0.0.0",
+    "homepage": "/dist/web",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build --base=./",
