@@ -1,36 +1,50 @@
 import React, { useState } from 'react';
 
 import { SettingOption } from '@typings/settings';
-import ContextMenu, { IContextMenuOption } from '@ui/components/contextmenu/ContextMenu';
+import ContextMenu, { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
 
-type UseContextMenu = [(opts?: IContextMenuOption[]) => void, () => void, () => JSX.Element, boolean];
+export type UseContextMenu = {
+	openMenu: (opts?: IContextMenuOption[]) => void;
+	setOptions: (opts: IContextMenuOption[]) => void;
+	closeMenu: () => void;
+	ContextMenu: () => JSX.Element;
+	isOpen: boolean;
+};
 
 const MapStringOptions = (current: string, onClick: (params: unknown) => unknown) => (item: string) => ({
-	selected: current === item,
-	onClick: () => onClick(item),
 	key: item,
 	label: item,
+	selected: current === item,
+	onClick: () => onClick(item),
 });
 
 const MapSettingItem = (current: SettingOption, onClick: (params: unknown) => unknown) => (item: SettingOption) => ({
-	selected: current.value === item.value,
-	onClick: () => onClick(item),
 	key: item.value,
 	label: item.label,
+	selected: current.value === item.value,
+	onClick: () => onClick(item),
 });
 
-const useContextMenu = (_options?: IContextMenuOption[]): UseContextMenu => {
+const useContextMenu = (errorMsg?: string, _options?: IContextMenuOption[]): UseContextMenu => {
 	const [open, setOpen] = useState(false);
 	const [options, setOptions] = useState(_options ?? []);
 
-	const onClose = () => setOpen(false);
-
-	const onOpen = (opts?: IContextMenuOption[]) => {
-		setOptions(opts ?? []);
+	const openMenu = (opts?: IContextMenuOption[]) => {
+		if (opts) setOptions(opts);
 		setOpen(true);
 	};
 
-	return [onOpen, onClose, () => <ContextMenu open={open} onClose={onClose} options={options} />, open];
+	const _setOptions = (opts: IContextMenuOption[]) => setOptions(opts);
+
+	const closeMenu = () => open && setOpen(false);
+
+	return {
+		openMenu,
+		setOptions: _setOptions,
+		closeMenu,
+		ContextMenu: () => <ContextMenu isOpen={open} onClose={closeMenu} options={options} errorMsg={errorMsg} />,
+		isOpen: open,
+	};
 };
 
 export { useContextMenu, MapStringOptions, MapSettingItem };
