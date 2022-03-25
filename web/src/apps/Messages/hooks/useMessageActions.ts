@@ -19,7 +19,7 @@ interface MessageActions {
 
 	setMessageReadState: (conversationId: number, unreadCount: number) => void;
 
-	getLabelOrContact: (conversation: MessageConversation) => string;
+	getLabelOrContactDisplay: (conversation: MessageConversation) => string;
 	getConversationSource: (conversationList: string) => Contact | null;
 }
 
@@ -59,7 +59,7 @@ export const useMessageActions = (): MessageActions => {
 			const { id, message, author, conversationId, embed, is_embed } = messageDto;
 
 			if (messageLoading !== 'hasValue') return;
-			if (conversationId !== id) return;
+			//TODO: double check it if (conversationId !== id) return;
 
 			setMessages((current) => [
 				...current,
@@ -74,7 +74,7 @@ export const useMessageActions = (): MessageActions => {
 				},
 			]);
 		},
-		[messageLoading, setMessages, conversationId]
+		[setMessages, messageLoading, conversationId]
 	);
 
 	const removeLocalMessage = useCallback(
@@ -101,7 +101,7 @@ export const useMessageActions = (): MessageActions => {
 		[setConversation]
 	);
 
-	const getLabelOrContact = useCallback(
+	const getLabelOrContactDisplay = useCallback(
 		(conversation: MessageConversation): string => {
 			const label = conversation.label;
 			const source = conversation.source;
@@ -135,6 +135,6 @@ export const useMessageActions = (): MessageActions => {
 		removeLocalMessage,
 		setMessageReadState,
 		getConversationSource,
-		getLabelOrContact,
+		getLabelOrContactDisplay,
 	};
 };

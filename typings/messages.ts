@@ -12,7 +12,6 @@ export interface PreDBMessage {
 	conversationId: number;
 	conversationList: string;
 	sourcePhoneNumber?: string;
-	targetPhoneNumber: string;
 	message?: string;
 	is_embed?: boolean;
 	embed?: any;

@@ -1,4 +1,4 @@
-import MessagesHome from './components/MessagesHome';
+import MessagesConversationList from './components/Home/MessagesConversationList';
 import MessagesApp from './MessagesApp';
 
-export { MessagesApp, MessagesHome };
+export { MessagesApp, MessagesConversationList as MessagesHome };

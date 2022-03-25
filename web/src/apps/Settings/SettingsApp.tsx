@@ -40,7 +40,7 @@ const SettingsApp: React.FC = () => {
 	return (
 		<GenericApp>
 			<GenericHeader title="Configurações" />
-			<GenericBody>
+			<GenericBody onClick={() => closeMenu()}>
 				<SettingsCategory title="Dispositivo">
 					<SettingsItemSelect
 						title={'Idioma'}

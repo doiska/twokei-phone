@@ -15,7 +15,7 @@ const AppWrapper: React.FC<AppWrapperTypes> = ({ children, style, className, ...
 	return (
 		<div
 			{...props}
-			className={`relative m-0 flex h-full w-full flex-col p-0 ${className ?? ''}`}
+			className={`flex h-full max-h-[91%] w-full flex-col ${className ?? ''}`}
 			style={style}
 			onClick={() => !barUncollapsed && setBarUncollapsed(true)}
 		>

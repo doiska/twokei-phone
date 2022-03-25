@@ -41,8 +41,8 @@ export const messageState = {
 			if (!search) return conversations;
 
 			const regExp = new RegExp(search, 'gi');
-
-			return conversations.filter((conversation) => conversation.source?.match(regExp));
+            
+			return conversations.filter((conversation) => conversation.source?.match(regExp) || conversation.label.match(regExp));
 		},
 	}),
 	messages: atom<Message[]>({
@@ -98,7 +98,6 @@ export const useConversationId = () => useRecoilValue(currentConversationId);
 
 export const useFilterValueState = () => useRecoilState(messageState.filterValue);
 export const useSetFilterValue = () => useSetRecoilState(messageState.filterValue);
-
 export const useFilteredConversationsValue = () => useRecoilValue(messageState.filteredConversations);
 
 export const useSetSelectedMessage = () => useSetRecoilState(messageState.selectedMessage);

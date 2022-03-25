@@ -47,6 +47,8 @@ const useMessages = (): IUseMessages => {
 			if (!navigate) return;
 
 			setCurrentConversationId(id);
+			setActiveConversation(id);
+
 			navigate(`/messages/conversations/${id}`);
 		},
 		[setCurrentConversationId, navigate]

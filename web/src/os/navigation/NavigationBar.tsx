@@ -26,21 +26,17 @@ const NavigationBar: React.FC = () => {
 	};
 
 	return (
-		<>
-			{!isDisabled && (
-				<div className="relative inset-x-0 bottom-0 z-[999] flex w-full basis-[6%] items-center justify-between px-12 text-lg text-white">
-					<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
-						<SiLibrariesdotio />
-					</a>
-					<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
-						<RiCheckboxBlankCircleLine onClick={() => navigateTo('/')} />
-					</a>
-					<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
-						<IoChevronBack onClick={() => navigateTo(-1)} />
-					</a>
-				</div>
-			)}
-		</>
+		<div className="z-[999] flex h-[6%] w-full basis-[6%] items-center justify-between place-self-end bg-black px-12 text-lg text-white">
+			<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
+				<SiLibrariesdotio />
+			</a>
+			<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
+				<RiCheckboxBlankCircleLine onClick={() => navigateTo('/')} />
+			</a>
+			<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
+				<IoChevronBack onClick={() => navigateTo(-1)} />
+			</a>
+		</div>
 	);
 };
 

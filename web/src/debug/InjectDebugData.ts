@@ -8,6 +8,7 @@ const InjectDebugData = <P>(events: DebugEvent<P>[], timer = 1000) => {
 	if (process.env.NODE_ENV !== 'production') {
 		for (const event of events) {
 			setTimeout(() => {
+				console.log('DebugEvent', event);
 				window.dispatchEvent(
 					new MessageEvent('message', {
 						data: {

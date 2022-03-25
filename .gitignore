@@ -28,3 +28,5 @@ dist-ssr
 *.sln
 *.sw?
 web/yarn.lock
+web/package-lock.json
+web/yarn.lock

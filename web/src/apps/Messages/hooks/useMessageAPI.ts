@@ -36,17 +36,32 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const sendMessage = useCallback(
 		({ conversationId, message, sourcePhoneNumber, conversationList }: PreDBMessage) => {
-			fetchNui<ServerPromiseResp<Message>>(MessageEvents.SEND_MESSAGE, {
-				conversationId,
-				conversationList,
-				message,
-				sourcePhoneNumber,
-			}).then((resp) => {
+			fetchNui<ServerPromiseResp<Message>>(
+				MessageEvents.SEND_MESSAGE,
+				{
+					conversationId,
+					conversationList,
+					message,
+					sourcePhoneNumber,
+				},
+				{
+					data: {
+						id: Math.random(),
+						author: sourcePhoneNumber ?? '0147-0147',
+						date: Date.now(),
+						message: message ?? '',
+						conversationId: conversationId,
+					},
+					status: 'ok',
+				}
+			).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) {
+					console.error(`Could not send ${resp.status} message`);
 					//TODO: alert error
 					return;
 				}
 
+				console.log(`Updating local messages`);
 				setLocalMessages(resp.data);
 			});
 		},
@@ -61,7 +76,6 @@ export const useMessageAPI = (): UseMessageAPI => {
 				is_embed: true,
 				sourcePhoneNumber,
 				conversationList,
-				targetPhoneNumber: phoneNumber ?? '',
 			}).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) {
 					//TODO: alert error
@@ -76,7 +90,7 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const removeMessage = useCallback(
 		(message: Message) => {
-			fetchNui<ServerPromiseResp<any>>(MessageEvents.DELETE_MESSAGE, message).then((resp) => {
+			fetchNui<ServerPromiseResp>(MessageEvents.DELETE_MESSAGE, message).then((resp) => {
 				if (resp.status !== 'ok') {
 					//TODO: error
 					return;
@@ -147,9 +161,13 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const removeConversation = useCallback(
 		(conversationIds: number[]) => {
-			fetchNui<ServerPromiseResp<void>>(MessageEvents.DELETE_MESSAGE_CONVERSATION, {
-				conversationIds: conversationIds,
-			}).then((resp) => {
+			fetchNui<ServerPromiseResp<void>>(
+				MessageEvents.DELETE_MESSAGE_CONVERSATION,
+				{
+					conversationIds: conversationIds,
+				},
+				{ status: 'ok' }
+			).then((resp) => {
 				if (resp.status !== 'ok') {
 					return;
 				}
@@ -170,11 +188,19 @@ export const useMessageAPI = (): UseMessageAPI => {
 				},
 				MockServerResp
 			).then((resp) => {
-				console.log(`Mock data`, MockServerResp);
-				console.log(`Response `, resp);
 				if (resp.status !== 'ok') return;
 
-				setMessages(resp.data ?? []);
+				let content = resp.data;
+
+				console.log(`ConversationId ${conversationId}`);
+
+				if (conversationId !== -1 && content) {
+					content = content.filter((c) => c.conversationId === conversationId);
+					console.log(`Filtered messages`, content);
+				}
+
+				console.log(`Messages fetched: `, content);
+				setMessages(content ?? []);
 			});
 		},
 		[setMessages]
