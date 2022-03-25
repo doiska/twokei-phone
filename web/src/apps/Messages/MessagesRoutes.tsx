@@ -3,8 +3,8 @@ import { RouteObject } from 'react-router-dom';
 
 import AppRoute from '@os/apps/components/AppRoute';
 
-import MessagesConversation from './components/MessagesConversation';
-import MessagesHome from './components/MessagesHome';
+import MessagesConversationChat from './components/Chats/MessageConversationChat';
+import MessagesConversationList from './components/Home/MessagesConversationList';
 import MessagesApp from './MessagesApp';
 
 const MessagesRoutes = {
@@ -13,11 +13,11 @@ const MessagesRoutes = {
 	children: [
 		{
 			path: '',
-			element: <MessagesHome />,
+			element: <MessagesConversationList />,
 		},
 		{
 			path: 'conversations/:id',
-			element: <MessagesConversation />,
+			element: <MessagesConversationChat />,
 		},
 	],
 } as RouteObject;

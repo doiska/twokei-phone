@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Wrapper: React.FC = ({ children }) => {
-	return <div className="flex h-full w-full flex-col">{children}</div>;
+	return <div className="flex w-full basis-[50%] flex-col">{children}</div>;
 };
 
 const MainHeader: React.FC<{ className?: string }> = ({ className, children }) => {
@@ -12,7 +12,7 @@ const MainHeader: React.FC<{ className?: string }> = ({ className, children }) =
 
 const MainBody: React.FC<{ style?: React.CSSProperties; className?: string }> = ({ children, className, style }) => {
 	return (
-		<div className={`flex flex-col ${className ?? ''} h-[90%] flex-1`} style={style ?? {}}>
+		<div className={`flex h-full w-full flex-col ${className ?? ''}`} style={style ?? {}}>
 			{children}
 		</div>
 	);
