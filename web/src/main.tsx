@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
@@ -8,6 +8,7 @@ import PhoneProviders from 'PhoneProviders';
 import { RecoilRoot } from 'recoil';
 
 import './styles/main.css';
+import './styles/animation.css';
 
 Sentry.init({
 	dsn: 'https://e0eff884bf5740d8940abae871bbed46@o1166650.ingest.sentry.io/6257134',
@@ -21,11 +22,11 @@ Sentry.init({
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Router>
+		<BrowserRouter>
 			<RecoilRoot>
 				<PhoneProviders />
 			</RecoilRoot>
-		</Router>
+		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

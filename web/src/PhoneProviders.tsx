@@ -4,7 +4,7 @@ import { NotificationProvider } from '@os/notification/providers/NotificationPro
 
 import Phone from './Phone';
 
-const PhoneProviders: React.FC = ({ children }) => {
+const PhoneProviders: React.FC = () => {
 	return (
 		<Suspense fallback={<div>Loading... </div>}>
 			<NotificationProvider>
