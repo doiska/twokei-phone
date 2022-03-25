@@ -10,11 +10,9 @@ type IContextMenuItem = {
 const ContextMenuItem: React.FC<IContextMenuItem> = ({ option, onClose }) => {
 	const { key, label, onClick, selected } = option;
 
-	console.log(option);
-
 	return (
 		<span
-			className={`cursor-pointer rounded-md p-1 text-sm transition-all hover:bg-zinc-900 ${
+			className={`w-[70%] cursor-pointer rounded-md bg-opacity-70 p-1 text-center text-sm transition-all duration-150 hover:bg-zinc-600 ${
 				selected ? 'text-blue-300' : 'text-white'
 			}`}
 		>
@@ -22,9 +20,7 @@ const ContextMenuItem: React.FC<IContextMenuItem> = ({ option, onClose }) => {
 				key={key ?? label}
 				label={label}
 				onClick={(e) => {
-					console.log(e);
 					if (onClick) onClick(e, option);
-
 					onClose();
 				}}
 			/>

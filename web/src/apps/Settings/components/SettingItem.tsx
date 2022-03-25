@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { IContextMenuOption } from '@ui/components/contextmenu/ContextMenu';
+import { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
 
 import { SettingsItemBody, SettingsItemLabel, SettingsItemOption } from '../Settings.styles';
 

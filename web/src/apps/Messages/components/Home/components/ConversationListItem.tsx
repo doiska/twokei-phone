@@ -5,7 +5,6 @@ import { Contact } from '@typings/contacts';
 import { Message, MessageConversation } from '@typings/messages';
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
-import dayjs from 'dayjs';
 
 import usePhoneFormattedDate from '@os/hooks/usePhoneFormattedDate';
 

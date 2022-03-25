@@ -5,12 +5,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
+import usePromptMenu from '@ui/hooks/usePromptMenu';
 
 import { useContactActions } from '../hooks/useContactActions';
 import { useContactsNUI } from '../hooks/useContactsNUI';
 
 const ContactsDetails: React.FC = () => {
 	const navigate = useNavigate();
+
 	const { deleteContact } = useContactsNUI();
 	const { getContact } = useContactActions();
 
@@ -26,7 +28,13 @@ const ContactsDetails: React.FC = () => {
 	if (!id || !contact) return <></>;
 
 	const { display, avatar, number } = contact;
-	const handleContactDelete = () => deleteContact({ id: contact.id });
+
+	const handleContactDelete = () => {
+		deleteContact({ id: contact.id });
+		goBack();
+	};
+
+	const { ContextMenu: PromptMenu, openMenu } = usePromptMenu(() => handleContactDelete());
 
 	return (
 		<>
@@ -75,19 +83,14 @@ const ContactsDetails: React.FC = () => {
 							<IoShareSocialOutline className="text-xl" onClick={() => navigate('share')} />
 							<span className="text-sm">Compartilhar</span>
 						</div>
-						<div
-							className="flex cursor-pointer flex-col items-center"
-							onClick={() => {
-								handleContactDelete();
-								goBack();
-							}}
-						>
+						<div className="flex cursor-pointer flex-col items-center" onClick={() => openMenu()}>
 							<IoRemoveCircleOutline className="text-xl" />
 							<span className="text-sm">Excluir</span>
 						</div>
 					</div>
 				</div>
 			)}
+			<PromptMenu />
 		</>
 	);
 };

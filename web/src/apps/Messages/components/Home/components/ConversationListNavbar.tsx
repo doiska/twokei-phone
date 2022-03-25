@@ -4,7 +4,7 @@ import { BiEdit } from 'react-icons/bi';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
 
-import { useContextMenu } from '@ui/hooks/useContextMenu';
+import usePromptMenu from '@ui/hooks/usePromptMenu';
 
 import { useCheckedConversations, useFilterValueState, useIsEditing } from '@apps/Messages/hooks/state';
 import { useMessageAPI } from '@apps/Messages/hooks/useMessageAPI';
@@ -13,7 +13,14 @@ const ConversationListNavbar: React.FC = () => {
 	const navigate = useNavigate();
 
 	const { removeConversation } = useMessageAPI();
-	const [openMenu, closeMenu, ContextMenu, isMenuOpen] = useContextMenu();
+	const { openMenu: openDeleteMenu, ContextMenu } = usePromptMenu(
+		() => removeConversation(checkedConversation),
+		() => {
+			setCheckedConversation([]);
+			setEditing(false);
+		}
+	);
+
 	const [checkedConversation, setCheckedConversation] = useCheckedConversations();
 
 	const [isEditing, setEditing] = useIsEditing();
@@ -28,7 +35,7 @@ const ConversationListNavbar: React.FC = () => {
 				<span className="basis-[50%] text-white drop-shadow-2xl">WhatsApp</span>
 				<input
 					style={{ opacity: showSearch ? '1' : '0' }}
-					className="bg-whatsapp-teal rounded-md px-1 py-0.5 text-base text-white transition-all duration-200 placeholder:text-white focus:outline-none"
+					className="bg-whatsapp-teal rounded-md px-1 py-0.5 text-base text-white transition-all duration-150 placeholder:text-white focus:outline-none"
 					placeholder="Pesquisar contato"
 					value={searchValue}
 					onChange={(e) => setSearchValue(e.target.value)}
@@ -44,23 +51,7 @@ const ConversationListNavbar: React.FC = () => {
 						<TiDeleteOutline
 							className="cursor-pointer place-self-center rounded-full"
 							size={'24px'}
-							onClick={() => {
-								openMenu([
-									{
-										key: 'apagar',
-										label: 'Apagar',
-										onClick: () => removeConversation(checkedConversation),
-									},
-									{
-										key: 'cancelar',
-										label: 'Cancelar',
-										onClick: () => {
-											setCheckedConversation([]);
-											setEditing(false);
-										},
-									},
-								]);
-							}}
+							onClick={() => openDeleteMenu()}
 						/>
 					)}
 				</div>

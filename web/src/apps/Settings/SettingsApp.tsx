@@ -21,7 +21,7 @@ import { useSettings } from './hooks/useSettings';
 
 const SettingsApp: React.FC = () => {
 	const [settings, setSettings] = useSettings();
-	const [openMenu, closeMenu, ContextMenu, isMenuOpen] = useContextMenu();
+	const { openMenu, ContextMenu } = useContextMenu();
 
 	const handleSettingsChange = (key: string | number, value: unknown, label?: unknown) => {
 		if (label) {
@@ -40,7 +40,7 @@ const SettingsApp: React.FC = () => {
 	return (
 		<GenericApp>
 			<GenericHeader title="Configurações" />
-			<GenericBody onClick={() => closeMenu()}>
+			<GenericBody>
 				<SettingsCategory title="Dispositivo">
 					<SettingsItemSelect
 						title={'Idioma'}
