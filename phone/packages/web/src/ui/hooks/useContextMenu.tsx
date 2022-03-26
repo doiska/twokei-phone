@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { SettingOption } from '@typings/settings';
 import ContextMenu, { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
 
 export type UseContextMenu = {
-	openMenu: (opts?: IContextMenuOption[]) => void;
+	openMenu: () => void;
 	setOptions: (opts: IContextMenuOption[]) => void;
 	closeMenu: () => void;
 	ContextMenu: () => JSX.Element;
@@ -27,22 +27,30 @@ const MapSettingItem = (current: SettingOption, onClick: (params: unknown) => un
 
 const useContextMenu = (errorMsg?: string, _options?: IContextMenuOption[]): UseContextMenu => {
 	const [open, setOpen] = useState(false);
-	const [options, setOptions] = useState(_options ?? []);
+	const [currentOptions, setCurrentOptions] = useState<IContextMenuOption[]>([]);
+
+	useEffect(() => console.log('Current options updated'), [currentOptions]);
 
 	const openMenu = (opts?: IContextMenuOption[]) => {
-		if (opts) setOptions(opts);
+		if (_options) setCurrentOptions(_options);
+		if (opts) setCurrentOptions(opts);
+
 		setOpen(true);
 	};
 
-	const _setOptions = (opts: IContextMenuOption[]) => setOptions(opts);
-
 	const closeMenu = () => open && setOpen(false);
+	const _setOptions = (opts: IContextMenuOption[]) => setCurrentOptions(opts);
+
+	const MemoizedContextMenu = useMemo(
+		() => <ContextMenu isOpen={open} onClose={closeMenu} options={currentOptions} errorMsg={errorMsg} />,
+		[open, currentOptions, errorMsg]
+	);
 
 	return {
 		openMenu,
 		setOptions: _setOptions,
 		closeMenu,
-		ContextMenu: () => <ContextMenu isOpen={open} onClose={closeMenu} options={options} errorMsg={errorMsg} />,
+		ContextMenu: () => MemoizedContextMenu,
 		isOpen: open,
 	};
 };

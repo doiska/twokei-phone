@@ -12,15 +12,6 @@ import { useMessageAPI } from '@apps/Messages/hooks/useMessageAPI';
 const ConversationListNavbar: React.FC = () => {
 	const navigate = useNavigate();
 
-	const { removeConversation } = useMessageAPI();
-	const { openMenu: openDeleteMenu, ContextMenu } = usePromptMenu(
-		() => removeConversation(checkedConversation),
-		() => {
-			setCheckedConversation([]);
-			setEditing(false);
-		}
-	);
-
 	const [checkedConversation, setCheckedConversation] = useCheckedConversations();
 
 	const [isEditing, setEditing] = useIsEditing();
@@ -28,6 +19,20 @@ const ConversationListNavbar: React.FC = () => {
 
 	const [searchValue, setSearchValue] = useFilterValueState();
 	const [showSearch, setShowSearch] = useState<boolean>(searchValue !== '');
+
+	const { removeConversation } = useMessageAPI();
+
+	const handleConfirmRemove = () => {
+		removeConversation(checkedConversation);
+		setCheckedConversation([]);
+		setEditing(false);
+	};
+
+	const handleCancelRemove = () => {
+		setEditing(false);
+	};
+
+	const { openMenu: openDeleteMenu, ContextMenu } = usePromptMenu(handleConfirmRemove, handleCancelRemove);
 
 	return (
 		<>
