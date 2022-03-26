@@ -3,18 +3,18 @@ async function build() {
 
 
     require('esbuild').build({
-        entryPoints: ['src/client/client.ts'],
+        entryPoints: ['/client/client.ts'],
         bundle: true,
-        outfile: 'dist/client.js',
+        outfile: '../../dist/client.js',
         target: ["chrome58"],
         minify: true,
         format: "iife",
     }).then(() => console.log(chalk.green("[client]: Built successfully!"))).catch(() => process.exit(1))
 
     require('esbuild').build({
-        entryPoints: ['src/server/server.ts'],
+        entryPoints: ['/server/server.ts'],
         bundle: true,
-        outfile: 'dist/server.js',
+        outfile: '../../dist/server.js',
         format: "cjs",
         minify: true,
         platform: "node",
