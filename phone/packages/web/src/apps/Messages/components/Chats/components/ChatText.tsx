@@ -10,7 +10,7 @@ const ChatText: React.FC<{ message: Message; position: string }> = ({
 	message: { message, author, date },
 	position,
 }) => {
-	const dateToText = dayjs(date).format('HH:mm');
+	const dateToText = dayjs(date).format('HH:mm'd);
 
 	return (
 		<li
