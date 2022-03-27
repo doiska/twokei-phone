@@ -20,7 +20,10 @@ const ContextMenuItem: React.FC<IContextMenuItem> = ({ option, onClose }) => {
 				key={key ?? label}
 				label={label}
 				onClick={(e) => {
-					if (onClick) onClick(e, option);
+					if (onClick) {
+						console.log('Call onclick', onClick);
+						onClick(e, option);
+					}
 					onClose();
 				}}
 			/>
