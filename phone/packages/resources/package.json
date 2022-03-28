@@ -4,10 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-      "build:prod": "tsc -p server && tsc -p client && node build.prod.js",
-      "build:dev": "node build.dev.js"
+    "build:prod": "tsc -p server && tsc -p client && node build.prod.js",
+    "build:dev": "node build.dev.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "mysql2": "^2.3.3"
+  },
   "devDependencies": {
     "@citizenfx/client": "^2.0.4793-1",
     "@citizenfx/server": "^2.0.4793-1",

@@ -6,6 +6,7 @@
     "author": "doiska <doiskka@gmail.com>",
     "private": true,
     "scripts": {
+        "dev:web": "cd packages/web && yarn build:dev",
         "build:prod": "lerna run build:prod",
         "build:dev": "lerna run build:dev",
         "commit": "git-cz"

@@ -1,15 +1,11 @@
 {
+    "extends": "./tsconfig.paths.json",
     "compilerOptions": {
         "baseUrl": ".",
-        "paths": {
-            "*": [
-                "types/*"
-            ]
-        },
         "outDir": "./dist/server",
         "noImplicitAny": true,
         "module": "commonjs",
-        "target": "es2016",
+        "target": "es6",
         "allowJs": false,
         "lib": [
             "es2015",
@@ -28,7 +24,8 @@
     },
     "include": [
         "./**/*",
-        "../common/**/*"
+        "../../typings/*",
+        "../../config.default.json"
     ],
     "exclude": [
         "**/node_modules"
