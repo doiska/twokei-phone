@@ -53,7 +53,7 @@ const ChatNavbar: React.FC<INavbar> = ({ participants }) => {
 			<span>
 				<BiArrowBack className="cursor-pointer text-xl" onClick={() => goBack()} />
 			</span>
-			<Avatar width="w-10" className="my-0 h-full items-center gap-0 text-center">
+			<Avatar childrenClassName="w-10" wrapperClassName="my-0 h-full items-center gap-0 text-center">
 				<ImageWithDefaultComponentFallback
 					loadedImage={userAvatar()}
 					fallbackElement={<span className="text-xl">{userLabel().slice(0, 1).toUpperCase()}</span>}

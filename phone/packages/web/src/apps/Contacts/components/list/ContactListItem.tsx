@@ -12,7 +12,7 @@ const ContactListItem: React.FC<Contact> = ({ id, display, number, avatar }) => 
 
 	return (
 		<div key={id} className="flex h-[7%] flex-row gap-2 rounded-xl bg-zinc-800 p-2">
-			<Avatar width="w-10">
+			<Avatar childrenClassName="w-10">
 				<ImageWithDefaultComponentFallback
 					loadedImage={avatar}
 					className="rounded-full"

@@ -5,7 +5,7 @@ import { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
 import { UseContextMenu, useContextMenu } from './useContextMenu';
 
 const usePromptMenu = (onConfirm?: () => void, onDeny?: () => void, options?: IContextMenuOption[]) => {
-	const context = useContextMenu('Nenhuma opção informada', [
+	const context = useContextMenu('Deseja continuar?', [
 		{
 			key: 'confirm',
 			label: 'Confirmar',

@@ -41,7 +41,7 @@ const ContactsDetails: React.FC = () => {
 			{contact && (
 				<div className="flex h-full w-full flex-col gap-3">
 					<div className="flex flex-col items-center justify-center gap-2 rounded-xl bg-zinc-800 p-4">
-						<Avatar width="w-20">
+						<Avatar childrenClassName="w-20">
 							<ImageWithDefaultComponentFallback
 								loadedImage={avatar}
 								fallbackElement={<span className="text-lg">{display.slice(0, 1).toUpperCase()}</span>}

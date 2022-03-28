@@ -25,7 +25,7 @@ const MapSettingItem = (current: SettingOption, onClick: (params: unknown) => un
 	onClick: () => onClick(item),
 });
 
-const useContextMenu = (errorMsg?: string, _options?: IContextMenuOption[]): UseContextMenu => {
+const useContextMenu = (title?: string, _options?: IContextMenuOption[]): UseContextMenu => {
 	const [open, setOpen] = useState(false);
 	const [currentOptions, setCurrentOptions] = useState<IContextMenuOption[]>([]);
 
@@ -42,8 +42,8 @@ const useContextMenu = (errorMsg?: string, _options?: IContextMenuOption[]): Use
 	const _setOptions = (opts: IContextMenuOption[]) => setCurrentOptions(opts);
 
 	const MemoizedContextMenu = useMemo(
-		() => <ContextMenu isOpen={open} onClose={closeMenu} options={currentOptions} errorMsg={errorMsg} />,
-		[open, currentOptions, errorMsg]
+		() => <ContextMenu isOpen={open} onClose={closeMenu} options={currentOptions} title={title} />,
+		[open, currentOptions, title]
 	);
 
 	return {

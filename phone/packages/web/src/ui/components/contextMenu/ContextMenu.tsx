@@ -17,13 +17,13 @@ export interface IContextMenuOption {
 }
 
 interface ContextMenuProps {
+	title?: string;
 	isOpen: boolean;
-	errorMsg?: string;
 	options: IContextMenuOption[];
 	onClose: () => void;
 }
 
-const ContextMenu: React.FC<ContextMenuProps> = ({ isOpen, options, onClose, errorMsg }) => {
+const ContextMenu: React.FC<ContextMenuProps> = ({ isOpen, options, onClose, title }) => {
 	const context = useRef<HTMLDivElement>(null);
 
 	useHandleOutsideClick(context, () => isOpen && onClose());
@@ -41,7 +41,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ isOpen, options, onClose, err
 		(isOpen &&
 			transitions(({ opacity }) => (
 				<animated.div className={'absolute bottom-0 z-[999] h-full w-full'} style={{ opacity: opacity }}>
-					<div className="flex h-full w-full items-center justify-center overflow-auto">
+					<div className="flex h-full w-full flex-col items-center justify-center overflow-auto">
 						<div
 							ref={context}
 							className="flex w-[50%] flex-col items-center justify-center rounded-lg border-[1px] border-slate-100 bg-zinc-800 bg-opacity-75 p-4"
@@ -49,10 +49,14 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ isOpen, options, onClose, err
 								backdropFilter: 'blur(4px)',
 							}}
 						>
+							{title && (
+								<span className="text-md mb-2 w-fit rounded-lg bg-zinc-700 bg-opacity-30 p-1 text-center text-white">
+									{title}
+								</span>
+							)}
 							{options.map((option) => (
 								<ContextMenuItem key={option.key ?? option.label} option={option} onClose={onClose} />
 							))}
-							{options.length === 0 && errorMsg}
 						</div>
 					</div>
 				</animated.div>

@@ -35,9 +35,9 @@ const useMessages = (): IUseMessages => {
 
 	const setActiveConversation = useCallback(
 		(conversationId: number) => {
-			const group = getConversationById(conversationId);
-			_setActiveConversation(group || null);
-			return group;
+			const conversation = getConversationById(conversationId);
+			_setActiveConversation(conversation || null);
+			return conversation;
 		},
 		[_setActiveConversation, getConversationById]
 	);
@@ -46,10 +46,12 @@ const useMessages = (): IUseMessages => {
 		(id: number) => {
 			if (!navigate) return;
 
-			setCurrentConversationId(id);
-			setActiveConversation(id);
+			console.log('go to conversation', id);
 
-			navigate(`/messages/conversations/${id}`);
+			setActiveConversation(id);
+			setCurrentConversationId(id);
+
+			navigate(`/messages/conversations/view/${id}`);
 		},
 		[setCurrentConversationId, navigate]
 	);

@@ -24,8 +24,13 @@ type UseMessageAPI = {
 };
 
 export const useMessageAPI = (): UseMessageAPI => {
-	const { setLocalMessages, removeLocalMessage, setLocalConversations, removeLocalConversations, setMessageReadState } =
-		useMessageActions();
+	const {
+		setLocalMessages,
+		removeLocalMessage,
+		setLocalConversations,
+		removeLocalConversations,
+		setMessageReadState,
+	} = useMessageActions();
 
 	const { state: messageConversationState, contents: messageConversationContents } = useRecoilValueLoadable<
 		MessageConversation[]
@@ -125,6 +130,16 @@ export const useMessageAPI = (): UseMessageAPI => {
 					conversationLabel: conversation.conversationLabel,
 					participants: conversation.participants,
 					isGroupChat: conversation.isGroupChat,
+				},
+				{
+					status: 'ok',
+					data: {
+						id: Math.floor(Math.random() * (9999 - 1) + 1),
+						source: '0147-0147',
+						conversationList: conversation.participants.join('+'),
+						isGroupChat: conversation.isGroupChat,
+						label: 'Label',
+					},
 				}
 			).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) return;

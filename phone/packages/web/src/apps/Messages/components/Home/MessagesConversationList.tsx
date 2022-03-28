@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { MainBody, MainHeader } from '../../MessagesApp.styles';
 import ConversationList from './components/ConversationList';
+import ConversationListIconContext from './components/ConversationListIconContext';
 import ConversationListNavbar from './components/ConversationListNavbar';
 
 const MessagesConversationList: React.FC = () => {
@@ -13,6 +14,7 @@ const MessagesConversationList: React.FC = () => {
 			<MainBody className="bg-white">
 				<ConversationList />
 			</MainBody>
+			<ConversationListIconContext />
 		</>
 	);
 };

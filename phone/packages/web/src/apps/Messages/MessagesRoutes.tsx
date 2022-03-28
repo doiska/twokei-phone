@@ -4,6 +4,7 @@ import { RouteObject } from 'react-router-dom';
 import AppRoute from '@os/apps/components/AppRoute';
 
 import MessagesConversationChat from './components/Chats/MessageConversationChat';
+import CreateConversation from './components/Create/CreateConversation';
 import MessagesConversationList from './components/Home/MessagesConversationList';
 import MessagesApp from './MessagesApp';
 
@@ -16,7 +17,11 @@ const MessagesRoutes = {
 			element: <MessagesConversationList />,
 		},
 		{
-			path: 'conversations/:id',
+			path: 'conversations/add/:type',
+			element: <CreateConversation />,
+		},
+		{
+			path: 'conversations/view/:id',
 			element: <MessagesConversationChat />,
 		},
 	],

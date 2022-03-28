@@ -45,7 +45,7 @@ const ContactDetailsEdit: React.FC = () => {
 
 	return (
 		<div className="flex flex-col items-center justify-center gap-2">
-			<Avatar width="w-32 my-3">
+			<Avatar childrenClassName="w-32 my-3">
 				<ImageWithDefaultComponentFallback
 					loadedImage={avatar}
 					fallbackElement={<span className="text-5xl">{name.slice(0, 1).toUpperCase()}</span>}

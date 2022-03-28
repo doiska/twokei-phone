@@ -20,7 +20,14 @@ type IProps = {
 	handleClick: (conversation: MessageConversation) => void;
 };
 
-const ConversationListItem: React.FC<IProps> = ({ conversation, messages, handleClick, isEditing, handleToggle, checked }) => {
+const ConversationListItem: React.FC<IProps> = ({
+	conversation,
+	messages,
+	handleClick,
+	isEditing,
+	handleToggle,
+	checked,
+}) => {
 	const contacts = useContacts();
 
 	const latestMessage = messages?.[0];
@@ -62,7 +69,7 @@ const ConversationListItem: React.FC<IProps> = ({ conversation, messages, handle
 			className="flex h-[10%] max-h-[10%] w-full cursor-pointer flex-row gap-4 p-1 shadow-sm"
 			onClick={() => !isEditing && handleClick(conversation)}
 		>
-			<Avatar width="w-12" className="my-0 h-full items-center gap-0 text-center">
+			<Avatar childrenClassName="w-12" wrapperClassName="my-0 h-full items-center gap-0 text-center">
 				<ImageWithDefaultComponentFallback
 					loadedImage={getContact()?.avatar}
 					fallbackElement={<span className="text-xl">{getLabel().slice(0, 1).toUpperCase()}</span>}

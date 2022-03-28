@@ -22,19 +22,25 @@ const MessagesConversationChat: React.FC = () => {
 
 	const [participants, setParticipants] = useState<string[]>([]);
 
+	const [loading, setLoading] = useState<boolean>(true);
+
 	useEffect(() => {
 		if (!activeConversation || !id) {
-			navigate('/');
+			setLoading(true);
 			return;
+		} else {
+			setLoading(false);
 		}
 
-		fetchMessages(parseInt(id), 0);
+		if (!loading) {
+			fetchMessages(parseInt(id), 0);
 
-		const found = findParticipants(activeConversation.conversationList, activeConversation.source);
-		const contacts = getDisplayListByNumber(found);
+			const found = findParticipants(activeConversation.conversationList, activeConversation.source);
+			const contacts = getDisplayListByNumber(found);
 
-		setParticipants(contacts);
-	}, [id, fetchMessages]);
+			setParticipants(contacts);
+		}
+	}, [id, fetchMessages, activeConversation]);
 
 	const handleSendMessage = (content: string) => {
 		if (activeConversation) {
