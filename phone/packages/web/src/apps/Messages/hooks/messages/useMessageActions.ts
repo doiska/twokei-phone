@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 
+import { useRecoilValueLoadable } from 'recoil';
+
 import { Contact } from '@typings/contacts';
 import { Message, MessageConversation } from '@typings/messages';
-import { useRecoilValueLoadable } from 'recoil';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 

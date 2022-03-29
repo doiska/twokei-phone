@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { MainBody, MainHeader } from '../../MessagesApp.styles';
-import ConversationList from './components/ConversationList';
-import ConversationListIconContext from './components/ConversationListIconContext';
-import ConversationListNavbar from './components/ConversationListNavbar';
+import ConversationListIconContext from './components/CreateConversationIcon';
+import ConversationList from './components/MessagesHome';
+import ConversationListNavbar from './components/MessagesHomeNavbar';
 
 const MessagesConversationList: React.FC = () => {
 	return (

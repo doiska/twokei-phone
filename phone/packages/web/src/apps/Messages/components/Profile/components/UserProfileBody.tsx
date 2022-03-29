@@ -19,8 +19,6 @@ const UserProfileBody: React.FC = () => {
 
 	const { userProfile, setUserProfile } = useMessageProfileAPI();
 
-	// useEffect(() => fetchUserProfile(), []);
-
 	const [displayInput, setDisplayInput] = useState(userProfile.display ?? phone ?? '');
 	const [avatarInput, setAvatarInput] = useState(userProfile.avatar ?? '');
 

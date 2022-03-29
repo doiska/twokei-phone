@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { MessageConversation } from '@typings/messages';
 import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState, waitForAll } from 'recoil';
+
+import { MessageConversation } from '@typings/messages';
 
 import { messageState, useSetConversationId } from './messageState';
 

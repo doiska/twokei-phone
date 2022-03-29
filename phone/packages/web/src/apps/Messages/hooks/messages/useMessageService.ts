@@ -36,6 +36,7 @@ export const useMessagesService = () => {
 				id: conversation.id,
 				label: conversation.label,
 				source: conversation.source,
+				admins: [conversation.source],
 				conversationList: conversation.conversationList,
 				isGroupChat: conversation.isGroupChat,
 				unread: 0,

@@ -14,7 +14,7 @@ import useMessages from '@apps/Messages/hooks/messages/useMessages';
 import ConversationListItem from './ConversationListItem';
 
 const ConversationList: React.FC = () => {
-	const [isEditing, setEditing] = useIsEditing();
+	const [isEditing] = useIsEditing();
 	const [checkedConversation, setCheckedConversation] = useCheckedConversations();
 
 	const { conversations, goToConversation } = useMessages();

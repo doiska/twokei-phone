@@ -24,10 +24,6 @@ const CreateConversation: React.FC = () => {
 	const { checked, addChecked, removeChecked } = useCheckedItems<Contact>();
 
 	const handleCreateConversation = () => {
-		console.log('Create conversation');
-
-		console.log(checked);
-
 		if (checked.length > 0) {
 			console.log(checked);
 

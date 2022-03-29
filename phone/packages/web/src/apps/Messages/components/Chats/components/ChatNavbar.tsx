@@ -9,10 +9,9 @@ import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponent
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
 import { useMessageActions } from '@apps/Messages/hooks/messages/useMessageActions';
 import useMessages from '@apps/Messages/hooks/messages/useMessages';
-import { findParticipants } from '@apps/Messages/utils/helpers';
+import { getAnyValidAvatar } from '@apps/Messages/utils/helpers';
 
 type INavbar = {
 	participants: string[];
@@ -27,24 +26,13 @@ const ChatNavbar: React.FC<INavbar> = ({ participants }) => {
 	const goBack = () => navigate(-1);
 
 	const { getLabelOrContactDisplay } = useMessageActions();
-	const { getContactByNumber, getDisplayByNumber } = useContactActions();
 
 	if (!activeConversation) return <></>;
 
-	const { label, isGroupChat, source, conversationList } = activeConversation;
-	const numberParticipant = findParticipants(conversationList, phone ?? '0147-0147');
+	const { isGroupChat } = activeConversation;
 
-	const userAvatar = () => {
-		if (isGroupChat) return;
-
-		const contact = getContactByNumber(numberParticipant[0]);
-		return contact?.avatar;
-	};
-	const userLabel = () => {
-		if (isGroupChat) return label;
-
-		return getLabelOrContactDisplay(activeConversation);
-	};
+	const getLabel = () => getLabelOrContactDisplay(activeConversation);
+	const getValidAvatar = () => getAnyValidAvatar(activeConversation, phone);
 
 	const description = useCallback(() => participants.join(', '), [participants]);
 
@@ -55,25 +43,23 @@ const ChatNavbar: React.FC<INavbar> = ({ participants }) => {
 			</span>
 			<Avatar childrenClassName="w-10" wrapperClassName="my-0 h-full items-center gap-0 text-center">
 				<ImageWithDefaultComponentFallback
-					loadedImage={userAvatar()}
-					fallbackElement={<span className="text-xl">{userLabel().slice(0, 1).toUpperCase()}</span>}
+					loadedImage={getValidAvatar()}
+					fallbackElement={<span className="text-xl">{getLabel().slice(0, 1).toUpperCase()}</span>}
 					className="rounded-full"
 				/>
 			</Avatar>
 			<div className="flex h-full max-h-[100%] w-full flex-col place-content-center">
 				<div className="flex flex-row flex-wrap justify-between">
-					<span className="text-white">{label}</span>
+					<span className="text-white">{getLabel()}</span>
 				</div>
 				<span className="text-sm font-light text-white">{description()}</span>
 			</div>
 			<div className="flex flex-row items-center gap-3 text-xl">
-				{!isGroupChat ? (
+				{!isGroupChat && (
 					<>
 						<IoMdCall className="cursor-pointer" />
 						<BsCameraVideoFill className="cursor-pointer" />
 					</>
-				) : (
-					''
 				)}
 				<IoMdMore className="cursor-pointer text-2xl" />
 			</div>

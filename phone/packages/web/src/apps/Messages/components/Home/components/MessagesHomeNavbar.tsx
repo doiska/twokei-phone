@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
+import { GrMoreVertical } from 'react-icons/gr';
+import { MdMore } from 'react-icons/md';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +10,8 @@ import usePromptMenu from '@ui/hooks/usePromptMenu';
 
 import { useCheckedConversations, useFilterValueState, useIsEditing } from '@apps/Messages/hooks/messages/messageState';
 import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
+
+import MessagesHomeNavbarIcon from './MessagesHomeNavbarIcon';
 
 const ConversationListNavbar: React.FC = () => {
 	const navigate = useNavigate();
@@ -32,28 +36,36 @@ const ConversationListNavbar: React.FC = () => {
 		setEditing(false);
 	};
 
-	const { openMenu: openDeleteMenu, ContextMenu } = usePromptMenu(handleConfirmRemove, handleCancelRemove);
+	const { openMenu: openDeleteMenu, ContextMenu: ContextDeleteMenu } = usePromptMenu(
+		handleConfirmRemove,
+		handleCancelRemove
+	);
+
+	const { ContextMenu: ContextEditMenu, openMenu: openConfigMenu } = MessagesHomeNavbarIcon();
 
 	return (
 		<>
-			<div className="flex flex-1 flex-row items-center gap-2 px-3 text-lg">
-				<span className="basis-[50%] text-white drop-shadow-2xl" onClick={() => navigate('profile/edit')}>
-					WhatsApp
-				</span>
+			<div className="flex w-full flex-1 flex-row items-center gap-2 px-3 text-lg">
+				<span className="basis-[30%] text-white drop-shadow-2xl">WhatsApp</span>
 				<input
 					style={{ opacity: showSearch ? '1' : '0' }}
-					className="bg-whatsapp-teal rounded-md px-1 py-0.5 text-base text-white transition-all duration-150 placeholder:text-white focus:outline-none"
+					className="bg-whatsapp-teal w-full rounded-md px-1 py-0.5 text-base text-white transition-all duration-150 placeholder:text-white focus:outline-none"
 					placeholder="Pesquisar contato"
 					value={searchValue}
 					onChange={(e) => setSearchValue(e.target.value)}
 				/>
-				<div className="flex flex-1 flex-row justify-end gap-2">
+				<div className="flex flex-1 flex-row gap-2">
 					<AiOutlineSearch
 						onClick={() => setShowSearch((curr) => !curr)}
 						className="cursor-pointer place-self-center"
 						size={'22px'}
 					/>
 					<BiEdit onClick={() => toggleEdit()} className="cursor-pointer place-self-center" size={'22px'} />
+					<GrMoreVertical
+						className="cursor-pointer place-self-center"
+						onClick={() => openConfigMenu()}
+						size={'22px'}
+					/>
 					{isEditing && (
 						<TiDeleteOutline
 							className="cursor-pointer place-self-center rounded-full"
@@ -74,7 +86,8 @@ const ConversationListNavbar: React.FC = () => {
 					Chamadas
 				</a>
 			</div>
-			<ContextMenu />
+			<ContextEditMenu />
+			<ContextDeleteMenu />
 		</>
 	);
 };

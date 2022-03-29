@@ -1,17 +1,15 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
 
-import { Contact } from '@typings/contacts';
 import { Message, MessageConversation } from '@typings/messages';
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 
 import usePhoneFormattedDate from '@os/hooks/usePhoneFormattedDate';
+import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
-import { useContacts } from '@apps/Contacts/hooks/useContacts';
-import { useMessageProfileActions } from '@apps/Messages/hooks/profiles/useMessageProfileActions';
-import { useMessageProfileAPI } from '@apps/Messages/hooks/profiles/useMessageProfileAPI';
+import { useMessageActions } from '@apps/Messages/hooks/messages/useMessageActions';
+import { getAnyValidAvatar } from '@apps/Messages/utils/helpers';
 
 type IProps = {
 	conversation: MessageConversation;
@@ -23,48 +21,22 @@ type IProps = {
 };
 
 const ConversationListItem: React.FC<IProps> = ({
-	conversation,
-	messages,
-	handleClick,
-	isEditing,
-	handleToggle,
 	checked,
+	isEditing,
+	messages,
+	conversation,
+	handleToggle,
+	handleClick,
 }) => {
-	const contacts = useContacts();
+	const phone = usePhoneNumber();
+
+	const { getLabelOrContactDisplay } = useMessageActions();
+
+	const getLabel = () => getLabelOrContactDisplay(conversation);
+	const getValidAvatar = () => getAnyValidAvatar(conversation, phone);
 
 	const latestMessage = messages?.[0];
 	const formattedDate = usePhoneFormattedDate(latestMessage?.date ?? Date.now());
-
-	const { fetchProfile } = useMessageProfileActions();
-
-	const contactDisplay = useCallback(
-		(number: string): Contact | null => (contacts.length ? fetchProfile(number) : null),
-		[contacts, fetchProfile]
-	);
-
-	const getContact = useCallback((): Contact | null | undefined => {
-		const source = conversation.source;
-		const conversationList = conversation.conversationList.split('+');
-
-		if (conversation.isGroupChat) return null;
-
-		for (const p of conversationList) {
-			if (p !== source) {
-				const contact = contactDisplay(p);
-				return contact;
-			}
-		}
-	}, [contactDisplay, conversation]);
-
-	const getLabel = useCallback((): string => {
-		const source = conversation.source;
-		const conversationLabel = conversation.label;
-		const conversationList = conversation.conversationList.split('+');
-
-		if (conversation.isGroupChat) return conversationLabel;
-
-		return getContact()?.display || conversationList.filter((p) => p !== source)[0];
-	}, [conversation, getContact]);
 
 	return (
 		<div
@@ -73,7 +45,7 @@ const ConversationListItem: React.FC<IProps> = ({
 		>
 			<Avatar childrenClassName="w-12" wrapperClassName="my-0 h-full items-center gap-0 text-center">
 				<ImageWithDefaultComponentFallback
-					loadedImage={getContact()?.avatar}
+					loadedImage={getValidAvatar()}
 					fallbackElement={<span className="text-xl">{getLabel().slice(0, 1).toUpperCase()}</span>}
 					className="rounded-full"
 				/>

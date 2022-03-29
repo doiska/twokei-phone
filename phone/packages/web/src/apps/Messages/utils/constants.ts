@@ -14,6 +14,7 @@ export const MockMessageConversations: MessageConversation[] = [
 	{
 		id: 1,
 		conversationList: '123-4567+0147-0147',
+		avatar: 'https://i.servimg.com/u/f37/19/40/02/41/0logo_10.gif',
 		source: '123-4567',
 		unread: 0,
 		label: 'Família Fighter',
@@ -42,8 +43,8 @@ export const MockConversationMessage: Message[] = [
 	{
 		id: 1,
 		author: '0147-0147',
-		message: 'xddd',
-		conversationId: 0,
+		message: 'sabe cbug?',
+		conversationId: 1,
 		date: 364887467212,
 	},
 	{

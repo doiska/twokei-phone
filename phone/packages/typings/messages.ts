@@ -35,8 +35,10 @@ export interface CreateMessageDTO {
 export interface MessageConversation {
 	id: number;
 	label: string;
-	conversationList: string;
+	avatar?: string;
 	source: string;
+	admins?: string[];
+	conversationList: string;
 	isGroupChat: boolean;
 	unread?: number;
 	unreadCount?: number;

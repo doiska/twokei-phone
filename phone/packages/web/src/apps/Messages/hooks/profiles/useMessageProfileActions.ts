@@ -50,7 +50,7 @@ export const useMessageProfileActions = () => {
 		[setUserProfile]
 	);
 
-	const fetchProfile = useRecoilCallback(
+	const fetchProfile = useRecoilCallback<[string], Profile>(
 		({ snapshot }) =>
 			(source: string) => {
 				const { state } = snapshot.getLoadable(messageProfileState.profiles);

@@ -118,6 +118,17 @@ export const useMessageAPI = (): UseMessageAPI => {
 					conversationLabel: conversation.conversationLabel,
 					participants: conversation.participants,
 					isGroupChat: conversation.isGroupChat,
+				},
+				{
+					status: 'ok',
+					data: {
+						id: Math.random(),
+						conversationList: conversation.participants.join('+'),
+						isGroupChat: conversation.isGroupChat,
+						admins: [conversation.participants[0]],
+						label: 'Conversation label',
+						source: conversation.participants[0],
+					},
 				}
 			).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) return;
@@ -136,12 +147,13 @@ export const useMessageAPI = (): UseMessageAPI => {
 					return;
 				}
 
-				const { id, source, conversationList, label, isGroupChat } = resp.data;
+				const { id, source, conversationList, label, isGroupChat, admins } = resp.data;
 
 				setLocalConversations({
 					source: source,
 					id: id,
 					conversationList: conversationList,
+					admins: admins,
 					label: label,
 					isGroupChat: isGroupChat,
 					unread: 0,

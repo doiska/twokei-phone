@@ -1,8 +1,9 @@
+import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+
 import { ServerPromiseResp } from '@typings/common';
 import { Message, CreateConversationGroupResult, MessageConversation, MessageEvents } from '@typings/messages';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
-import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { MockMessageConversations } from '../../utils/constants';
 
@@ -41,8 +42,10 @@ export const messageState = {
 			if (!search) return conversations;
 
 			const regExp = new RegExp(search, 'gi');
-            
-			return conversations.filter((conversation) => conversation.source?.match(regExp) || conversation.label.match(regExp));
+
+			return conversations.filter(
+				(conversation) => conversation.source?.match(regExp) || conversation.label.match(regExp)
+			);
 		},
 	}),
 	messages: atom<Message[]>({
