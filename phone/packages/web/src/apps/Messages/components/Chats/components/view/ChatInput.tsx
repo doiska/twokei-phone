@@ -43,7 +43,7 @@ const ChatInput: React.FC<IInput> = ({ handleSubmit }) => {
 							minRows={1}
 							minLength={1}
 							maxLength={100}
-							className="w-full flex-1 resize-none overflow-hidden bg-transparent pr-1 text-slate-900 focus:outline-none active:outline-none"
+							className="w-full flex-1 resize-none overflow-hidden bg-transparent pr-1 text-slate-900"
 							placeholder="Sua mensagem"
 							value={currentMessage}
 							onChange={(e) => setCurrentMessage(e.target.value)}
@@ -53,7 +53,11 @@ const ChatInput: React.FC<IInput> = ({ handleSubmit }) => {
 					<BsCameraFill className="cursor-pointer text-2xl text-slate-700 transition-all duration-200 hover:text-slate-900" />
 				</div>
 				<div className="bg-whatsapp-teal hover:bg-whatsapp-teal-dark inline-flex cursor-pointer items-center rounded-full p-2.5 text-white transition-all duration-200">
-					{currentMessage === '' ? <MdKeyboardVoice className="text-2xl" /> : <AiOutlineSend className="text-2xl" />}
+					{currentMessage === '' ? (
+						<MdKeyboardVoice className="text-2xl" />
+					) : (
+						<AiOutlineSend className="text-2xl" />
+					)}
 				</div>
 			</div>
 		</>

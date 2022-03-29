@@ -52,3 +52,15 @@ body {
 :root {
 	background: none;
 }
+
+textarea:focus {
+	outline: none;
+}
+
+input,
+input:focus,
+input:active,
+input:hover,
+input:focus-within {
+	outline: none;
+}

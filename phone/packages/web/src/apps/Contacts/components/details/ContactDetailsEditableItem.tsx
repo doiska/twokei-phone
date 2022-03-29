@@ -15,7 +15,7 @@ const ContactDetailsEditableItem: React.FC<EditableInput> = ({ icon, type, value
 			<span className="ml-3 inline-flex items-center">{icon}</span>
 			<div className="flex w-full">
 				<input
-					className={`input h-fit w-full focus:outline-none ${className}`}
+					className={`input h-fit w-full ${className}`}
 					value={value}
 					type={type}
 					onChange={onChange}

@@ -3,7 +3,7 @@ import { RouteObject } from 'react-router-dom';
 
 import AppRoute from '@os/apps/components/AppRoute';
 
-import MessagesConversationChat from './components/Chats/MessageConversationChat';
+import ConversationView from './components/Chats/ConversationView';
 import CreateConversation from './components/Create/CreateConversation';
 import MessagesConversationList from './components/Home/MessagesConversationList';
 import MessageProfile from './components/Profile/MessageProfile';
@@ -18,16 +18,26 @@ const MessagesRoutes = {
 			element: <MessagesConversationList />,
 		},
 		{
-			path: 'conversations/add/:type',
-			element: <CreateConversation />,
+			path: 'conversations',
+			children: [
+				{
+					path: 'view/:id',
+					element: <ConversationView />,
+				},
+				{
+					path: 'add/:type',
+					element: <CreateConversation />,
+				},
+			],
 		},
 		{
-			path: 'conversations/view/:id',
-			element: <MessagesConversationChat />,
-		},
-		{
-			path: 'profile/edit',
-			element: <MessageProfile />,
+			path: 'profile',
+			children: [
+				{
+					path: 'edit',
+					element: <MessageProfile />,
+				},
+			],
 		},
 	],
 } as RouteObject;

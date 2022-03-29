@@ -15,9 +15,10 @@ import { getAnyValidAvatar } from '@apps/Messages/utils/helpers';
 
 type INavbar = {
 	participants: string[];
+	openMenu: () => void;
 };
 
-const ChatNavbar: React.FC<INavbar> = ({ participants }) => {
+const ChatNavbar: React.FC<INavbar> = ({ participants, openMenu }) => {
 	const phone = usePhoneNumber();
 
 	const { activeConversation } = useMessages();
@@ -61,7 +62,7 @@ const ChatNavbar: React.FC<INavbar> = ({ participants }) => {
 						<BsCameraVideoFill className="cursor-pointer" />
 					</>
 				)}
-				<IoMdMore className="cursor-pointer text-2xl" />
+				<IoMdMore className="cursor-pointer text-2xl" onClick={() => openMenu()} />
 			</div>
 		</>
 	);

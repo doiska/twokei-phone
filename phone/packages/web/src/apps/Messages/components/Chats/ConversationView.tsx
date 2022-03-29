@@ -7,11 +7,12 @@ import { useMessageAPI } from '../../hooks/messages/useMessageAPI';
 import useMessages from '../../hooks/messages/useMessages';
 import { MainBody, MainHeader } from '../../MessagesApp.styles';
 import { findParticipants } from '../../utils/helpers';
-import ChatContent from './components/ChatContent';
-import ChatInput from './components/ChatInput';
-import ChatNavbar from './components/ChatNavbar';
+import ChatContent from './components/view/ChatContent';
+import ConversationListIconContext from './components/view/ChatContextMenut';
+import ChatInput from './components/view/ChatInput';
+import ChatNavbar from './components/view/ChatNavbar';
 
-const MessagesConversationChat: React.FC = () => {
+const ConversationView: React.FC = () => {
 	const navigate = useNavigate();
 
 	const { id } = useParams<{ id: string }>();
@@ -23,6 +24,8 @@ const MessagesConversationChat: React.FC = () => {
 	const [participants, setParticipants] = useState<string[]>([]);
 
 	const [loading, setLoading] = useState<boolean>(true);
+
+	const { ContextMenu: MoreMenu, openMenu: openMoreMenu } = ConversationListIconContext(id);
 
 	useEffect(() => {
 		if (!activeConversation || !id) {
@@ -55,7 +58,7 @@ const MessagesConversationChat: React.FC = () => {
 	return (
 		<>
 			<MainHeader className="h-[8%] basis-[8%] flex-row items-center gap-2 p-1.5">
-				<ChatNavbar participants={participants} />
+				<ChatNavbar participants={participants} openMenu={openMoreMenu} />
 			</MainHeader>
 			<MainBody
 				className="h-[92%] bg-gray-700"
@@ -67,8 +70,9 @@ const MessagesConversationChat: React.FC = () => {
 				<ChatContent />
 				<ChatInput handleSubmit={handleSendMessage} />
 			</MainBody>
+			<MoreMenu />
 		</>
 	);
 };
 
-export default MessagesConversationChat;
+export default ConversationView;

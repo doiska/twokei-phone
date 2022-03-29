@@ -49,7 +49,7 @@ const ConversationListNavbar: React.FC = () => {
 				<span className="basis-[30%] text-white drop-shadow-2xl">WhatsApp</span>
 				<input
 					style={{ opacity: showSearch ? '1' : '0' }}
-					className="bg-whatsapp-teal w-full rounded-md px-1 py-0.5 text-base text-white transition-all duration-150 placeholder:text-white focus:outline-none"
+					className="bg-whatsapp-teal w-full rounded-md px-1 py-0.5 text-base text-white transition-all duration-150 placeholder:text-white"
 					placeholder="Pesquisar contato"
 					value={searchValue}
 					onChange={(e) => setSearchValue(e.target.value)}
