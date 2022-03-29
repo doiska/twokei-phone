@@ -50,7 +50,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ isOpen, options, onClose, tit
 							}}
 						>
 							{title && (
-								<span className="text-md mb-2 w-fit rounded-lg bg-zinc-700 bg-opacity-30 p-1 text-center text-white">
+								<span className="text-md mb-2 w-fit rounded-lg bg-opacity-30 p-1 text-center text-white">
 									{title}
 								</span>
 							)}

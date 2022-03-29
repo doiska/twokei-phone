@@ -41,16 +41,11 @@ const useContextMenu = (title?: string, _options?: IContextMenuOption[]): UseCon
 	const closeMenu = () => open && setOpen(false);
 	const _setOptions = (opts: IContextMenuOption[]) => setCurrentOptions(opts);
 
-	const MemoizedContextMenu = useMemo(
-		() => <ContextMenu isOpen={open} onClose={closeMenu} options={currentOptions} title={title} />,
-		[open, currentOptions, title]
-	);
-
 	return {
 		openMenu,
 		setOptions: _setOptions,
 		closeMenu,
-		ContextMenu: () => MemoizedContextMenu,
+		ContextMenu: () => <ContextMenu isOpen={open} onClose={closeMenu} options={currentOptions} title={title} />,
 		isOpen: open,
 	};
 };

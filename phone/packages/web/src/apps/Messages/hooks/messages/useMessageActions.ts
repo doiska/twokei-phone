@@ -8,7 +8,7 @@ import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
 import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
 
-import { messageState, useConversationId, useSetConversations, useSetMessages } from './state';
+import { messageState, useConversationId, useSetConversations, useSetMessages } from './messageState';
 
 interface MessageActions {
 	setLocalConversations: (conversation: MessageConversation) => void;

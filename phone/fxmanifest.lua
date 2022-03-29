@@ -14,6 +14,7 @@ server_script {
 ui_page 'dist/web/index.html'
 file 'dist/web/index.html'
 files {
+    'packages/config.json',
     'dist/web/index.html',
     'dist/web/**/*',
 }

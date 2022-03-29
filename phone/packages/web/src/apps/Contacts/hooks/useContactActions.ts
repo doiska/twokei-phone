@@ -41,7 +41,7 @@ export const useContactActions = (): IUseContactActions => {
 
 				if (state !== 'hasValue') return number;
 
-				const found = contents.find((contact) => contact.number === number);
+				const found = contents.find((contact: Contact) => contact.number === number);
 				return found ? found.display : number;
 			},
 		[]

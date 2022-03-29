@@ -1,4 +1,8 @@
 {
+    "phone": {
+        "toggleKey": "f1",
+        "toggleCommand": "phone"
+    },
     "database": {
         "profileQueries": true
     }

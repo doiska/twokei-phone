@@ -10,6 +10,8 @@ import usePhoneFormattedDate from '@os/hooks/usePhoneFormattedDate';
 
 import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
 import { useContacts } from '@apps/Contacts/hooks/useContacts';
+import { useMessageProfileActions } from '@apps/Messages/hooks/profiles/useMessageProfileActions';
+import { useMessageProfileAPI } from '@apps/Messages/hooks/profiles/useMessageProfileAPI';
 
 type IProps = {
 	conversation: MessageConversation;
@@ -33,11 +35,11 @@ const ConversationListItem: React.FC<IProps> = ({
 	const latestMessage = messages?.[0];
 	const formattedDate = usePhoneFormattedDate(latestMessage?.date ?? Date.now());
 
-	const { getContactByNumber } = useContactActions();
+	const { fetchProfile } = useMessageProfileActions();
 
 	const contactDisplay = useCallback(
-		(number: string): Contact | null => (contacts.length ? getContactByNumber(number) : null),
-		[contacts, getContactByNumber]
+		(number: string): Contact | null => (contacts.length ? fetchProfile(number) : null),
+		[contacts, fetchProfile]
 	);
 
 	const getContact = useCallback((): Contact | null | undefined => {

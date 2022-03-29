@@ -1,14 +1,15 @@
 import { useCallback } from 'react';
 
+import { useRecoilValueLoadable } from 'recoil';
+
 import { ServerPromiseResp } from '@typings/common';
 import { Message, MessageConversation, MessageEvents, PreDBMessage, PreDBMessageConversation } from '@typings/messages';
 import fetchNui from '@utils/fetchNui';
-import { useRecoilValueLoadable } from 'recoil';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { MockServerResp } from '../utils/constants';
-import { messageState, useSetMessages } from './state';
+import { MockServerResp } from '../../utils/constants';
+import { messageState, useSetMessages } from './messageState';
 import { useMessageActions } from './useMessageActions';
 
 type UseMessageAPI = {
@@ -41,25 +42,12 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const sendMessage = useCallback(
 		({ conversationId, message, sourcePhoneNumber, conversationList }: PreDBMessage) => {
-			fetchNui<ServerPromiseResp<Message>>(
-				MessageEvents.SEND_MESSAGE,
-				{
-					conversationId,
-					conversationList,
-					message,
-					sourcePhoneNumber,
-				},
-				{
-					data: {
-						id: Math.random(),
-						author: sourcePhoneNumber ?? '0147-0147',
-						date: Date.now(),
-						message: message ?? '',
-						conversationId: conversationId,
-					},
-					status: 'ok',
-				}
-			).then((resp) => {
+			fetchNui<ServerPromiseResp<Message>>(MessageEvents.SEND_MESSAGE, {
+				conversationId,
+				conversationList,
+				message,
+				sourcePhoneNumber,
+			}).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) {
 					console.error(`Could not send ${resp.status} message`);
 					//TODO: alert error
@@ -130,16 +118,6 @@ export const useMessageAPI = (): UseMessageAPI => {
 					conversationLabel: conversation.conversationLabel,
 					participants: conversation.participants,
 					isGroupChat: conversation.isGroupChat,
-				},
-				{
-					status: 'ok',
-					data: {
-						id: Math.floor(Math.random() * (9999 - 1) + 1),
-						source: '0147-0147',
-						conversationList: conversation.participants.join('+'),
-						isGroupChat: conversation.isGroupChat,
-						label: 'Label',
-					},
 				}
 			).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) return;

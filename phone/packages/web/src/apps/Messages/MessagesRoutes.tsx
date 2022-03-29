@@ -6,6 +6,7 @@ import AppRoute from '@os/apps/components/AppRoute';
 import MessagesConversationChat from './components/Chats/MessageConversationChat';
 import CreateConversation from './components/Create/CreateConversation';
 import MessagesConversationList from './components/Home/MessagesConversationList';
+import MessageProfile from './components/Profile/MessageProfile';
 import MessagesApp from './MessagesApp';
 
 const MessagesRoutes = {
@@ -23,6 +24,10 @@ const MessagesRoutes = {
 		{
 			path: 'conversations/view/:id',
 			element: <MessagesConversationChat />,
+		},
+		{
+			path: 'profile/edit',
+			element: <MessageProfile />,
 		},
 	],
 } as RouteObject;

@@ -6,7 +6,7 @@ import { Message } from '@typings/messages';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { useActiveConversation, useMessagesState } from '@apps/Messages/hooks/state';
+import { useActiveConversation, useMessagesState } from '@apps/Messages/hooks/messages/messageState';
 
 import ChatText from './ChatText';
 

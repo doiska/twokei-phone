@@ -4,7 +4,7 @@ import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
 import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { MockMessageConversations } from '../utils/constants';
+import { MockMessageConversations } from '../../utils/constants';
 
 const currentConversationId = atom<number | null>({ key: 'currentConversationId', default: null });
 

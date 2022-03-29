@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
         "paths": {
             "@typings/*": [
                 "../../typings/*"
             ],
             "@shared/*": [
                 "../../shared/*"
-            ]
+            ],
         }
     }
 }

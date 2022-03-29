@@ -2,7 +2,7 @@ async function watch() {
     const chalk = (await import("chalk")).default
     const exec = (await import("child_process")).exec;
     require('esbuild').build({
-        entryPoints: ['./client/esx.ts'],
+        entryPoints: ['./client/client.ts'],
         bundle: true,
         outfile: '../../dist/client/client.js',
         target: ["chrome58"],
@@ -45,7 +45,7 @@ async function watch() {
                 } else {
                     console.log(chalk.green("[server]: Rebuild succeeded :), warnings:"), res.warnings)
                     console.log(chalk.yellow("[server]: Checking types..."))
-                    const p = exec("tsc -p ./src/server", (err) => {
+                    const p = exec("tsc -p ./server", (err) => {
                         if (!err) {
                             console.log(chalk.green("[server]: Typechecking finished without errors :)"))
                         } else {

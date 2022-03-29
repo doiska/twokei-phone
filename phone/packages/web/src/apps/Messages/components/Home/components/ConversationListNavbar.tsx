@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 import usePromptMenu from '@ui/hooks/usePromptMenu';
 
-import { useCheckedConversations, useFilterValueState, useIsEditing } from '@apps/Messages/hooks/state';
-import { useMessageAPI } from '@apps/Messages/hooks/useMessageAPI';
+import { useCheckedConversations, useFilterValueState, useIsEditing } from '@apps/Messages/hooks/messages/messageState';
+import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
 
 const ConversationListNavbar: React.FC = () => {
 	const navigate = useNavigate();
@@ -37,7 +37,9 @@ const ConversationListNavbar: React.FC = () => {
 	return (
 		<>
 			<div className="flex flex-1 flex-row items-center gap-2 px-3 text-lg">
-				<span className="basis-[50%] text-white drop-shadow-2xl">WhatsApp</span>
+				<span className="basis-[50%] text-white drop-shadow-2xl" onClick={() => navigate('profile/edit')}>
+					WhatsApp
+				</span>
 				<input
 					style={{ opacity: showSearch ? '1' : '0' }}
 					className="bg-whatsapp-teal rounded-md px-1 py-0.5 text-base text-white transition-all duration-150 placeholder:text-white focus:outline-none"

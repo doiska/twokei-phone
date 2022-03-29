@@ -1,5 +1,14 @@
+import './config';
 
+import { config as ResourceConfig } from './config';
 
-setImmediate(() => emit('testEvent'));
+export const config = ResourceConfig;
 
-onNet('testServerEvent', () => console.log('Client event receieved'));
+import './db/pool';
+import './players/player.controller';
+
+on('onServerResourceStart', (resourceName: string) => {
+	if (resourceName === GetCurrentResourceName()) {
+		console.log('[TKPhone] Resource successfully loaded.');
+	}
+});

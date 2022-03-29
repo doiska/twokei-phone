@@ -48,3 +48,7 @@ body {
 	-webkit-app-region: no-drag;
 	box-sizing: border-box;
 }
+
+:root {
+	background: none;
+}

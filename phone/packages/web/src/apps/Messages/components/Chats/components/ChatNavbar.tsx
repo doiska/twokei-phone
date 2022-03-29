@@ -10,8 +10,8 @@ import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponent
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
 import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
-import { useMessageActions } from '@apps/Messages/hooks/useMessageActions';
-import useMessages from '@apps/Messages/hooks/useMessages';
+import { useMessageActions } from '@apps/Messages/hooks/messages/useMessageActions';
+import useMessages from '@apps/Messages/hooks/messages/useMessages';
 import { findParticipants } from '@apps/Messages/utils/helpers';
 
 type INavbar = {

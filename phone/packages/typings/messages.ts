@@ -1,3 +1,9 @@
+export interface Profile {
+	source: string;
+	display?: string;
+	avatar?: string;
+}
+
 export interface Message {
 	id: number;
 	message: string;
@@ -73,6 +79,7 @@ export enum MessageEvents {
 	CREATE_MESSAGE_CONVERSATION = 'tkphone:messages:createMessageGroup',
 	CREATE_MESSAGE_CONVERSATION_SUCCESS = 'tkphone:messages:createMessageGroup:success',
 	CREATE_MESSAGE_CONVERSATION_FAILED = 'tkphone:messages:createMessageGroup:failed',
+	UPDATE_MESSAGE_CONVERSATION = 'tkphone:messages:updateMessageGroup',
 	DELETE_MESSAGE_CONVERSATION = 'tkphone:messages:deleteMessageGroup',
 
 	SEND_MESSAGE = 'tkphone:messages:sendMessage',
@@ -84,4 +91,8 @@ export enum MessageEvents {
 	SET_READ_MESSAGE = 'tkphone:messages:setReadMessage',
 
 	CREATE_MESSAGE_BROADCAST = 'tkphone:messages:broadcast',
+
+	SET_PROFILE = 'tkphone:messages:setProfile',
+	FETCH_PROFILE = 'tkphone:messages:fetchProfile',
+	FETCH_ALL_PROFILES = 'tkphone:messages:fetchAllProfiles',
 }

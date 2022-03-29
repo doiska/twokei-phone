@@ -6,4 +6,8 @@ export enum PhoneEvents {
 	CLOSE_APP = 'twokei:app:close',
 
 	SET_NUMBER = 'twokei:system:setNumber',
+	SET_PLAYER_LOADED = 'twokei:system:playerLoaded',
+
+	SEND_CREDENTIALS = 'twokei:system:sendCredentials',
+	FETCH_CREDENTIALS = 'twokei:system:fetchCredentials',
 }

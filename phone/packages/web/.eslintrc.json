@@ -30,6 +30,7 @@
                 "newlinesBetween": "always",
                 "groups": [
                     "/^react/",
+                    "/^recoil/",
                     "module",
                     "/^@shared/",
                     "/^@os/",

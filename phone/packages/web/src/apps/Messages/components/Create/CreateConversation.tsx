@@ -8,7 +8,7 @@ import useCheckedItems from '@ui/hooks/useCheckedItems';
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
 import { useContactsValue } from '@apps/Contacts/hooks/useContacts';
-import { useMessageAPI } from '@apps/Messages/hooks/useMessageAPI';
+import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
 import { MainBody, MainHeader } from '@apps/Messages/MessagesApp.styles';
 
 import OptionIcon from '../Shared/OptionIcon';

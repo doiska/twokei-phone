@@ -1,5 +1,5 @@
 import { ServerPromiseResp } from '@typings/common';
-import { Message, MessageConversation } from '@typings/messages';
+import { Message, MessageConversation, Profile } from '@typings/messages';
 
 export const MockMessageConversations: MessageConversation[] = [
 	{
@@ -58,4 +58,31 @@ export const MockConversationMessage: Message[] = [
 export const MockServerResp: ServerPromiseResp<Message[]> = {
 	data: MockConversationMessage,
 	status: 'ok',
+};
+
+export const MockProfileResp: ServerPromiseResp<Profile> = {
+	status: 'ok',
+	data: {
+		display: 'doiská',
+		source: '0147-0147',
+	},
+};
+
+export const MockProfilesResp: ServerPromiseResp<Profile[]> = {
+	status: 'ok',
+	data: [
+		{
+			source: '123-4567',
+			display: 'eduardo',
+		},
+		{
+			source: '444-444',
+			display: 'seila',
+		},
+		{
+			source: '5678-1234',
+			display: 'nao eh o doiska',
+			avatar: 'https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg',
+		},
+	],
 };

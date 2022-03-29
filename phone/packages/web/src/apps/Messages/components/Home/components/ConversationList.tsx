@@ -7,9 +7,9 @@ import {
 	useFilteredConversationsValue,
 	useIsEditing,
 	useMessagesValue,
-} from '@apps/Messages/hooks/state';
-import { useMessageAPI } from '@apps/Messages/hooks/useMessageAPI';
-import useMessages from '@apps/Messages/hooks/useMessages';
+} from '@apps/Messages/hooks/messages/messageState';
+import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
+import useMessages from '@apps/Messages/hooks/messages/useMessages';
 
 import ConversationListItem from './ConversationListItem';
 

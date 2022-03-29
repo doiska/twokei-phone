@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
 import { useContextMenu } from '@ui/hooks/useContextMenu';
 
-import { useContactsValue } from '@apps/Contacts/hooks/useContacts';
-
 import OptionIcon from '../../Shared/OptionIcon';
 
 const ConversationListIconContext: React.FC = () => {

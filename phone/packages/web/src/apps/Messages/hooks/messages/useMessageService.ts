@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { Message, MessageConversation, MessageEvents } from '@typings/messages';
 import { useNuiEvent } from 'fivem-nui-react-lib';
 
-import { useActiveConversation } from './state';
+import { useActiveConversation } from './messageState';
 import { useMessageActions } from './useMessageActions';
 import { useMessageNotifications } from './useMessageNotifications';
 

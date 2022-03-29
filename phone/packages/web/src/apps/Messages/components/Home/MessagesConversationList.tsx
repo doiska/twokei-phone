@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { MainBody, MainHeader } from '../../MessagesApp.styles';
 import ConversationList from './components/ConversationList';

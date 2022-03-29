@@ -3,8 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
 
-import { useMessageAPI } from '../../hooks/useMessageAPI';
-import useMessages from '../../hooks/useMessages';
+import { useMessageAPI } from '../../hooks/messages/useMessageAPI';
+import useMessages from '../../hooks/messages/useMessages';
 import { MainBody, MainHeader } from '../../MessagesApp.styles';
 import { findParticipants } from '../../utils/helpers';
 import ChatContent from './components/ChatContent';

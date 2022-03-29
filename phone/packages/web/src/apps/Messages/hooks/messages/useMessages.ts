@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { MessageConversation } from '@typings/messages';
 import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState, waitForAll } from 'recoil';
 
-import { messageState, useSetConversationId } from './state';
+import { messageState, useSetConversationId } from './messageState';
 
 interface IUseMessages {
 	conversations?: MessageConversation[];

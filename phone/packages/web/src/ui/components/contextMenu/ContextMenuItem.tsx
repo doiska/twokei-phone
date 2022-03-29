@@ -12,7 +12,7 @@ const ContextMenuItem: React.FC<IContextMenuItem> = ({ option, onClose }) => {
 
 	return (
 		<span
-			className={`w-[70%] cursor-pointer rounded-md bg-opacity-70 p-1 text-center text-sm transition-all duration-150 hover:bg-zinc-600 ${
+			className={`w-[70%] cursor-pointer rounded-md bg-opacity-70 p-1 text-center text-sm transition-all duration-150 hover:bg-zinc-700 ${
 				selected ? 'text-blue-300' : 'text-white'
 			}`}
 		>
