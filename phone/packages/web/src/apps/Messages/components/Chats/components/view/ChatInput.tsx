@@ -4,18 +4,30 @@ import { BsCameraFill } from 'react-icons/bs';
 import { MdKeyboardVoice } from 'react-icons/md';
 import TextareaAutosize from 'react-textarea-autosize';
 
-type IInput = {
-	handleSubmit: (content: string) => void;
-};
+import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
+import useMessages from '@apps/Messages/hooks/messages/useMessages';
 
-const ChatInput: React.FC<IInput> = ({ handleSubmit }) => {
+const ChatInput: React.FC = () => {
 	const [currentMessage, setCurrentMessage] = useState<string>('');
+
+	const { activeConversation } = useMessages();
+	const { sendMessage } = useMessageAPI();
+
+	const handleSendMessage = (content: string) => {
+		if (activeConversation) {
+			sendMessage({
+				conversationId: activeConversation.id,
+				conversationList: activeConversation.conversationList,
+				message: content,
+			});
+		}
+	};
 
 	const isValidMessage = () => currentMessage.trim().length !== 0;
 
 	const validateAndSubmit = () => {
 		if (isValidMessage()) {
-			handleSubmit(currentMessage);
+			handleSendMessage(currentMessage);
 			setCurrentMessage('');
 		}
 	};

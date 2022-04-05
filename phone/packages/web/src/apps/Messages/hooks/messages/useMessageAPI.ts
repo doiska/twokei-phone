@@ -42,12 +42,25 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const sendMessage = useCallback(
 		({ conversationId, message, sourcePhoneNumber, conversationList }: PreDBMessage) => {
-			fetchNui<ServerPromiseResp<Message>>(MessageEvents.SEND_MESSAGE, {
-				conversationId,
-				conversationList,
-				message,
-				sourcePhoneNumber,
-			}).then((resp) => {
+			fetchNui<ServerPromiseResp<Message>>(
+				MessageEvents.SEND_MESSAGE,
+				{
+					conversationId,
+					conversationList,
+					message,
+					sourcePhoneNumber,
+				},
+				{
+					status: 'ok',
+					data: {
+						id: Math.floor(Math.random() * 100),
+						message,
+						conversationId,
+						conversationList,
+						sourcePhoneNumber,
+					},
+				}
+			).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) {
 					console.error(`Could not send ${resp.status} message`);
 					//TODO: alert error
@@ -97,15 +110,17 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const setMessageRead = useCallback(
 		(conversationId: number) => {
-			fetchNui<ServerPromiseResp<void>>(MessageEvents.SET_READ_MESSAGE, undefined, { status: 'ok' }).then((resp) => {
-				if (resp.status !== 'ok') {
-					//TODO: error
-					return;
-				}
+			fetchNui<ServerPromiseResp<void>>(MessageEvents.SET_READ_MESSAGE, undefined, { status: 'ok' }).then(
+				(resp) => {
+					if (resp.status !== 'ok') {
+						//TODO: error
+						return;
+					}
 
-				console.log(`Updating ${conversationId} read state for messages`);
-				setMessageReadState(conversationId, 0);
-			});
+					console.log(`Updating ${conversationId} read state for messages`);
+					setMessageReadState(conversationId, 0);
+				}
+			);
 		},
 		[setMessageReadState]
 	);

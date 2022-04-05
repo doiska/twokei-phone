@@ -5,7 +5,6 @@ import LoadingSpinner from '@ui/components/LoadingSpinner';
 
 import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
 
-import { useMessageAPI } from '../../hooks/messages/useMessageAPI';
 import useMessages from '../../hooks/messages/useMessages';
 import { MainBody, MainHeader } from '../../MessagesApp.styles';
 import { findParticipants } from '../../utils/helpers';
@@ -17,25 +16,14 @@ import ChatNavbar from './components/view/ChatNavbar';
 const ConversationView: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
 
-	const { sendMessage, fetchMessages, setMessageRead } = useMessageAPI();
 	const { activeConversation, setActiveConversation } = useMessages();
 	const { getDisplayListByNumber } = useContactActions();
-
 	const [participants, setParticipants] = useState<string[]>([]);
 
 	const { ContextMenu: MoreMenu, openMenu: openMoreMenu } = ConversationListIconContext(id);
 
 	useEffect(() => {
-		if (id) {
-			fetchMessages(parseInt(id), 0);
-			setMessageRead(parseInt(id));
-		}
-	}, [id, fetchMessages]);
-
-	useEffect(() => {
-		if (id) {
-			setActiveConversation(parseInt(id));
-		}
+		if (id) setActiveConversation(parseInt(id));
 	}, [id, setActiveConversation]);
 
 	useEffect(() => {
@@ -47,24 +35,7 @@ const ConversationView: React.FC = () => {
 		}
 	}, [id, activeConversation]);
 
-	const handleSendMessage = (content: string) => {
-		if (activeConversation) {
-			sendMessage({
-				conversationId: activeConversation.id,
-				conversationList: activeConversation.conversationList,
-				message: content,
-			});
-		}
-	};
-
-	if (!activeConversation) {
-		console.log(`No active conversation`);
-		return (
-			<>
-				<LoadingSpinner />
-			</>
-		);
-	}
+	if (!activeConversation) return <LoadingSpinner />;
 
 	return (
 		<>
@@ -79,7 +50,7 @@ const ConversationView: React.FC = () => {
 				}}
 			>
 				<ChatContent />
-				<ChatInput handleSubmit={handleSendMessage} />
+				<ChatInput />
 			</MainBody>
 			<MoreMenu />
 		</>

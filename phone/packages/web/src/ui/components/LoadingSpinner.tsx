@@ -1,5 +1,5 @@
 import React from 'react';
-import { Audio, Triangle } from 'react-loader-spinner';
+import { Triangle } from 'react-loader-spinner';
 
 const LoadingSpinner: React.FC = () => {
 	return (
