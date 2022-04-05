@@ -1,0 +1,29 @@
+
+Server:
+
+- Adicionar contacts no servidor; [OK]
+
+Phone Web:
+    Project:
+        - Remover idioma dos settings;
+        - Tornar os itens do "contact/view/:id" utilizáveis (open whatsapp, share);
+        - Melhorar componente de botões cancelar/salvar;
+        - Adicionar defaultAvatar ao AvatarWithDefaultComponent;
+        - Adicionar campo label no Conversation label;
+        - Adicionar configurações do grupo;
+
+    Calls:
+        * Aplicativo de ligações
+        - Tela para ligar, receber, durante, ligações perdidas;
+        - Ligar através dos contatos;
+        - Recusar ligação;
+    
+    Gallery:
+        * Aplicativo de galeria
+        - Tela galeria, foto específica, albuns (?);
+        - Todas as imagens do usuário tratadas;
+    
+    Camera:
+        * Aplicativo de câmera
+        - Utilizar screenshot script;
+        - Atalho para a galeria

@@ -1,0 +1,11 @@
+Servidor possui:
+    - Player Controller
+        - Add Player
+        - Remove Player
+        - Get Player
+        - Credentials
+        - Phone number 
+    - Contacts Controller
+        - Add new contact
+        - Update contact
+        - Fetch all contacts
