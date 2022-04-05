@@ -42,10 +42,13 @@ class _DBInterface {
 		return (<ResultSetHeader>res).insertId;
 	}
 
-	public async fetch<T = unknown>(query: string, values?: any[]): Promise<T> {
+	public async fetch<T = unknown>(query: string, values?: any[]): Promise<T[]> {
 		let [rows] = await this._internalQuery(query, values);
 
-		return <T>(<unknown>rows);
+		console.log(`[db] ${query} ${values.join(', ')}`);
+		console.log(`[db] ${JSON.stringify(rows)}`);
+
+		return <T[]>(<unknown>rows);
 	}
 }
 

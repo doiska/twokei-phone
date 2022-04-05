@@ -4,6 +4,9 @@
         "toggleCommand": "phone"
     },
     "database": {
+        "identifier": "license",
+        "remapIdentifier": "char1",
+        "players_table": "users",
         "profileQueries": true
     }
 }

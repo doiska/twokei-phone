@@ -1,5 +1,8 @@
 import { PhoneEvents } from '@typings/phone';
+import { animationService } from 'animations/animation.controller';
+import { AnimationService } from 'animations/animation.service';
 import { config } from 'cl_config';
+import { sendNUIEvent } from 'utils/NUI';
 
 declare global {
 	var isPhoneOpen: boolean;
@@ -19,6 +22,11 @@ onNet(PhoneEvents.SET_PLAYER_LOADED, (state: boolean) => {
 	}
 });
 
+onNet(PhoneEvents.SEND_CREDENTIALS, (number: string) => {
+	console.log(`SEND_CREDENTIALS: ${number}`);
+	sendNUIEvent('SIMCARD', PhoneEvents.SET_NUMBER, number);
+});
+
 export const showPhone = async (): Promise<void> => {
 	global.isPhoneOpen = true;
 
@@ -29,6 +37,8 @@ export const showPhone = async (): Promise<void> => {
 	SetCursorLocation(0.9, 0.922);
 	SetNuiFocus(true, true);
 	SetNuiFocusKeepInput(true);
+	animationService.openPhone();
+
 	emit('tkphone:disableControlActions', true);
 };
 
