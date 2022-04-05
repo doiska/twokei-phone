@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
+import LoadingSpinner from '@ui/components/LoadingSpinner';
 
 import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
 
@@ -13,37 +15,37 @@ import ChatInput from './components/view/ChatInput';
 import ChatNavbar from './components/view/ChatNavbar';
 
 const ConversationView: React.FC = () => {
-	const navigate = useNavigate();
-
 	const { id } = useParams<{ id: string }>();
 
-	const { sendMessage, fetchMessages } = useMessageAPI();
-	const { activeConversation } = useMessages();
+	const { sendMessage, fetchMessages, setMessageRead } = useMessageAPI();
+	const { activeConversation, setActiveConversation } = useMessages();
 	const { getDisplayListByNumber } = useContactActions();
 
 	const [participants, setParticipants] = useState<string[]>([]);
 
-	const [loading, setLoading] = useState<boolean>(true);
-
 	const { ContextMenu: MoreMenu, openMenu: openMoreMenu } = ConversationListIconContext(id);
 
 	useEffect(() => {
-		if (!activeConversation || !id) {
-			setLoading(true);
-			return;
-		} else {
-			setLoading(false);
-		}
-
-		if (!loading) {
+		if (id) {
 			fetchMessages(parseInt(id), 0);
+			setMessageRead(parseInt(id));
+		}
+	}, [id, fetchMessages]);
 
+	useEffect(() => {
+		if (id) {
+			setActiveConversation(parseInt(id));
+		}
+	}, [id, setActiveConversation]);
+
+	useEffect(() => {
+		if (activeConversation) {
 			const found = findParticipants(activeConversation.conversationList, activeConversation.source);
 			const contacts = getDisplayListByNumber(found);
 
-			setParticipants(contacts);
+			setParticipants(['Você', ...contacts]);
 		}
-	}, [id, fetchMessages, activeConversation]);
+	}, [id, activeConversation]);
 
 	const handleSendMessage = (content: string) => {
 		if (activeConversation) {
@@ -54,6 +56,15 @@ const ConversationView: React.FC = () => {
 			});
 		}
 	};
+
+	if (!activeConversation) {
+		console.log(`No active conversation`);
+		return (
+			<>
+				<LoadingSpinner />
+			</>
+		);
+	}
 
 	return (
 		<>

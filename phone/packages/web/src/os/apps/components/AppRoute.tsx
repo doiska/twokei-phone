@@ -1,7 +1,5 @@
 import React from 'react';
 
-import AppWrapper from '@ui/components/AppWrapper';
-
 import AppWithFetch from './AppWithFetch';
 
 type AppElementParams = {
@@ -13,9 +11,7 @@ type AppElementParams = {
 const AppRoute: React.FC<AppElementParams> = ({ id, emitOnOpen, component: Component }) => {
 	return (
 		<AppWithFetch id={id} emitOnOpen={emitOnOpen}>
-			<AppWrapper>
-				<Component />
-			</AppWrapper>
+			<Component />
 		</AppWithFetch>
 	);
 };

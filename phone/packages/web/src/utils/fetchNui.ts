@@ -10,6 +10,8 @@ import LogDebugEvent from '@debug/LogDebugEvent';
 
 import { isEnvBrowser } from './nuiMisc';
 
+const USE_MOCK_RESP = true;
+
 async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?: T): Promise<T> {
 	const options = {
 		method: 'post',
@@ -27,14 +29,17 @@ async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?
 			},
 			action: `fetchNui (${eventName})`,
 		});
-		return mockResp;
+
+		if (USE_MOCK_RESP) return mockResp;
 	}
 
 	const resourceName = (window as any).GetParentResourceName ? (window as any).GetParentResourceName() : 'twokei';
 
 	const resp = await fetch(`https://${resourceName}/${eventName}`, options);
 
-	const responseObj = await resp.json();
+	console.log(`Requesting ${eventName} from ${resourceName} with data: ${JSON.stringify(data)}`);
+
+	const responseObj = await resp.json().catch((err) => console.error(`JSON Parsing issue ${err.message}`, err));
 
 	LogDebugEvent({
 		data: {

@@ -26,7 +26,7 @@ const NavigationBar: React.FC = () => {
 	};
 
 	return (
-		<div className="z-[999] flex h-[6%] w-full basis-[6%] items-center justify-between place-self-end px-12 text-lg text-white backdrop-blur-md">
+		<div className="z-[999] flex h-[6%] w-full basis-[6%] items-center justify-between place-self-end px-12 text-lg text-white">
 			<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
 				<SiLibrariesdotio />
 			</a>

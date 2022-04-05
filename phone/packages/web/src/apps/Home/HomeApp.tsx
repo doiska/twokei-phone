@@ -8,6 +8,8 @@ const HomeApp: React.FC = () => {
 	const { apps } = useApps();
 	const { now } = usePhoneTime();
 
+	console.log('render');
+
 	const [hour, minute] = now.toLocaleString('pt-BR', { timeStyle: 'short' }).split(':');
 	const [dayOfWeek, date] = now.toLocaleString('pt-BR', { year: undefined, dateStyle: 'full' }).split(',');
 

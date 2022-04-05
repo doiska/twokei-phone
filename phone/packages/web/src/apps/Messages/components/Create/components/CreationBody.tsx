@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Contact } from '@typings/contacts';
 import Avatar from '@ui/components/Avatar';
@@ -6,14 +6,27 @@ import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponent
 
 import { useContactsValue } from '@apps/Contacts/hooks/useContacts';
 
-type Props = {
+type CreationBodyProps = {
 	handleCheckConversation: (contact: Contact, state: boolean) => void;
 };
 
-const ConversationContactItem: React.FC<{
+type CreationContactItem = {
 	contact: Contact;
 	handleChecked: (contact: Contact, state: boolean) => void;
-}> = ({ contact, handleChecked }) => {
+};
+
+const CreationBody: React.FC<CreationBodyProps> = ({ handleCheckConversation }) => {
+	const contacts = useContactsValue();
+
+	const items = contacts.map((contact) => {
+		console.log(`Creation body contact.id ${contact.id}`);
+		return <ConversationContactItem key={contact.id} contact={contact} handleChecked={handleCheckConversation} />;
+	});
+
+	return <div className="flex flex-col gap-2 p-3">{items}</div>;
+};
+
+const ConversationContactItem: React.FC<CreationContactItem> = ({ contact, handleChecked }) => {
 	const { number, display, avatar } = contact;
 
 	const [checked, setChecked] = useState<boolean>(false);
@@ -21,12 +34,7 @@ const ConversationContactItem: React.FC<{
 	useEffect(() => handleChecked(contact, checked), [checked]);
 
 	return (
-		<div
-			className="flex flex-row items-center justify-center gap-3"
-			onClick={() => {
-				setChecked((curr) => !curr);
-			}}
-		>
+		<div className="flex flex-row items-center justify-center gap-3" onClick={() => setChecked((curr) => !curr)}>
 			<Avatar check={checked} childrenClassName="w-10">
 				<ImageWithDefaultComponentFallback
 					loadedImage={avatar}
@@ -40,16 +48,6 @@ const ConversationContactItem: React.FC<{
 			</div>
 		</div>
 	);
-};
-
-const CreationBody: React.FC<Props> = ({ handleCheckConversation }) => {
-	const contacts = useContactsValue();
-
-	const items = contacts.map((contact) => (
-		<ConversationContactItem key={contact.id} contact={contact} handleChecked={handleCheckConversation} />
-	));
-
-	return <div className="flex flex-col gap-2 p-3">{items}</div>;
 };
 
 export default CreationBody;

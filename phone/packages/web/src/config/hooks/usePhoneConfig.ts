@@ -1,5 +1,28 @@
-import Default from '@config/default.json';
 import { atom, useRecoilState } from 'recoil';
+
+import Default from '@config/default.json';
+
+type KV = {
+	label: string;
+	value: string;
+};
+
+type KVArray = KV[];
+
+export type PhoneConfig = {
+	provider: string;
+	defaultLanguage: string;
+
+	cases: KVArray;
+	wallpapers: KVArray;
+	languages: KVArray;
+	ringtones: KVArray;
+	notification: KVArray;
+
+	debug: {
+		printLogs: boolean;
+	};
+};
 
 const configState = atom({
 	key: 'config',
@@ -7,14 +30,14 @@ const configState = atom({
 });
 
 export const usePhoneConfig = (state: any = configState) => {
-	const [config, _setConfig] = useRecoilState(state);
+	const [config, _setConfig] = useRecoilState<PhoneConfig>(state);
 
-	const setConfig = (key: any, value: any): any => {
-		_setConfig((oldConfig: any) => ({
-			...oldConfig,
-			[key]: value,
-		}));
-	};
+	// const setConfig = (key: any, value: any): any => {
+	// 	_setConfig((oldConfig: any) => ({
+	// 		...oldConfig,
+	// 		[key]: value,
+	// 	}));
+	// };
 
-	return [config, setConfig];
+	return { config: config, setConfig: _setConfig };
 };

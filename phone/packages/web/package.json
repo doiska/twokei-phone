@@ -2,9 +2,10 @@
 	"name": "@twokei-phone/web",
 	"private": true,
 	"version": "0.0.0",
-    "homepage": "/dist/web",
+	"homepage": "/dist/web",
 	"scripts": {
-		"build:dev": "vite",
+		"build:web": "vite",
+		"build:dev": "vite build --watch",
 		"build:prod": "tsc && vite build --base=./",
 		"preview": "vite preview",
 		"format": "prettier-eslint --write \"src/**/*.{ts,tsx}\""
@@ -19,6 +20,7 @@
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-indiana-drag-scroll": "^2.1.0",
+		"react-loader-spinner": "^6.0.0-0",
 		"react-router-dom": "^6.2.2",
 		"react-spring": "^9.4.4",
 		"react-textarea-autosize": "^8.3.3",
@@ -46,12 +48,12 @@
 		"husky": "^7.0.4",
 		"prettier": "^2.5.1",
 		"prettier-eslint-cli": "^5.0.1",
+		"prettier-plugin-tailwindcss": "^0.1.8",
 		"react-icons": "^4.3.1",
 		"react-toastify": "^8.2.0",
 		"tailwindcss": "^3.0.23",
 		"typescript": "^4.5.4",
 		"vite": "^2.8.0",
-		"vite-tsconfig-paths": "^3.4.1",
-        "prettier-plugin-tailwindcss": "^0.1.8"
+		"vite-tsconfig-paths": "^3.4.1"
 	}
 }

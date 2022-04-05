@@ -6,10 +6,9 @@ import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 
 import usePhoneFormattedDate from '@os/hooks/usePhoneFormattedDate';
-import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
 import { useMessageActions } from '@apps/Messages/hooks/messages/useMessageActions';
-import { getAnyValidAvatar } from '@apps/Messages/utils/helpers';
+import useMessageProfile from '@apps/Messages/hooks/profiles/useMessageProfile';
 
 type IProps = {
 	conversation: MessageConversation;
@@ -28,12 +27,11 @@ const ConversationListItem: React.FC<IProps> = ({
 	handleToggle,
 	handleClick,
 }) => {
-	const phone = usePhoneNumber();
-
 	const { getLabelOrContactDisplay } = useMessageActions();
+	const { getAnyValidAvatar } = useMessageProfile();
 
 	const getLabel = () => getLabelOrContactDisplay(conversation);
-	const getValidAvatar = () => getAnyValidAvatar(conversation, phone);
+	const getValidAvatar = () => getAnyValidAvatar(conversation);
 
 	const latestMessage = messages?.[0];
 	const formattedDate = usePhoneFormattedDate(latestMessage?.date ?? Date.now());

@@ -8,7 +8,8 @@ import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponent
 
 const ContactListItem: React.FC<Contact> = ({ id, display, number, avatar }) => {
 	const navigate = useNavigate();
-	const showInfo = (contactId: number) => navigate(`/contacts/${contactId}`);
+
+	const showInfo = (contactId: number) => navigate(`/contacts/view/${contactId}`);
 
 	return (
 		<div key={id} className="flex h-[7%] flex-row gap-2 rounded-xl bg-zinc-800 p-2">

@@ -19,8 +19,6 @@ const ConversationList: React.FC = () => {
 
 	const { conversations, goToConversation } = useMessages();
 
-	const { setMessageRead } = useMessageAPI();
-
 	const filteredConversations = useFilteredConversationsValue();
 
 	if (!conversations) return <p>Sem conversas.</p>;
@@ -30,10 +28,7 @@ const ConversationList: React.FC = () => {
 
 	useEffect(() => fetchMessages(-1, 0), []);
 
-	const handleClick = (conversation: MessageConversation) => {
-		setMessageRead(conversation.id);
-		goToConversation(conversation.id);
-	};
+	const handleClick = (conversation: MessageConversation) => goToConversation(conversation.id);
 
 	const handleToggleConversation = (conversationId: number) => {
 		const currentIndex = checkedConversation.indexOf(conversationId);
@@ -56,7 +51,7 @@ const ConversationList: React.FC = () => {
 						conversation={conversation}
 						checked={checkedConversation.includes(conversation.id)}
 						isEditing={isEditing}
-						handleClick={handleClick}
+						handleClick={() => handleClick(conversation)}
 						handleToggle={handleToggleConversation}
 						messages={messages.filter((message) => message.conversationId === conversation.id)}
 					/>

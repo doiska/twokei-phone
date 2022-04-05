@@ -75,7 +75,10 @@ const ContactsDetails: React.FC = () => {
 					<div className="flex-1" />
 
 					<div className="flex flex-row justify-around p-3">
-						<div className="flex cursor-pointer flex-col items-center" onClick={() => navigate('edit')}>
+						<div
+							className="flex cursor-pointer flex-col items-center"
+							onClick={() => navigate('/contacts/edit/' + id)}
+						>
 							<IoPencil className="text-xl" />
 							<span className="text-sm">Editar</span>
 						</div>

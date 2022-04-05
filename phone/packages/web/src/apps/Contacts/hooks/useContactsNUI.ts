@@ -19,11 +19,9 @@ export const useContactsNUI = () => {
 					number,
 					avatar,
 				},
-				buildRespObj<PreDBContact>({ display, number, avatar })
+				buildRespObj<PreDBContact>({ display, number, avatar }, 'ok')
 			).then((serverResponse) => {
-				if (serverResponse.status !== 'ok' || !serverResponse.data) {
-					return;
-				}
+				if (serverResponse.status !== 'ok' || !serverResponse.data) return;
 
 				addLocalContact(serverResponse.data as Contact);
 			});

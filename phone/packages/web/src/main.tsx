@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 
+import { RecoilRoot } from 'recoil';
+
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 import PhoneProviders from 'PhoneProviders';
-import { RecoilRoot } from 'recoil';
 
 import './styles/main.css';
 import './styles/animation.css';

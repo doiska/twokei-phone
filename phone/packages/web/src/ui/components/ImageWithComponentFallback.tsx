@@ -19,7 +19,8 @@ const ImageWithDefaultComponentFallback: React.FC<Image> = ({ loadedImage, class
 		<>
 			{!failed && loadedImage ? (
 				<img
-					src={loadedImage}
+                    src={loadedImage}
+                    loading='lazy'
 					className={className}
 					onLoad={() => setFailed(false)}
 					onError={({ currentTarget }) => {

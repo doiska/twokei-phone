@@ -47,12 +47,11 @@ const useMessages = (): IUseMessages => {
 		(id: number) => {
 			if (!navigate) return;
 
-			console.log('go to conversation', id);
+			console.log('Go to conversation', id);
 
-			setActiveConversation(id);
 			setCurrentConversationId(id);
 
-			navigate(`/messages/conversations/view/${id}`);
+			navigate(`/messages/conversations/view/${id.toString()}`);
 		},
 		[setCurrentConversationId, navigate]
 	);

@@ -1,5 +1,12 @@
+interface Phone {
+	toggleKey: string;
+	toggleCommand: string;
+}
+
 interface DatabaseConfig {
-	playerTable: string;
+	identifier: string | 'steam' | 'discord' | 'ip' | 'license' | 'phone';
+	remapIdentifier: string;
+	players_table: string;
 	profileQueries: boolean;
 }
 

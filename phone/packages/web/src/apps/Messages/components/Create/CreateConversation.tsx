@@ -1,17 +1,16 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { MdAdd } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { Contact } from '@typings/contacts';
+import OptionIcon from '@ui/components/OptionIcon';
 import useCheckedItems from '@ui/hooks/useCheckedItems';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { useContactsValue } from '@apps/Contacts/hooks/useContacts';
 import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
 import { MainBody, MainHeader } from '@apps/Messages/MessagesApp.styles';
 
-import OptionIcon from '../Shared/OptionIcon';
 import ConversationBody from './components/CreationBody';
 import CreationNavbar from './components/CreationNavbar';
 
@@ -25,9 +24,6 @@ const CreateConversation: React.FC = () => {
 
 	const handleCreateConversation = () => {
 		if (checked.length > 0) {
-			console.log(checked);
-
-			console.log(checked.length);
 			addConversation({
 				conversationLabel: checked.length > 2 ? 'Group' : 'Chat',
 				isGroupChat: checked.length > 2,

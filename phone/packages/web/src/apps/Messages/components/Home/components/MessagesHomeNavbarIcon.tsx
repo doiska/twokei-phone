@@ -9,7 +9,7 @@ const MessagesHomeNavbarIcon = (): UseContextMenu => {
 	const actions = [
 		{
 			label: 'Perfil',
-			onClick: () => navigate('profile/edit'),
+			onCommit: () => navigate('profile/edit'),
 		},
 	] as IContextMenuOption[];
 

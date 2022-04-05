@@ -4,10 +4,8 @@ const usePhoneTime = () => {
 	const [date, setDate] = useState(new Date());
 
 	useEffect(() => {
-		const id = setInterval(() => setDate(new Date()), 1000);
-		return () => {
-			clearInterval(id);
-		};
+		const id = setInterval(() => setDate(new Date()), 2000);
+		return () => clearInterval(id);
 	}, []);
 
 	return { now: date };

@@ -57,10 +57,11 @@ textarea:focus {
 	outline: none;
 }
 
-input,
-input:focus,
-input:active,
-input:hover,
-input:focus-within {
-	outline: none;
+input[type='text'],
+input[type='text']:focus,
+input[type='text']:active,
+input[type='text']:hover,
+input[type='text']:focus-within {
+	outline: none !important;
+	border: 0;
 }

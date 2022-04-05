@@ -9,12 +9,12 @@ const usePromptMenu = (onConfirm?: () => void, onDeny?: () => void, options?: IC
 		{
 			key: 'confirm',
 			label: 'Confirmar',
-			onClick: () => onConfirm?.(),
+			onCommit: () => onConfirm?.(),
 		},
 		{
 			key: 'cancel',
 			label: 'Cancelar',
-			onClick: () => onDeny?.(),
+			onCommit: () => onDeny?.(),
 		},
 	]);
 

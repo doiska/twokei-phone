@@ -1,5 +1,6 @@
-import { Contact } from '@typings/contacts';
 import { useRecoilCallback } from 'recoil';
+
+import { Contact } from '@typings/contacts';
 
 import { contactsState, useSetContacts } from './useContacts';
 

@@ -5,17 +5,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ContactLimits } from '@typings/contacts';
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
+import { formatNumber } from '@utils/format';
 
 import { useContactActions } from '../hooks/useContactActions';
 import { useContactsNUI } from '../hooks/useContactsNUI';
 import ContactDetailsEditableItem from './details/ContactDetailsEditableItem';
 
-const ContactDetailsEdit: React.FC = () => {
+const ContactEditOrCreate: React.FC = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 
 	const { getContact } = useContactActions();
-	const { updateContact } = useContactsNUI();
+	const { addNewContact, updateContact } = useContactsNUI();
 
 	const contact = id ? getContact(parseInt(id)) : undefined;
 
@@ -41,7 +42,26 @@ const ContactDetailsEdit: React.FC = () => {
 		setAvatar(e.target.value);
 	};
 
-	const handleContactUpdate = () => contact && updateContact({ id: contact.id, display: name, number, avatar });
+	const handleContactUpdate = () => {
+		if (contact) {
+			console.log(`Updating contact`);
+			updateContact({
+				id: contact.id,
+				display: name,
+				number: number,
+				avatar: avatar,
+			});
+		} else {
+			console.log(`Creating contact`);
+			addNewContact({
+				display: name,
+				number: number,
+				avatar: avatar,
+			});
+		}
+
+		navigate('/contacts');
+	};
 
 	return (
 		<div className="flex flex-col items-center justify-center gap-2">
@@ -63,7 +83,7 @@ const ContactDetailsEdit: React.FC = () => {
 				label={'Telefone'}
 				icon={<IoMdPhonePortrait />}
 				type="text"
-				value={number}
+				value={formatNumber(number)}
 				onChange={handleNumberChange}
 			/>
 			<ContactDetailsEditableItem
@@ -77,16 +97,13 @@ const ContactDetailsEdit: React.FC = () => {
 			<div className="flex w-full flex-row items-center justify-center gap-6">
 				<span
 					className="w-24 cursor-pointer rounded-lg bg-zinc-700 p-2 text-center"
-					onClick={() => navigate('/contacts/' + id)}
+					onClick={() => navigate('/contacts')}
 				>
 					Cancelar
 				</span>
 				<span
 					className="w-24 cursor-pointer rounded-lg bg-slate-700 p-2 text-center"
-					onClick={() => {
-						handleContactUpdate();
-						navigate('/contacts/' + id);
-					}}
+					onClick={() => handleContactUpdate()}
 				>
 					Salvar
 				</span>
@@ -95,4 +112,4 @@ const ContactDetailsEdit: React.FC = () => {
 	);
 };
 
-export default ContactDetailsEdit;
+export default ContactEditOrCreate;

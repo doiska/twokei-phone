@@ -21,15 +21,6 @@ export const MockMessageConversations: MessageConversation[] = [
 		updatedAt: 5,
 		isGroupChat: true,
 	},
-	{
-		id: 2,
-		conversationList: '0147-0147+5678-1234',
-		source: '0147-0147',
-		unread: 0,
-		label: '',
-		updatedAt: 5,
-		isGroupChat: false,
-	},
 ];
 
 export const MockConversationMessage: Message[] = [

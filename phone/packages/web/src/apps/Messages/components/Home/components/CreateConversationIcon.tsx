@@ -3,9 +3,8 @@ import { MdAdd } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
+import OptionIcon from '@ui/components/OptionIcon';
 import { useContextMenu } from '@ui/hooks/useContextMenu';
-
-import OptionIcon from '../../Shared/OptionIcon';
 
 const ConversationListIconContext: React.FC = () => {
 	const navigate = useNavigate();
@@ -13,11 +12,11 @@ const ConversationListIconContext: React.FC = () => {
 	const actions = [
 		{
 			label: 'Conversa',
-			onClick: () => navigate('conversations/add/conversation'),
+			onCommit: () => navigate('conversations/add/conversation'),
 		},
 		{
 			label: 'Grupo',
-			onClick: () => navigate('conversations/add/group'),
+			onCommit: () => navigate('conversations/add/group'),
 		},
 	] as IContextMenuOption[];
 

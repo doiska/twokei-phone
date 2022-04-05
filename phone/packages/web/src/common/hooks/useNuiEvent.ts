@@ -3,7 +3,7 @@ import { MutableRefObject, useEffect, useRef } from 'react';
 import LogDebugEvent from '@debug/LogDebugEvent';
 
 interface NuiMessageData<T = unknown> {
-	method: string;
+	event: string;
 	data: T;
 	app: string;
 }
@@ -33,7 +33,7 @@ const useNuiEvent = <T = unknown>(app: string, action: string, handler: (data: T
 
 	useEffect(() => {
 		const eventListener = (event: MessageEvent<NuiMessageData<T>>) => {
-			const { method: eventAction, app: tgtApp, data } = event.data;
+			const { event: eventAction, app: tgtApp, data } = event.data;
 
 			if (savedHandler.current) {
 				if (eventAction === action && tgtApp === app) {

@@ -5,13 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
+import OptionIcon from '@ui/components/OptionIcon';
 import usePromptMenu from '@ui/hooks/usePromptMenu';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
 import { useMessageProfileAPI } from '@apps/Messages/hooks/profiles/useMessageProfileAPI';
-
-import OptionIcon from '../../Shared/OptionIcon';
 
 const UserProfileBody: React.FC = () => {
 	const navigate = useNavigate();

@@ -47,7 +47,7 @@ export interface MessageConversation {
 
 export interface PreDBMessageConversation {
 	participants: string[];
-	conversationLabel: string;
+	conversationLabel?: string;
 	isGroupChat: boolean;
 }
 

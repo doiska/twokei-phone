@@ -9,11 +9,11 @@ const ConversationListIconContext = (conversationId: string | undefined): UseCon
 	const actions = [
 		{
 			label: 'Detalhes',
-			onClick: () => navigate(`/messages/conversations/details/${conversationId}`),
+			onCommit: () => navigate(`/messages/conversations/details/${conversationId}`),
 		},
 		{
 			label: 'Configurações',
-			onClick: () => navigate(`/messages/conversations/settings/${conversationId}`),
+			onCommit: () => navigate(`/messages/conversations/settings/${conversationId}`),
 		},
 	] as IContextMenuOption[];
 

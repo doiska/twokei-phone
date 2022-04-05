@@ -8,6 +8,9 @@ export default defineConfig({
 	root: '.',
 	build: {
 		outDir: '../../dist/web',
+		sourcemap: true,
+		write: true,
+        
 	},
 	plugins: [react(), tsconfigPaths()],
 });

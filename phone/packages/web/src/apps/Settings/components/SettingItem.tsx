@@ -64,7 +64,7 @@ type PropsWithOptions = Props & {
 	options: IContextMenuOption[];
 };
 
-const SettingsItemSelect: React.FC<PropsWithOptions> = ({ title, label, icon, value, onCommit, onOpen, options }) => {
+const SettingsItemSelect: React.FC<PropsWithOptions> = ({ title, label, icon, onCommit, onOpen, options }) => {
 	return (
 		<SettingsItemBody icon={icon}>
 			<SettingsItemLabel label={title ?? label} /*icon={icon}*/ />
@@ -75,7 +75,8 @@ const SettingsItemSelect: React.FC<PropsWithOptions> = ({ title, label, icon, va
 						options = options.map((option) => ({
 							...option,
 							selected: option.value === label,
-							onClick: (e: React.MouseEvent, option: IContextMenuOption) => onCommit(e, option.value, option.label),
+							onCommit: (e: React.MouseEvent, option: IContextMenuOption) =>
+								onCommit(e, option.value, option.label),
 						}));
 
 						onOpen?.(options);

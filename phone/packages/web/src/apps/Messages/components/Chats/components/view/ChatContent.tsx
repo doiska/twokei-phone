@@ -11,8 +11,6 @@ import { useActiveConversation, useMessagesState } from '@apps/Messages/hooks/me
 import ChatText from './ChatText';
 
 const ChatContent: React.FC = () => {
-	const navigate = useNavigate();
-
 	const phone = usePhoneNumber();
 	const [messages, setMessages] = useMessagesState();
 	const activeConversation = useActiveConversation();
@@ -20,19 +18,8 @@ const ChatContent: React.FC = () => {
 	const [filteredMessages, setFilteredMessages] = useState<Message[]>([]);
 
 	useEffect(() => {
-		if (!activeConversation) {
-			navigate('/messages');
-			return;
-		}
-
 		setFilteredMessages(() => {
-			const fetchedMessages = [...messages];
-
-			return fetchedMessages.sort((x, y) => {
-				if (!x.date || !y.date) console.log(`No date ${x} ${y}`);
-
-				return x.date && y.date ? x.date - y.date : -1;
-			});
+			return [...messages].sort((x, y) => (x.date && y.date ? x.date - y.date : -1));
 		});
 	}, [messages, setMessages, activeConversation]);
 

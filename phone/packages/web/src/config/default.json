@@ -2,16 +2,25 @@
 	"provider": "",
 	"defaultLanguage": "pt_BR",
 	"cases": [
-		{
-			"label": "Default",
-			"value": "default.png"
-		}
+		{ "label": "Padrão", "value": "default.png" },
+        { "label": "iPhone 13", "value": "iphone13.png" },
+        { "label": "iPhone 13 Branco", "value": "iphone13-white.png" },
+        { "label": "Kawaii", "value": "kawaii.png" },
+        { "label": "One Plus 8", "value": "oneplus8.png" },
+        { "label": "Pixel", "value": "pixel.png" },
+        { "label": "Pixel 4", "value": "pixel4.png" },
+        { "label": "Pixel 4 Branco", "value": "pixel4-white.png" },
+        { "label": "Pixel 5", "value": "pixel5.png" }
 	],
 	"wallpapers": [
 		{
-			"label": "doiska",
-			"value": "doiska.png"
-		}
+			"label": "default",
+			"value": "default.jpg"
+		},
+        {
+            "label": "teste",
+            "value": "teste.jpg"
+        }
 	],
 	"languages": [
 		{

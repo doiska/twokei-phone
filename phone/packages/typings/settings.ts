@@ -20,6 +20,11 @@ export interface IPhoneSettings {
 	notificationSoundVolume: number;
 }
 
+export enum KvpItems {
+	TK_RINGTONE = 'tk-ringtone',
+	TK_NOTIFICATION = 'tk-notification',
+}
+
 export enum SettingsEvents {
 	NUI_SETTINGS_UPDATE = 'tkphone:nui:settingsUpdated',
 }

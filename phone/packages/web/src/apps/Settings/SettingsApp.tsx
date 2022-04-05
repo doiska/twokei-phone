@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsZoomIn } from 'react-icons/bs';
 import { GiSoundOn } from 'react-icons/gi';
 import {
@@ -10,6 +10,7 @@ import {
 	IoMusicalNotesSharp,
 } from 'react-icons/io5';
 
+import { usePhoneConfig } from '@config/hooks/usePhoneConfig';
 import { useContextMenu } from '@ui/hooks/useContextMenu';
 import GenericApp from '@ui/os/GenericApp';
 import GenericBody from '@ui/os/GenericBody';
@@ -22,6 +23,7 @@ import { useSettings } from './hooks/useSettings';
 const SettingsApp: React.FC = () => {
 	const [settings, setSettings] = useSettings();
 	const { openMenu, ContextMenu } = useContextMenu();
+	const { config } = usePhoneConfig();
 
 	const handleSettingsChange = (key: string | number, value: unknown, label?: unknown) => {
 		if (label) {
@@ -49,17 +51,9 @@ const SettingsApp: React.FC = () => {
 						value={settings.language}
 						onCommit={(e, v) => handleSettingsChange('language', v)}
 						onOpen={openMenu}
-						options={[
-							{
-								label: 'Português',
-								value: 'pt_BR',
-							},
-							{
-								label: 'English',
-								value: 'en_US',
-							},
-						]}
+						options={config.languages}
 					/>
+
 					<SettingsItemSelect
 						title={'Wallpaper'}
 						label={settings.wallpaper.label}
@@ -67,16 +61,7 @@ const SettingsApp: React.FC = () => {
 						icon={<IoImageOutline />}
 						onCommit={(e, v, k) => handleSettingsChange('wallpaper', v, k)}
 						onOpen={openMenu}
-						options={[
-							{
-								label: 'Padrão',
-								value: 'default.jpg',
-							},
-							{
-								label: 'Teste',
-								value: 'teste.jpg',
-							},
-						]}
+						options={config.wallpapers}
 					/>
 					<SettingsItemSelect
 						title={'Case'}
@@ -85,12 +70,7 @@ const SettingsApp: React.FC = () => {
 						icon={<IoPhonePortraitOutline />}
 						onCommit={(e, v, k) => handleSettingsChange('case', v, k)}
 						onOpen={openMenu}
-						options={[
-							{
-								label: 'Padrão',
-								value: 'default.png',
-							},
-						]}
+						options={config.cases}
 					/>
 					<SettingsItemRange
 						label="Zoom"

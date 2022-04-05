@@ -97,7 +97,7 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const setMessageRead = useCallback(
 		(conversationId: number) => {
-			fetchNui<ServerPromiseResp<void>>(MessageEvents.SET_READ_MESSAGE, {}, { status: 'ok' }).then((resp) => {
+			fetchNui<ServerPromiseResp<void>>(MessageEvents.SET_READ_MESSAGE, undefined, { status: 'ok' }).then((resp) => {
 				if (resp.status !== 'ok') {
 					//TODO: error
 					return;
@@ -122,7 +122,7 @@ export const useMessageAPI = (): UseMessageAPI => {
 				{
 					status: 'ok',
 					data: {
-						id: Math.random(),
+						id: Math.floor(Math.random() * 1000),
 						conversationList: conversation.participants.join('+'),
 						isGroupChat: conversation.isGroupChat,
 						admins: [conversation.participants[0]],

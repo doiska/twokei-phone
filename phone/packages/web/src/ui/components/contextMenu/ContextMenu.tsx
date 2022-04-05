@@ -4,7 +4,7 @@ import { useTransition, animated } from '@react-spring/web';
 
 import useHandleOutsideClick from '@os/hooks/useHandleOutsideClick';
 
-import ContextMenuItem from './ContextMenuItem';
+import ContextMenuItemOption from './ContextMenuItemOption';
 
 export interface IContextMenuOption {
 	key?: string;
@@ -13,8 +13,14 @@ export interface IContextMenuOption {
 	description?: string;
 	selected?: boolean;
 	icon?: React.ReactNode;
-	onClick?(e: unknown, option: unknown): void;
+	optionType?: 'input' | 'option';
+	onCommit?(e: unknown, option: unknown): void;
 }
+
+export type IContextMenuItem = {
+	option: IContextMenuOption;
+	onClose: () => void;
+};
 
 interface ContextMenuProps {
 	title?: string;
@@ -44,7 +50,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ isOpen, options, onClose, tit
 					<div className="flex h-full w-full flex-col items-center justify-center overflow-auto">
 						<div
 							ref={context}
-							className="flex w-[50%] flex-col items-center justify-center rounded-lg border-[1px] border-slate-100 bg-zinc-800 bg-opacity-75 p-4"
+							className="flex min-w-[50%] flex-col items-center justify-center gap-1 rounded-lg border-[1px] border-slate-100 bg-zinc-800 bg-opacity-75 p-4"
 							style={{
 								backdropFilter: 'blur(4px)',
 							}}
@@ -55,7 +61,11 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ isOpen, options, onClose, tit
 								</span>
 							)}
 							{options.map((option) => (
-								<ContextMenuItem key={option.key ?? option.label} option={option} onClose={onClose} />
+								<ContextMenuItemOption
+									key={option.key ?? option.label}
+									option={option}
+									onClose={onClose}
+								/>
 							))}
 						</div>
 					</div>
