@@ -25,24 +25,26 @@ const ContactEditOrCreate: React.FC = () => {
 	const [avatar, setAvatar] = useState(() => contact?.avatar || '');
 
 	const handleDisplayChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		const input = e.currentTarget.value;
+		const input = e.target.value;
 		if (input.length >= ContactLimits.display) return;
 		setName(e.target.value);
 	};
 
 	const handleNumberChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		const input = e.currentTarget.value;
-		if (input.length >= ContactLimits.number) return;
+		const input = e.target.value;
+		if (input.length >= ContactLimits.number || isNaN(parseInt(input))) return;
 		setNumber(e.target.value);
 	};
 
 	const handleAvatarChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		const input = e.currentTarget.value;
+		const input = e.target.value;
 		if (input.length >= ContactLimits.avatar) return;
 		setAvatar(e.target.value);
 	};
 
 	const handleContactUpdate = () => {
+		if (!name || !number) return;
+
 		if (contact) {
 			console.log(`Updating contact`);
 			updateContact({
@@ -78,6 +80,7 @@ const ContactEditOrCreate: React.FC = () => {
 				type="text"
 				value={name}
 				onChange={handleDisplayChange}
+				required={true}
 			/>
 			<ContactDetailsEditableItem
 				label={'Telefone'}
@@ -85,6 +88,7 @@ const ContactEditOrCreate: React.FC = () => {
 				type="text"
 				value={formatNumber(number)}
 				onChange={handleNumberChange}
+				required={true}
 			/>
 			<ContactDetailsEditableItem
 				label={'Avatar'}

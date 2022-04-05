@@ -10,6 +10,13 @@ interface DatabaseConfig {
 	profileQueries: boolean;
 }
 
+interface DebugConfig {
+	enabled: boolean;
+	level: 'info' | 'verbose' | 'debug' | 'silly';
+}
+
 export interface ResourceConfig {
+	phone: Phone;
 	database: DatabaseConfig;
+	debug: DebugConfig;
 }

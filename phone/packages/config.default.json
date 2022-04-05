@@ -8,5 +8,9 @@
         "remapIdentifier": "char1",
         "players_table": "users",
         "profileQueries": true
+    },
+    "debug": {
+        "enabled": true,
+        "level": "verbose"
     }
 }

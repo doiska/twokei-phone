@@ -34,6 +34,7 @@ export const useContactsNUI = () => {
 			fetchNui<ServerPromiseResp<Contact>>(
 				ContactEvents.UPDATE_CONTACT,
 				{
+					id,
 					display,
 					number,
 					avatar,

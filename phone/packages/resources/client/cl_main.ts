@@ -15,11 +15,15 @@ global.isPhoneDisabled = false;
 global.isPlayerLoaded = false;
 
 onNet(PhoneEvents.SET_PLAYER_LOADED, (state: boolean) => {
-	global.isPlayerLoaded = state;
+	console.log(`Player loaded`);
 
-	if (!state) {
-		//TODO: sendMessage UNLOAD_CHARACTER
-	}
+    global.isPlayerLoaded = state;
+
+	// global.isPlayerLoaded = data.state;
+
+	// if (!state) {
+	// 	//TODO: sendMessage UNLOAD_CHARACTER
+	// }
 });
 
 onNet(PhoneEvents.SEND_CREDENTIALS, (number: string) => {

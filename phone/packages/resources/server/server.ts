@@ -6,6 +6,7 @@ export const config = ResourceConfig;
 
 import './db/pool';
 import './players/player.controller';
+import './contacts/contacts.controller';
 
 on('onServerResourceStart', (resourceName: string) => {
 	if (resourceName === GetCurrentResourceName()) {

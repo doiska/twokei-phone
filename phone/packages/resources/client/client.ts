@@ -2,6 +2,7 @@ import './cl_config';
 
 import './cl_main';
 import './cl_controls';
+import './cl_contacts';
 
 import './settings/settings.controller';
 

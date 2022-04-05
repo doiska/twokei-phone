@@ -42,6 +42,14 @@ class _DBInterface {
 		return (<ResultSetHeader>res).insertId;
 	}
 
+	public async update(query: string, values?: any[]) {
+		return this.exec(query, values);
+	}
+
+	public async remove(query: string, values?: any[]) {
+		return this.exec(query, values);
+	}
+
 	public async fetch<T = unknown>(query: string, values?: any[]): Promise<T[]> {
 		let [rows] = await this._internalQuery(query, values);
 
@@ -52,6 +60,4 @@ class _DBInterface {
 	}
 }
 
-const DBWrapper = new _DBInterface();
-
-export default DBWrapper;
+export default new _DBInterface();

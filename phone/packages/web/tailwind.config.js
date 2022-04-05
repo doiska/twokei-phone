@@ -21,10 +21,18 @@ module.exports = {
             },
 			width: {
 				phone: '500px',
+                'phone-body': '100%'
 			},
 			height: {
 				phone: '1000px',
+                'phone-body': '91%'
 			},
+            maxWidth: {
+                'phone-body': '100%'
+            },
+            maxHeight: {
+                'phone-body': '91%'
+            }
 		},
 	},
 	plugins: [require('daisyui')],

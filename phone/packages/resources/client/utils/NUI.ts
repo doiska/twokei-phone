@@ -63,9 +63,13 @@ export const RegisterNUIProxy = (event: string) => {
 	RegisterNuiCallbackType(event);
 
 	on(`__cfx_nui:${event}`, async (data: unknown, cb: Function) => {
-		if (!global.isPlayerLoaded) await isPlayerLoaded();
+		if (!global.isPlayerLoaded) {
+			console.log(`Player not loaded, awaiting`);
+			await isPlayerLoaded();
+		}
 
 		try {
+			console.log(`Proxied ${event} with data: ${JSON.stringify(data)}`);
 			const res = await emitNetPromise(event, data);
 			cb(res);
 		} catch (e) {

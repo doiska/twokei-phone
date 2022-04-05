@@ -6,8 +6,8 @@ onNet(PhoneEvents.FETCH_CREDENTIALS, () => {
 	const source = getSource();
 	const phone = PlayerService.getPlayer(source).phoneNumber;
 
-	console.log(`Fetch credentials: ${phone}`);
-    
+	console.log(`[PLAYER] Fetch credentials: ${source} | ${phone}`);
+
 	emitNet(PhoneEvents.SEND_CREDENTIALS, source, phone);
 });
 
@@ -28,10 +28,12 @@ on('playerDropped', async () => {
 
 on('onServerResourceStart', async (resource: string) => {
 	if (resource === GetCurrentResourceName()) {
-		const online = getPlayers();
+		setTimeout(() => {
+			const online = getPlayers();
 
-		for (const p of online) {
-			await PlayerService.handleNewPlayer(parseInt(p));
-		}
+			for (const p of online) {
+				PlayerService.handleNewPlayer(parseInt(p));
+			}
+		}, 1000);
 	}
 });

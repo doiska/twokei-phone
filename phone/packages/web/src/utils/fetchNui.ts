@@ -37,9 +37,9 @@ async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?
 
 	const resp = await fetch(`https://${resourceName}/${eventName}`, options);
 
-	console.log(`Requesting ${eventName} from ${resourceName} with data: ${JSON.stringify(data)}`);
+	console.info(`[TKPhone] fetchNui (${eventName})`, resp, data);
 
-	const responseObj = await resp.json().catch((err) => console.error(`JSON Parsing issue ${err.message}`, err));
+	const responseObj = await resp?.json().catch((err) => console.error(`JSON Parsing issue ${err.message}`, err));
 
 	LogDebugEvent({
 		data: {

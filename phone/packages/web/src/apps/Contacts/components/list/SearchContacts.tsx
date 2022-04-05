@@ -15,13 +15,15 @@ const SearchContacts: React.FC = () => {
 	}, [debounced, setFilterVal]);
 
 	return (
-		<input
-			type="text"
-			className="input input-sm mx-2 inline-flex w-full max-w-xs self-center transition-all duration-200 focus-visible:outline-0"
-			placeholder="Placeholder"
-			value={input}
-			onChange={(e) => setInput(e.target.value)}
-		/>
+		<div className="flex items-center justify-center p-3">
+			<input
+				type="text"
+				className="input input-sm w-2/3 transition-all duration-200 focus-visible:outline-0"
+				placeholder="Placeholder"
+				value={input}
+				onChange={(e) => setInput(e.target.value)}
+			/>
+		</div>
 	);
 };
 

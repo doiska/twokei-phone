@@ -21,7 +21,7 @@ const ContactListItem: React.FC<Contact> = ({ id, display, number, avatar }) => 
 				/>
 			</Avatar>
 			<div className="flex h-full flex-1 flex-col">
-				<span className="text-sm">{display}</span>
+				<span className="text-sm">{display.substring(0, 40)}</span>
 				<span className="text-xs">{number}</span>
 			</div>
 			<div className="mr-3 flex flex-row gap-2 text-lg">

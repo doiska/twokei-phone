@@ -78,8 +78,6 @@ class _PlayerService {
 
 		this.registerPlayer(source, newPlayer);
 
-		console.log(`New player loaded`, newPlayer);
-
 		emitNet(PhoneEvents.SET_PLAYER_LOADED, source, true);
 	}
 
@@ -91,6 +89,7 @@ class _PlayerService {
 		this.unRegisterPlayer(source);
 
 		console.log(`Player disconnected`, player);
+		emitNet(PhoneEvents.SET_PLAYER_LOADED, source, false);
 	}
 }
 

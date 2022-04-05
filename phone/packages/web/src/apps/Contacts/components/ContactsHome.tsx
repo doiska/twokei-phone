@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdAdd } from 'react-icons/md';
+import ScrollContainer from 'react-indiana-drag-scroll';
 import { useNavigate } from 'react-router-dom';
 
 import OptionIcon from '@ui/components/OptionIcon';
@@ -14,23 +15,25 @@ const ContactsHome: React.FC = () => {
 	const filteredContacts = useFilteredContactsByInitial();
 	const entries = Object.entries(filteredContacts);
 
+	const contacts = entries.map(([category, contacts]) => (
+		<ContactCategory key={category} title={category}>
+			{contacts.map((props) => {
+				console.log(props);
+				return <ContactListItem key={`${category}-${props.id}`} {...props} />;
+			})}
+		</ContactCategory>
+	));
+
 	return (
 		<>
-			<div className="flex flex-col gap-2">
-				<SearchContacts />
-				{entries.length === 0 && <span className="text-center">Você não possui contatos</span>}
-				{entries.map(([key, contacts]) => {
-					return (
-						<ContactCategory key={key} title={key}>
-							{contacts.map((props) => {
-								console.log(props);
-
-								return <ContactListItem key={`${key}-${props.id}`} {...props} />;
-							})}
-						</ContactCategory>
-					);
-				})}
-			</div>
+			<SearchContacts />
+			<ScrollContainer
+				draggingClassName="cursor-grab"
+				className="h-phone-body select-none snap-y overflow-y-scroll"
+				horizontal={false}
+			>
+				{contacts}
+			</ScrollContainer>
 			<OptionIcon icon={<MdAdd />} childrenBackground="bg-zinc-700" onClick={() => navigate('/contacts/edit')} />
 		</>
 	);
