@@ -53,9 +53,6 @@ class _DBInterface {
 	public async fetch<T = unknown>(query: string, values?: any[]): Promise<T[]> {
 		let [rows] = await this._internalQuery(query, values);
 
-		console.log(`[db] ${query} ${values.join(', ')}`);
-		console.log(`[db] ${JSON.stringify(rows)}`);
-
 		return <T[]>(<unknown>rows);
 	}
 }

@@ -24,14 +24,19 @@ export interface PreDBMessage {
 }
 
 export interface CreateMessageDTO {
-	userId: string;
 	converstationId: number;
+	sourceIdentifier: string;
 	sourcePhoneNumber: string;
 	message: string;
 	is_embed: boolean;
-	embed: any;
+	embed?: any;
 }
-
+export interface PreDBMessageConversation {
+	source: string;
+	participants: string[];
+	conversationLabel?: string;
+	isGroupChat: boolean;
+}
 export interface MessageConversation {
 	id: number;
 	label: string;
@@ -43,12 +48,6 @@ export interface MessageConversation {
 	unread?: number;
 	unreadCount?: number;
 	updatedAt?: number;
-}
-
-export interface PreDBMessageConversation {
-	participants: string[];
-	conversationLabel?: string;
-	isGroupChat: boolean;
 }
 
 export interface MessagesRequest {
