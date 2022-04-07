@@ -18,7 +18,7 @@ async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?
 		headers: {
 			'Content-Type': 'application/json; charset=UTF-8',
 		},
-		body: JSON.stringify(data),
+		body: JSON.stringify(data) ?? '',
 	};
 
 	if (isEnvBrowser() && mockResp) {
@@ -35,11 +35,15 @@ async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?
 
 	const resourceName = (window as any).GetParentResourceName ? (window as any).GetParentResourceName() : 'twokei';
 
-	const resp = await fetch(`https://${resourceName}/${eventName}`, options);
+	const resp = await fetch(`https://${resourceName}/${eventName}`, options).catch((e) =>
+		console.error(`Failed to fetch ${eventName}`, e)
+	);
 
 	console.info(`[TKPhone] fetchNui (${eventName})`, resp, data);
 
-	const responseObj = await resp?.json().catch((err) => console.error(`JSON Parsing issue ${err.message}`, err));
+	const responseObj = await resp
+		?.json()
+		.catch((err) => console.error(`${eventName} -- JSON Parsing issue ${err.message}`, err));
 
 	LogDebugEvent({
 		data: {

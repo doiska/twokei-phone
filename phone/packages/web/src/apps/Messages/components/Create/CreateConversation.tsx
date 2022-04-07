@@ -23,22 +23,28 @@ const CreateConversation: React.FC = () => {
 	const { checked, addChecked, removeChecked } = useCheckedItems<Contact>();
 
 	const handleCreateConversation = () => {
+		if (!phone) {
+			console.log(`Tried to create conversation without a phone number.`);
+			navigate('/');
+			return;
+		}
+
 		if (checked.length > 0) {
 			addConversation({
 				conversationLabel: checked.length > 2 ? 'Group' : 'Chat',
-				isGroupChat: checked.length > 2,
-				participants: [phone ?? '0147-0147', ...checked.map((contact) => contact.number)],
+				isGroupChat: checked.length > 1,
+				participants: [phone, ...checked.map((contact) => contact.number)],
+				source: phone,
 			});
 
 			navigate(`/messages`);
 		} else {
-			console.log('No contacts selected');
+            //TODO: no contacts selected
 		}
 	};
 
 	const handleCheck = useCallback(
 		(contact: Contact, state: boolean) => {
-			console.log(contact.display, state);
 			if (state) {
 				addChecked([contact]);
 			} else {

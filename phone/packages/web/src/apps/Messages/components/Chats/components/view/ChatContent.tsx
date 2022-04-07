@@ -3,39 +3,57 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
 
 import { ServerPromiseResp } from '@typings/common';
-import { Message, MessageEvents } from '@typings/messages';
-import LoadingSpinner from '@ui/components/LoadingSpinner';
+import { Message, MessageConversation, MessageEvents } from '@typings/messages';
+import { RingsLoader } from '@ui/components/LoadingSpinner';
 import fetchNui from '@utils/fetchNui';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { useConversationId, useMessagesState } from '@apps/Messages/hooks/messages/messageState';
-import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
+import { useConversationId, useSetMessages } from '@apps/Messages/hooks/messages/messageState';
+import { MockServerResp } from '@apps/Messages/utils/constants';
 
-import ChatText from './ChatText';
+import MessageBubble from './ChatText';
 
-const ChatContent: React.FC = () => {
+type IChatContent = {
+	activeMessage: MessageConversation;
+	messages: Message[];
+};
+
+const ChatContent: React.FC<IChatContent> = ({ activeMessage, messages }) => {
+	const ref = useRef<HTMLDivElement>(null);
+
 	const phone = usePhoneNumber();
+
 	const navigate = useNavigate();
 	const conversationId = useConversationId();
 
-	const { fetchMessages } = useMessageAPI();
-	const [messages, setMessages] = useMessagesState();
+	const setMessages = useSetMessages();
 
-	const [filteredMessages, setFilteredMessages] = useState<Message[]>([]);
 	const [hasMore, setHasMore] = useState(!!messages.length);
 	const [page, setPage] = useState(1);
 
 	useEffect(() => {
-		setFilteredMessages(() => [...messages].sort((x, y) => (x.date && y.date ? x.date - y.date : -1)));
-	}, [messages, setMessages, conversationId]);
+		if (ref.current) ref.current.scrollTo(0, ref.current.scrollHeight);
+	}, []);
 
 	const handleNextPage = useCallback(() => {
-		if (conversationId) {
-			fetchNui<ServerPromiseResp<Message[]>>(MessageEvents.FETCH_MESSAGES, {
-				id: conversationId,
-				page,
-			})
+		if (conversationId !== null) {
+			fetchNui<ServerPromiseResp<Message[]>>(
+				MessageEvents.FETCH_MESSAGES,
+				{
+					id: conversationId,
+					page,
+				}
+				// {
+				// 	status: 'ok',
+				// 	data: MockServerResp.data?.map((c) => {
+				// 		const clone = { ...c };
+				// 		clone.id = Math.floor(Math.random() * 10000) + Date.now();
+				// 		console.log(c.id);
+				// 		return clone;
+				// 	}),
+				// }
+			)
 				.then((resp) => {
 					if (resp.status !== 'ok') {
 						navigate('/messages');
@@ -55,40 +73,45 @@ const ChatContent: React.FC = () => {
 					setMessages((prev) => [...prev, ...messages]);
 				})
 				.catch((e) => {
-					console.log(e);
+					console.log(`Error fetching messages: ${e}`);
 					setHasMore(false);
 				});
+		} else {
+			setHasMore(false);
 		}
-	}, [conversationId]);
+	}, [conversationId, setMessages, page, setPage]);
 
-	const content = filteredMessages.map((message) => (
-		<ChatText
-			key={`${message.id}-${message.conversationId}`}
-			position={`${message.author === phone ? 'right' : 'left'}`}
-			message={message}
-		/>
-	));
 
 	return (
-		<div id="scroll-container" className="max-h-phone-body flex-1 select-none overflow-auto p-2">
-			<InfiniteScroll
-				inverse={true}
-				hasMore={hasMore}
-				next={handleNextPage}
-				loader={<LoadingSpinner />}
-				dataLength={messages.length}
-				scrollableTarget="scroll-container"
-				endMessage={
-					<p style={{ textAlign: 'center' }}>
-						<b>Yay! You have seen it all</b>
-					</p>
-				}
-				pullDownToRefreshThreshold={50}
-				pullDownToRefreshContent={<h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>}
-				releaseToRefreshContent={<h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>}
+		<div className="h-phone-body flex-1 select-none p-2">
+			<div
+				id="parent"
+				style={{
+					overflow: 'auto',
+					maxHeight: 580,
+					display: 'flex',
+					flexDirection: 'column-reverse',
+				}}
+				ref={ref}
 			>
-				<ul className="flex flex-col gap-2 px-2 transition-all duration-500">{content}</ul>
-			</InfiniteScroll>
+				<InfiniteScroll
+					dataLength={messages.length}
+					next={handleNextPage}
+					hasMore={hasMore}
+					loader={<RingsLoader color="black" height={50} />}
+					className="flex flex-col-reverse gap-2 px-2"
+					inverse={true}
+					scrollableTarget="parent"
+				>
+					{messages.map((message) => (
+						<MessageBubble
+							key={message.id}
+							position={message.author === (phone ?? '') ? 'left' : 'right'}
+							message={message}
+						/>
+					))}
+				</InfiniteScroll>
+			</div>
 		</div>
 	);
 };

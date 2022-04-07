@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useDebouce } from '@os/hooks/useDebouce';
 
-import { useSetContactFilterInput } from '../../hooks/useContacts';
+import { useSetContactFilterInput } from '../../hooks/contactsState';
 
 const SearchContacts: React.FC = () => {
 	const setFilterVal = useSetContactFilterInput();

@@ -7,7 +7,7 @@ import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 import { formatNumber } from '@utils/format';
 
-import { useContactActions } from '../hooks/useContactActions';
+import useContacts from '../hooks/useContacts';
 import { useContactsNUI } from '../hooks/useContactsNUI';
 import ContactDetailsEditableItem from './details/ContactDetailsEditableItem';
 
@@ -15,7 +15,7 @@ const ContactEditOrCreate: React.FC = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 
-	const { getContact } = useContactActions();
+	const { getContact } = useContacts();
 	const { addNewContact, updateContact } = useContactsNUI();
 
 	const contact = id ? getContact(parseInt(id)) : undefined;

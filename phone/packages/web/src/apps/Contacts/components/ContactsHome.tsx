@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import OptionIcon from '@ui/components/OptionIcon';
 
 import { ContactCategory } from '../ContactsApp.styles';
-import { useFilteredContactsByInitial } from '../hooks/useContacts';
+import { useFilteredContactsByInitial } from '../hooks/contactsState';
 import ContactListItem from './list/ContactListItem';
 import SearchContacts from './list/SearchContacts';
 

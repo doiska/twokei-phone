@@ -7,7 +7,7 @@ import { Message, MessageConversation } from '@typings/messages';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { useContactActions } from '@apps/Contacts/hooks/useContactActions';
+import useContacts from '@apps/Contacts/hooks/useContacts';
 
 import { messageState, useConversationId, useSetConversations, useSetMessages } from './messageState';
 
@@ -21,7 +21,7 @@ interface MessageActions {
 	setMessageReadState: (conversationId: number, unreadCount: number) => void;
 
 	getLabelOrContactDisplay: (conversation: MessageConversation) => string;
-	getConversationSource: (conversationList: string) => Contact | null;
+	getConversationSource: (conversationList: string) => Contact | undefined;
 }
 
 export const useMessageActions = (): MessageActions => {
@@ -31,7 +31,7 @@ export const useMessageActions = (): MessageActions => {
 	const setConversation = useSetConversations();
 	const setMessages = useSetMessages();
 
-	const { getContactByNumber } = useContactActions();
+	const { getContactByNumber, getDisplayByNumber } = useContacts();
 
 	const myPhoneNumber = usePhoneNumber();
 
@@ -108,12 +108,16 @@ export const useMessageActions = (): MessageActions => {
 			const source = conversation.source;
 			const list = conversation.conversationList.split('+');
 
-			if (conversation.isGroupChat) return label;
+			if (conversation.isGroupChat) {
+				return label;
+			}
+
+			console.log(`Source: `, source);
 
 			for (const participant of list) {
 				if (participant !== source) {
-					const contact = getContactByNumber(participant);
-					return contact ? contact.display : participant;
+					console.log(`Participant: `, participant);
+					return getDisplayByNumber(participant) ?? participant;
 				}
 			}
 			return label;
@@ -121,6 +125,7 @@ export const useMessageActions = (): MessageActions => {
 		[getContactByNumber]
 	);
 
+	//TODO: Rechecar essa função, não parece estar certa
 	const getConversationSource = useCallback(
 		(conversationList: string) => {
 			const source = conversationList.split('+').filter((p) => p !== myPhoneNumber);

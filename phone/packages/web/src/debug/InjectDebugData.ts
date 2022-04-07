@@ -1,19 +1,19 @@
-interface DebugEvent<T = any> {
+interface DebugEvent<T = unknown> {
 	app: string;
-	method: string;
+	event: string;
 	data: T;
 }
 
 const InjectDebugData = <P>(events: DebugEvent<P>[], timer = 1000) => {
-	if (process.env.NODE_ENV !== 'production') {
+	if (process.env.NODE_ENV === 'development') {
 		for (const event of events) {
 			setTimeout(() => {
-				console.log('DebugEvent', event);
+				console.log(`[DEBUG] Injected event: ${event.event}`);
 				window.dispatchEvent(
 					new MessageEvent('message', {
 						data: {
 							app: event.app,
-							method: event.method,
+							event: event.event,
 							data: event.data,
 						},
 					})

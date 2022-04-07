@@ -45,7 +45,6 @@ export const useMessageProfileActions = () => {
 				if (state !== 'hasValue') return null;
 
 				setUserProfile(profile);
-				console.log('setLocalUserProfile', profile, userProfile);
 			},
 		[setUserProfile]
 	);

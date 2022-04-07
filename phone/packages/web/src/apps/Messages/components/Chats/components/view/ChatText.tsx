@@ -6,14 +6,14 @@ import dayjs from 'dayjs';
 const style = (position: string) =>
 	position === 'left' ? 'bg-whatsapp-chat-rose place-self-start' : 'bg-whatsapp-chat-light-green place-self-end';
 
-const ChatText: React.FC<{ message: Message; position: string }> = ({
+const MessageBubble: React.FC<{ message: Message; position: string }> = ({
 	message: { message, author, date },
 	position,
 }) => {
 	const dateToText = dayjs(date).format('HH:mm');
 
 	return (
-		<li
+		<div
 			className={`flex min-w-[25%] max-w-[70%] flex-col flex-wrap gap-2 rounded-md p-2 pl-3 text-black ${style(
 				position
 			)}`}
@@ -23,8 +23,8 @@ const ChatText: React.FC<{ message: Message; position: string }> = ({
 				<span>{dateToText}</span>
 				{/* <IoCheckmarkDone className={`text-lg font-bold ${checked ? 'text-cyan-600' : 'text-slate-500'}`} /> */}
 			</div>
-		</li>
+		</div>
 	);
 };
 
-export default React.memo(ChatText);
+export default MessageBubble;

@@ -4,7 +4,7 @@ import { Contact } from '@typings/contacts';
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 
-import { useContactsValue } from '@apps/Contacts/hooks/useContacts';
+import { useContactsValue } from '@apps/Contacts/hooks/contactsState';
 
 type CreationBodyProps = {
 	handleCheckConversation: (contact: Contact, state: boolean) => void;
@@ -18,10 +18,9 @@ type CreationContactItem = {
 const CreationBody: React.FC<CreationBodyProps> = ({ handleCheckConversation }) => {
 	const contacts = useContactsValue();
 
-	const items = contacts.map((contact) => {
-		console.log(`Creation body contact.id ${contact.id}`);
-		return <ConversationContactItem key={contact.id} contact={contact} handleChecked={handleCheckConversation} />;
-	});
+	const items = contacts.map((contact) => (
+		<ConversationContactItem key={contact.id} contact={contact} handleChecked={handleCheckConversation} />
+	));
 
 	return <div className="flex flex-col gap-2 p-3">{items}</div>;
 };

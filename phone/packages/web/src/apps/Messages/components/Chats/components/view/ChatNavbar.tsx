@@ -12,6 +12,7 @@ import useMessages from '@apps/Messages/hooks/messages/useMessages';
 import useMessageProfile from '@apps/Messages/hooks/profiles/useMessageProfile';
 
 type INavbar = {
+	isGroupChat: boolean;
 	participants: string[];
 	openMenu: () => void;
 };
@@ -22,6 +23,7 @@ const ChatNavbar: React.FC<INavbar> = ({ participants, openMenu }) => {
 	const { getAnyValidAvatar } = useMessageProfile();
 
 	const [label, setLabel] = useState('');
+	const [description, setDescription] = useState('');
 	const [avatar, setAvatar] = useState<string | undefined>('');
 
 	const goBack = () => navigate(-1);
@@ -30,17 +32,21 @@ const ChatNavbar: React.FC<INavbar> = ({ participants, openMenu }) => {
 
 	useEffect(() => {
 		if (activeConversation) {
-			const found = getAnyValidAvatar(activeConversation);
-			const contacts = getLabelOrContactDisplay(activeConversation);
+			console.log(`ACTIVE CONVERSATION`, activeConversation);
 
-			setLabel(contacts);
-			setAvatar(found);
+			const display = getLabelOrContactDisplay(activeConversation);
+			const validAvatar = getAnyValidAvatar(activeConversation);
+
+			console.log(`DISPLAY: ${display}`);
+
+			setLabel(display);
+			setAvatar(validAvatar);
+
+			setDescription(participants.join(', ') || '');
 		}
-	}, [activeConversation]);
+	}, [participants, activeConversation]);
 
-	const description = participants.join(', ') || '';
-
-	console.log(label, avatar, description);
+	console.log(`CHAT NAVBAR `, activeConversation?.isGroupChat, label, avatar, description);
 
 	if (!activeConversation) return <></>;
 

@@ -47,8 +47,6 @@ const useMessages = (): IUseMessages => {
 		(id: number) => {
 			if (!navigate) return;
 
-			console.log('Go to conversation', id);
-
 			setCurrentConversationId(id);
 
 			navigate(`/messages/conversations/view/${id.toString()}`);

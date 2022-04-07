@@ -1,72 +1,103 @@
-import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useCallback } from 'react';
 
-import { ServerPromiseResp } from '@typings/common';
-import { Contact, ContactEvents } from '@typings/contacts';
-import fetchNui from '@utils/fetchNui';
-import { buildRespObj } from '@utils/nuiMisc';
+import { useRecoilValueLoadable } from 'recoil';
 
-import { BrowserContactsState } from '../constants';
+import { Contact } from '@typings/contacts';
 
-export const contactsState = {
-	contacts: atom<Contact[]>({
-		key: 'contactsList',
-		default: selector({
-			key: 'contactsListDefault',
-			get: async () => {
-				try {
-					const resp = await fetchNui<ServerPromiseResp<Contact[]>>(
-						ContactEvents.GET_CONTACTS,
-						undefined,
-						buildRespObj<Contact[]>(BrowserContactsState)
-					);
-					return resp.data ?? [];
-				} catch (error) {
-					console.error(`Error fetching contacts: ${error}`);
-					return [];
-				}
-			},
-		}),
-	}),
-	filterInput: atom<string>({
-		key: 'filterInput',
-		default: '',
-	}),
-	filteredContacts: selector({
-		key: 'fitleredContacts',
-		get: ({ get }) => {
-			const filterInputVal: string = get(contactsState.filterInput);
-			const contacts: Contact[] = get(contactsState.contacts);
+import { contactsState } from './contactsState';
 
-			if (!filterInputVal) return contacts;
+interface UseContacts {
+	contacts: Contact[];
+	getContact: (id: number) => Contact | undefined;
+	getContactByNumber: (number: string) => Contact | undefined;
+	getContactsByNumber: (number: string[]) => Contact[];
 
-			const regExp = new RegExp(filterInputVal, 'gi');
+	getDisplayByNumber: (number: string) => string | undefined;
+	getDisplayListByNumber: (number: string[]) => string[];
+	getAvatarByNumber: (number: string) => string | undefined;
+}
 
-			return contacts.filter((contact) => contact.display.match(regExp) || contact.number.match(regExp));
-		},
-	}),
-	filteredByStart: selector({
-		key: 'filteredByStart',
-		get: ({ get }) => {
-			const contacts: Contact[] = get(contactsState.filteredContacts);
-			const contactsByStart = [] as unknown as { [key: string]: Contact[] };
+const useContacts = (): UseContacts => {
+	const { state: contactsLoading, contents: contacts } = useRecoilValueLoadable<Contact[]>(contactsState.contacts);
+
+	const getContact = useCallback(
+		(id: number | string) => {
+			if (contactsLoading !== 'hasValue' || !contacts.length) return;
 
 			for (const contact of contacts) {
-				const letter = contact.display.substring(0, 1).toUpperCase() ?? '#';
-
-				const current = contactsByStart[`${letter}`] || [];
-				contactsByStart[`${letter}`] = [...current, contact];
+				if (contact.id === id) return contact;
 			}
-			return contactsByStart;
+			return;
 		},
-	}),
+		[contacts, contactsLoading]
+	);
+
+	const getContactByNumber = useCallback(
+		(number: string) => {
+			if (contactsLoading !== 'hasValue' || !contacts.length) return;
+
+			console.log(number);
+
+			for (const contact of contacts) {
+				console.log(`USE CONTACTS`);
+				console.log(number, contact.number);
+				console.log(typeof number, typeof contact.number);
+				if (contact.number === number) {
+					console.log(`FOUND: `, contact);
+					return contact;
+				}
+			}
+			return;
+		},
+		[contacts, contactsLoading]
+	);
+
+	const getContactsByNumber = useCallback(
+		(number: string[]) => {
+			const found = [];
+
+			if (contactsLoading !== 'hasValue' || !contacts.length) return [];
+
+			for (const contact of contacts) {
+				if (number.indexOf(contact.number) !== -1) {
+					found.push(contact);
+				}
+			}
+			return found;
+		},
+		[contacts, contactsLoading]
+	);
+
+	const getDisplayByNumber = useCallback(
+		(number: string) => getContactByNumber(number)?.display,
+		[contacts, getContactByNumber]
+	);
+
+	const getDisplayListByNumber = useCallback(
+		(number: string[]) => {
+			if (contactsLoading !== 'hasValue' || !contacts.length) return [];
+
+			const newList = [...number];
+
+			for (const contact of contacts) {
+				if (contact) newList[number.indexOf(contact.number)] = contact.display;
+			}
+			return newList;
+		},
+		[contacts, contactsLoading]
+	);
+
+	const getAvatarByNumber = useCallback((number: string) => getContactByNumber(number)?.avatar, [getContactByNumber]);
+
+	return {
+		contacts,
+		getContact,
+		getContactByNumber,
+		getContactsByNumber,
+		getDisplayByNumber,
+		getDisplayListByNumber,
+		getAvatarByNumber,
+	};
 };
 
-export const useContacts = () => useRecoilState(contactsState.contacts);
-export const useSetContacts = () => useSetRecoilState(contactsState.contacts);
-export const useContactsValue = () => useRecoilValue(contactsState.contacts);
-
-export const useFilteredContacts = () => useRecoilValue(contactsState.filteredContacts);
-export const useFilteredContactsByInitial = () => useRecoilValue(contactsState.filteredByStart);
-
-export const useContactFilterInput = () => useRecoilState(contactsState.filterInput);
-export const useSetContactFilterInput = () => useSetRecoilState(contactsState.filterInput);
+export default useContacts;

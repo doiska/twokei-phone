@@ -23,7 +23,7 @@ export const messageState = {
 					);
 					return resp.data ?? [];
 				} catch (e) {
-					console.error(e);
+					console.error(`Failed to fetch message conversations: ${e}`);
 					return [];
 				}
 			},

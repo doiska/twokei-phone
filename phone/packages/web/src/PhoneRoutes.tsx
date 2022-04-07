@@ -2,7 +2,7 @@ import React from 'react';
 import { Location, Route, useLocation, useRoutes } from 'react-router-dom';
 import { Transition, useTransition, animated } from 'react-spring';
 
-import LoadingSpinner from '@ui/components/LoadingSpinner';
+import { TriangleLoader } from '@ui/components/LoadingSpinner';
 
 import { useApps } from '@os/hooks/useApp';
 
@@ -23,9 +23,9 @@ const AnimatedRoute: React.FC = ({ children }) => {
 	});
 
 	return transitions((props) => (
-		<animated.span className="flex h-full max-h-[91%] w-full flex-col" style={{ ...props }}>
+		<animated.div className="flex h-full max-h-[91%] w-full flex-col" style={{ ...props }}>
 			{children}
-		</animated.span>
+		</animated.div>
 	));
 };
 
@@ -33,7 +33,7 @@ const PhoneRoutes: React.FC = () => {
 	const location = useLocation();
 
 	return (
-		<React.Suspense key={location.key} fallback={<LoadingSpinner />}>
+		<React.Suspense key={location.key} fallback={<TriangleLoader />}>
 			<AnimatedRoute>
 				<Routes />
 			</AnimatedRoute>

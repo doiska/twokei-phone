@@ -3,7 +3,7 @@ import { BiArrowBack } from 'react-icons/bi';
 import { IoSearch } from 'react-icons/io5';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useContactsValue } from '@apps/Contacts/hooks/useContacts';
+import { useContactsValue } from '@apps/Contacts/hooks/contactsState';
 
 const CreationNavbar: React.FC = () => {
 	const navigate = useNavigate();

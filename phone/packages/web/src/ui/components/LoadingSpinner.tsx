@@ -1,12 +1,21 @@
 import React from 'react';
-import { Triangle } from 'react-loader-spinner';
+import { Rings, Triangle } from 'react-loader-spinner';
+import { BaseProps } from 'react-loader-spinner/dist/type';
 
-const LoadingSpinner: React.FC = () => {
+const RingsLoader: React.FC<BaseProps> = (props) => {
 	return (
 		<div className="flex h-full w-full items-center justify-center">
-			<Triangle height={100} width={100} color="white" ariaLabel="Loading..." />
+			<Rings {...props} />
 		</div>
 	);
 };
 
-export default LoadingSpinner;
+const TriangleLoader: React.FC<BaseProps> = (props) => {
+	return (
+		<div className="flex h-full w-full items-center justify-center">
+			<Triangle height={100} width={100} color="white" ariaLabel="Loading..." {...props} />
+		</div>
+	);
+};
+
+export { RingsLoader, TriangleLoader };

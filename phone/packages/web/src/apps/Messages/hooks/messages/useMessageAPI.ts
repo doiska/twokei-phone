@@ -49,17 +49,17 @@ export const useMessageAPI = (): UseMessageAPI => {
 					conversationList,
 					message,
 					sourcePhoneNumber,
-				},
-				{
-					status: 'ok',
-					data: {
-						id: Math.floor(Math.random() * 100),
-						message,
-						conversationId,
-						conversationList,
-						sourcePhoneNumber,
-					},
 				}
+				// {
+				// 	status: 'ok',
+				// 	data: {
+				// 		id: Math.floor(Math.random() * 100),
+				// 		message,
+				// 		conversationId,
+				// 		conversationList,
+				// 		sourcePhoneNumber,
+				// 	},
+				// }
 			).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) {
 					console.error(`Could not send ${resp.status} message`);
@@ -130,6 +130,7 @@ export const useMessageAPI = (): UseMessageAPI => {
 			fetchNui<ServerPromiseResp<MessageConversation>, PreDBMessageConversation>(
 				MessageEvents.CREATE_MESSAGE_CONVERSATION,
 				{
+					source: conversation.source,
 					conversationLabel: conversation.conversationLabel,
 					participants: conversation.participants,
 					isGroupChat: conversation.isGroupChat,
@@ -210,17 +211,14 @@ export const useMessageAPI = (): UseMessageAPI => {
 			).then((resp) => {
 				if (resp.status !== 'ok') return;
 
-				let content = resp.data;
-
-				console.log(`ConversationId ${conversationId}`);
+				let content = resp.data || [];
 
 				if (conversationId !== -1 && content) {
 					content = content.filter((c) => c.conversationId === conversationId);
-					console.log(`Filtered messages`, content);
 				}
 
-				console.log(`Messages fetched: `, content);
-				setMessages(content ?? []);
+				console.log(`[MESSAGES FETCHED] ${conversationId} - page ${page}: `, content);
+				setMessages(() => [...content]);
 			});
 		},
 		[setMessages]

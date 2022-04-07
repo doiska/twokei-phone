@@ -7,14 +7,14 @@ import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 import usePromptMenu from '@ui/hooks/usePromptMenu';
 
-import { useContactActions } from '../hooks/useContactActions';
+import useContacts from '../hooks/useContacts';
 import { useContactsNUI } from '../hooks/useContactsNUI';
 
 const ContactsDetails: React.FC = () => {
 	const navigate = useNavigate();
 
 	const { deleteContact } = useContactsNUI();
-	const { getContact } = useContactActions();
+	const { getContact } = useContacts();
 
 	const { id } = useParams();
 	const contact = getContact(parseInt(id ?? ''));

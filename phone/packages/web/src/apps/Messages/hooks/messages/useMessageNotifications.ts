@@ -18,15 +18,9 @@ type IMessageNotification = {
 const NOTIFICATION_ID = 'messages:broadcast';
 
 export const useMessageNotifications = () => {
-	const location = useLocation();
-
 	const { getConversationById } = useMessages();
 	const { removeId, addNotification, addNotificationAlert } = useNotifications();
 	const messagesApp = useApp('MESSAGES');
-
-	useEffect(() => {
-		console.log('updating location');
-	}, [location.pathname]);
 
 	const setNotification = (messageNotification: IMessageNotification) => {
 		const { conversationName, conversationId, message } = messageNotification;

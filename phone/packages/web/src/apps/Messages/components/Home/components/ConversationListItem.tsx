@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
 
 import { Message, MessageConversation } from '@typings/messages';
@@ -30,11 +30,19 @@ const ConversationListItem: React.FC<IProps> = ({
 	const { getLabelOrContactDisplay } = useMessageActions();
 	const { getAnyValidAvatar } = useMessageProfile();
 
-	const getLabel = () => getLabelOrContactDisplay(conversation);
-	const getValidAvatar = () => getAnyValidAvatar(conversation);
+	const [label, setLabel] = useState<string>('');
+	const [avatar, setAvatar] = useState<string | undefined>('');
+	const [lastMessage, setLastMessage] = useState<Message | undefined>();
 
-	const latestMessage = messages?.[0];
-	const formattedDate = usePhoneFormattedDate(latestMessage?.date ?? Date.now());
+	const formattedDate = usePhoneFormattedDate(lastMessage?.date ?? Date.now());
+
+	useEffect(() => {
+		setLabel(getLabelOrContactDisplay(conversation));
+		setAvatar(getAnyValidAvatar(conversation));
+		setLastMessage(messages?.[0]);
+	}, [conversation, messages]);
+
+	console.log(`ConversationListItem: ${conversation.id} - ${label} - ${avatar}`);
 
 	return (
 		<div
@@ -43,21 +51,21 @@ const ConversationListItem: React.FC<IProps> = ({
 		>
 			<Avatar childrenClassName="w-12" wrapperClassName="my-0 h-full items-center gap-0 text-center">
 				<ImageWithDefaultComponentFallback
-					loadedImage={getValidAvatar()}
-					fallbackElement={<span className="text-xl">{getLabel().slice(0, 1).toUpperCase()}</span>}
+					loadedImage={avatar}
+					fallbackElement={<span className="text-xl">{label.slice(0, 1).toUpperCase()}</span>}
 					className="rounded-full"
 				/>
 			</Avatar>
 
 			<div className="mb-1 flex h-full w-full flex-col place-content-center pb-1">
 				<div className="flex flex-row flex-wrap justify-between">
-					<span className="font-medium text-black">{getLabel()}</span>
+					<span className="font-medium text-black">{label}</span>
 				</div>
-				<span className="text-sm text-gray-500">{latestMessage && latestMessage.message}</span>
+				<span className="text-sm text-gray-500">{lastMessage && lastMessage.message}</span>
 			</div>
 
 			<span className="inline-flex items-center pr-3 text-slate-900">
-				{latestMessage && (formattedDate.dayDifference >= 1 ? formattedDate.date : formattedDate.time)}
+				{lastMessage && (formattedDate.dayDifference >= 1 ? formattedDate.date : formattedDate.time)}
 			</span>
 
 			{isEditing && (

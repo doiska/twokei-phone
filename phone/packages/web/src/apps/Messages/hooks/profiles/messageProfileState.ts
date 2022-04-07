@@ -44,7 +44,6 @@ export const messageProfileState = {
 					);
 
 					if (resp.data && resp.status === 'ok') {
-						console.log('resp.data', resp.data);
 						return resp.data;
 					}
 				} catch (e) {
