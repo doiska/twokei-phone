@@ -1,6 +1,10 @@
+REMINDER:
+    Se algum evento não funcionar ou der 404, é porque a mula provavelmente não registrou.
+    Se algum state funcionar de forma estranha, checar messageState, MessageActions e useMessages para ter certeza que o Recoil está correto.
 
 Server:
 
+- Adicionar Prisma ORM [Prioridade!]
 - Adicionar contacts no servidor; [OK]
 
 Phone Web:
