@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {
         "watch:dev": "lerna run build:dev --parallel",
-        "watch:web": "cd packages/web && npm run build:web",
+        "watch:web": "cd apps/web && npm run build:web",
         "build:prod": "lerna run build:prod",
         "build:dev": "lerna run build:dev",
         "commit": "git-cz"
@@ -33,6 +33,6 @@
         }
     },
     "workspaces": [
-        "packages/*"
+        "apps/*"
     ]
 }
