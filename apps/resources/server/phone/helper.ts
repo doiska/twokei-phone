@@ -1,5 +1,5 @@
-import DBWrapper from 'db/wrapper';
-import { config } from 'server';
+import DBWrapper from '../db/wrapper';
+import { config } from '../server';
 
 export async function findOrGeneratePhoneNumber(identifier: string): Promise<string> {
 	console.log(`Config`, typeof config, config.database.players_table);

@@ -1,4 +1,5 @@
 import './config';
+import 'reflect-metadata';
 
 import { config as ResourceConfig } from './config';
 

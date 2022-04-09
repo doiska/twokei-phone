@@ -1,7 +1,7 @@
 import { Contact, ContactDeleteDTO, ContactErrors, ContactEvents, PreDBContact } from '@typings/contacts';
-import { onNetPromise } from 'lib/onNetPromise';
+import { onNetPromise } from '../lib/onNetPromise';
 import { PromiseEventResponse, PromiseRequest } from 'lib/promise.types';
-import playerService from 'players/player.service';
+import playerService from '../players/player.service';
 import ContactsDBWrapper, { _ContactsWrapper } from './contacts.db';
 
 class _ContactService {

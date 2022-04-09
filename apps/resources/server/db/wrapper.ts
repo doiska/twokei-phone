@@ -1,5 +1,5 @@
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
-import { config } from 'server';
+import { config } from '../server';
 import { pool } from './pool';
 
 const RESOURCE_NAME = GetCurrentResourceName();

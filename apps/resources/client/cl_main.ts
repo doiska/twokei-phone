@@ -1,8 +1,7 @@
 import { PhoneEvents } from '@typings/phone';
-import { animationService } from 'animations/animation.controller';
-import { AnimationService } from 'animations/animation.service';
-import { config } from 'cl_config';
-import { sendNUIEvent } from 'utils/NUI';
+import { animationService } from './animations/animation.controller';
+import { config } from './cl_config';
+import { sendNUIEvent } from './utils/NUI';
 
 declare global {
 	var isPhoneOpen: boolean;
@@ -17,7 +16,7 @@ global.isPlayerLoaded = false;
 onNet(PhoneEvents.SET_PLAYER_LOADED, (state: boolean) => {
 	console.log(`Player loaded`);
 
-    global.isPlayerLoaded = state;
+	global.isPlayerLoaded = state;
 
 	// global.isPlayerLoaded = data.state;
 

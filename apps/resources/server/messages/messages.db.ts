@@ -5,7 +5,7 @@ import {
 	MessagesRequest,
 	PreDBMessageConversation,
 } from '@typings/messages';
-import DBWrapper from 'db/wrapper';
+import DBWrapper from '../db/wrapper';
 
 const MESSAGES_TABLE = 'twokei_phone_messages';
 const CONVERSATIONS_TABLE = 'twokei_phone_conversations';

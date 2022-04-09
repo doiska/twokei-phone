@@ -1,4 +1,4 @@
-import { config } from 'server';
+import { config } from '../server';
 
 export const getSource = (): number => global.source;
 

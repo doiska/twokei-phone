@@ -16,7 +16,7 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "noEmit": true,
+        "noEmit": false,
     },
     "include": [
         "./**/*",

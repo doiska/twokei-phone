@@ -1,4 +1,4 @@
-import { config } from 'server';
+import { config } from './server';
 import { createLogger, transports, format } from 'winston';
 
 const manualColorize = (str: string): string => `[\x1b[35m${str}\x1b[0m]`;

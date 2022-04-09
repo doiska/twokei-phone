@@ -1,4 +1,4 @@
-import { Delay } from 'utils/misc';
+import { Delay } from '../utils/misc';
 
 export enum AnimationState {
 	NONE,

@@ -1,8 +1,7 @@
 import { MessageConversation, MessageEvents, PreDBMessageConversation } from '@typings/messages';
 import { PromiseEventResponse, PromiseRequest } from 'lib/promise.types';
-import PlayerService from 'players/player.service';
-import playerService from 'players/player.service';
-import { emitNetTyped } from 'utils/fivem';
+import PlayerService from '../players/player.service';
+import { emitNetTyped } from '../utils/fivem';
 import { MessageDB } from './messages.db';
 import { createConversationHash } from './messages.utils';
 

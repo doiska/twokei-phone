@@ -1,5 +1,5 @@
 import { ServerPromiseResp } from '@typings/common';
-import { getSource } from 'utils/fivem';
+import { getSource } from '../utils/fivem';
 import { GlobalRateLimit, LimiterOptions } from './GlobalRateLimit';
 import { PromiseCB, PromiseEventResponse, PromiseRequest } from './promise.types';
 

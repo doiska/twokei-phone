@@ -1,4 +1,4 @@
-import { RegisterNUICallback } from 'utils/NUI';
+import { RegisterNUICallback } from '../utils/NUI';
 import { IPhoneSettings, KvpItems, SettingsEvents } from '@typings/settings';
 import KvpService from './kvp.service';
 

@@ -8,8 +8,8 @@
     "scripts": {
         "watch:dev": "lerna run build:dev --parallel",
         "watch:web": "cd apps/web && npm run build:web",
-        "build:prod": "lerna run build:prod",
-        "build:dev": "lerna run build:dev",
+        "build:prod": "lerna run build:prod --parallel",
+        "build:dev": "lerna run build:dev --parallel",
         "commit": "git-cz"
     },
     "config": {

@@ -1,6 +1,6 @@
 import { Contact, PreDBContact } from '@typings/contacts';
-import DBWrapper from 'db/wrapper';
-import { Tables } from 'server.db';
+import DBWrapper from '../db/wrapper';
+import { Tables } from '../server.db';
 
 export class _ContactsWrapper {
 	async fetchAllContacts(identifier: string) {

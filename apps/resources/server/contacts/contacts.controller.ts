@@ -1,5 +1,5 @@
 import { Contact, ContactDeleteDTO, ContactErrors, ContactEvents, PreDBContact } from '@typings/contacts';
-import { onNetPromise } from 'lib/onNetPromise';
+import { onNetPromise } from '../lib/onNetPromise';
 import ContactService from './contacts.service';
 
 console.log(`Loaded Contacts Controller.`);

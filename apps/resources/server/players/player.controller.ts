@@ -1,5 +1,5 @@
 import { PhoneEvents } from '@typings/phone';
-import { getSource } from 'utils/fivem';
+import { getSource } from '../utils/fivem';
 import PlayerService from './player.service';
 
 onNet(PhoneEvents.FETCH_CREDENTIALS, () => {

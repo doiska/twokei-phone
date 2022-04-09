@@ -1,4 +1,4 @@
-import DBWrapper from 'db/wrapper';
+import DBWrapper from '../db/wrapper';
 
 export class PlayerDB {
 	async fetchIdentifierByPhone(phone: string): Promise<string | null> {
