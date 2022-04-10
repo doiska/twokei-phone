@@ -1,6 +1,5 @@
 import { Contact, ContactDeleteDTO, ContactErrors, ContactEvents, PreDBContact } from '@typings/contacts';
-import { onNetPromise } from '../lib/onNetPromise';
-import { PromiseEventResponse, PromiseRequest } from 'lib/promise.types';
+import { PromiseEventResponse, PromiseRequest } from '../lib/promise.types';
 import playerService from '../players/player.service';
 import ContactsDBWrapper, { _ContactsWrapper } from './contacts.db';
 
@@ -17,6 +16,7 @@ class _ContactService {
 
 		try {
 			const contacts = await this.contactsDBWrapper.fetchAllContacts(identifier);
+
 			resp({ status: 'ok', data: contacts });
 		} catch (e) {
 			console.error(e);

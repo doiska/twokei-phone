@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const RemovePlugin = require('remove-files-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
+
 const buildPath = path.resolve(__dirname, '../../dist');
 
 const alias = {
@@ -11,10 +13,8 @@ const alias = {
 const server = () => {
 	const plugins = [
 		new RemovePlugin({
-			before: {
-				include: [path.resolve(buildPath, 'server')],
-			},
 			watch: {
+				allowRootAndOutside: true,
 				include: [path.resolve(buildPath, 'server')],
 			},
 		}),
@@ -39,7 +39,7 @@ const server = () => {
 			minimize: true,
 		},
 		resolve: {
-            preferRelative: true,
+			preferRelative: true,
 			extensions: ['.tsx', '.ts', '.js'],
 			alias,
 		},
@@ -48,6 +48,7 @@ const server = () => {
 			path: path.resolve(buildPath, 'server'),
 		},
 		target: 'node',
+		externals: [nodeExternals()],
 	};
 };
 
@@ -65,10 +66,8 @@ const client = () => {
 		},
 		plugins: [
 			new RemovePlugin({
-				before: {
-					include: [path.resolve(buildPath, 'client')],
-				},
 				watch: {
+					allowRootAndOutside: true,
 					include: [path.resolve(buildPath, 'client')],
 				},
 			}),

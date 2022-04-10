@@ -39,7 +39,7 @@ async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?
 		console.error(`Failed to fetch ${eventName}`, e)
 	);
 
-	console.info(`[TKPhone] fetchNui (${eventName})`, resp, data);
+	console.log(`RSPONSE: ${JSON.stringify(resp)}`);
 
 	const responseObj = await resp
 		?.json()

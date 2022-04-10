@@ -7,10 +7,10 @@ const rateLimiter = new GlobalRateLimit(250);
 
 export function onNetPromise<T = any, P = any>(eventName: string, cb: PromiseCB<T, P>, options: LimiterOptions = null) {
 	rateLimiter.registerNewEvent(eventName);
-	console.log(`Registered ${eventName}`);
+	console.log(`[PROMISE] Registered event ${eventName}`);
 
 	onNet(eventName, async (respEventName: string, data: T) => {
-		console.log(`Received ${eventName} event.`);
+		console.log(`[PROMISE] Received ${eventName} event with data:`, data);
 
 		const startTime = process.hrtime.bigint();
 		const source = getSource();

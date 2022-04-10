@@ -1,6 +1,8 @@
 import './config';
 import 'reflect-metadata';
 
+import './db/xiao';
+
 import { config as ResourceConfig } from './config';
 
 export const config = ResourceConfig;

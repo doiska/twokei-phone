@@ -5,7 +5,6 @@ import ContactService from './contacts.service';
 console.log(`Loaded Contacts Controller.`);
 
 onNetPromise<void, Contact[]>(ContactEvents.GET_CONTACTS, (req, resp) => {
-	console.log(`Received event GET_CONTACTS`, req);
 	ContactService.fetchAllContacts(req, resp).catch((e) => {
 		console.error(`Failed to fetch contacts: ${req.source} due`, e);
 		resp({ status: 'error', errorMsg: ContactErrors.FETCH_FAILED });

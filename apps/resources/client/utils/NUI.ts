@@ -60,6 +60,8 @@ export const isPlayerLoaded = async () => {
 };
 
 export const RegisterNUIProxy = (event: string) => {
+	console.log(`[PROXY] Registering ${event} as NUIProxy.`);
+
 	RegisterNuiCallbackType(event);
 
 	on(`__cfx_nui:${event}`, async (data: unknown, cb: Function) => {

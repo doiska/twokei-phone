@@ -1,4 +1,4 @@
-import { MessageConversation, MessageEvents, PreDBMessageConversation } from '@typings/messages';
+import { MessageConversation, MessageEvents, MessageConversationDTO } from '@typings/messages';
 import { PromiseEventResponse, PromiseRequest } from 'lib/promise.types';
 import PlayerService from '../players/player.service';
 import { emitNetTyped } from '../utils/fivem';
@@ -14,7 +14,7 @@ class _MessageService {
 	}
 
 	async createConversation(
-		req: PromiseRequest<PreDBMessageConversation>,
+		req: PromiseRequest<MessageConversationDTO>,
 		resp: PromiseEventResponse<MessageConversation>
 	) {
 		const playerNumber = PlayerService.getPlayer(req.source).phoneNumber;

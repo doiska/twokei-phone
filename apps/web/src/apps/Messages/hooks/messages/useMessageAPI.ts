@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 
 import { ServerPromiseResp } from '@typings/common';
-import { Message, MessageConversation, MessageEvents, PreDBMessage, PreDBMessageConversation } from '@typings/messages';
+import { Message, MessageConversation, MessageEvents, PreDBMessage, MessageConversationDTO } from '@typings/messages';
 import fetchNui from '@utils/fetchNui';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
@@ -17,7 +17,7 @@ type UseMessageAPI = {
 	sendEmbeddedMessage: ({ conversationId, embed }: PreDBMessage) => void;
 	removeMessage: (message: Message) => void;
 
-	addConversation: (conversation: PreDBMessageConversation) => void;
+	addConversation: (conversation: MessageConversationDTO) => void;
 	removeConversation: (conversationIds: number[]) => void;
 
 	fetchMessages: (conversationId: number, page: number) => void;
@@ -126,8 +126,8 @@ export const useMessageAPI = (): UseMessageAPI => {
 	);
 
 	const addConversation = useCallback(
-		(conversation: PreDBMessageConversation) => {
-			fetchNui<ServerPromiseResp<MessageConversation>, PreDBMessageConversation>(
+		(conversation: MessageConversationDTO) => {
+			fetchNui<ServerPromiseResp<MessageConversation>, MessageConversationDTO>(
 				MessageEvents.CREATE_MESSAGE_CONVERSATION,
 				{
 					source: conversation.source,

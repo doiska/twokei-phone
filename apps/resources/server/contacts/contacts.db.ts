@@ -1,19 +1,29 @@
 import { Contact, PreDBContact } from '@typings/contacts';
 import DBWrapper from '../db/wrapper';
+import ContactSchema from '../entity/contact.schema';
 import { Tables } from '../server.db';
 
 export class _ContactsWrapper {
 	async fetchAllContacts(identifier: string) {
-		const query = `SELECT * FROM ${Tables.CONTACTS} WHERE identifier = ? ORDER BY display ASC`;
-		return await DBWrapper.fetch<Contact>(query, [identifier]);
+		const result = await ContactSchema.findAll({
+			where: {
+				identifier: identifier,
+			},
+		});
+
+		return result;
 	}
 
 	async addContact(identifier: string, { display, number, avatar }: PreDBContact) {
-		const query = `INSERT INTO ${Tables.CONTACTS} (identifier, display, number, avatar) VALUES (?, ?, ?, ?)`;
-		const result = await DBWrapper.insert(query, [identifier, display, number, avatar]);
+		const result = await ContactSchema.create({
+			identifier: identifier,
+			display: display,
+			number: number,
+			avatar: avatar,
+		});
 
 		return {
-			id: result,
+			id: result.id,
 			display,
 			number,
 			avatar,
@@ -21,14 +31,29 @@ export class _ContactsWrapper {
 	}
 
 	async updateContact(identifier: string, contact: Contact) {
-		console.log(contact);
-		const query = `UPDATE ${Tables.CONTACTS} SET display = ?, number = ?, avatar = ? WHERE id = ?`;
-		await DBWrapper.update(query, [contact.display, contact.number, contact.avatar, contact.id]);
+		await ContactSchema.update(
+			{
+				identifier: identifier,
+				display: contact.display,
+				number: contact.number,
+				avatar: contact.avatar,
+			},
+			{
+				where: {
+					id: contact.id,
+					identifier: identifier,
+				},
+			}
+		);
 	}
 
 	async deleteContact(identifier: string, id: number) {
-		const query = `DELETE FROM ${Tables.CONTACTS} WHERE id = ? AND identifier = ?`;
-		await DBWrapper.remove(query, [id, identifier]);
+		await ContactSchema.destroy({
+			where: {
+				identifier: identifier,
+				id: id,
+			},
+		});
 	}
 }
 

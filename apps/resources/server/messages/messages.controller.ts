@@ -1,4 +1,4 @@
-import { MessageConversation, MessageEvents, PreDBMessageConversation } from '@typings/messages';
+import { MessageConversation, MessageEvents, MessageConversationDTO } from '@typings/messages';
 import { onNetPromise } from '../lib/onNetPromise';
 import MessageService from './messages.service';
 
@@ -9,7 +9,7 @@ onNetPromise<void, MessageConversation[]>(MessageEvents.FETCH_MESSAGE_CONVERSATI
 	})
 );
 
-onNetPromise<PreDBMessageConversation, MessageConversation>(
+onNetPromise<MessageConversationDTO, MessageConversation>(
 	MessageEvents.CREATE_MESSAGE_CONVERSATION,
 	async (req, resp) =>
 		MessageService.createConversation(req, resp).catch((e) => console.error(`Error creating conversation: ${e}`))

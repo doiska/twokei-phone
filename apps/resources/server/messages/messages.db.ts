@@ -3,9 +3,11 @@ import {
 	Message,
 	MessageConversation,
 	MessagesRequest,
-	PreDBMessageConversation,
+	MessageConversationDTO,
 } from '@typings/messages';
 import DBWrapper from '../db/wrapper';
+import ConversationsSchema from '../entity/conversations.schema';
+import ParticipantsSchema from '../entity/participants.schema';
 
 const MESSAGES_TABLE = 'twokei_phone_messages';
 const CONVERSATIONS_TABLE = 'twokei_phone_conversations';
@@ -13,32 +15,25 @@ const CONVERSATION_PARTICIPANTS_TABLE = 'twokei_phone_conversation_participants'
 const MAX_MESSAGES_PER_CONVERSATION = 10;
 
 export class MessageDB {
-	async createConversation({
-		source,
-		conversationLabel,
-		conversationList,
-		participants,
-		isGroupChat,
-	}: PreDBMessageConversation & { conversationList: string }) {
-		const conversationId = await DBWrapper.insert(
-			`INSERT INTO ${CONVERSATIONS_TABLE} (label, source, is_group_chat, conversation_list) VALUES (?, ?, ?, ?)`,
-			[conversationLabel, source, isGroupChat, conversationList]
+	async createConversation(conversation: MessageConversationDTO & { conversationList: string }) {
+		const insertConversation = await ConversationsSchema.create({
+			...conversation,
+		});
+
+		const participants = conversation.participants;
+
+		await ParticipantsSchema.bulkCreate(
+			participants.map((p) => ({
+				participant: p,
+				conversation_id: insertConversation.id,
+			}))
 		);
-
-		for (const participant of participants) {
-			await DBWrapper.insert(
-				`INSERT INTO ${CONVERSATION_PARTICIPANTS_TABLE} (conversation_id, participant) VALUES (?, ?)`,
-				[conversationId, participant]
-			);
-		}
-
-		return conversationId;
 	}
 
 	async createMessage({
 		sourceIdentifier,
 		sourcePhoneNumber,
-		converstationId,
+		conversationId,
 		embed,
 		is_embed,
 		message,
@@ -46,67 +41,64 @@ export class MessageDB {
 		const id = await DBWrapper.insert(
 			`INSERT INTO ${MESSAGES_TABLE} (conversation_id, source, source_phone_number, message, is_embed, embed) 
             VALUES (?, ?, ?, ?, ?, ?)`,
-			[converstationId, sourceIdentifier, sourcePhoneNumber, message || '', is_embed || false, embed || '']
+			[conversationId, sourceIdentifier, sourcePhoneNumber, message || '', is_embed || false, embed || '']
 		);
 
 		return id;
 	}
 
 	async getConversations(phoneNumber: string): Promise<MessageConversation[]> {
-		//TODO: ${CONVERSATIONS_TABLE}.unread_count as unreadCount,
+		const res = await ConversationsSchema.findAll({
+			include: [
+				{
+					model: ParticipantsSchema,
+					where: { participant: phoneNumber },
+				},
+			],
+			raw: true,
+			nest: true,
+		});
 
-		const query = `SELECT 
-            ${CONVERSATIONS_TABLE}.id,
-            ${CONVERSATIONS_TABLE}.label,
-            ${CONVERSATIONS_TABLE}.is_group_chat as isGroupChat, 
-            ${CONVERSATIONS_TABLE}.conversation_list as conversationList,
-            ${CONVERSATIONS_TABLE}.source as source
-            FROM ${CONVERSATIONS_TABLE}
-            INNER JOIN ${CONVERSATION_PARTICIPANTS_TABLE} ON ${CONVERSATION_PARTICIPANTS_TABLE}.conversation_id = ${CONVERSATIONS_TABLE}.id
-            WHERE ${CONVERSATION_PARTICIPANTS_TABLE}.participant = ?
-        `;
-
-		return await DBWrapper.fetch<MessageConversation>(query, [phoneNumber]);
+		return res;
 	}
 
 	async getConversation(conversationId: number): Promise<MessageConversation> {
-		const [conversation] = await DBWrapper.fetch<MessageConversation>(
-			`SELECT * FROM ${CONVERSATIONS_TABLE} WHERE id = ? LIMIT 1`,
-			[conversationId]
-		);
-		return conversation;
+		return ConversationsSchema.findOne({
+			where: {
+				id: conversationId,
+			},
+		});
 	}
 
 	async getConversationIdByList(conversationList: string): Promise<number> {
-		const query = `SELECT id FROM ${CONVERSATIONS_TABLE} WHERE conversation_list = ?`;
-
-		const [results] = await DBWrapper.fetch<MessageConversation>(query);
-
-		return results.id;
+		const result = await ConversationsSchema.findOne({ where: { conversationList: conversationList } });
+		return result.id;
 	}
 
 	async getMessages({ conversationId, page }: MessagesRequest) {
 		const offset = page * 10;
 
-		const query = `SELECT * FROM ${MESSAGES_TABLE} WHERE conversation_id = ? ORDER BY conversation_id DESC LIMIT ? OFFSET ?`;
-		const results = await DBWrapper.fetch<Message>(query, [
-			conversationId,
-			MAX_MESSAGES_PER_CONVERSATION.toString(),
-			offset.toString(),
-		]);
+		const result = await ConversationsSchema.findAll({
+			where: {
+				id: conversationId,
+			},
+			order: [['conversation_id', 'DESC']],
+			limit: MAX_MESSAGES_PER_CONVERSATION,
+			offset: offset,
+		});
 
-		return results;
+		return result;
 	}
 
 	async addParticipantToConversation(conversationList: string, phoneNumber: string) {
 		const conversationId = await this.getConversationIdByList(conversationList);
 
-		await DBWrapper.insert(
-			`INSERT INTO ${CONVERSATION_PARTICIPANTS_TABLE} (conversation_id, participant) VALUES (?, ?)`,
-			[conversationId, phoneNumber]
-		);
+		const res = await ParticipantsSchema.create({
+			conversation_id: conversationId,
+			participant: phoneNumber,
+		});
 
-		return conversationId;
+		return res;
 	}
 
 	async doesConversationExists(conversationList: string): Promise<boolean> {

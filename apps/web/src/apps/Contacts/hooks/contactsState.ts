@@ -19,6 +19,7 @@ export const contactsState = {
 						undefined,
 						buildRespObj<Contact[]>(BrowserContactsState)
 					);
+
 					return resp.data ?? [];
 				} catch (error) {
 					console.error(`Error fetching contacts: ${error}`);
