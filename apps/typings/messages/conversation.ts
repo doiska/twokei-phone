@@ -1,7 +1,7 @@
 export interface MessageConversationDTO {
+	label?: string;
 	source: string;
 	participants: string[];
-	conversationLabel?: string;
 	isGroupChat: boolean;
 }
 

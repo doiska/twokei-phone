@@ -1,7 +1,7 @@
 import { MessageConversation, MessageEvents, MessageConversationDTO } from '@typings/messages';
 import { PromiseEventResponse, PromiseRequest } from 'lib/promise.types';
-import PlayerService from '../players/player.service';
-import { emitNetTyped } from '../utils/fivem';
+import PlayerService from 'players/player.service';
+import { emitNetTyped } from '@utils/fivem';
 import { MessageDB } from './messages.db';
 import { createConversationHash } from './messages.utils';
 
@@ -18,7 +18,7 @@ class _MessageService {
 		resp: PromiseEventResponse<MessageConversation>
 	) {
 		const playerNumber = PlayerService.getPlayer(req.source).phoneNumber;
-		const { conversationLabel, participants, isGroupChat } = req.data;
+		const { label, participants, isGroupChat } = req.data;
 
 		console.log(`Current Participants ${participants}`);
 
@@ -44,7 +44,7 @@ class _MessageService {
 
 			const response = {
 				id: conversationId,
-				label: conversationLabel,
+				label: label,
 				conversationList: hashedList,
 				isGroupChat,
 			};
@@ -57,7 +57,7 @@ class _MessageService {
 		try {
 			const conversationId = await this.MessageDB.createConversation({
 				source: playerNumber,
-				conversationLabel,
+				label,
 				conversationList: hashedList,
 				participants,
 				isGroupChat,
@@ -65,7 +65,7 @@ class _MessageService {
 
 			const response = {
 				id: conversationId,
-				label: conversationLabel,
+				label,
 				conversationList: hashedList,
 				isGroupChat,
 			};

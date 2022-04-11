@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { IoSearch } from 'react-icons/io5';
-import { useNavigate, useParams } from 'react-router-dom';
+
+import useNavigation from '@os/hooks/useNavigation';
 
 import { useContactsValue } from '@apps/Contacts/hooks/contactsState';
 
-const CreationNavbar: React.FC = () => {
-	const navigate = useNavigate();
-	const { type } = useParams();
-
+const CreationNavbar: React.FC<{ isGroup: boolean }> = ({ isGroup }) => {
 	const contacts = useContactsValue();
 
-	const goBack = () => navigate(-1);
-
-	useEffect(() => {
-		if (type !== 'conversation' && type !== 'group') navigate('/messages');
-	}, []);
+	const { goBack } = useNavigation();
 
 	return (
 		<div className="flex flex-row items-center gap-4 px-2.5">
@@ -24,9 +18,7 @@ const CreationNavbar: React.FC = () => {
 			</span>
 			<div className="flex h-full max-h-[100%] w-full flex-col place-content-center">
 				<div className="flex flex-row flex-wrap justify-between">
-					<span className="font-semibold text-white">
-						{type === 'conversation' ? 'Nova conversa' : 'Novo grupo'}
-					</span>
+					<span className="font-semibold text-white">{isGroup ? 'Novo grupo' : 'Nova conversa'}</span>
 				</div>
 				<span className="text-sm font-light text-white">{contacts.length} contatos</span>
 			</div>

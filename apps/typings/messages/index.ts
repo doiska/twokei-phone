@@ -1,10 +1,5 @@
-export { Message, CreateMessageDTO, MessagesRequest, PreDBMessage } from './message';
-export {
-	MessageConversation,
-	MessageConversationDTO,
-	CreateConversationGroupResult,
-	DeleteConversationRequest,
-} from './conversation';
-export { ConversationParticipant } from './participant';
-export { MessageEvents } from './events';
-export { Profile } from './profile';
+export * from './message';
+export * from './conversation';
+export * from './participant';
+export * from './events';
+export * from './profile';

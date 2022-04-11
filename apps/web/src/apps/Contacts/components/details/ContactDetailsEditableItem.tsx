@@ -2,7 +2,7 @@ import React from 'react';
 
 type EditableInput = {
 	label?: string;
-	className?: string;
+	className?: React.HTMLAttributes<HTMLDivElement>['className'];
 	icon?: JSX.Element;
 	type: string;
 	value: string | number;
@@ -15,9 +15,9 @@ const ContactDetailsEditableItem: React.FC<EditableInput> = ({
 	type,
 	value,
 	className,
-	onChange,
 	label,
 	required,
+	onChange,
 }) => {
 	return (
 		<div

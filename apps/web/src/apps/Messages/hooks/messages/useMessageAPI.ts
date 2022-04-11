@@ -131,7 +131,7 @@ export const useMessageAPI = (): UseMessageAPI => {
 				MessageEvents.CREATE_MESSAGE_CONVERSATION,
 				{
 					source: conversation.source,
-					conversationLabel: conversation.conversationLabel,
+					label: conversation.label,
 					participants: conversation.participants,
 					isGroupChat: conversation.isGroupChat,
 				},

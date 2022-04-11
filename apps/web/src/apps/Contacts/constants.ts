@@ -48,7 +48,7 @@ export const BrowserContactsState: Contact[] = [
 		avatar: 'https://cdn.lorem.space/images/face/.cache/500x0/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg',
 	},
 	{
-		id: 5,
+		id: 30,
 		display: 'cduardin',
 		number: '123-4567',
 		avatar: 'https://cdn.lorem.space/images/face/.cache/500x0/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg',

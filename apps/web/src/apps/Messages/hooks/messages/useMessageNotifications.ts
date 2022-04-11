@@ -1,13 +1,10 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-
 import { MessageConversation } from '@typings/messages';
 
 import { useApp } from '@os/hooks/useApp';
 import { useNotifications } from '@os/notification/hooks/useNotifications';
 import { INotification } from '@os/notification/providers/NotificationProvider';
 
-import useMessages from './useMessages';
+import useMessages from '@apps/Messages/hooks/messages/useMessages';
 
 type IMessageNotification = {
 	conversationName: string;
@@ -20,6 +17,7 @@ const NOTIFICATION_ID = 'messages:broadcast';
 export const useMessageNotifications = () => {
 	const { getConversationById } = useMessages();
 	const { removeId, addNotification, addNotificationAlert } = useNotifications();
+
 	const messagesApp = useApp('MESSAGES');
 
 	const setNotification = (messageNotification: IMessageNotification) => {
@@ -29,6 +27,7 @@ export const useMessageNotifications = () => {
 		if (!group) return;
 
 		const id = `${NOTIFICATION_ID}:${conversationId}`;
+
 		let icon;
 		if (messagesApp) icon = messagesApp;
 

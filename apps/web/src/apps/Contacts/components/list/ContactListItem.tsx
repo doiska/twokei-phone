@@ -1,15 +1,16 @@
 import React from 'react';
 import { MdMessage, MdCall, MdEditNote } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
 
 import { Contact } from '@typings/contacts';
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 
-const ContactListItem: React.FC<Contact> = ({ id, display, number, avatar }) => {
-	const navigate = useNavigate();
+import useNavigation from '@os/hooks/useNavigation';
 
-	const showInfo = (contactId: number) => navigate(`/contacts/view/${contactId}`);
+const ContactListItem: React.FC<Contact> = ({ id, display, number, avatar }) => {
+	const { goTo } = useNavigation();
+
+	const showInfo = (contactId: number) => goTo(`/contacts/view/${contactId}`);
 
 	return (
 		<div key={id} className="flex h-[7%] flex-row gap-2 rounded-xl bg-zinc-800 p-2">

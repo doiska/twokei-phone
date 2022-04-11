@@ -10,7 +10,7 @@ import { useMessagesState } from '@apps/Messages/hooks/messages/messageState';
 import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
 
 import useMessages from '../../hooks/messages/useMessages';
-import { MainBody, MainHeader } from '../../MessagesApp.styles';
+import { MainBody, MainHeader } from '../../Messages.styles';
 import { findParticipants } from '../../utils/helpers';
 import ChatContent from './components/view/ChatContent';
 import ConversationListIconContext from './components/view/ChatContextMenut';
@@ -46,20 +46,14 @@ const ConversationView: React.FC = () => {
 
 	useEffect(() => {
 		if (activeConversation) {
-			console.log(' ');
-			console.log('PARTICIPANTS ATUALIZADOS');
-			console.log(activeConversation.conversationList);
-			console.log(' ');
-
 			const found = findParticipants(activeConversation.conversationList, userPhone);
-			console.log(`FOUND: `, found);
-
 			const contacts = getDisplayListByNumber(found);
-			console.log(`CONTACTS: `, contacts);
 
-			setShownParticipants([`Você`, ...contacts]);
-			console.info(`CONVERSATION VIEW: ${{ ...contacts }} participants updated.`);
-			console.log(' ');
+			if (contacts.join(', ').length > 25) {
+				setShownParticipants(['Clique para ver mais detalhes.']);
+			} else {
+				setShownParticipants([`Você`, ...contacts]);
+			}
 		}
 	}, [id, activeConversation]);
 

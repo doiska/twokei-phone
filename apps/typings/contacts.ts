@@ -22,7 +22,7 @@ export interface ContactDeleteDTO {
 export enum ContactLimits {
 	number = 15,
 	avatar = 255,
-	display = 100,
+	display = 35,
 }
 
 export enum ContactEvents {

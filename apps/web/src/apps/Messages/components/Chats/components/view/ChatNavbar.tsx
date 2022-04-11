@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { BsCameraVideoFill } from 'react-icons/bs';
 import { IoMdCall, IoMdMore } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
+
+import useNavigation from '@os/hooks/useNavigation';
 
 import { useMessageActions } from '@apps/Messages/hooks/messages/useMessageActions';
 import useMessages from '@apps/Messages/hooks/messages/useMessages';
@@ -18,7 +19,7 @@ type INavbar = {
 };
 
 const ChatNavbar: React.FC<INavbar> = ({ participants, openMenu }) => {
-	const navigate = useNavigate();
+	const { goTo } = useNavigation();
 	const { activeConversation } = useMessages();
 	const { getAnyValidAvatar } = useMessageProfile();
 
@@ -26,18 +27,14 @@ const ChatNavbar: React.FC<INavbar> = ({ participants, openMenu }) => {
 	const [description, setDescription] = useState('');
 	const [avatar, setAvatar] = useState<string | undefined>('');
 
-	const goBack = () => navigate(-1);
+	const goBack = () => goTo(-1);
 
 	const { getLabelOrContactDisplay } = useMessageActions();
 
 	useEffect(() => {
 		if (activeConversation) {
-			console.log(`ACTIVE CONVERSATION`, activeConversation);
-
 			const display = getLabelOrContactDisplay(activeConversation);
 			const validAvatar = getAnyValidAvatar(activeConversation);
-
-			console.log(`DISPLAY: ${display}`);
 
 			setLabel(display);
 			setAvatar(validAvatar);
@@ -45,8 +42,6 @@ const ChatNavbar: React.FC<INavbar> = ({ participants, openMenu }) => {
 			setDescription(participants.join(', ') || '');
 		}
 	}, [participants, activeConversation]);
-
-	console.log(`CHAT NAVBAR `, activeConversation?.isGroupChat, label, avatar, description);
 
 	if (!activeConversation) return <></>;
 
@@ -62,7 +57,7 @@ const ChatNavbar: React.FC<INavbar> = ({ participants, openMenu }) => {
 					className="rounded-full"
 				/>
 			</Avatar>
-			<div className="flex h-full max-h-[100%] w-full flex-col place-content-center">
+			<div className="flex w-full flex-col place-content-center">
 				<div className="flex flex-row flex-wrap justify-between">
 					<span className="text-white">{label}</span>
 				</div>

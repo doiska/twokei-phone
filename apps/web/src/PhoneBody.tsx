@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
-import { useNotifications } from '@os/notification/hooks/useNotifications';
+import { useGlobalWallpaper } from '@os/hooks/useGlobalWallpaper';
 
 const PhoneBody: React.FC = ({ children }) => {
-	const { barUncollapsed } = useNotifications();
-	const [backdrop, setBackdrop] = useState<string>('');
+	const [wallpaper, setWallpaper] = useGlobalWallpaper();
 
-	useEffect(() => {
-		setBackdrop(barUncollapsed ? '' : 'backdrop-blur-sm backdrop-brightness-50');
-	}, [barUncollapsed]);
-
-	return <div className={`flex h-full w-full flex-col transition-all duration-300 ${backdrop}`}>{children}</div>;
+	return <div className={`flex h-full w-full flex-col transition-all duration-300 ${wallpaper}`}>{children}</div>;
 };
 
 export default PhoneBody;

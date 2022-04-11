@@ -66,12 +66,12 @@ MessagesSchema.init(
 		createdAt: {
 			field: 'created_at',
 			type: DataTypes.DATE,
-			allowNull: false,
+			allowNull: true,
 		},
 		updatedAt: {
 			field: 'updated_at',
 			type: DataTypes.DATE,
-			allowNull: false,
+			allowNull: true,
 		},
 	},
 	{

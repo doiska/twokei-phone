@@ -1,15 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-
 import { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
 import { UseContextMenu, useContextMenu } from '@ui/hooks/useContextMenu';
 
+import useNavigation from '@os/hooks/useNavigation';
+
 const MessagesHomeNavbarIcon = (): UseContextMenu => {
-	const navigate = useNavigate();
+	const { goTo } = useNavigation();
 
 	const actions = [
 		{
 			label: 'Perfil',
-			onCommit: () => navigate('profile/edit'),
+			onCommit: () => goTo('profile/edit'),
 		},
 	] as IContextMenuOption[];
 

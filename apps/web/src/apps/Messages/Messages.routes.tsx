@@ -7,7 +7,7 @@ import ConversationView from './components/Chats/ConversationView';
 import CreateConversation from './components/Create/CreateConversation';
 import MessagesConversationList from './components/Home/MessagesConversationList';
 import MessageProfile from './components/Profile/MessageProfile';
-import MessagesApp from './MessagesApp';
+import MessagesApp from './Messages.app';
 
 const MessagesRoutes = {
 	path: 'messages',
@@ -25,7 +25,7 @@ const MessagesRoutes = {
 					element: <ConversationView />,
 				},
 				{
-					path: 'add/:type',
+					path: 'add',
 					element: <CreateConversation />,
 				},
 			],

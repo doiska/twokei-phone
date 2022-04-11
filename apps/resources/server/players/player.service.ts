@@ -3,7 +3,7 @@ import Collection from '@discordjs/collection';
 import { PlayerDB } from './player.db';
 import { findOrGeneratePhoneNumber } from '../phone/helper';
 import { PhoneEvents } from '@typings/phone';
-import { getPlayerGameLicense } from '../utils/fivem';
+import { getPlayerGameLicense } from '@utils/fivem';
 
 class _PlayerService {
 	private readonly playersBySource: Collection<number, Player>;

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 import { GrMoreVertical } from 'react-icons/gr';
-import { MdMore } from 'react-icons/md';
 import { TiDeleteOutline } from 'react-icons/ti';
-import { useNavigate } from 'react-router-dom';
 
 import usePromptMenu from '@ui/hooks/usePromptMenu';
+
+import useNavigation from '@os/hooks/useNavigation';
 
 import { useCheckedConversations, useFilterValueState, useIsEditing } from '@apps/Messages/hooks/messages/messageState';
 import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
@@ -14,7 +14,7 @@ import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
 import MessagesHomeNavbarIcon from './MessagesHomeNavbarIcon';
 
 const ConversationListNavbar: React.FC = () => {
-	const navigate = useNavigate();
+	const { goTo } = useNavigation();
 
 	const [checkedConversation, setCheckedConversation] = useCheckedConversations();
 
@@ -76,13 +76,13 @@ const ConversationListNavbar: React.FC = () => {
 				</div>
 			</div>
 			<div className="tabs w-full basis-[40%] justify-around text-white">
-				<a className={`tab w-1/3 text-gray-200`} onClick={() => navigate('/')}>
+				<a className={`tab w-1/3 text-gray-200`} onClick={() => goTo('/')}>
 					Conversas
 				</a>
-				<a className={`tab w-1/3 text-gray-300`} onClick={() => navigate('status')}>
+				<a className={`tab w-1/3 text-gray-300`} onClick={() => goTo('status')}>
 					Status
 				</a>
-				<a className={`tab w-1/3 text-gray-300`} onClick={() => navigate('calls')}>
+				<a className={`tab w-1/3 text-gray-300`} onClick={() => goTo('calls')}>
 					Chamadas
 				</a>
 			</div>

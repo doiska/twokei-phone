@@ -6,7 +6,7 @@ import AppRoute from '@os/apps/components/AppRoute';
 import ContactEditOrCreate from './components/ContactEditOrCreate';
 import ContactsDetails from './components/ContactsDetails';
 import ContactsHome from './components/ContactsHome';
-import ContactsApp from './ContactsApp';
+import ContactsApp from './Contacts.app';
 
 const ContactsRoutes = {
 	path: 'contacts',

@@ -1,31 +1,22 @@
 import React from 'react';
 import { MdAdd } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
 
-import { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
-import OptionIcon from '@ui/components/OptionIcon';
-import { useContextMenu } from '@ui/hooks/useContextMenu';
+import { OptionIcon, OptionIconHolder } from '@ui/components/OptionIcon';
+
+import useNavigation from '@os/hooks/useNavigation';
 
 const ConversationListIconContext: React.FC = () => {
-	const navigate = useNavigate();
-
-	const actions = [
-		{
-			label: 'Conversa',
-			onCommit: () => navigate('conversations/add/conversation'),
-		},
-		{
-			label: 'Grupo',
-			onCommit: () => navigate('conversations/add/group'),
-		},
-	] as IContextMenuOption[];
-
-	const { ContextMenu, openMenu } = useContextMenu('', actions);
+	const { goTo } = useNavigation();
 
 	return (
 		<>
-			<OptionIcon icon={<MdAdd />} onClick={() => openMenu()} />
-			<ContextMenu />
+			<OptionIconHolder>
+				<OptionIcon
+					className="bg-whatsapp-light-green"
+					icon={<MdAdd />}
+					onClick={() => goTo('conversations/add')}
+				/>
+			</OptionIconHolder>
 		</>
 	);
 };

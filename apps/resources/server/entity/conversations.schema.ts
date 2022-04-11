@@ -4,7 +4,7 @@ import ParticipantsSchema from './participants.schema';
 
 import { MessageConversationDTO, MessageConversation } from '@typings/messages';
 
-class ConversationsSchema extends Model<MessageConversation, MessageConversation> {
+class ConversationsSchema extends Model<MessageConversation, MessageConversationDTO & { conversationList: string }> {
 	declare id: number;
 	declare label: string;
 	declare avatar?: string;
@@ -46,12 +46,12 @@ ConversationsSchema.init(
 		updatedAt: {
 			field: 'updated_at',
 			type: DataTypes.DATE,
-			allowNull: false,
+			allowNull: true,
 		},
 		createdAt: {
 			field: 'created_at',
 			type: DataTypes.DATE,
-			allowNull: false,
+			allowNull: true,
 		},
 	},
 	{

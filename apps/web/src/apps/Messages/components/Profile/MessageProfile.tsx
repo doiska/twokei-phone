@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MainBody, MainHeader } from '@apps/Messages/MessagesApp.styles';
+import { MainBody, MainHeader } from '@apps/Messages/Messages.styles';
 
 import UserProfileBody from './components/UserProfileBody';
 import UserProfileNavbar from './components/UserProfileNavbar';

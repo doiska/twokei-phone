@@ -2,27 +2,26 @@ import React from 'react';
 import { IoChevronBack } from 'react-icons/io5';
 import { RiCheckboxBlankCircleLine } from 'react-icons/ri';
 import { SiLibrariesdotio } from 'react-icons/si';
-import { useNavigate, useLocation, To } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
+import useNavigation from '@os/hooks/useNavigation';
 import { useNotifications } from '@os/notification/hooks/useNotifications';
 
 import { useNavigationDisabledValue } from './navigation.state';
 
 const NavigationBar: React.FC = () => {
-	const navigate = useNavigate();
+	const { goTo, goBack } = useNavigation();
 	const isDisabled = useNavigationDisabledValue();
 	const { pathname } = useLocation();
 
 	const { barUncollapsed, setBarUncollapsed } = useNotifications();
 
-	const navigateTo = (target: To | number) => {
+	const navigateTo = (target: string | number) => {
 		if (isDisabled) return;
 
 		if (!barUncollapsed) setBarUncollapsed((curr) => !curr);
 
-		if (pathname === '/' && target === -1) return;
-
-		if (pathname.toLowerCase() !== target) navigate(target as To);
+		if (pathname.toLowerCase() !== target) goTo(target);
 	};
 
 	return (
@@ -34,7 +33,7 @@ const NavigationBar: React.FC = () => {
 				<RiCheckboxBlankCircleLine onClick={() => navigateTo('/')} />
 			</a>
 			<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
-				<IoChevronBack onClick={() => navigateTo(-1)} />
+				<IoChevronBack onClick={() => goBack()} />
 			</a>
 		</div>
 	);

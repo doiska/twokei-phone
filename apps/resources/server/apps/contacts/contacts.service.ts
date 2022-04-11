@@ -1,18 +1,20 @@
 import { Contact, ContactDeleteDTO, ContactErrors, ContactEvents, PreDBContact } from '@typings/contacts';
-import { PromiseEventResponse, PromiseRequest } from '../lib/promise.types';
-import playerService from '../players/player.service';
+import PlayerService from '../../players/player.service';
+import { PromiseEventResponse, PromiseRequest } from '../../lib/promise.types';
 import ContactsDBWrapper, { _ContactsWrapper } from './contacts.db';
+import Service from '@common/service';
 
-class _ContactService {
+class _ContactService extends Service {
 	private readonly contactsDBWrapper: _ContactsWrapper;
 
 	constructor() {
+		super('Contacts');
 		this.contactsDBWrapper = ContactsDBWrapper;
 		console.info(`Contacts service started`);
 	}
 
 	async fetchAllContacts(req: PromiseRequest<void>, resp: PromiseEventResponse<Contact[]>): Promise<void> {
-		const identifier = playerService.getIdentifierByPlayer(req.source);
+		const identifier = PlayerService.getIdentifierByPlayer(req.source);
 
 		try {
 			const contacts = await this.contactsDBWrapper.fetchAllContacts(identifier);
@@ -25,7 +27,7 @@ class _ContactService {
 	}
 
 	async handleContactAdd(req: PromiseRequest<PreDBContact>, resp: PromiseEventResponse<Contact>): Promise<void> {
-		const identifier = playerService.getIdentifierByPlayer(req.source);
+		const identifier = PlayerService.getIdentifierByPlayer(req.source);
 
 		try {
 			//TODO: filter url;
@@ -39,7 +41,7 @@ class _ContactService {
 	}
 
 	async handleContactUpdate(req: PromiseRequest<Contact>, resp: PromiseEventResponse<void>): Promise<void> {
-		const identifier = playerService.getIdentifierByPlayer(req.source);
+		const identifier = PlayerService.getIdentifierByPlayer(req.source);
 
 		try {
 			const url = req.data.avatar; //TODO: check if url is valid
@@ -57,7 +59,7 @@ class _ContactService {
 	}
 
 	async handleContactDelete(req: PromiseRequest<ContactDeleteDTO>, resp: PromiseEventResponse<void>): Promise<void> {
-		const identifier = playerService.getIdentifierByPlayer(req.source);
+		const identifier = PlayerService.getIdentifierByPlayer(req.source);
 
 		try {
 			await this.contactsDBWrapper.deleteContact(identifier, req.data.id);

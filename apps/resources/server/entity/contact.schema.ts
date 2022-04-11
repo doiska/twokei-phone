@@ -9,7 +9,7 @@ interface ContactAttributes extends Contact {
 type ContactAttributesOptional = Optional<ContactAttributes, 'id'>;
 
 class ContactSchema extends Model<ContactAttributes, ContactAttributesOptional> {
-	declare id?: number;
+	declare id: number;
 	declare identifier: string;
 	declare display: string;
 	declare number: string;

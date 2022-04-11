@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { MdCheck } from 'react-icons/md';
 import { TiPen } from 'react-icons/ti';
-import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
-import OptionIcon from '@ui/components/OptionIcon';
+import { OptionIcon, OptionIconHolder } from '@ui/components/OptionIcon';
 import usePromptMenu from '@ui/hooks/usePromptMenu';
 
+import useNavigation from '@os/hooks/useNavigation';
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
 import { useMessageProfileAPI } from '@apps/Messages/hooks/profiles/useMessageProfileAPI';
 
 const UserProfileBody: React.FC = () => {
-	const navigate = useNavigate();
+	const { goTo } = useNavigation();
 	const phone = usePhoneNumber();
 
 	const { userProfile, setUserProfile } = useMessageProfileAPI();
@@ -29,10 +29,10 @@ const UserProfileBody: React.FC = () => {
 					display: displayInput,
 					avatar: avatarInput,
 				});
-				navigate('/messages');
+				goTo('/messages');
 			}
 		},
-		() => navigate('/messages')
+		() => goTo('/messages')
 	);
 
 	return (
@@ -69,7 +69,9 @@ const UserProfileBody: React.FC = () => {
 					</div>
 				</div>
 			</div>
-			<OptionIcon childrenBackground="bg-whatsapp-teal-dark" icon={<MdCheck />} onClick={() => openMenu()} />
+			<OptionIconHolder>
+				<OptionIcon className="bg-whatsapp-teal-dark" icon={<MdCheck />} onClick={() => openMenu()} />
+			</OptionIconHolder>
 			<ContextMenu />
 		</>
 	);

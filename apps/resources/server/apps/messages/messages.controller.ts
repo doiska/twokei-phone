@@ -1,5 +1,5 @@
 import { MessageConversation, MessageEvents, MessageConversationDTO } from '@typings/messages';
-import { onNetPromise } from '../lib/onNetPromise';
+import { onNetPromise } from '@lib/onNetPromise';
 import MessageService from './messages.service';
 
 onNetPromise<void, MessageConversation[]>(MessageEvents.FETCH_MESSAGE_CONVERSATIONS, async (req, resp) =>

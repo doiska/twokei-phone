@@ -1,19 +1,20 @@
-import { useNavigate } from 'react-router-dom';
 
 import { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
 import { UseContextMenu, useContextMenu } from '@ui/hooks/useContextMenu';
 
+import useNavigation from '@os/hooks/useNavigation';
+
 const ConversationListIconContext = (conversationId: string | undefined): UseContextMenu => {
-	const navigate = useNavigate();
+	const { goTo } = useNavigation();
 
 	const actions = [
 		{
 			label: 'Detalhes',
-			onCommit: () => navigate(`/messages/conversations/details/${conversationId}`),
+			onCommit: () => goTo(`/messages/conversations/details/${conversationId}`),
 		},
 		{
 			label: 'Configurações',
-			onCommit: () => navigate(`/messages/conversations/settings/${conversationId}`),
+			onCommit: () => goTo(`/messages/conversations/settings/${conversationId}`),
 		},
 	] as IContextMenuOption[];
 

@@ -24,7 +24,11 @@ const Avatar: React.FC<IAvatar> = ({
 	return (
 		<div className={`flex flex-col items-center justify-center gap-2 ${wrapperClassName}`}>
 			<div className={`avatar placeholder ${avatarClassName}`}>
-				<div className={`text-neutral-content rounded-full bg-zinc-700 ${childrenClassName}`}>{children}</div>
+				<div
+					className={`text-neutral-content rounded-full bg-gradient-to-t from-zinc-600 via-zinc-500 to-zinc-500 ${childrenClassName}`}
+				>
+					{children}
+				</div>
 				<BiCheck
 					className={`bg-whatsapp-teal absolute right-0 bottom-0 rounded-full border-white fill-white transition-all ${
 						checkClassName ?? ''

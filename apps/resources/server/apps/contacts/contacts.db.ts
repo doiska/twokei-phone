@@ -1,7 +1,5 @@
 import { Contact, PreDBContact } from '@typings/contacts';
-import DBWrapper from '../db/wrapper';
-import ContactSchema from '../entity/contact.schema';
-import { Tables } from '../server.db';
+import ContactSchema from '@entity/contact.schema';
 
 export class _ContactsWrapper {
 	async fetchAllContacts(identifier: string) {
@@ -31,7 +29,7 @@ export class _ContactsWrapper {
 	}
 
 	async updateContact(identifier: string, contact: Contact) {
-		await ContactSchema.update(
+		return ContactSchema.update(
 			{
 				identifier: identifier,
 				display: contact.display,
@@ -48,7 +46,7 @@ export class _ContactsWrapper {
 	}
 
 	async deleteContact(identifier: string, id: number) {
-		await ContactSchema.destroy({
+		return ContactSchema.destroy({
 			where: {
 				identifier: identifier,
 				id: id,

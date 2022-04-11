@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { IoMdPeople, IoMdPhonePortrait, IoMdImage } from 'react-icons/io';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { ContactLimits } from '@typings/contacts';
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 import { formatNumber } from '@utils/format';
 
+import useNavigation from '@os/hooks/useNavigation';
+
 import useContacts from '../hooks/useContacts';
 import { useContactsNUI } from '../hooks/useContactsNUI';
 import ContactDetailsEditableItem from './details/ContactDetailsEditableItem';
 
 const ContactEditOrCreate: React.FC = () => {
-	const navigate = useNavigate();
+	const { goTo } = useNavigation();
 	const { id } = useParams();
 
 	const { getContact } = useContacts();
@@ -62,7 +64,7 @@ const ContactEditOrCreate: React.FC = () => {
 			});
 		}
 
-		navigate('/contacts');
+		goTo('/contacts');
 	};
 
 	return (
@@ -101,7 +103,7 @@ const ContactEditOrCreate: React.FC = () => {
 			<div className="flex w-full flex-row items-center justify-center gap-6">
 				<span
 					className="w-24 cursor-pointer rounded-lg bg-zinc-700 p-2 text-center"
-					onClick={() => navigate('/contacts')}
+					onClick={() => goTo('/contacts')}
 				>
 					Cancelar
 				</span>

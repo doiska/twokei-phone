@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import { IoMdCall, IoIosChatboxes, IoIosCamera } from 'react-icons/io';
 import { IoLogoWhatsapp, IoPencil, IoRemoveCircleOutline, IoShareSocialOutline } from 'react-icons/io5';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 import usePromptMenu from '@ui/hooks/usePromptMenu';
 
+import useNavigation from '@os/hooks/useNavigation';
+
 import useContacts from '../hooks/useContacts';
 import { useContactsNUI } from '../hooks/useContactsNUI';
 
 const ContactsDetails: React.FC = () => {
-	const navigate = useNavigate();
+	const { goTo } = useNavigation();
 
 	const { deleteContact } = useContactsNUI();
 	const { getContact } = useContacts();
@@ -19,7 +21,7 @@ const ContactsDetails: React.FC = () => {
 	const { id } = useParams();
 	const contact = getContact(parseInt(id ?? ''));
 
-	const goBack = () => navigate('/contacts');
+	const goBack = () => goTo('/contacts');
 
 	useEffect(() => {
 		if (!id || !contact) goBack();
@@ -77,13 +79,13 @@ const ContactsDetails: React.FC = () => {
 					<div className="flex flex-row justify-around p-3">
 						<div
 							className="flex cursor-pointer flex-col items-center"
-							onClick={() => navigate('/contacts/edit/' + id)}
+							onClick={() => goTo('/contacts/edit/' + id)}
 						>
 							<IoPencil className="text-xl" />
 							<span className="text-sm">Editar</span>
 						</div>
 						<div className="flex cursor-pointer flex-col items-center">
-							<IoShareSocialOutline className="text-xl" onClick={() => navigate('share')} />
+							<IoShareSocialOutline className="text-xl" onClick={() => goTo('share')} />
 							<span className="text-sm">Compartilhar</span>
 						</div>
 						<div className="flex cursor-pointer flex-col items-center" onClick={() => openMenu()}>

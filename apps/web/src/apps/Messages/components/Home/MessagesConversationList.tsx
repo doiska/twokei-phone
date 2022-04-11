@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MainBody, MainHeader } from '../../MessagesApp.styles';
+import { MainBody, MainHeader } from '../../Messages.styles';
 import ConversationListIconContext from './components/CreateConversationIcon';
 import ConversationList from './components/MessagesHome';
 import ConversationListNavbar from './components/MessagesHomeNavbar';

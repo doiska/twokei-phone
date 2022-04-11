@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Contact } from '@typings/contacts';
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
+import { filterContactDisplay } from '@utils/format';
 
 import { useContactsValue } from '@apps/Contacts/hooks/contactsState';
 
@@ -32,6 +33,8 @@ const ConversationContactItem: React.FC<CreationContactItem> = ({ contact, handl
 
 	useEffect(() => handleChecked(contact, checked), [checked]);
 
+	const filteredDisplay = filterContactDisplay(display);
+
 	return (
 		<div className="flex flex-row items-center justify-center gap-3" onClick={() => setChecked((curr) => !curr)}>
 			<Avatar check={checked} childrenClassName="w-10">
@@ -42,7 +45,7 @@ const ConversationContactItem: React.FC<CreationContactItem> = ({ contact, handl
 				/>
 			</Avatar>
 			<div className="flex h-full flex-1 flex-col text-black">
-				<span className="text-md font-semibold">{display}</span>
+				<span className="text-md font-semibold">{filteredDisplay}</span>
 				<span className="text-sm">{number}</span>
 			</div>
 		</div>

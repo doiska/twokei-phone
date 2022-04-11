@@ -24,7 +24,7 @@
     },
     "include": [
         "./**/*",
-        "../common/**/*"
+        "./common/**/*"
     ],
     "exclude": [
         "**/node_modules"

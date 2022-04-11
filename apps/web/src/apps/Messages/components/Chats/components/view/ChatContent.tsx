@@ -1,18 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useNavigate } from 'react-router-dom';
 
 import { ServerPromiseResp } from '@typings/common';
 import { Message, MessageConversation, MessageEvents } from '@typings/messages';
 import { RingsLoader } from '@ui/components/LoadingSpinner';
 import fetchNui from '@utils/fetchNui';
 
+import useNavigation from '@os/hooks/useNavigation';
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
 import { useConversationId, useSetMessages } from '@apps/Messages/hooks/messages/messageState';
-import { MockServerResp } from '@apps/Messages/utils/constants';
 
-import MessageBubble from './ChatText';
+import MessageBubble from './MessageBubble';
 
 type IChatContent = {
 	activeMessage: MessageConversation;
@@ -24,7 +23,7 @@ const ChatContent: React.FC<IChatContent> = ({ activeMessage, messages }) => {
 
 	const phone = usePhoneNumber();
 
-	const navigate = useNavigate();
+	const { goTo } = useNavigation();
 	const conversationId = useConversationId();
 
 	const setMessages = useSetMessages();
@@ -38,25 +37,13 @@ const ChatContent: React.FC<IChatContent> = ({ activeMessage, messages }) => {
 
 	const handleNextPage = useCallback(() => {
 		if (conversationId !== null) {
-			fetchNui<ServerPromiseResp<Message[]>>(
-				MessageEvents.FETCH_MESSAGES,
-				{
-					id: conversationId,
-					page,
-				}
-				// {
-				// 	status: 'ok',
-				// 	data: MockServerResp.data?.map((c) => {
-				// 		const clone = { ...c };
-				// 		clone.id = Math.floor(Math.random() * 10000) + Date.now();
-				// 		console.log(c.id);
-				// 		return clone;
-				// 	}),
-				// }
-			)
+			fetchNui<ServerPromiseResp<Message[]>>(MessageEvents.FETCH_MESSAGES, {
+				id: conversationId,
+				page,
+			})
 				.then((resp) => {
 					if (resp.status !== 'ok') {
-						navigate('/messages');
+						goTo('/messages');
 						return;
 					}
 
@@ -80,7 +67,6 @@ const ChatContent: React.FC<IChatContent> = ({ activeMessage, messages }) => {
 			setHasMore(false);
 		}
 	}, [conversationId, setMessages, page, setPage]);
-
 
 	return (
 		<div className="h-phone-body flex-1 select-none p-2">

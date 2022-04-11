@@ -6,7 +6,22 @@
             ],
             "@shared/*": [
                 "../../shared/*"
-            ]
+            ],
+            "@apps/*": [
+                "./apps/*"
+            ],
+            "@lib/*": [
+                "./lib/*"
+            ],
+            "@utils/*": [
+                "./utils/*"
+            ],
+            "@entity/*": [
+                "./entity/*"
+            ],
+            "@common/*": [
+                "./common/*"
+            ],
         }
     }
 }

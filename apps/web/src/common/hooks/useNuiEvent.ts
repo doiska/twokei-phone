@@ -36,7 +36,6 @@ const useNuiEvent = <T = unknown>(app: string, action: string, handler: (data: T
 	useEffect(() => {
 		const eventListener = (event: MessageEvent<NuiMessageData<T>>) => {
 			const { event: eventAction, app: tgtApp, data } = event.data;
-			console.log(`RECEIVED EVENT`, event);
 
 			if (savedHandler.current) {
 				if (eventAction === action && tgtApp === app) {

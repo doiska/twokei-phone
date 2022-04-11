@@ -1,3 +1,5 @@
+import { ContactLimits } from '@typings/contacts';
+
 export const isValidPhone = (content: string) => content.match(/^[0-9]*$/);
 
 export const formatNumber = (content: string) => {
@@ -14,4 +16,12 @@ export const formatNumber = (content: string) => {
 	const secondHalf = clean.substring(halfLength, cleanLength);
 
 	return `${firstHalf}-${secondHalf}`;
+};
+
+export const filterContactDisplay = (content: string) => {
+	if (!content) return;
+
+	const limit = ContactLimits.display;
+
+	return content.length > limit ? `${content.substring(0, limit)}...` : content;
 };

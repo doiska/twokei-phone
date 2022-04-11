@@ -10,9 +10,23 @@ const alias = {
 	'@typings': path.resolve(__dirname, '../typings'),
 };
 
+const clientAlias = {};
+
+const serverAlias = {
+	'@apps': path.resolve(__dirname, './server/apps'),
+	'@lib': path.resolve(__dirname, './server/lib'),
+	'@utils': path.resolve(__dirname, './server/utils'),
+    '@entity': path.resolve(__dirname, './server/entity'),
+    '@common': path.resolve(__dirname, './server/common'),
+};
+
 const server = () => {
 	const plugins = [
 		new RemovePlugin({
+			before: {
+				allowRootAndOutside: true,
+				include: [path.resolve(buildPath, 'server')],
+			},
 			watch: {
 				allowRootAndOutside: true,
 				include: [path.resolve(buildPath, 'server')],
@@ -39,9 +53,13 @@ const server = () => {
 			minimize: true,
 		},
 		resolve: {
+			modules: [path.resolve(__dirname, 'server'), 'node_modules'],
 			preferRelative: true,
 			extensions: ['.tsx', '.ts', '.js'],
-			alias,
+			alias: {
+				...alias,
+				...serverAlias,
+			},
 		},
 		output: {
 			filename: '[contenthash].server.js',
@@ -66,6 +84,10 @@ const client = () => {
 		},
 		plugins: [
 			new RemovePlugin({
+				before: {
+					allowRootAndOutside: true,
+					include: [path.resolve(buildPath, 'client')],
+				},
 				watch: {
 					allowRootAndOutside: true,
 					include: [path.resolve(buildPath, 'client')],
@@ -77,7 +99,10 @@ const client = () => {
 		},
 		resolve: {
 			extensions: ['.tsx', '.ts', '.js'],
-			alias,
+			alias: {
+				...alias,
+				...clientAlias,
+			},
 		},
 		output: {
 			filename: '[contenthash].client.js',

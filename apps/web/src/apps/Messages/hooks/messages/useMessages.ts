@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState, waitForAll } from 'recoil';
 
 import { MessageConversation } from '@typings/messages';
+
+import useNavigation from '@os/hooks/useNavigation';
 
 import { messageState, useSetConversationId } from './messageState';
 
@@ -16,7 +17,7 @@ interface IUseMessages {
 }
 
 const useMessages = (): IUseMessages => {
-	const navigate = useNavigate();
+	const { goTo } = useNavigation();
 
 	const { state: conversationLoading, contents } = useRecoilValueLoadable(messageState.conversations);
 	const [activeConversation] = useRecoilValue(waitForAll([messageState.activeConversation]));
@@ -45,13 +46,11 @@ const useMessages = (): IUseMessages => {
 
 	const goToConversation = useCallback(
 		(id: number) => {
-			if (!navigate) return;
-
 			setCurrentConversationId(id);
 
-			navigate(`/messages/conversations/view/${id.toString()}`);
+			goTo(`/messages/conversations/view/${id.toString()}`);
 		},
-		[setCurrentConversationId, navigate]
+		[setCurrentConversationId]
 	);
 
 	return {
