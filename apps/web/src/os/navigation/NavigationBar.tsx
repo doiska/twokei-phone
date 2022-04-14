@@ -4,6 +4,7 @@ import { RiCheckboxBlankCircleLine } from 'react-icons/ri';
 import { SiLibrariesdotio } from 'react-icons/si';
 import { useLocation } from 'react-router-dom';
 
+import useDoubleClick from '@os/hooks/useDoubleClick';
 import useNavigation from '@os/hooks/useNavigation';
 import { useNotifications } from '@os/notification/hooks/useNotifications';
 
@@ -15,6 +16,11 @@ const NavigationBar: React.FC = () => {
 	const { pathname } = useLocation();
 
 	const { barUncollapsed, setBarUncollapsed } = useNotifications();
+	const click = useDoubleClick({
+		onSingleClick: () => goBack(),
+		onDoubleClick: () => navigateTo('/'),
+		delay: 150,
+	});
 
 	const navigateTo = (target: string | number) => {
 		if (isDisabled) return;
@@ -25,16 +31,8 @@ const NavigationBar: React.FC = () => {
 	};
 
 	return (
-		<div className="z-[999] flex h-[6%] w-full basis-[6%] items-center justify-between place-self-end px-12 text-lg text-white">
-			<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
-				<SiLibrariesdotio />
-			</a>
-			<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
-				<RiCheckboxBlankCircleLine onClick={() => navigateTo('/')} />
-			</a>
-			<a className="inline-block justify-center text-center hover:text-teal-500 focus:text-teal-500">
-				<IoChevronBack onClick={() => goBack()} />
-			</a>
+		<div className="absolute bottom-0 z-[999] my-1 flex h-[3%] w-full basis-[2%] items-center justify-center">
+			<div className="h-[30%] w-[45%] cursor-pointer rounded-full bg-zinc-400" onClick={click} />
 		</div>
 	);
 };

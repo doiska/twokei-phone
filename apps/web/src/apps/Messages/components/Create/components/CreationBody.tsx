@@ -5,7 +5,7 @@ import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 import { filterContactDisplay } from '@utils/format';
 
-import { useContactsValue } from '@apps/Contacts/hooks/contactsState';
+import { useContactsValue } from '@apps/Dial/Contacts/hooks/contactsState';
 
 type CreationBodyProps = {
 	handleCheckConversation: (contact: Contact, state: boolean) => void;

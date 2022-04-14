@@ -4,7 +4,7 @@ import { IoSearch } from 'react-icons/io5';
 
 import useNavigation from '@os/hooks/useNavigation';
 
-import { useContactsValue } from '@apps/Contacts/hooks/contactsState';
+import { useContactsValue } from '@apps/Dial/Contacts/hooks/contactsState';
 
 const CreationNavbar: React.FC<{ isGroup: boolean }> = ({ isGroup }) => {
 	const contacts = useContactsValue();

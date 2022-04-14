@@ -7,7 +7,7 @@ import { Message, MessageConversation } from '@typings/messages';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import useContacts from '@apps/Contacts/hooks/useContacts';
+import useContacts from '@apps/Dial/Contacts/hooks/useContacts';
 
 import { messageState, useConversationId, useSetConversations, useSetMessages } from './messageState';
 

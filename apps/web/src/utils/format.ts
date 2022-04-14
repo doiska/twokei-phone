@@ -5,17 +5,16 @@ export const isValidPhone = (content: string) => content.match(/^[0-9]*$/);
 export const formatNumber = (content: string) => {
 	if (!content) return '';
 
-	const clean = content.replace(/[^\d]/g, '');
-	const cleanLength = content.length - 1;
+	const clean = content.replace(/[^\d]/g, '').substring(0, ContactLimits.number);
 
-	const halfLength = Math.round(cleanLength / 2);
+	const regex = /(\d{0,3})(\d{0,3})(\d{0,3})/g;
 
-	if (cleanLength < 5) return clean;
+	const result = clean.replace(regex, (_, a, b, c) => {
+		const res = [a, b, c].filter((c) => c);
+		return res.join('-');
+	});
 
-	const firstHalf = clean.substring(0, halfLength);
-	const secondHalf = clean.substring(halfLength, cleanLength);
-
-	return `${firstHalf}-${secondHalf}`;
+	return result;
 };
 
 export const filterContactDisplay = (content: string) => {

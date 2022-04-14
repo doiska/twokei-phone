@@ -5,7 +5,7 @@ import { RingsLoader } from '@ui/components/LoadingSpinner';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import useContacts from '@apps/Contacts/hooks/useContacts';
+import useContacts from '@apps/Dial/Contacts/hooks/useContacts';
 import { useMessagesState } from '@apps/Messages/hooks/messages/messageState';
 import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
 
