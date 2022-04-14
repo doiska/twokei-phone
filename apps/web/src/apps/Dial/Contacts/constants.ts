@@ -14,31 +14,19 @@ export const BrowserContactsState: Contact[] = [
 	{
 		id: 2,
 		display: 'rduardin',
-		number: '123-4567',
-		avatar: 'https://cdn.lorem.space/images/face/.cache/500x0/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg',
-	},
-	{
-		id: 2,
-		display: 'aduardin',
-		number: '123-4567',
-		avatar: 'https://cdn.lorem.space/images/face/.cache/500x0/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg',
-	},
-	{
-		id: 2,
-		display: 'gduardin',
-		number: '123-4567',
+		number: '123-456-7',
 		avatar: 'https://cdn.lorem.space/images/face/.cache/500x0/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg',
 	},
 	{
 		id: 5,
 		display: 'cduardin',
-		number: '123-4567',
+		number: '123-456-7',
 		avatar: 'https://cdn.lorem.space/images/face/.cache/500x0/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg',
 	},
 	{
 		id: 8,
 		display: 'cfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffduardin',
-		number: '123-4567',
+		number: '123-456-7',
 		avatar: 'https://cdn.lorem.space/images/face/.cache/500x0/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg',
 	},
 	{

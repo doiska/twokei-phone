@@ -1,8 +1,6 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 
-import AppRoute from '@os/apps/components/AppRoute';
-
 import ContactEditOrCreate from './components/ContactEditOrCreate';
 import ContactsDetails from './components/ContactsDetails';
 import ContactsHome from './components/ContactsHome';
@@ -10,7 +8,7 @@ import ContactsApp from './Contacts.app';
 
 const ContactsRoutes = {
 	path: 'contacts',
-	element: <AppRoute id="CONTACTS" emitOnOpen={true} component={ContactsApp} />,
+	element: <ContactsApp />,
 	children: [
 		{ path: '', element: <ContactsHome /> },
 		{ path: 'edit/', element: <ContactEditOrCreate /> },

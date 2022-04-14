@@ -1,13 +1,11 @@
 import React from 'react';
 import { FcSettings } from 'react-icons/fc';
-import { IoCall } from 'react-icons/io5';
 import { RiContactsBook2Fill, RiHomeGearFill, RiWhatsappLine } from 'react-icons/ri';
 import { RouteObject } from 'react-router-dom';
 
 import AppRoute from '@os/apps/components/AppRoute';
 
-import CallRoutes from '@apps/Call/Call.routes';
-import ContactsRoutes from '@apps/Contacts/Contacts.routes';
+import DialRoutes from '@apps/Dial/Dial.routes';
 import HomeApp from '@apps/Home/Home.app';
 import MessagesRoutes from '@apps/Messages/Messages.routes';
 import SettingsApp from '@apps/Settings/Settings.app';
@@ -36,11 +34,11 @@ export const AllApps: IApp[] = [
 		},
 	},
 	{
-		id: 'CONTACTS',
-		locale: 'APPS_CONTACTS',
+		id: 'DIAL',
+		locale: 'APPS_DIAL',
 		disable: false,
 		icon: <RiContactsBook2Fill className="text-gray-600" />,
-		routes: ContactsRoutes,
+		routes: DialRoutes,
 	},
 	{
 		id: 'SETTINGS',
@@ -58,13 +56,6 @@ export const AllApps: IApp[] = [
 		disable: false,
 		icon: <RiWhatsappLine className="text-whatsapp-light-green" />,
 		routes: MessagesRoutes,
-	},
-	{
-		id: 'CALL',
-		locale: 'APPS_CALL',
-		disable: false,
-		icon: <IoCall />,
-		routes: CallRoutes,
 	},
 ];
 

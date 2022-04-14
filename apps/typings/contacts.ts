@@ -20,7 +20,7 @@ export interface ContactDeleteDTO {
 }
 
 export enum ContactLimits {
-	number = 15,
+	number = 9,
 	avatar = 255,
 	display = 35,
 }

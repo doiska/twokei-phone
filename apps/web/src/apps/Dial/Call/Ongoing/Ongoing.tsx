@@ -11,16 +11,8 @@ import {
 	BsVolumeUpFill,
 } from 'react-icons/bs';
 
-import {
-	Profile,
-	Button,
-	ButtonGrid,
-	Container,
-	Details,
-	ProfileHolder,
-	ButtonWrapper,
-	Fill,
-} from '@apps/Call/Ongoing/Ongoing.styles';
+import { Button, ButtonGrid, ButtonWrapper, Container } from '@apps/Dial/Call/Call.styles';
+import { Profile, Details, ProfileHolder, Fill } from '@apps/Dial/Call/Ongoing/Ongoing.styles';
 
 const Ongoing: React.FC = () => {
 	const mock = {
