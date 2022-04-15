@@ -6,6 +6,7 @@ import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 import { filterContactDisplay } from '@utils/format';
 
+import { useCall } from '@os/call/hooks/useCall';
 import { useDebouce } from '@os/hooks/useDebouce';
 
 import { DialInputContext } from '@apps/Dial/Call/context/InputContext';
@@ -14,6 +15,7 @@ import { useContactsValue } from '@apps/Dial/Contacts/hooks/contactsState';
 const DialpadContacts: React.FC = () => {
 	const contacts = useContactsValue();
 	const ctx = useContext(DialInputContext);
+	const { initializeCall } = useCall();
 
 	const [shownContacts, setShownContacts] = useState<Contact[]>([]);
 
@@ -59,7 +61,13 @@ const DialpadContacts: React.FC = () => {
 					<span className="text-md">{number}</span>
 				</div>
 				<div className="flex flex-row gap-4">
-					<IoCallOutline size={25} />
+					<IoCallOutline
+						onClick={() => {
+							console.log(`Initialize call ${initializeCall}`);
+							initializeCall(ctx.val);
+						}}
+						size={25}
+					/>
 					{id === -1 ? <IoAddOutline size={25} /> : <IoArrowForward size={25} />}
 				</div>
 			</div>

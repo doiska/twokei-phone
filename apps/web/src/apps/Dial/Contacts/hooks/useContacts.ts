@@ -36,16 +36,8 @@ const useContacts = (): UseContacts => {
 		(number: string) => {
 			if (contactsLoading !== 'hasValue' || !contacts.length) return;
 
-			console.log(number);
-
 			for (const contact of contacts) {
-				console.log(`USE CONTACTS`);
-				console.log(number, contact.number);
-				console.log(typeof number, typeof contact.number);
-				if (contact.number === number) {
-					console.log(`FOUND: `, contact);
-					return contact;
-				}
+				if (contact.number === number) return contact;
 			}
 			return;
 		},

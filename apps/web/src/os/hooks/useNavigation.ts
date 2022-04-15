@@ -28,6 +28,7 @@ const useNavigation = (onNavigate?: (to: To) => void) => {
 		goTo,
 		goBack,
 		...navigate,
+		...location,
 	};
 };
 

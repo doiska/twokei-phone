@@ -1,23 +1,23 @@
 export interface RawActiveCall {
 	identifier: string;
 	dialer: string;
-	dialerSource?: string;
+	dialerSource?: number | string;
 	receiver: string;
-	receiverSource?: string;
+	receiverSource?: string | number;
 	start: string;
 	isAccepted: boolean;
 }
 
 export interface ActiveCall {
-	start?: string;
+	start?: string | number;
 
-	accepted: boolean;
+	isAccepted: boolean;
 	isDialer: boolean;
 
 	dialer: string;
 	receiver: string;
 
-	channelId?: number;
+	channelId?: string | number;
 	identifier?: string;
 
 	isUnavailable?: boolean;
@@ -40,8 +40,8 @@ export interface CallHistoryItem {
 	dialerSource?: number;
 	receiver: string;
 	receiverSource?: number;
-	start: string;
-	end?: string;
+	start: number | string;
+	end?: number | string;
 	isAccepted: boolean;
 }
 
@@ -64,6 +64,10 @@ export interface WasAcceptedCallEventData {
 	currentCall: CallHistoryItem;
 }
 
+export interface DialerDTO {
+	dialerNumber: string;
+}
+
 export enum CallRejectReasons {
 	Busy = 'busy',
 	Unavailable = 'unavailable',
@@ -79,11 +83,11 @@ export enum CallEvents {
 	WAS_REJECTED = 'tkphone:call:rejected',
 
 	/* RECEIVER */
-	INCOMING_CALL = 'tkphone:call:show',
 	ACCEPT_CALL = 'tkphone:call:accept',
 	REJECT_CALL = 'tkphone:call:reject',
 
 	/* SHARED */
+	SHOW_MODAL = 'tkphone:call:show',
 	HANGUP_CALL = 'tkphone:call:end',
 	WAS_ENDED = 'tkphone:call:ended',
 

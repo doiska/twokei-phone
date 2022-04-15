@@ -4,11 +4,10 @@ import { PromiseEventResponse, PromiseRequest } from '../../lib/promise.types';
 import ContactsDBWrapper, { _ContactsWrapper } from './contacts.db';
 import Service from '@common/service';
 
-class _ContactService extends Service {
+class _ContactService {
 	private readonly contactsDBWrapper: _ContactsWrapper;
 
 	constructor() {
-		super('Contacts');
 		this.contactsDBWrapper = ContactsDBWrapper;
 		console.info(`Contacts service started`);
 	}

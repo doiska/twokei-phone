@@ -21,7 +21,7 @@ export const sendNUIEvent = (app: string, event: string, data: any) => {
 	});
 };
 
-export const emitNetPromise = <T = any>(event: string, ...data: any) => {
+export const emitNetPromise = <T = any>(event: string, ...data: any): Promise<T> => {
 	return new Promise((resolve, reject) => {
 		let timedOut = false;
 		const NET_PROMISE_TIMEOUT = 15000;

@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BsChatDotsFill, BsTelephoneX, BsVolumeUpFill } from 'react-icons/bs';
-import { BallTriangle, Bars, Rings } from 'react-loader-spinner';
+import { Bars } from 'react-loader-spinner';
+
+import { ModalState, useCallModal } from '@os/call/hooks/state';
+import { useCall } from '@os/call/hooks/useCall';
 
 import { Button, ButtonGrid, ButtonWrapper, Container } from '@apps/Dial/Call/Call.styles';
 import { Profile } from '@apps/Dial/Call/Calling/Calling.styles';
 
 const Calling: React.FC = () => {
-	const [name, setName] = useState('John Doe');
+	const { call, hangupCall } = useCall();
+	const [callModal, setCallModalState] = useCallModal();
+
+	const handleEndCall = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		hangupCall();
+		setCallModalState(ModalState.CLOSED);
+	};
+
+	if (!call) return null;
+
+	const { dialer, receiver } = call;
 
 	return (
 		<Container className="justify-center">
@@ -14,11 +28,11 @@ const Calling: React.FC = () => {
 				<div className="flex flex-row items-center justify-evenly fill-white text-white">
 					<Profile name="doiská" />
 					<Bars height={32} color="white" />
-					<Profile name={name} />
+					<Profile name={dialer} />
 				</div>
 				<div className="text-md flex flex-col items-center">
 					<span className="text-md text-slate-200">Ligando para</span>
-					<span className="text-2xl text-white">{name}</span>
+					<span className="text-2xl text-white">{receiver}</span>
 				</div>
 			</div>
 			<ButtonGrid className="w-full basis-[10%] items-center justify-center">
@@ -29,7 +43,7 @@ const Calling: React.FC = () => {
 				</Button>
 				<Button className="basis-[30%] text-2xl">
 					<ButtonWrapper className="rounded-full bg-red-400 p-5">
-						<BsTelephoneX />
+						<BsTelephoneX onClick={handleEndCall} />
 					</ButtonWrapper>
 				</Button>
 				<Button className="basis-[20%]">

@@ -16,6 +16,9 @@ Phone Web:
         - Adicionar campo label no Conversation label;
         - Adicionar configurações do grupo;
 
+    Routes:
+        - Adicionar Protected Route e Custom Route Object
+
     Calls:
         * Aplicativo de ligações
         - Tela para ligar, receber, durante, ligações perdidas;

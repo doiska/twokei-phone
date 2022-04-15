@@ -1,7 +1,4 @@
 import React from 'react';
-import { IoChevronBack } from 'react-icons/io5';
-import { RiCheckboxBlankCircleLine } from 'react-icons/ri';
-import { SiLibrariesdotio } from 'react-icons/si';
 import { useLocation } from 'react-router-dom';
 
 import useDoubleClick from '@os/hooks/useDoubleClick';
@@ -16,18 +13,23 @@ const NavigationBar: React.FC = () => {
 	const { pathname } = useLocation();
 
 	const { barUncollapsed, setBarUncollapsed } = useNotifications();
+
 	const click = useDoubleClick({
-		onSingleClick: () => goBack(),
-		onDoubleClick: () => navigateTo('/'),
+		onSingleClick: () => canNavigate() && goBack(),
+		onDoubleClick: () => canNavigate() && goTo('/'),
 		delay: 150,
 	});
 
-	const navigateTo = (target: string | number) => {
-		if (isDisabled) return;
+	const canNavigate = (target?: string) => {
+		if (isDisabled) return false;
+		if (!barUncollapsed) {
+			setBarUncollapsed((curr) => !curr);
+			return false;
+		}
 
-		if (!barUncollapsed) setBarUncollapsed((curr) => !curr);
+		if (pathname.toLowerCase() === target) return false;
 
-		if (pathname.toLowerCase() !== target) goTo(target);
+		return true;
 	};
 
 	return (

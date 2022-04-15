@@ -13,7 +13,7 @@ interface UseCall {
 	initializeCall: (number: string) => void;
 	acceptCall: () => void;
 	rejectCall: () => void;
-	hangupCall: (data: EndCallDTO) => void;
+	hangupCall: () => void;
 }
 
 export const useCall = (): UseCall => {

@@ -50,7 +50,7 @@ const server = () => {
 		plugins,
 		devtool: 'source-map',
 		optimization: {
-			minimize: true,
+			minimize: false,
 		},
 		resolve: {
 			modules: [path.resolve(__dirname, 'server'), 'node_modules'],

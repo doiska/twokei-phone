@@ -1,4 +1,4 @@
-import logger from 'logger';
+import logger from '../logger';
 
 class Service {
 	public name: string = 'Unnamed service';
@@ -6,8 +6,9 @@ class Service {
 
 	public constructor(name?: string) {
 		this.name = name;
+
 		this.logger = logger.child({
-			module: this.name.toUpperCase(),
+			module: 'Service',
 		});
 	}
 }

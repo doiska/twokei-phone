@@ -1,55 +1,69 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useNuiEvent from '@common/hooks/useNuiEvent';
 import InjectDebugData from '@debug/InjectDebugData';
 import { ActiveCall, CallEvents, CallHistoryItem } from '@typings/call';
 
-import { useCallModal } from '@os/call/hooks/state';
+import { ModalState, useCallModal } from '@os/call/hooks/state';
 import { useCall } from '@os/call/hooks/useCall';
 import useNavigation from '@os/hooks/useNavigation';
+import { useSetNavigationDisabled } from '@os/navigation/navigation.state';
 
-// InjectDebugData<CallHistoryItem | boolean>([
-// 	{
-// 		app: 'CALL',
-// 		event: CallEvents.SET_INFO,
-// 		data: {
-// 			dialer: '0147-0147',
-// 			receiver: '1234-5678',
-// 			isAccepted: true,
-// 			start: new Date().toString(),
-// 		},
-// 	},
-// 	{
-// 		app: 'CALL',
-// 		event: CallEvents.INCOMING_CALL,
-// 		data: true,
-// 	},
-// ]);
+InjectDebugData<ActiveCall | ModalState>([
+	{
+		app: 'CALL',
+		event: CallEvents.SET_INFO,
+		data: {
+			dialer: '123-456-7',
+			receiver: '0147-0147',
+			isAccepted: false,
+			isDialer: false,
+			start: new Date().toString(),
+		},
+	},
+	{
+		app: 'CALL',
+		event: CallEvents.SHOW_MODAL,
+		data: ModalState.OPEN,
+	},
+]);
 
 const useCallService = () => {
 	const { call, setCall } = useCall();
-	const [modal, setModal] = useCallModal();
 
-	const [modalOpened, setModalOpened] = useState<boolean>(false);
+	const [modalState, setModalState] = useCallModal();
 
-	const { goTo } = useNavigation();
-	const { pathname } = useLocation();
+	const { goTo, match } = useNavigation();
 
-	useEffect(() => {
-		setModalOpened(!!modal);
-	}, [modal]);
+	const setNavigationDisabled = useSetNavigationDisabled();
 
 	useEffect(() => {
-		if (!modal && (pathname === '/call/ongoing' || pathname === '/call/incoming')) {
-			console.log(`[CALL] goTo('/')`);
-			goTo('/');
+		console.log(`[useCallService] Modal ${ModalState[modalState]}`);
+
+		// if (modalState !== ModalState.CLOSED) {
+		// 	setNavigationDisabled(true);
+		// }
+
+		switch (modalState) {
+			case ModalState.OPEN: {
+				if (!match('dial/call')) {
+					goTo(call?.isDialer ? '/dial/call/calling' : '/dial/call/incoming');
+				}
+				break;
+			}
+
+			case ModalState.CLOSED: {
+				if (match('dial/call')) goTo('/');
+				break;
+			}
+
+			case ModalState.ONGOING: {
+				goTo('/dial/call/ongoing');
+				break;
+			}
 		}
-		if (modal && !modalOpened && pathname !== '/call') {
-			console.log(`[CALL] goTo('/call')`);
-			goTo('/call/incoming');
-		}
-	}, [pathname, modal, modalOpened]);
+	}, [modalState]);
 
 	useNuiEvent<ActiveCall | null>('CALL', CallEvents.SET_INFO, (data) => {
 		setCall(data);
@@ -57,7 +71,7 @@ const useCallService = () => {
 		//TODO: set notification
 	});
 
-	useNuiEvent('CALL', CallEvents.INCOMING_CALL, setModal);
+	useNuiEvent('CALL', CallEvents.SHOW_MODAL, setModalState);
 };
 
 export default useCallService;

@@ -11,6 +11,9 @@ import {
 	BsVolumeUpFill,
 } from 'react-icons/bs';
 
+import { ModalState, useSetCallModal } from '@os/call/hooks/state';
+import { useCall } from '@os/call/hooks/useCall';
+
 import { Button, ButtonGrid, ButtonWrapper, Container } from '@apps/Dial/Call/Call.styles';
 import { Profile, Details, ProfileHolder, Fill } from '@apps/Dial/Call/Ongoing/Ongoing.styles';
 
@@ -20,26 +23,30 @@ const Ongoing: React.FC = () => {
 		avatar: '',
 	};
 
+	const { call, hangupCall } = useCall();
+	const setCallModalState = useSetCallModal();
+
+	const handleEndCall = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		hangupCall();
+
+		setCallModalState(ModalState.CLOSED);
+	};
+
 	const [volume, setVolume] = useState(true);
 	const [mic, setMic] = useState(true);
 	const [camera, setCamera] = useState(false);
 
-	const handleVolumeClick = () => {
-		setVolume((curr) => !curr);
-	};
+	const handleVolumeClick = () => setVolume((curr) => !curr);
+	const handleMicrophoneClick = () => setMic((curr) => !curr);
+	const handleCameraClick = () => setCamera((curr) => !curr);
 
-	const handleMicrophoneClick = () => {
-		setMic((curr) => !curr);
-	};
-
-	const handleCameraClick = () => {
-		setCamera((curr) => !curr);
-	};
+	if (!call) return null;
 
 	return (
 		<Container>
 			<ProfileHolder>
-				<Profile {...mock} />
+				<Profile name={call.dialer} />
 				<Details className="text-green-400" formattedTime="00:00" />
 			</ProfileHolder>
 
@@ -61,7 +68,7 @@ const Ongoing: React.FC = () => {
 						{volume ? <BsVolumeUpFill /> : <BsVolumeMuteFill />}
 					</ButtonWrapper>
 				</Button>
-				<Button className="basis-[30%] text-lg">
+				<Button className="basis-[30%] text-lg" onClick={handleEndCall}>
 					<ButtonWrapper className="rounded-full bg-red-400 p-5">
 						<BsTelephoneX />
 					</ButtonWrapper>

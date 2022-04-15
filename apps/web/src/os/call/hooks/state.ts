@@ -2,14 +2,22 @@ import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 import { ActiveCall } from '@typings/call';
 
+export enum ModalState {
+	CALLING,
+	INCOMING,
+	ONGOING,
+	OPEN,
+	CLOSED,
+}
+
 export const callState = {
 	currentCall: atom<ActiveCall | null>({
 		key: 'callState.currentCall',
 		default: null,
 	}),
-	callModal: atom<boolean>({
+	callModal: atom<ModalState>({
 		key: 'callState.callModal',
-		default: false,
+		default: ModalState.CLOSED,
 	}),
 	callDuration: atom({
 		key: 'callState.callDuration',
