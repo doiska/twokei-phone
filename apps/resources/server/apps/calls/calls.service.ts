@@ -30,6 +30,7 @@ class CallsService extends Service {
 
 		const startCallTime = Math.floor(new Date().getTime() / 1000);
 
+		//TODO: uuidv4
 		const callIdentifier = `${dialerNumber}-${receiverIdentifier}-${startCallTime}`;
 
 		const rawTempCall = {
@@ -41,7 +42,9 @@ class CallsService extends Service {
 		} as CallHistoryItem;
 
 		if (!receiverIdentifier) {
+			console.error(`Receiver ${req.data.receiverNumber} was not found.`);
 			await this.callsDB.saveCall(rawTempCall);
+
 			return res({
 				status: 'ok',
 				data: {
@@ -59,6 +62,7 @@ class CallsService extends Service {
 		const receiverPlayer = PlayerService.getPlayerByIdentifier(receiverIdentifier);
 
 		if (!receiverPlayer) {
+			console.error(`Receiver 2 ${receiverIdentifier} was not found.`);
 			await this.callsDB.saveCall(rawTempCall);
 			return res({
 				status: 'ok',
@@ -81,7 +85,7 @@ class CallsService extends Service {
 			identifier: callIdentifier,
 			dialer: dialerNumber,
 			dialerSource: dialerPlayer.source,
-			receiver: receiverIdentifier,
+			receiver: req.data.receiverNumber,
 			receiverSource: receiverPlayer.source,
 			start: startCallTime.toString(),
 			isAccepted: false,
@@ -128,6 +132,8 @@ class CallsService extends Service {
 
 		await this.callsDB.updateCall(target, true, null);
 
+		console.log(`Call accepted: ${dialerNumber} -> ${target.receiver}`, target);
+
 		emitNetTyped<ActiveCall>(
 			CallEvents.WAS_ACCEPTED,
 			{
@@ -137,13 +143,15 @@ class CallsService extends Service {
 				isDialer: false,
 				channelId,
 			},
-			target.receiverSource as number
+			target.receiverSource
 		);
 
 		this.logger.debug(`Call ${target.identifier} was accepted ${target.dialer} -> ${target.receiver} ${target}`);
 	}
 
 	async handleRejectCall(source: number, dialerNumber: string) {
+		console.log(`Rejecting call ${dialerNumber}`);
+
 		const current = this.callMap.get(dialerNumber);
 
 		const endUnix = Math.floor(new Date().getTime() / 1000);
@@ -161,7 +169,7 @@ class CallsService extends Service {
 		this.callMap.delete(dialerNumber);
 	}
 
-	async handleEndCall(req: PromiseRequest<EndCallDTO>, res: PromiseEventResponse<void>) {
+	async handleCallHangup(req: PromiseRequest<EndCallDTO>, res: PromiseEventResponse<void>) {
 		const dialerNumber = req.data.dialerNumber;
 
 		const endUnix = Math.floor(new Date().getTime() / 1000);

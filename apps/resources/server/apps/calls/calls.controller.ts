@@ -8,17 +8,22 @@ onNetPromise<InitizalizeCallDTO, ActiveCall>(CallEvents.INITIALIZE_CALL, (req, r
 );
 
 onNetTyped<DialerDTO>(CallEvents.START_CALL, ({ dialerNumber }) => {
-	const source = getSource();
-	callsService.handleAcceptCall(source, dialerNumber).catch((e) => console.error('SERVER_ERROR', e));
+	console.log(`DIALER DTO START_CALL ${dialerNumber}`);
+	callsService.handleAcceptCall(getSource(), dialerNumber).catch((e) => console.error('SERVER_ERROR', e));
+});
+
+onNetTyped<DialerDTO>(CallEvents.ACCEPT_CALL, ({ dialerNumber }) => {
+	console.log(`DIALER DTO ACCEPT_CALL ${dialerNumber}`);
+	callsService.handleAcceptCall(getSource(), dialerNumber);
 });
 
 onNetTyped<DialerDTO>(CallEvents.REJECT_CALL, ({ dialerNumber }) => {
-	const source = getSource();
-	callsService.handleRejectCall(source, dialerNumber).catch((e) => console.error('SERVER_ERROR', e));
+	console.log(`DIALER DTO REJECT_CALL ${dialerNumber}`);
+	callsService.handleRejectCall(getSource(), dialerNumber).catch((e) => console.error('SERVER_ERROR', e));
 });
 
 onNetPromise<EndCallDTO, void>(CallEvents.HANGUP_CALL, (req, res) => {
-	callsService.handleEndCall(req, res).catch((e) => {
+	callsService.handleCallHangup(req, res).catch((e) => {
 		console.error('SERVER_ERROR', e);
 		res({ status: 'error', errorMsg: 'SERVER_ERROR' });
 	});

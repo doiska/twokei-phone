@@ -68,10 +68,15 @@ const useCallService = () => {
 	useNuiEvent<ActiveCall | null>('CALL', CallEvents.SET_INFO, (data) => {
 		setCall(data);
 		if (!data) return;
+
+		setModalState(ModalState.OPEN);
+		console.log(`[useCallService] Call SET_INFO updated ${!data} ${JSON.stringify(data)}`);
 		//TODO: set notification
 	});
 
-	useNuiEvent('CALL', CallEvents.SHOW_MODAL, setModalState);
+	useNuiEvent('CALL', CallEvents.SHOW_MODAL, (status: boolean) =>
+		setModalState(status ? ModalState.OPEN : ModalState.CLOSED)
+	);
 };
 
 export default useCallService;

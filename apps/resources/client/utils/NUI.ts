@@ -82,6 +82,17 @@ export const RegisterNUIProxy = (event: string) => {
 
 export const onPhoneEvent = (event: string, cb: WrappedNetEventCallback) => onNet(event, cb);
 
+type onNetTypedCallback<T> = (data: T) => void;
+export const onNetTyped = <T = any>(event: string, cb: onNetTypedCallback<T>) => onNet(event, cb);
+
+export const emitNetTyped = <T = any>(event: string, data: T, source?: number) => {
+	if (source) {
+		return emitNet(event, data, source);
+	}
+
+	emitNet(event, data);
+};
+
 export const verifyArgumentType = (exportName: string, args: unknown, types: MSGPackTypes[]) => {
 	if (!types.includes(typeof args)) {
 		throw new TypeError(`${exportName}: Expected type ${types.join(' or ')} but got ${typeof args}`);

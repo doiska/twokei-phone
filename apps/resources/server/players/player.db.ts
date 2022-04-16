@@ -3,7 +3,7 @@ import DBWrapper from '../db/wrapper';
 export class PlayerDB {
 	async fetchIdentifierByPhone(phone: string): Promise<string | null> {
 		const [{ identifier }] = await DBWrapper.fetch<{ identifier: string }>(
-			`SELECT identifier FROM users WHERE phone = ?`,
+			`SELECT identifier FROM users WHERE phone_number = ?`,
 			[phone]
 		);
 

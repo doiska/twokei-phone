@@ -18,9 +18,10 @@ function LogDebugEvent(event: DebugEvent) {
 	const logLevel = event.level || 1;
 	const name = event.action || 'Undefined action';
 
-	console.group(`${name} | Level: ${logLevel}`);
-	console.dir(event.data);
-	console.groupEnd();
+	console.log(' ');
+	console.log(`[LOG EVENT] ${name} | Level: ${logLevel}`);
+	console.dir(`[LOG EVENT] ${name} | Response: `, event.data);
+	console.log(' ');
 }
 
 export default LogDebugEvent;

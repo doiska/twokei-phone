@@ -1,9 +1,9 @@
 export interface RawActiveCall {
 	identifier: string;
 	dialer: string;
-	dialerSource?: number | string;
+	dialerSource?: number;
 	receiver: string;
-	receiverSource?: string | number;
+	receiverSource?: number;
 	start: string;
 	isAccepted: boolean;
 }
@@ -17,7 +17,7 @@ export interface ActiveCall {
 	dialer: string;
 	receiver: string;
 
-	channelId?: string | number;
+	channelId?: number;
 	identifier?: string;
 
 	isUnavailable?: boolean;

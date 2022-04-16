@@ -36,6 +36,7 @@ CallSchema.init(
 		isAccepted: {
 			field: 'is_accepted',
 			type: DataTypes.BOOLEAN,
+			defaultValue: false,
 			allowNull: false,
 		},
 		start: {
@@ -44,7 +45,8 @@ CallSchema.init(
 		},
 		end: {
 			type: DataTypes.NUMBER,
-			allowNull: false,
+			allowNull: true,
+			defaultValue: null,
 		},
 	},
 	{

@@ -45,7 +45,7 @@ const Incoming: React.FC = () => {
 				<div className="flex flex-row items-center justify-evenly fill-white text-white">
 					<Profile name={contact?.display ?? dialer} avatar={contact?.avatar} />
 					<Bars height={32} color="white" />
-					<Profile name="doiská" />
+					<Profile name={receiver} />
 				</div>
 				<div className="text-md flex flex-col items-center">
 					<span className="text-md text-slate-200">Chamada de</span>

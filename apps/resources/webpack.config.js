@@ -10,7 +10,9 @@ const alias = {
 	'@typings': path.resolve(__dirname, '../typings'),
 };
 
-const clientAlias = {};
+const clientAlias = {
+    '@utils': path.resolve(__dirname, './client/utils')
+};
 
 const serverAlias = {
 	'@apps': path.resolve(__dirname, './server/apps'),

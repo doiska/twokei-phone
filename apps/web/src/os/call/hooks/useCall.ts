@@ -35,20 +35,27 @@ export const useCall = (): UseCall => {
 	);
 
 	const acceptCall = useCallback(() => {
+		console.log(`[useCall] acceptCall: ${call?.dialer} -> ${call?.receiver}`);
 		fetchNui(CallEvents.ACCEPT_CALL, {
 			dialerNumber: call?.dialer,
 		});
 	}, [call]);
 
 	const rejectCall = useCallback(() => {
+		console.log(`[useCall] rejectCall: ${call?.dialer} -> ${call?.receiver}`);
+
 		fetchNui(CallEvents.REJECT_CALL, {
 			dialerNumber: call?.dialer,
 		});
 	}, [call]);
 
 	const hangupCall = useCallback(() => {
-		if (!call) return;
+		if (!call) {
+			console.log(`[useCall] hangupCall: no call`);
+			return;
+		}
 
+		console.log(`[useCall] hangupCall: ${call?.dialer} -> ${call?.receiver}`);
 		fetchNui<unknown, EndCallDTO>(CallEvents.HANGUP_CALL, {
 			dialerNumber: call?.dialer,
 			isUnavailable: call?.isUnavailable || true,

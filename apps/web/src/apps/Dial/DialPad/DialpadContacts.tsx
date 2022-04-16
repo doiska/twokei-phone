@@ -62,13 +62,18 @@ const DialpadContacts: React.FC = () => {
 				</div>
 				<div className="flex flex-row gap-4">
 					<IoCallOutline
+						className=" cursor-pointer transition-all hover:text-blue-400"
 						onClick={() => {
-							console.log(`Initialize call ${initializeCall}`);
-							initializeCall(ctx.val);
+							ctx.setVal(number);
+							initializeCall(number);
 						}}
 						size={25}
 					/>
-					{id === -1 ? <IoAddOutline size={25} /> : <IoArrowForward size={25} />}
+					{id === -1 ? (
+						<IoAddOutline className=" cursor-pointer transition-all hover:text-blue-400" size={25} />
+					) : (
+						<IoArrowForward className=" cursor-pointer transition-all hover:text-blue-400" size={25} />
+					)}
 				</div>
 			</div>
 		);
