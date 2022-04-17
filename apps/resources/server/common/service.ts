@@ -7,9 +7,7 @@ class Service {
 	public constructor(name?: string) {
 		this.name = name;
 
-		this.logger = logger.child({
-			module: 'Service',
-		});
+		this.logger = logger.child({ module: 'Service' });
 	}
 }
 

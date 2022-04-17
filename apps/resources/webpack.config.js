@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-const RemovePlugin = require('remove-files-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const buildPath = path.resolve(__dirname, '../../dist');
 
@@ -23,20 +23,7 @@ const serverAlias = {
 };
 
 const server = () => {
-	const plugins = [
-		new RemovePlugin({
-			before: {
-				allowRootAndOutside: true,
-				include: [path.resolve(buildPath, 'server')],
-			},
-			watch: {
-				allowRootAndOutside: true,
-				include: [path.resolve(buildPath, 'server')],
-			},
-		}),
-		// Ignore cardinal as its optional
-		// new webpack.IgnorePlugin(/^cardinal$/, /./),
-	];
+	const plugins = [new CleanWebpackPlugin({ buildPath: buildPath, dangerouslyAllowCleanPatternsOutsideProject: true })];
 
 	return {
 		entry: './server/server.ts',
@@ -84,18 +71,7 @@ const client = () => {
 				},
 			],
 		},
-		plugins: [
-			new RemovePlugin({
-				before: {
-					allowRootAndOutside: true,
-					include: [path.resolve(buildPath, 'client')],
-				},
-				watch: {
-					allowRootAndOutside: true,
-					include: [path.resolve(buildPath, 'client')],
-				},
-			}),
-		],
+		plugins: [new CleanWebpackPlugin({ buildPath: buildPath, dangerouslyAllowCleanPatternsOutsideProject: true })],
 		optimization: {
 			minimize: true,
 		},
