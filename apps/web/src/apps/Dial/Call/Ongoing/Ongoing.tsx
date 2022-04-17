@@ -14,15 +14,10 @@ import {
 import { ModalState, useSetCallModal } from '@os/call/hooks/state';
 import { useCall } from '@os/call/hooks/useCall';
 
-import { Button, ButtonGrid, ButtonWrapper, Container } from '@apps/Dial/Call/Call.styles';
-import { Profile, Details, ProfileHolder, Fill } from '@apps/Dial/Call/Ongoing/Ongoing.styles';
+import { Button, ButtonGrid, ButtonWrapper, Container } from '@apps/dial/call/Call.styles';
+import { Profile, Details, ProfileHolder, Fill } from '@apps/dial/call/ongoing/Ongoing.styles';
 
 const Ongoing: React.FC = () => {
-	const mock = {
-		name: 'doiská',
-		avatar: '',
-	};
-
 	const { call, hangupCall } = useCall();
 	const setCallModalState = useSetCallModal();
 

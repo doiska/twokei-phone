@@ -2,15 +2,15 @@ import React from 'react';
 import { BsChatDotsFill, BsTelephoneX, BsVolumeUpFill } from 'react-icons/bs';
 import { Bars } from 'react-loader-spinner';
 
-import { ModalState, useCallModal } from '@os/call/hooks/state';
+import { ModalState, useSetCallModal } from '@os/call/hooks/state';
 import { useCall } from '@os/call/hooks/useCall';
 
-import { Button, ButtonGrid, ButtonWrapper, Container } from '@apps/Dial/Call/Call.styles';
-import { Profile } from '@apps/Dial/Call/Calling/Calling.styles';
+import { Button, ButtonGrid, ButtonWrapper, Container } from '@apps/dial/call/Call.styles';
+import { Profile } from '@apps/dial/call/calling/Calling.styles';
 
 const Calling: React.FC = () => {
 	const { call, hangupCall } = useCall();
-	const [callModal, setCallModalState] = useCallModal();
+	const setCallModalState = useSetCallModal();
 
 	const handleEndCall = (e: React.MouseEvent) => {
 		e.stopPropagation();

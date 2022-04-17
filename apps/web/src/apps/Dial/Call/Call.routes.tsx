@@ -1,10 +1,10 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 
-import Calling from '@apps/Dial/Call/Calling/Calling';
-import Incoming from '@apps/Dial/Call/Incoming/Incoming';
-import Ongoing from '@apps/Dial/Call/Ongoing/Ongoing';
-import Dialpad from '@apps/Dial/DialPad/Dialpad';
+import Calling from '@apps/dial/call/calling/Calling';
+import Incoming from '@apps/dial/call/incoming/Incoming';
+import Ongoing from '@apps/dial/call/ongoing/Ongoing';
+import Dialpad from '@apps/dial/dialpad/Dialpad';
 
 import CallApp from './Call.app';
 

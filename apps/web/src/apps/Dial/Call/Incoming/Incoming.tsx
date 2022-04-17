@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BsTelephoneFill, BsTelephoneXFill } from 'react-icons/bs';
 import { Bars } from 'react-loader-spinner';
 
-import { ModalState, useCallModal } from '@os/call/hooks/state';
+import { ModalState, useSetCallModal } from '@os/call/hooks/state';
 import { useCall } from '@os/call/hooks/useCall';
-import useNavigation from '@os/hooks/useNavigation';
 
-import { Button, ButtonGrid, ButtonWrapper, Container } from '@apps/Dial/Call/Call.styles';
-import { Profile } from '@apps/Dial/Call/Calling/Calling.styles';
-import useContacts from '@apps/Dial/Contacts/hooks/useContacts';
+import { Button, ButtonGrid, ButtonWrapper, Container } from '@apps/dial/call/Call.styles';
+import { Profile } from '@apps/dial/call/calling/Calling.styles';
+import useContacts from '@apps/dial/contacts/hooks/useContacts';
 
 const Incoming: React.FC = () => {
-	const { goTo } = useNavigation();
 	const { call, acceptCall, rejectCall } = useCall();
-	const [modal, setCallModalState] = useCallModal();
+	const setCallModalState = useSetCallModal();
 
 	const { getContactByNumber } = useContacts();
 
