@@ -4,17 +4,18 @@ import { IoAddOutline, IoArrowForward, IoCallOutline } from 'react-icons/io5';
 import { Contact } from '@typings/contacts';
 import Avatar from '@ui/components/Avatar';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
-import { filterContactDisplay } from '@utils/format';
 
 import { useCall } from '@os/call/hooks/useCall';
 import { useDebouce } from '@os/hooks/useDebouce';
 
 import { DialInputContext } from '@apps/dial/call/context/InputContext';
 import { useContactsValue } from '@apps/dial/contacts/hooks/contactsState';
+import { DialpadContactIcon, DialpadContactItem } from '@apps/dial/dialpad/DialpadContactItem';
 
 const DialpadContacts: React.FC = () => {
 	const contacts = useContactsValue();
 	const ctx = useContext(DialInputContext);
+
 	const { initializeCall } = useCall();
 
 	const [shownContacts, setShownContacts] = useState<Contact[]>([]);
@@ -42,48 +43,28 @@ const DialpadContacts: React.FC = () => {
 		}
 	}, [debounced]);
 
-	const show = shownContacts.map(({ id, number, display, avatar }) => {
-		return (
-			<div
-				key={`${id}-${number}`}
-				className="flex flex-row items-center gap-2 rounded px-4 py-1 text-white transition-all hover:bg-white hover:bg-opacity-20"
-				onClick={() => ctx.setVal(number)}
-			>
-				<Avatar childrenClassName="w-10" wrapperClassName="my-0 h-full items-center gap-0 text-center">
-					<ImageWithDefaultComponentFallback
-						loadedImage={avatar}
-						fallbackElement={<span className="text-xl">{display.slice(0, 1).toUpperCase()}</span>}
-						className="rounded-full"
-					/>
-				</Avatar>
-				<div className="flex flex-1 flex-col">
-					<span className="text-lg">{filterContactDisplay(display)}</span>
-					<span className="text-md">{number}</span>
-				</div>
-				<div className="flex flex-row gap-4">
-					<IoCallOutline
-						className=" cursor-pointer transition-all hover:text-blue-400"
-						onClick={() => {
-							ctx.setVal(number);
-							initializeCall(number);
-						}}
-						size={25}
-					/>
-					{id === -1 ? (
-						<IoAddOutline className=" cursor-pointer transition-all hover:text-blue-400" size={25} />
-					) : (
-						<IoArrowForward className=" cursor-pointer transition-all hover:text-blue-400" size={25} />
-					)}
-				</div>
-			</div>
-		);
-	});
+	const items = shownContacts.map((c) => (
+		<DialpadContactItem key={c.id} {...c} setVal={ctx.setVal}>
+			<DialpadContactIcon
+				Icon={<IoCallOutline />}
+				onClick={() => {
+					ctx.setVal(c.number);
+					initializeCall(c.number);
+				}}
+			/>
+			{c.id === -1 ? (
+				<DialpadContactIcon Icon={<IoAddOutline />} />
+			) : (
+				<DialpadContactIcon Icon={<IoArrowForward />} />
+			)}
+		</DialpadContactItem>
+	));
 
 	return (
-		<div className="flex basis-[45%] flex-col items-center justify-center gap-2 py-2">
+		<div className="flex basis-[45%] flex-col items-center justify-center gap-3 py-2">
 			<span className="rounded-full bg-white bg-opacity-5 p-0.5 px-3">Acesso rápido</span>
-			<div className="flex w-[93%] flex-1 flex-col justify-center gap-2 rounded-md border-2 border-white border-opacity-20 bg-white bg-opacity-10 backdrop-blur-sm">
-				{show}
+			<div className="flex w-[93%] flex-1 flex-col justify-center gap-2 rounded-md border-2 border-white border-opacity-5 bg-white bg-opacity-10">
+				{items}
 			</div>
 		</div>
 	);

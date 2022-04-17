@@ -4,7 +4,6 @@ REMINDER:
 
 Server:
 
-- Adicionar Prisma ORM [Prioridade!]
 - Adicionar contacts no servidor; [OK]
 
 Phone Web:
@@ -20,10 +19,12 @@ Phone Web:
         - Adicionar Protected Route e Custom Route Object
 
     Calls:
-        * Aplicativo de ligações
-        - Tela para ligar, receber, durante, ligações perdidas;
-        - Ligar através dos contatos;
-        - Recusar ligação;
+        * Aplicativo de ligações [Feito]
+        [X] Tela para ligar, receber, durante e finalizar ligação;
+        [X] Recusar ligação;
+        
+        -> Ligar através dos contatos;
+        -> Faltando ligações recentes
     
     Gallery:
         * Aplicativo de galeria

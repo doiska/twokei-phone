@@ -1,6 +1,6 @@
 import React from 'react';
 import { FcSettings } from 'react-icons/fc';
-import { RiContactsBook2Fill, RiHomeGearFill, RiWhatsappLine } from 'react-icons/ri';
+import { RiCamera2Fill, RiContactsBook2Fill, RiHomeGearFill, RiWhatsappLine } from 'react-icons/ri';
 import { RouteObject } from 'react-router-dom';
 
 import AppRoute from '@os/apps/components/AppRoute';
@@ -8,6 +8,7 @@ import AppRoute from '@os/apps/components/AppRoute';
 import DialRoutes from '@apps/dial/Dial.routes';
 import HomeApp from '@apps/home/Home.app';
 import MessagesRoutes from '@apps/messages/Messages.routes';
+import PhotoRoutes from '@apps/photo/Photo.routes';
 import SettingsApp from '@apps/settings/Settings.app';
 
 export interface IApp {
@@ -56,6 +57,13 @@ export const AllApps: IApp[] = [
 		disable: false,
 		icon: <RiWhatsappLine className="text-whatsapp-light-green" />,
 		routes: MessagesRoutes,
+	},
+	{
+		id: 'PHOTO',
+		locale: 'APPS_PHOTO',
+		disable: false,
+		icon: <RiCamera2Fill className="text-gray-600" />,
+		routes: PhotoRoutes,
 	},
 ];
 

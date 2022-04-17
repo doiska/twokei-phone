@@ -3,10 +3,10 @@ import { RouteObject } from 'react-router-dom';
 
 import AppRoute from '@os/apps/components/AppRoute';
 
-import ConversationView from './components/Chats/ConversationView';
-import CreateConversation from './components/Create/CreateConversation';
-import MessagesConversationList from './components/Home/MessagesConversationList';
-import MessageProfile from './components/Profile/MessageProfile';
+import ConversationView from './components/chats/ConversationView';
+import CreateConversation from './components/create/CreateConversation';
+import MessagesConversationList from './components/home/MessagesConversationList';
+import MessageProfile from './components/profile/MessageProfile';
 import MessagesApp from './Messages.app';
 
 const MessagesRoutes = {

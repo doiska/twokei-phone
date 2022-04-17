@@ -16,7 +16,9 @@ const Container: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, c
 const ContainerWithNavbar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, className, ...props }) => {
 	return (
 		<>
-			<Container className={`${className} basis-[90%]`} {...props} />
+			<Container className={`${className} basis-[90%]`} {...props}>
+				{children}
+			</Container>
 			<Navbar />
 		</>
 	);
@@ -25,8 +27,8 @@ const ContainerWithNavbar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ c
 const NavbarItem: React.FC<{ active?: boolean }> = ({ children, active, ...props }) => {
 	return (
 		<span
-			className={`hover:bg-steel-slate-200 cursor-pointer rounded-full fill-white p-1.5 text-3xl text-white transition-all ${
-				active && 'bg-steel-slate-400'
+			className={`cursor-pointer rounded-md fill-white p-2 text-3xl text-white shadow-md transition-all hover:bg-white hover:bg-opacity-20 ${
+				active && 'bg-white bg-opacity-30'
 			}`}
 			{...props}
 		>
@@ -47,7 +49,7 @@ const Navbar: React.FC = () => {
 
 	return (
 		<div className="mb-2 flex w-full basis-[10%] justify-center py-2">
-			<div className="bg-steel-slate-600 shadow-steel-slate-500 flex h-full w-[70%] flex-row items-center justify-around rounded-lg p-2 shadow-sm">
+			<div className="flex h-full w-[70%] flex-row items-center justify-around rounded-lg">
 				<NavbarItem {...isActive('dial')}>
 					<IoCallOutline />
 				</NavbarItem>
@@ -62,4 +64,4 @@ const Navbar: React.FC = () => {
 	);
 };
 
-export default Navbar;
+export { Container, ContainerWithNavbar, Navbar, NavbarItem };

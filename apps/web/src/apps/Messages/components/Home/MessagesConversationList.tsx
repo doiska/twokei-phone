@@ -1,9 +1,10 @@
 import React from 'react';
 
+import ConversationListIconContext from '@apps/messages/components/home/components/CreateConversationIcon';
+import ConversationList from '@apps/messages/components/home/components/MessagesHome';
+import ConversationListNavbar from '@apps/messages/components/home/components/MessagesHomeNavbar';
+
 import { MainBody, MainHeader } from '../../Messages.styles';
-import ConversationListIconContext from './components/CreateConversationIcon';
-import ConversationList from './components/MessagesHome';
-import ConversationListNavbar from './components/MessagesHomeNavbar';
 
 const MessagesConversationList: React.FC = () => {
 	return (
