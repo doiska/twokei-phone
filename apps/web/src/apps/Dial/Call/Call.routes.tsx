@@ -1,12 +1,11 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 
+import CallApp from '@apps/dial/call/Call.app';
 import Calling from '@apps/dial/call/calling/Calling';
 import Incoming from '@apps/dial/call/incoming/Incoming';
 import Ongoing from '@apps/dial/call/ongoing/Ongoing';
 import Dialpad from '@apps/dial/dialpad/Dialpad';
-
-import CallApp from './Call.app';
 
 const CallRoutes = {
 	path: 'call',
