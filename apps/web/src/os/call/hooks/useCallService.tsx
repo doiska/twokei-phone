@@ -10,24 +10,24 @@ import { useCall } from '@os/call/hooks/useCall';
 import useNavigation from '@os/hooks/useNavigation';
 import { useSetNavigationDisabled } from '@os/navigation/navigation.state';
 
-InjectDebugData<ActiveCall | ModalState>([
-	{
-		app: 'CALL',
-		event: CallEvents.SET_INFO,
-		data: {
-			dialer: '123-456-7',
-			receiver: '0147-0147',
-			isAccepted: false,
-			isDialer: false,
-			start: new Date().toString(),
-		},
-	},
-	{
-		app: 'CALL',
-		event: CallEvents.SHOW_MODAL,
-		data: ModalState.OPEN,
-	},
-]);
+// InjectDebugData<ActiveCall | ModalState>([
+// 	{
+// 		app: 'CALL',
+// 		event: CallEvents.SET_INFO,
+// 		data: {
+// 			dialer: '123-456-7',
+// 			receiver: '0147-0147',
+// 			isAccepted: false,
+// 			isDialer: false,
+// 			start: new Date().toString(),
+// 		},
+// 	},
+// 	{
+// 		app: 'CALL',
+// 		event: CallEvents.SHOW_MODAL,
+// 		data: ModalState.OPEN,
+// 	},
+// ]);
 
 const useCallService = () => {
 	const { call, setCall } = useCall();
