@@ -7,8 +7,8 @@ import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponent
 
 import usePhoneFormattedDate from '@os/hooks/usePhoneFormattedDate';
 
-import { useMessageActions } from '@apps/Messages/hooks/messages/useMessageActions';
-import useMessageProfile from '@apps/Messages/hooks/profiles/useMessageProfile';
+import { useMessageActions } from '@apps/messages/hooks/messages/useMessageActions';
+import useMessageProfile from '@apps/messages/hooks/profiles/useMessageProfile';
 
 type IProps = {
 	conversation: MessageConversation;

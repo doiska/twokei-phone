@@ -8,9 +8,9 @@ import fetchNui from '@utils/fetchNui';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { MockServerResp } from '../../utils/constants';
-import { messageState, useSetMessages } from './messageState';
-import { useMessageActions } from './useMessageActions';
+import { messageState, useSetMessages } from '@apps/messages/hooks/messages/messageState';
+import { useMessageActions } from '@apps/messages/hooks/messages/useMessageActions';
+import { MockServerResp } from '@apps/Messages/utils/constants';
 
 type UseMessageAPI = {
 	sendMessage: ({ conversationId, message, sourcePhoneNumber }: PreDBMessage) => void;

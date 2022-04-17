@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { DialInputContext } from '@apps/Dial/Call/context/InputContext';
+import { DialInputContext } from '@apps/dial/call/context/InputContext';
 
 const DialPadInput: React.FC = () => {
 	const context = useContext(DialInputContext);

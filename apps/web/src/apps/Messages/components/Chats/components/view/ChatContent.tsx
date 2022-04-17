@@ -9,7 +9,7 @@ import fetchNui from '@utils/fetchNui';
 import useNavigation from '@os/hooks/useNavigation';
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { useConversationId, useSetMessages } from '@apps/Messages/hooks/messages/messageState';
+import { useConversationId, useSetMessages } from '@apps/messages/hooks/messages/messageState';
 
 import MessageBubble from './MessageBubble';
 

@@ -1,6 +1,6 @@
 import { MessageConversation } from '@typings/messages';
 
-import { findParticipants } from '@apps/Messages/utils/helpers';
+import { findParticipants } from '@apps/messages/utils/helpers';
 
 import { useMessageProfileActions } from './useMessageProfileActions';
 

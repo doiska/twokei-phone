@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import useNuiEvent from '@common/hooks/useNuiEvent';
-import InjectDebugData from '@debug/InjectDebugData';
-import { ActiveCall, CallEvents, CallHistoryItem } from '@typings/call';
+import { ActiveCall, CallEvents } from '@typings/call';
 
 import { ModalState, useCallModal } from '@os/call/hooks/state';
 import { useCall } from '@os/call/hooks/useCall';

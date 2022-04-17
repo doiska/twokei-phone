@@ -5,7 +5,7 @@ import { ServerPromiseResp } from '@typings/common';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
 
-import { MockHistoryData } from '@apps/Dial/hooks/mock';
+import { MockHistoryData } from '@apps/dial/hooks/mock';
 
 export const dialState = {
 	history: atom<CallHistoryItem[]>({

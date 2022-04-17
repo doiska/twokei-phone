@@ -4,8 +4,8 @@ import { BsCameraFill } from 'react-icons/bs';
 import { MdKeyboardVoice } from 'react-icons/md';
 import TextareaAutosize from 'react-textarea-autosize';
 
-import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
-import useMessages from '@apps/Messages/hooks/messages/useMessages';
+import { useMessageAPI } from '@apps/messages/hooks/messages/useMessageAPI';
+import useMessages from '@apps/messages/hooks/messages/useMessages';
 
 const ChatInput: React.FC = () => {
 	const [currentMessage, setCurrentMessage] = useState<string>('');

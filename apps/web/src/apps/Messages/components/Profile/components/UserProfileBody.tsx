@@ -10,7 +10,7 @@ import usePromptMenu from '@ui/hooks/usePromptMenu';
 import useNavigation from '@os/hooks/useNavigation';
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { useMessageProfileAPI } from '@apps/Messages/hooks/profiles/useMessageProfileAPI';
+import { useMessageProfileAPI } from '@apps/messages/hooks/profiles/useMessageProfileAPI';
 
 const UserProfileBody: React.FC = () => {
 	const { goTo } = useNavigation();

@@ -9,8 +9,8 @@ import { filterContactDisplay } from '@utils/format';
 import { useCall } from '@os/call/hooks/useCall';
 import { useDebouce } from '@os/hooks/useDebouce';
 
-import { DialInputContext } from '@apps/Dial/Call/context/InputContext';
-import { useContactsValue } from '@apps/Dial/Contacts/hooks/contactsState';
+import { DialInputContext } from '@apps/dial/call/context/InputContext';
+import { useContactsValue } from '@apps/dial/contacts/hooks/contactsState';
 
 const DialpadContacts: React.FC = () => {
 	const contacts = useContactsValue();
@@ -46,7 +46,7 @@ const DialpadContacts: React.FC = () => {
 		return (
 			<div
 				key={`${id}-${number}`}
-				className="flex flex-row items-center gap-2 rounded px-4 py-1 transition-all hover:bg-white hover:bg-opacity-20"
+				className="flex flex-row items-center gap-2 rounded px-4 py-1 text-white transition-all hover:bg-white hover:bg-opacity-20"
 				onClick={() => ctx.setVal(number)}
 			>
 				<Avatar childrenClassName="w-10" wrapperClassName="my-0 h-full items-center gap-0 text-center">
@@ -82,7 +82,7 @@ const DialpadContacts: React.FC = () => {
 	return (
 		<div className="flex basis-[45%] flex-col items-center justify-center gap-2 py-2">
 			<span className="rounded-full bg-white bg-opacity-5 p-0.5 px-3">Acesso rápido</span>
-			<div className="flex w-[93%] flex-1 flex-col justify-center gap-2 rounded-md bg-white bg-opacity-5">
+			<div className="flex w-[93%] flex-1 flex-col justify-center gap-2 rounded-md border-2 border-white border-opacity-20 bg-white bg-opacity-10 backdrop-blur-sm">
 				{show}
 			</div>
 		</div>

@@ -8,7 +8,7 @@ import fetchNui from '@utils/fetchNui';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { MockProfileResp } from '@apps/Messages/utils/constants';
+import { MockProfileResp } from '@apps/messages/utils/constants';
 
 import { messageProfileState } from './messageProfileState';
 import { useMessageProfileActions } from './useMessageProfileActions';

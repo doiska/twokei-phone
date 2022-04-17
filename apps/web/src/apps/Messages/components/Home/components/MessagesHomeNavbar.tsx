@@ -8,8 +8,8 @@ import usePromptMenu from '@ui/hooks/usePromptMenu';
 
 import useNavigation from '@os/hooks/useNavigation';
 
-import { useCheckedConversations, useFilterValueState, useIsEditing } from '@apps/Messages/hooks/messages/messageState';
-import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
+import { useCheckedConversations, useFilterValueState, useIsEditing } from '@apps/messages/hooks/messages/messageState';
+import { useMessageAPI } from '@apps/messages/hooks/messages/useMessageAPI';
 
 import MessagesHomeNavbarIcon from './MessagesHomeNavbarIcon';
 

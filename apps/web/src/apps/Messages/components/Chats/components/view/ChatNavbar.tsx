@@ -8,9 +8,9 @@ import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponent
 
 import useNavigation from '@os/hooks/useNavigation';
 
-import { useMessageActions } from '@apps/Messages/hooks/messages/useMessageActions';
-import useMessages from '@apps/Messages/hooks/messages/useMessages';
-import useMessageProfile from '@apps/Messages/hooks/profiles/useMessageProfile';
+import { useMessageActions } from '@apps/messages/hooks/messages/useMessageActions';
+import useMessages from '@apps/messages/hooks/messages/useMessages';
+import useMessageProfile from '@apps/messages/hooks/profiles/useMessageProfile';
 
 type INavbar = {
 	isGroupChat: boolean;

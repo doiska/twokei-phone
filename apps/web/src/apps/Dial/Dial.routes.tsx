@@ -3,10 +3,10 @@ import { RouteObject } from 'react-router-dom';
 
 import AppRoute from '@os/apps/components/AppRoute';
 
-import CallRoutes from '@apps/Dial/Call/Call.routes';
-import ContactsRoutes from '@apps/Dial/Contacts/Contacts.routes';
-import DialApp from '@apps/Dial/Dial.app';
-import Dialpad from '@apps/Dial/DialPad/Dialpad';
+import CallRoutes from '@apps/dial/call/Call.routes';
+import ContactsRoutes from '@apps/dial/contacts/Contacts.routes';
+import DialApp from '@apps/dial/Dial.app';
+import Dialpad from '@apps/dial/dialpad/Dialpad';
 
 const DialRoutes = {
 	path: 'dial',

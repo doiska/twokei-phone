@@ -4,7 +4,7 @@ import { useApp } from '@os/hooks/useApp';
 import { useNotifications } from '@os/notification/hooks/useNotifications';
 import { INotification } from '@os/notification/providers/NotificationProvider';
 
-import useMessages from '@apps/Messages/hooks/messages/useMessages';
+import useMessages from '@apps/messages/hooks/messages/useMessages';
 
 type IMessageNotification = {
 	conversationName: string;

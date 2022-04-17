@@ -5,10 +5,10 @@ import { RouteObject } from 'react-router-dom';
 
 import AppRoute from '@os/apps/components/AppRoute';
 
-import DialRoutes from '@apps/Dial/Dial.routes';
-import HomeApp from '@apps/Home/Home.app';
-import MessagesRoutes from '@apps/Messages/Messages.routes';
-import SettingsApp from '@apps/Settings/Settings.app';
+import DialRoutes from '@apps/dial/Dial.routes';
+import HomeApp from '@apps/home/Home.app';
+import MessagesRoutes from '@apps/messages/Messages.routes';
+import SettingsApp from '@apps/settings/Settings.app';
 
 export interface IApp {
 	id: string;

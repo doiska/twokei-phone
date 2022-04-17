@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { IoMdBackspace } from 'react-icons/io';
 import { MdClose } from 'react-icons/md';
 
-import { DialInputContext } from '@apps/Dial/Call/context/InputContext';
+import { DialInputContext } from '@apps/dial/call/context/InputContext';
 
 type Props = {
 	className?: string;

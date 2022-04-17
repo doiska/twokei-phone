@@ -4,7 +4,7 @@ import { ServerPromiseResp } from '@typings/common';
 import { MessageEvents, Profile } from '@typings/messages';
 import fetchNui from '@utils/fetchNui';
 
-import { MockProfileResp, MockProfilesResp } from '@apps/Messages/utils/constants';
+import { MockProfileResp, MockProfilesResp } from '@apps/messages/utils/constants';
 
 export const messageProfileState = {
 	profiles: atom<Profile[]>({

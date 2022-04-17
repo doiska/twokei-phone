@@ -5,17 +5,13 @@ import { RingsLoader } from '@ui/components/LoadingSpinner';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import useContacts from '@apps/Dial/Contacts/hooks/useContacts';
-import { useMessagesState } from '@apps/Messages/hooks/messages/messageState';
-import { useMessageAPI } from '@apps/Messages/hooks/messages/useMessageAPI';
-
-import useMessages from '../../hooks/messages/useMessages';
-import { MainBody, MainHeader } from '../../Messages.styles';
-import { findParticipants } from '../../utils/helpers';
-import ChatContent from './components/view/ChatContent';
-import ConversationListIconContext from './components/view/ChatContextMenut';
-import ChatInput from './components/view/ChatInput';
-import ChatNavbar from './components/view/ChatNavbar';
+import useContacts from '@apps/dial/contacts/hooks/useContacts';
+import ChatContent from '@apps/messages/components/chats/components/view/ChatContent';
+import ChatInput from '@apps/messages/components/chats/components/view/ChatInput';
+import ChatNavbar from '@apps/messages/components/chats/components/view/ChatNavbar';
+import { useMessageAPI } from '@apps/messages/hooks/messages/useMessageAPI';
+import { MainHeader, MainBody } from '@apps/messages/Messages.styles';
+import { findParticipants } from '@apps/messages/utils/helpers';
 
 const ConversationView: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
