@@ -1,9 +1,9 @@
 import { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
-import { UseContextMenu, useContextMenu } from '@ui/hooks/useContextMenu';
+import { useSystemContextMenu } from '@ui/hooks/useSystemContextMenu';
 
 import useNavigation from '@os/hooks/useNavigation';
 
-const MessagesHomeNavbarIcon = (): UseContextMenu => {
+const MessagesHomeNavbarIcon = () => {
 	const { goTo } = useNavigation();
 
 	const actions = [
@@ -13,7 +13,7 @@ const MessagesHomeNavbarIcon = (): UseContextMenu => {
 		},
 	] as IContextMenuOption[];
 
-	return useContextMenu('', actions);
+	return useSystemContextMenu('', actions);
 };
 
 export default MessagesHomeNavbarIcon;

@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 
 import { SettingOption } from '@typings/settings';
 import ContextMenu, { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
 
-export type UseContextMenu = {
+export type UseSystemContextMenu = {
 	openMenu: () => void;
 	setOptions: (opts: IContextMenuOption[]) => void;
 	closeMenu: () => void;
@@ -25,11 +25,9 @@ const MapSettingItem = (current: SettingOption, onClick: (params: unknown) => un
 	onClick: () => onClick(item),
 });
 
-const useContextMenu = (title?: string, _options?: IContextMenuOption[]): UseContextMenu => {
+const useSystemContextMenu = (title?: string, _options?: IContextMenuOption[]): UseSystemContextMenu => {
 	const [open, setOpen] = useState(false);
 	const [currentOptions, setCurrentOptions] = useState<IContextMenuOption[]>([]);
-
-	useEffect(() => console.log('Current options updated'), [currentOptions]);
 
 	const openMenu = (opts?: IContextMenuOption[]) => {
 		if (_options) setCurrentOptions(_options);
@@ -50,4 +48,4 @@ const useContextMenu = (title?: string, _options?: IContextMenuOption[]): UseCon
 	};
 };
 
-export { useContextMenu, MapStringOptions, MapSettingItem };
+export { useSystemContextMenu, MapStringOptions, MapSettingItem };

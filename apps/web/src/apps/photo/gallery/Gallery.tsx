@@ -1,58 +1,59 @@
-import React, { useEffect } from 'react';
-import { GiPerpendicularRings } from 'react-icons/gi';
-import { IoCamera, IoCameraOutline, IoCloudUploadOutline, IoFolderOutline } from 'react-icons/io5';
+import React, { useEffect, useState } from 'react';
+import { IoCloudUploadOutline } from 'react-icons/io5';
+import { useParams } from 'react-router-dom';
 
-import { BaseNavbarItem } from '@ui/components/BaseNavbar';
+import { TriangleLoader } from '@ui/components/LoadingSpinner';
 
 import { useSetGlobalWallpaper } from '@os/hooks/useGlobalWallpaper';
+import useToggableMenu from '@os/hooks/useTogglableMenu';
+import ContextMenu from '@os/menu/ContextMenu';
 
-import { GalleryBody, GalleryFolder, GalleryItem } from '@apps/photo/gallery/GalleryBody';
-import { Container, MainBody, MainHeader, Navbar } from '@apps/photo/Photo.styles';
+import { GalleryBody, GalleryFolder, GalleryNavbar } from '@apps/photo/gallery/Gallery.styles';
+import { useGalleryCategoriesValue } from '@apps/photo/hooks/state';
+import { GalleryContextMenu } from '@apps/photo/hooks/useGalleryContextMenu';
+import { usePhotoActions } from '@apps/photo/hooks/usePhotoActions';
+import { Container, MainBody, MainHeader } from '@apps/photo/Photo.styles';
 
-const Gallery = () => {
+const Gallery: React.FC<{ title?: string }> = ({ title }) => {
+	const params = useParams();
+	const categoryId = parseInt(params.categoryId ?? '') || -1;
+
+	const [loading, setLoading] = useState(true);
+
+	const { addPhoto, fetchCategories } = usePhotoActions();
+
+	const categories = useGalleryCategoriesValue();
 	const setGlobalWallpaper = useSetGlobalWallpaper();
 
+	const { isOpen, setOpen, toggleMenu } = useToggableMenu();
+
+	useEffect(() => setGlobalWallpaper('bg-[url(./media/background/blob.svg)]'), []);
+
 	useEffect(() => {
-		setGlobalWallpaper('bg-[url(./media/background/blob.svg)]');
-	}, []);
+		fetchCategories(categoryId);
+		setLoading(false);
+	}, [categoryId]);
 
 	return (
 		<Container>
-			<MainHeader title="Imagens salvas">
+			<MainHeader title={title ?? 'Sua galeria'}>
 				<IoCloudUploadOutline />
 			</MainHeader>
 			<MainBody className="flex-1">
-				<GalleryBody>
-					<GalleryFolder folderName="Sem categoria">
-						<GalleryItem content="https://exploringbits.com/wp-content/uploads/2022/01/Killua-PFP-1-1024x732.jpg" />
-						<GalleryItem content="https://exploringbits.com/wp-content/uploads/2022/01/Killua-PFP-1-1024x732.jpg" />
-						<GalleryItem content="https://exploringbits.com/wp-content/uploads/2022/01/Killua-PFP-1-1024x732.jpg" />
-					</GalleryFolder>
-					<GalleryFolder folderName="Fighter">
-						<GalleryItem content="https://exploringbits.com/wp-content/uploads/2022/01/Killua-PFP-1-1024x732.jpg" />
-						<GalleryItem content="https://exploringbits.com/wp-content/uploads/2022/01/Killua-PFP-1-1024x732.jpg" />
-					</GalleryFolder>
-					<GalleryFolder folderName="doiská">
-						<GalleryItem content="https://exploringbits.com/wp-content/uploads/2022/01/Killua-PFP-1-1024x732.jpg" />
-						<GalleryItem content="https://exploringbits.com/wp-content/uploads/2022/01/Killua-PFP-1-1024x732.jpg" />
-						<GalleryItem content="https://exploringbits.com/wp-content/uploads/2022/01/Killua-PFP-1-1024x732.jpg" />
-					</GalleryFolder>
-				</GalleryBody>
+				{loading ? (
+					<TriangleLoader />
+				) : (
+					<GalleryBody>
+						{categories.map((category) => (
+							<GalleryFolder key={category.id} category={category} />
+						))}
+					</GalleryBody>
+				)}
+				<GalleryNavbar showUpload={() => toggleMenu()} />
 			</MainBody>
-			<Navbar>
-				<BaseNavbarItem className="text-red-200">
-					<GiPerpendicularRings />
-				</BaseNavbarItem>
-				<BaseNavbarItem>
-					<IoFolderOutline />
-				</BaseNavbarItem>
-				<BaseNavbarItem>
-					<IoCameraOutline />
-				</BaseNavbarItem>
-				<BaseNavbarItem>
-					<IoCloudUploadOutline />
-				</BaseNavbarItem>
-			</Navbar>
+			<ContextMenu isOpen={isOpen}>
+				<GalleryContextMenu toggleMenu={toggleMenu} addPhoto={addPhoto} />
+			</ContextMenu>
 		</Container>
 	);
 };

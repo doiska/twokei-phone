@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BsZoomIn } from 'react-icons/bs';
 import { GiSoundOn } from 'react-icons/gi';
 import {
@@ -11,18 +11,19 @@ import {
 } from 'react-icons/io5';
 
 import { usePhoneConfig } from '@config/hooks/usePhoneConfig';
-import { useContextMenu } from '@ui/hooks/useContextMenu';
+import { useSystemContextMenu } from '@ui/hooks/useSystemContextMenu';
 import GenericApp from '@ui/os/GenericApp';
 import GenericBody from '@ui/os/GenericBody';
 import GenericHeader from '@ui/os/GenericHeader';
 
+import { useSettings } from '@apps/Settings/hooks/useSettings';
+
 import { SettingsItemRange, SettingsItemSelect, SettingsItemToggle } from './components/SettingItem';
 import SettingsCategory from './components/SettingsCategory';
-import { useSettings } from './hooks/useSettings';
 
 const SettingsApp: React.FC = () => {
 	const [settings, setSettings] = useSettings();
-	const { openMenu, ContextMenu } = useContextMenu();
+	const { openMenu, ContextMenu } = useSystemContextMenu();
 	const { config } = usePhoneConfig();
 
 	const handleSettingsChange = (key: string | number, value: unknown, label?: unknown) => {

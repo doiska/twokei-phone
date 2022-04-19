@@ -1,10 +1,9 @@
-
 import { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
-import { UseContextMenu, useContextMenu } from '@ui/hooks/useContextMenu';
+import { useSystemContextMenu } from '@ui/hooks/useSystemContextMenu';
 
 import useNavigation from '@os/hooks/useNavigation';
 
-const ConversationListIconContext = (conversationId: string | undefined): UseContextMenu => {
+const ConversationListIconContext = (conversationId: string | undefined) => {
 	const { goTo } = useNavigation();
 
 	const actions = [
@@ -18,7 +17,7 @@ const ConversationListIconContext = (conversationId: string | undefined): UseCon
 		},
 	] as IContextMenuOption[];
 
-	return useContextMenu('', conversationId ? actions : []);
+	return useSystemContextMenu('', conversationId ? actions : []);
 };
 
 export default ConversationListIconContext;

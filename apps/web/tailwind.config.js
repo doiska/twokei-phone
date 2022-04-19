@@ -42,6 +42,9 @@ module.exports = {
 					800: '#12161b',
 					900: '#080c11',
 				},
+                'shark': {
+                    DEFAULT: '#272e3a'
+                }
 			},
 			width: {
 				phone: '500px',

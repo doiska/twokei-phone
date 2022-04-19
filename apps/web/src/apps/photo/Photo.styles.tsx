@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BaseNavbar } from '@ui/components/BaseNavbar';
+import { Navbar as BaseNavbar, NavbarItemGrid } from '@ui/components/BaseNavbar';
 
 const Container: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, className, ...rest }) => {
 	return (
@@ -24,12 +24,10 @@ const MainBody: React.FC<{ children?: React.ReactNode } & React.HTMLAttributes<H
 );
 
 const Navbar: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-	<BaseNavbar
-		holder={{
-			className: 'bg-[#272e3a] bg-opacity-90 py-2.5 text-2xl w-[60%] shadow-6xl text-white rounded-md',
-		}}
-	>
-		{children}
+	<BaseNavbar>
+		<NavbarItemGrid className="shadow-6xl bg-shark w-[60%] rounded-md bg-opacity-90 py-2.5 text-2xl text-white">
+			{children}
+		</NavbarItemGrid>
 	</BaseNavbar>
 );
 
