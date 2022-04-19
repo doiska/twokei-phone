@@ -1,28 +1,26 @@
 import { useCallback, useState } from 'react';
 
-import { GalleryCategory, GalleryPhoto, PhotoEvents, PhotoTakeEvents } from '@typings/gallery';
+import { GalleryPhoto, PhotoEvents, PhotoTakeEvents } from '@typings/gallery';
 import { useNuiCallback, useNuiEvent } from 'fivem-nui-react-lib';
 
-import { useGalleryCategories } from '@apps/photo/hooks/state';
-import { usePhotoActions } from '@apps/photo/hooks/usePhotoActions';
+import usePhotoAPI from '@apps/photo/hooks/usePhotoAPI';
 
 interface IUseCamera {
-	categories: GalleryCategory[];
 	isLoading: boolean;
 	takePhoto: () => void;
 }
 
 export const useCamera = (): IUseCamera => {
 	const [isUploading, setUploading] = useState(false);
-	const { addPhoto } = usePhotoActions();
-	const [categories, setCategories] = useGalleryCategories();
+
+	const { addPhoto } = usePhotoAPI();
 
 	const onPhotoTaken = useCallback(
-		(photo: GalleryPhoto, cat = -1) => {
+		(photo: GalleryPhoto) => {
 			setUploading(false);
-			addPhoto(photo, cat);
+			addPhoto(photo);
 		},
-		[setCategories]
+		[addPhoto]
 	);
 
 	const onPhotoError = useCallback((error: unknown) => {
@@ -43,7 +41,6 @@ export const useCamera = (): IUseCamera => {
 	useNuiEvent('CAMERA', PhotoEvents.LEAVE_CAMERA, () => setUploading(false));
 
 	return {
-		categories,
 		isLoading: isUploading,
 		takePhoto,
 	};

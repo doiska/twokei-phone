@@ -3,15 +3,16 @@ import { GiPerpendicularRings } from 'react-icons/gi';
 import { IoCameraOutline, IoCloudUploadOutline, IoFolderOutline } from 'react-icons/io5';
 
 import { HTMLAttributes } from '@typings/core';
-import { GalleryCategory } from '@typings/gallery';
+import { GalleryPhoto } from '@typings/gallery';
 import { NavbarItem, NavbarItemGrid } from '@ui/components/BaseNavbar';
 
 import { Navbar } from '@apps/photo/Photo.styles';
 
 const GalleryFolderView: React.FC = ({ children }) => <div className="flex flex-col gap-5 px-2">{children}</div>;
 
-const GalleryFolder: React.FC<HTMLAttributes & { category: GalleryCategory }> = ({
-	category: { name, photos },
+const GalleryFolder: React.FC<HTMLAttributes & { category: string; photos: GalleryPhoto[] }> = ({
+	category,
+	photos,
 	...rest
 }) => {
 	return (
@@ -20,12 +21,13 @@ const GalleryFolder: React.FC<HTMLAttributes & { category: GalleryCategory }> = 
 			{...rest}
 		>
 			<div className="text-sm font-medium">
-				<span className="p-1">{name}</span>
+				<span className="p-1">{category}</span>
 			</div>
+
 			{photos.length > 0 && (
 				<div className="flex flex-row items-center gap-1">
-					{photos.map(({ id: imageId, image }) => (
-						<GalleryItem key={imageId} content={image} />
+					{photos.map(({ id, image }, index) => (
+						<GalleryItem key={`${id}-${index}`} content={image} />
 					))}
 				</div>
 			)}

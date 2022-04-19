@@ -12,6 +12,7 @@ import './players/player.controller';
 import './apps/contacts/contacts.controller';
 import './apps/messages/messages.controller';
 import './apps/calls/calls.controller';
+import './apps/photo/photo.controller';
 
 import logger from './logger';
 

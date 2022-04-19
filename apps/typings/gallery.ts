@@ -1,12 +1,10 @@
-export interface GalleryCategory {
-	id: number;
-	name: string;
-	photos: GalleryPhoto[];
+export interface PreDBGalleryPhoto {
+	category?: string;
+	image: string;
 }
 
-export interface GalleryPhoto {
+export interface GalleryPhoto extends PreDBGalleryPhoto {
 	id: number;
-	image: string;
 }
 
 export enum CameraResponse {
@@ -21,8 +19,9 @@ export enum PhotoTakeEvents {
 }
 
 export enum PhotoEvents {
-	LEAVE_CAMERA = 'tkphone:photo:leave',
-	UPLOAD_PHOTO = 'tkphone:photo:upload',
+	SAVE_PHOTO = 'tkphone:photo:new',
 	FETCH_PHOTOS = 'tkphone:photo:fetch',
+	UPLOAD_PHOTO = 'tkphone:photo:upload',
+	LEAVE_CAMERA = 'tkphone:photo:leave',
 	DELETE_PHOTO = 'tkphone:photo:delete',
 }

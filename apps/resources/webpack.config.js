@@ -11,19 +11,26 @@ const alias = {
 };
 
 const clientAlias = {
-    '@utils': path.resolve(__dirname, './client/utils')
+	'@utils': path.resolve(__dirname, './client/utils'),
 };
 
 const serverAlias = {
 	'@apps': path.resolve(__dirname, './server/apps'),
 	'@lib': path.resolve(__dirname, './server/lib'),
 	'@utils': path.resolve(__dirname, './server/utils'),
-    '@entity': path.resolve(__dirname, './server/entity'),
-    '@common': path.resolve(__dirname, './server/common'),
+	'@entity': path.resolve(__dirname, './server/entity'),
+	'@common': path.resolve(__dirname, './server/common'),
 };
 
 const server = () => {
-	const plugins = [new CleanWebpackPlugin({ buildPath: buildPath, dangerouslyAllowCleanPatternsOutsideProject: true })];
+	const plugins = [
+		new CleanWebpackPlugin({
+			buildPath: buildPath,
+			dangerouslyAllowCleanPatternsOutsideProject: true,
+			dry: true,
+			cleanOnceBeforeBuildPatterns: [`${buildPath}/**/*`],
+		}),
+	];
 
 	return {
 		entry: './server/server.ts',
@@ -53,6 +60,7 @@ const server = () => {
 		output: {
 			filename: '[contenthash].server.js',
 			path: path.resolve(buildPath, 'server'),
+			clean: true,
 		},
 		target: 'node',
 		externals: [nodeExternals()],
@@ -71,7 +79,14 @@ const client = () => {
 				},
 			],
 		},
-		plugins: [new CleanWebpackPlugin({ buildPath: buildPath, dangerouslyAllowCleanPatternsOutsideProject: true })],
+		plugins: [
+			new CleanWebpackPlugin({
+				cleanOnceBeforeBuildPatterns: [`${buildPath}/**/*`],
+				buildPath: buildPath,
+				dangerouslyAllowCleanPatternsOutsideProject: true,
+				dry: true,
+			}),
+		],
 		optimization: {
 			minimize: true,
 		},
@@ -85,6 +100,7 @@ const client = () => {
 		output: {
 			filename: '[contenthash].client.js',
 			path: path.resolve(buildPath, 'client'),
+			clean: true,
 		},
 	};
 };

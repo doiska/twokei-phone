@@ -9,30 +9,24 @@ import useToggableMenu from '@os/hooks/useTogglableMenu';
 import ContextMenu from '@os/menu/ContextMenu';
 
 import { GalleryBody, GalleryFolder, GalleryNavbar } from '@apps/photo/gallery/Gallery.styles';
-import { useGalleryCategoriesValue } from '@apps/photo/hooks/state';
-import { GalleryContextMenu } from '@apps/photo/hooks/useGalleryContextMenu';
-import { usePhotoActions } from '@apps/photo/hooks/usePhotoActions';
+import usePhotoAPI from '@apps/photo/hooks/usePhotoAPI';
+import { GalleryContextMenu } from '@apps/photo/others/GalleryContextMenu';
 import { Container, MainBody, MainHeader } from '@apps/photo/Photo.styles';
 
 const Gallery: React.FC<{ title?: string }> = ({ title }) => {
-	const params = useParams();
-	const categoryId = parseInt(params.categoryId ?? '') || -1;
+	const [loading, setLoading] = useState(false);
 
-	const [loading, setLoading] = useState(true);
+	const { photos, addPhoto } = usePhotoAPI();
 
-	const { addPhoto, fetchCategories } = usePhotoActions();
-
-	const categories = useGalleryCategoriesValue();
 	const setGlobalWallpaper = useSetGlobalWallpaper();
 
-	const { isOpen, setOpen, toggleMenu } = useToggableMenu();
+	const { toggleMenu, isOpen } = useToggableMenu();
 
 	useEffect(() => setGlobalWallpaper('bg-[url(./media/background/blob.svg)]'), []);
 
-	useEffect(() => {
-		fetchCategories(categoryId);
-		setLoading(false);
-	}, [categoryId]);
+	const categories = [...new Set(photos.map((c) => c.category ?? 'Sem categoria'))];
+
+	console.log(categories);
 
 	return (
 		<Container>
@@ -45,14 +39,18 @@ const Gallery: React.FC<{ title?: string }> = ({ title }) => {
 				) : (
 					<GalleryBody>
 						{categories.map((category) => (
-							<GalleryFolder key={category.id} category={category} />
+							<GalleryFolder
+								key={category}
+								category={category}
+								photos={photos.filter((photo) => photo.category === category)}
+							/>
 						))}
 					</GalleryBody>
 				)}
 				<GalleryNavbar showUpload={() => toggleMenu()} />
 			</MainBody>
 			<ContextMenu isOpen={isOpen}>
-				<GalleryContextMenu toggleMenu={toggleMenu} addPhoto={addPhoto} />
+				<GalleryContextMenu categories={categories} toggleMenu={toggleMenu} commit={addPhoto} />
 			</ContextMenu>
 		</Container>
 	);

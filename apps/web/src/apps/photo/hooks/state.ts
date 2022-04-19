@@ -1,20 +1,20 @@
 import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { ServerPromiseResp } from '@typings/common';
-import { GalleryCategory, PhotoEvents } from '@typings/gallery';
+import { GalleryPhoto, PhotoEvents } from '@typings/gallery';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
 
 import { GalleryMockData } from '@apps/photo/gallery/Gallery.mock';
 
 export const photoState = {
-	categories: atom<GalleryCategory[]>({
-		key: 'galleryCategories',
+	photos: atom<GalleryPhoto[]>({
+		key: 'galleryPhotos',
 		default: selector({
-			key: 'defaultGalleryCategories',
+			key: 'defaultGalleryPhtoso',
 			get: async () => {
 				try {
-					const response = await fetchNui<ServerPromiseResp<GalleryCategory[]>>(
+					const response = await fetchNui<ServerPromiseResp<GalleryPhoto[]>>(
 						PhotoEvents.FETCH_PHOTOS,
 						undefined,
 						buildRespObj(GalleryMockData)
@@ -28,6 +28,6 @@ export const photoState = {
 	}),
 };
 
-export const useGalleryCategories = () => useRecoilState(photoState.categories);
-export const useSetGalleryCategories = () => useSetRecoilState(photoState.categories);
-export const useGalleryCategoriesValue = () => useRecoilValue(photoState.categories);
+export const useGalleryPhotos = () => useRecoilState(photoState.photos);
+export const useSetGalleryPhotos = () => useSetRecoilState(photoState.photos);
+export const useGalleryPhotosValue = () => useRecoilValue(photoState.photos);
