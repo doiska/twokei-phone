@@ -26,8 +26,26 @@ export const photoState = {
 			},
 		}),
 	}),
+	categoryFilterValue: atom<string>({
+		key: 'categoryFilter',
+		default: '',
+	}),
+	filteredPhotos: selector<GalleryPhoto[]>({
+		key: 'defaultFilteredPhotos',
+		get: ({ get }) => {
+			const search: string = get(photoState.categoryFilterValue);
+			const photos: GalleryPhoto[] = get(photoState.photos);
+
+			if (!search) return photos;
+
+			return photos.filter(({ category }) => category && category.toLowerCase().includes(search.toLowerCase()));
+		},
+	}),
 };
 
 export const useGalleryPhotos = () => useRecoilState(photoState.photos);
 export const useSetGalleryPhotos = () => useSetRecoilState(photoState.photos);
 export const useGalleryPhotosValue = () => useRecoilValue(photoState.photos);
+
+export const usePhotoCategoryFilter = () => useRecoilState(photoState.categoryFilterValue);
+export const useFilteredPhotos = () => useRecoilValue(photoState.filteredPhotos);

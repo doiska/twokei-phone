@@ -1,4 +1,5 @@
 export interface PreDBGalleryPhoto {
+	id?: number;
 	category?: string;
 	image: string;
 }

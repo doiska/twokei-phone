@@ -8,8 +8,10 @@ import { buildRespObj } from '@utils/nuiMisc';
 import { GalleryMockData } from '@apps/photo/gallery/Gallery.mock';
 import usePhotoActions from '@apps/photo/hooks/usePhotoActions';
 
+//TODO: add update photo
+
 const usePhotoAPI = () => {
-	const { photos, setPhotos, addLocalPhoto, removeLocalPhoto } = usePhotoActions();
+	const { photos, setPhotos, addLocalPhoto, updateLocalPhoto, removeLocalPhoto } = usePhotoActions();
 
 	const fetchPhotos = useCallback(() => {
 		fetchNui<ServerPromiseResp<GalleryPhoto[]>>(
@@ -28,17 +30,23 @@ const usePhotoAPI = () => {
 				photo,
 				buildRespObj(
 					{
-						id: Math.random(),
+						id: photo.id ?? Math.random(),
 						...photo,
 					},
 					'ok'
 				)
 			).then((response) => {
-				console.log(response.data);
 				if (response.status === 'ok' && response.data) addLocalPhoto(response.data);
 			});
 		},
 		[addLocalPhoto]
+	);
+
+	const updatePhoto = useCallback(
+		(photo: GalleryPhoto) => {
+			updateLocalPhoto(photo);
+		},
+		[updateLocalPhoto]
 	);
 
 	const removePhoto = useCallback(
@@ -54,6 +62,7 @@ const usePhotoAPI = () => {
 		photos,
 		fetchPhotos,
 		addPhoto,
+		updatePhoto,
 		removePhoto,
 	};
 };

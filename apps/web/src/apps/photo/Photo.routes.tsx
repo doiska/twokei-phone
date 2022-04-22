@@ -12,12 +12,6 @@ const PhotoRoutes = {
 		{
 			path: '',
 			element: <Gallery />,
-			children: [
-				{
-					path: ':ref',
-					element: null,
-				},
-			],
 		},
 		{
 			path: 'camera',

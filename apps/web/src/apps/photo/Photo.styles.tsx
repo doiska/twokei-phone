@@ -10,7 +10,7 @@ const Container: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, c
 	);
 };
 
-const MainHeader: React.FC<{ title: string; children?: React.ReactNode }> = ({ title, children }) => {
+const MainHeader: React.FC<{ title: string; children?: React.ReactNode }> = ({ title }) => {
 	return <div className="flex basis-[7%] flex-row items-center justify-center px-2 text-lg font-medium">{title}</div>;
 };
 
@@ -25,7 +25,7 @@ const MainBody: React.FC<{ children?: React.ReactNode } & React.HTMLAttributes<H
 
 const Navbar: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 	<BaseNavbar>
-		<NavbarItemGrid className="shadow-6xl bg-shark w-[60%] rounded-md bg-opacity-90 py-2.5 text-2xl text-white">
+		<NavbarItemGrid className="shadow-6xl bg-shark w-[60%] rounded-md bg-opacity-90 py-2.5 text-2xl text-white opacity-70 transition-all hover:opacity-100">
 			{children}
 		</NavbarItemGrid>
 	</BaseNavbar>

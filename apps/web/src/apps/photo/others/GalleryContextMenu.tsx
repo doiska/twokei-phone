@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 import { IoRemoveCircleOutline, IoSaveOutline } from 'react-icons/io5';
 
-import { PreDBGalleryPhoto } from '@typings/gallery';
+import { GalleryPhoto, PreDBGalleryPhoto } from '@typings/gallery';
 import { TriangleLoader } from '@ui/components/LoadingSpinner';
-import SelectWithInput from '@ui/components/SelectWithInput';
 
 type ContextProps = {
-	presetImage?: string;
+	presetPhoto?: GalleryPhoto;
 	categories: string[];
 	toggleMenu: () => void;
 	commit: (photo: PreDBGalleryPhoto) => void;
 };
 
-export const GalleryContextMenu: React.FC<ContextProps> = ({ categories, commit, toggleMenu, presetImage }) => {
-	const [image, setImage] = useState(
-		presetImage ?? 'https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg'
-	);
+export const GalleryContextMenu: React.FC<ContextProps> = ({ categories, commit, toggleMenu, presetPhoto }) => {
+	const [image, setImage] = useState(presetPhoto?.image ?? '');
 
 	const [enableSave, setEnableSave] = useState(false);
-	const [selectedCategory, setSelectedCategory] = useState('Sem categoria');
+	const [selectedCategory, setSelectedCategory] = useState(presetPhoto?.category ?? 'Sem categoria');
 
 	const commitPhoto = () => {
+		console.log(`commitPhoto`, presetPhoto);
+
 		commit({
+			id: presetPhoto?.id,
 			image: image,
-			category: selectedCategory ?? 'Sem categoria',
+			category: selectedCategory,
 		});
+
 		toggleMenu();
 	};
 
@@ -34,7 +35,7 @@ export const GalleryContextMenu: React.FC<ContextProps> = ({ categories, commit,
 				<img
 					onLoad={() => setEnableSave(true)}
 					onError={() => setEnableSave(false)}
-					className={`${!enableSave && 'hidden'} h-auto max-w-[75%]`}
+					className={`${!enableSave && 'hidden'} h-auto max-w-[60%]`}
 					src={image}
 				/>
 				{!enableSave && <TriangleLoader />}
@@ -48,11 +49,17 @@ export const GalleryContextMenu: React.FC<ContextProps> = ({ categories, commit,
 			/>
 
 			<div className="w-[70%] basis-[5%] rounded-md bg-white bg-opacity-10 p-2">
-				<SelectWithInput
-					className="block w-full appearance-none rounded bg-white bg-opacity-10 px-2 py-1 text-base font-normal text-white transition-all focus:outline-none"
-					onChange={(content) => setSelectedCategory(content as string)}
-					values={categories}
+				<input
+					className=" w-full appearance-none rounded bg-white bg-opacity-10 px-2 py-1 text-base font-normal text-white transition-all focus:outline-none"
+					list="categories"
+					placeholder={selectedCategory}
+					onChange={(e) => setSelectedCategory(e.target.value)}
 				/>
+				<datalist id="categories">
+					{categories.map((category, index) => (
+						<option key={index}>{category}</option>
+					))}
+				</datalist>
 			</div>
 
 			<div className="mb-2 flex basis-[10%] flex-row justify-between gap-6">
