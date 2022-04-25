@@ -19,7 +19,29 @@ const usePromptMenu = (onConfirm?: () => void, onDeny?: () => void, options?: IC
 		]
 	);
 
-	return { ...context };
+	const _openMenu = (title?: string, onConfirm?: () => void, onDeny?: () => void) => {
+		if (onConfirm) {
+			context.openMenu(
+				[
+					{
+						key: 'confirm',
+						label: 'Confirmar',
+						onCommit: () => onConfirm?.(),
+					},
+					{
+						key: 'cancel',
+						label: 'Cancelar',
+						onCommit: () => onDeny?.(),
+					},
+				],
+				title ?? 'Deseja continuar?'
+			);
+		} else {
+			context.openMenu();
+		}
+	};
+
+	return { ...context, openMenu: _openMenu };
 };
 
 export default usePromptMenu;

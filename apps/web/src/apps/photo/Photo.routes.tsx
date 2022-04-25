@@ -10,8 +10,14 @@ const PhotoRoutes = {
 	element: <AppRoute id="PHOTO" component={() => <Outlet />} emitOnOpen={true} />,
 	children: [
 		{
-			path: '',
+			path: 'gallery',
 			element: <Gallery />,
+			children: [
+				{
+					path: ':ref',
+					element: null,
+				},
+			],
 		},
 		{
 			path: 'camera',

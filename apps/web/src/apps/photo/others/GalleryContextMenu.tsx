@@ -3,30 +3,42 @@ import { IoRemoveCircleOutline, IoSaveOutline } from 'react-icons/io5';
 
 import { GalleryPhoto, PreDBGalleryPhoto } from '@typings/gallery';
 import { TriangleLoader } from '@ui/components/LoadingSpinner';
+import usePromptMenu from '@ui/hooks/usePromptMenu';
 
 type ContextProps = {
 	presetPhoto?: GalleryPhoto;
 	categories: string[];
 	toggleMenu: () => void;
-	commit: (photo: PreDBGalleryPhoto) => void;
+	savePhoto: (photo: PreDBGalleryPhoto) => void;
+	removePhoto: (photo: GalleryPhoto) => void;
 };
 
-export const GalleryContextMenu: React.FC<ContextProps> = ({ categories, commit, toggleMenu, presetPhoto }) => {
+export const GalleryContextMenu: React.FC<ContextProps> = ({
+	categories,
+	presetPhoto,
+	savePhoto,
+	removePhoto,
+	toggleMenu,
+}) => {
 	const [image, setImage] = useState(presetPhoto?.image ?? '');
-
 	const [enableSave, setEnableSave] = useState(false);
 	const [selectedCategory, setSelectedCategory] = useState(presetPhoto?.category ?? 'Sem categoria');
+	const { ContextMenu: PromptMenu, openMenu } = usePromptMenu();
 
 	const commitPhoto = () => {
-		console.log(`commitPhoto`, presetPhoto);
-
-		commit({
+		savePhoto({
 			id: presetPhoto?.id,
 			image: image,
 			category: selectedCategory,
 		});
-
 		toggleMenu();
+	};
+
+	const deletePhoto = () => {
+		if (presetPhoto) {
+			removePhoto(presetPhoto);
+			toggleMenu();
+		}
 	};
 
 	return (
@@ -65,21 +77,22 @@ export const GalleryContextMenu: React.FC<ContextProps> = ({ categories, commit,
 			<div className="mb-2 flex basis-[10%] flex-row justify-between gap-6">
 				<button
 					className="bg-shark shadow-3xl flex flex-row items-center gap-2 rounded-md border-2 border-transparent p-2 transition-all hover:border-zinc-300"
-					onClick={() => toggleMenu()}
+					onClick={() => openMenu(`Apagar foto?`, deletePhoto, () => toggleMenu())}
 				>
 					<IoRemoveCircleOutline />
-					<span>Cancelar</span>
+					<span>Apagar</span>
 				</button>
 				<button
 					className={`bg-shark shadow-3xl flex flex-row items-center gap-2 rounded-md border-2 border-transparent p-2 transition-all hover:border-zinc-300 ${
 						!enableSave && 'cursor-not-allowed'
 					}`}
-					onClick={() => enableSave && commitPhoto()}
+					onClick={() => openMenu(`Salvar foto?`, commitPhoto, () => toggleMenu())}
 				>
 					<IoSaveOutline />
 					<span>Salvar</span>
 				</button>
 			</div>
+			<PromptMenu />
 		</div>
 	);
 };

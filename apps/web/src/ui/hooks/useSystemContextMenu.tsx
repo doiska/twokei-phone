@@ -4,7 +4,7 @@ import { SettingOption } from '@typings/settings';
 import ContextMenu, { IContextMenuOption } from '@ui/components/contextMenu/ContextMenu';
 
 export type UseSystemContextMenu = {
-	openMenu: () => void;
+	openMenu: (opts?: IContextMenuOption[], title?: string) => void;
 	setOptions: (opts: IContextMenuOption[]) => void;
 	closeMenu: () => void;
 	ContextMenu: () => JSX.Element;
@@ -25,13 +25,15 @@ const MapSettingItem = (current: SettingOption, onClick: (params: unknown) => un
 	onClick: () => onClick(item),
 });
 
-const useSystemContextMenu = (title?: string, _options?: IContextMenuOption[]): UseSystemContextMenu => {
+const useSystemContextMenu = (_title?: string, _options?: IContextMenuOption[]): UseSystemContextMenu => {
 	const [open, setOpen] = useState(false);
+	const [title, setTitle] = useState(_title ?? '');
 	const [currentOptions, setCurrentOptions] = useState<IContextMenuOption[]>([]);
 
-	const openMenu = (opts?: IContextMenuOption[]) => {
+	const openMenu = (opts?: IContextMenuOption[], title?: string) => {
 		if (_options) setCurrentOptions(_options);
 		if (opts) setCurrentOptions(opts);
+		if (title) setTitle(title);
 
 		setOpen(true);
 	};

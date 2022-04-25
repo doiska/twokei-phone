@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { IoCloseCircleOutline, IoCloudUploadOutline } from 'react-icons/io5';
+import { IoCloudUploadOutline } from 'react-icons/io5';
+import { useParams } from 'react-router-dom';
 
 import { GalleryPhoto } from '@typings/gallery';
 import { TriangleLoader } from '@ui/components/LoadingSpinner';
@@ -10,6 +11,7 @@ import useToggableMenu from '@os/hooks/useTogglableMenu';
 import ContextMenu from '@os/menu/ContextMenu';
 
 import GalleryDisplay from '@apps/photo/gallery/components/GalleryDisplay';
+import GallerySearchInput from '@apps/photo/gallery/components/GallerySearchInput';
 import { GalleryBody, GalleryNavbar } from '@apps/photo/gallery/Gallery.styles';
 import { useFilteredPhotos, usePhotoCategoryFilter } from '@apps/photo/hooks/state';
 import usePhotoAPI from '@apps/photo/hooks/usePhotoAPI';
@@ -22,10 +24,12 @@ const Gallery: React.FC<{ title?: string }> = ({ title }) => {
 	const [presetPhoto, setPresetPhoto] = useState<GalleryPhoto>();
 
 	const { toggleMenu, isOpen } = useToggableMenu();
-	const { photos, addPhoto, updatePhoto } = usePhotoAPI();
+	const { photos, addPhoto, updatePhoto, removePhoto } = usePhotoAPI();
 
 	const [categoryFilter, setCategoryFilter] = usePhotoCategoryFilter();
 	const filteredPhotos = useFilteredPhotos();
+
+	const { ref } = useParams();
 
 	const setGlobalWallpaper = useSetGlobalWallpaper();
 	useEffect(() => {
@@ -40,9 +44,18 @@ const Gallery: React.FC<{ title?: string }> = ({ title }) => {
 
 	const filteredCategories = useMemo(() => {
 		if (categoryFilter === '') return unfilteredCategories;
-
 		return removeDupe([...filteredPhotos.map(({ category }) => category ?? 'Sem categoria')]);
 	}, [filteredPhotos]);
+
+	const handlePhotoClick = (photo: GalleryPhoto) => {
+		console.log(`Photo click`, ref);
+		if (!ref) {
+			setPresetPhoto(photo);
+			toggleMenu();
+		}
+	};
+
+	const isRefSet = ref && ref !== 'undefined';
 
 	if (loading) return <TriangleLoader />;
 
@@ -52,50 +65,37 @@ const Gallery: React.FC<{ title?: string }> = ({ title }) => {
 				<IoCloudUploadOutline />
 			</MainHeader>
 			<MainBody className="flex w-full flex-1 flex-col items-center gap-3">
-				<div className="mt-2 flex w-full items-center justify-center">
-					<div className="mb-2 flex w-full flex-row items-center justify-center gap-2">
-						<input
-							placeholder="Pesquisar categoria"
-							className="bg-shark w-[60%] appearance-none rounded-md border-2 border-transparent p-2 px-1 text-white shadow-2xl transition-all hover:border-white hover:border-opacity-50 focus:outline-none"
-							onChange={(e) => setCategoryFilter(e.target.value)}
-							value={categoryFilter}
-						/>
-						<IoCloseCircleOutline
-							onClick={() => setCategoryFilter('')}
-							className="cursor-pointer"
-							size={28}
-						/>
-					</div>
-				</div>
+				<GallerySearchInput currentValue={categoryFilter} onChange={setCategoryFilter} />
 				<GalleryBody>
 					<GalleryDisplay
 						filteredCategories={filteredCategories}
 						filteredPhotos={filteredPhotos}
-						handlePhotoClick={(photo) => {
-							toggleMenu();
-							setPresetPhoto(photo);
-						}}
+						handlePhotoClick={handlePhotoClick}
 						handleCategoryClick={(category) => setCategoryFilter(category)}
 					/>
 				</GalleryBody>
-				<GalleryNavbar
-					showUpload={() => {
-						setPresetPhoto(undefined);
-						toggleMenu();
-					}}
-				/>
+				{!isRefSet && (
+					<GalleryNavbar
+						showUpload={() => {
+							setPresetPhoto(undefined);
+							toggleMenu();
+						}}
+					/>
+				)}
 			</MainBody>
-			<ContextMenu isOpen={isOpen}>
+			<ContextMenu isOpen={ref !== undefined && isOpen}>
 				<GalleryContextMenu
 					presetPhoto={presetPhoto}
 					categories={unfilteredCategories}
 					toggleMenu={toggleMenu}
-					commit={(photo) => {
-						if (photo.id !== undefined) {
-							console.log(`Updating photo`, photo);
-							return updatePhoto(photo as GalleryPhoto);
-						}
+					savePhoto={(photo) => {
+						if (photo.id !== undefined) return updatePhoto(photo as GalleryPhoto);
+
 						addPhoto(photo);
+						setPresetPhoto(undefined);
+					}}
+					removePhoto={(photo) => {
+						removePhoto(photo);
 						setPresetPhoto(undefined);
 					}}
 				/>
