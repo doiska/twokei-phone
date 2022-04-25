@@ -7,9 +7,12 @@ import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
 import useContacts from '@apps/dial/contacts/hooks/useContacts';
 import ChatContent from '@apps/messages/components/chats/components/view/ChatContent';
+import ChatContextMenu from '@apps/messages/components/chats/components/view/ChatContextMenu';
 import ChatInput from '@apps/messages/components/chats/components/view/ChatInput';
 import ChatNavbar from '@apps/messages/components/chats/components/view/ChatNavbar';
+import { useMessagesState } from '@apps/messages/hooks/messages/messageState';
 import { useMessageAPI } from '@apps/messages/hooks/messages/useMessageAPI';
+import useMessages from '@apps/messages/hooks/messages/useMessages';
 import { MainHeader, MainBody } from '@apps/messages/Messages.styles';
 import { findParticipants } from '@apps/messages/utils/helpers';
 
@@ -26,7 +29,7 @@ const ConversationView: React.FC = () => {
 	const [messages, setMessages] = useMessagesState();
 	const [shownParticipants, setShownParticipants] = useState<string[]>([]);
 
-	const { ContextMenu: MoreMenu, openMenu: openMoreMenu } = ConversationListIconContext(id);
+	const { ContextMenu: MoreMenu, openMenu: openMoreMenu } = ChatContextMenu(id);
 
 	useEffect(() => {
 		if (id) {

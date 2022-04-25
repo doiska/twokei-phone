@@ -3,7 +3,7 @@ import { useSystemContextMenu } from '@ui/hooks/useSystemContextMenu';
 
 import useNavigation from '@os/hooks/useNavigation';
 
-const ConversationListIconContext = (conversationId: string | undefined) => {
+const ChatContextMenu = (conversationId: string | undefined) => {
 	const { goTo } = useNavigation();
 
 	const actions = [
@@ -20,4 +20,4 @@ const ConversationListIconContext = (conversationId: string | undefined) => {
 	return useSystemContextMenu('', conversationId ? actions : []);
 };
 
-export default ConversationListIconContext;
+export default ChatContextMenu;
