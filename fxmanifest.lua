@@ -18,3 +18,7 @@ files {
     'dist/web/index.html',
     'dist/web/**/*',
 }
+
+dependency {
+    'screenshot-basic'
+}
