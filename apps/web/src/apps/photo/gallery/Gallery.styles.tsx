@@ -7,6 +7,8 @@ import { HTMLAttributes } from '@typings/core';
 import { GalleryPhoto } from '@typings/gallery';
 import { NavbarItem, NavbarItemGrid } from '@ui/components/BaseNavbar';
 
+import useNavigation from '@os/hooks/useNavigation';
+
 import { Navbar } from '@apps/photo/Photo.styles';
 
 const GalleryFolderView: React.FC = ({ children }) => (
@@ -65,6 +67,8 @@ const GalleryItem: React.FC<{ checked?: boolean; content: string } & HTMLAttribu
 };
 
 const GalleryNavbar: React.FC<{ showUpload?: () => void }> = ({ showUpload }) => {
+	const { goTo } = useNavigation();
+
 	return (
 		<Navbar>
 			<NavbarItemGrid>
@@ -74,7 +78,7 @@ const GalleryNavbar: React.FC<{ showUpload?: () => void }> = ({ showUpload }) =>
 				<NavbarItem>
 					<IoFolderOutline />
 				</NavbarItem>
-				<NavbarItem>
+				<NavbarItem onClick={() => goTo('/photo/camera')}>
 					<IoCameraOutline />
 				</NavbarItem>
 				<NavbarItem>

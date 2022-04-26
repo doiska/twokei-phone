@@ -19,7 +19,7 @@ const usePhotoAPI = () => {
 			undefined,
 			buildRespObj(GalleryMockData, 'ok')
 		).then((response) => {
-			if (response.data && response.status === 'ok') setPhotos(response.data);
+			setPhotos(response.data ?? []);
 		});
 	}, []);
 
@@ -36,6 +36,7 @@ const usePhotoAPI = () => {
 					'ok'
 				)
 			).then((response) => {
+				console.log('addPhoto response', response);
 				if (response.status === 'ok' && response.data) addLocalPhoto(response.data);
 			});
 		},
@@ -44,7 +45,9 @@ const usePhotoAPI = () => {
 
 	const updatePhoto = useCallback(
 		(photo: GalleryPhoto) => {
-			updateLocalPhoto(photo);
+			fetchNui<ServerPromiseResp<GalleryPhoto>>(PhotoEvents.UPDATE_PHOTO, photo).then((response) => {
+				if (response.status === 'ok') updateLocalPhoto(photo);
+			});
 		},
 		[updateLocalPhoto]
 	);

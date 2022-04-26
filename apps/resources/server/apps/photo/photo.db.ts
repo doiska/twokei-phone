@@ -3,23 +3,55 @@ import { PromiseEventResponse, PromiseRequest } from '@lib/promise.types';
 import { GalleryPhoto, PreDBGalleryPhoto } from '@typings/gallery';
 
 export class _PhotoDB {
-	async savePhoto(identifier: string, photo: PreDBGalleryPhoto) {
-		const result = await PhotoSchema.create({
-			category: photo.category,
-			image: photo.image,
-		}).catch(console.error);
-
-		return result;
-	}
-
-	//TODO: get photos by identifier then filter by category
-
 	async fetchPhotos(identifier: string) {
 		const result = await PhotoSchema.findAll({
 			where: {
 				identifier: identifier,
 			},
+			raw: true,
 		});
+
+		return result;
+	}
+
+	async savePhoto(identifier: string, photo: PreDBGalleryPhoto) {
+		const result = await PhotoSchema.create(
+			{
+				identifier: identifier,
+				category: photo.category,
+				image: photo.image,
+			},
+			{ raw: true }
+		);
+
+		return result.toJSON();
+	}
+
+	async updatePhoto(identifier: string, photo: PreDBGalleryPhoto) {
+		const result = await PhotoSchema.update(
+			{
+				category: photo.category,
+				image: photo.image,
+			},
+			{
+				where: {
+					id: photo.id,
+					identifier: identifier,
+				},
+			}
+		);
+
+		return result;
+	}
+
+	async deletePhoto(identifier: string, photo: PreDBGalleryPhoto) {
+		const result = await PhotoSchema.destroy({
+			where: {
+				id: photo.id,
+				identifier: identifier,
+			},
+		});
+		return result;
 	}
 }
 

@@ -8,6 +8,7 @@ const Xiao = new Sequelize({
 	database: 'twokei',
 	dialect: 'mysql',
 	dialectModule: mysql,
+    
 	query: {
 		raw: true,
 		benchmark: true,

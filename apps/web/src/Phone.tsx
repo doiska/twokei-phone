@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSystemThemeService } from '@ui/hooks/useSystemTheme';
+
 import useCallService from '@os/call/hooks/useCallService';
 import NavigationBar from '@os/navigation/NavigationBar';
 import NotificationBar from '@os/notification/components/NotificationBar';
@@ -10,6 +12,7 @@ import PhoneRoutes from './PhoneRoutes';
 import PhoneWrapper from './PhoneWrapper';
 
 const Phone = () => {
+	useSystemThemeService();
 	useSimcardService();
 	useCallService();
 

@@ -25,8 +25,10 @@ class _PhotoService {
 
 			if (!result) {
 				console.log(`No result found`);
-				return res({ status: 'error' });
+				return res({ status: 'ok' });
 			}
+
+			console.log(`PhotoService.handlePhotoSave post result`, result);
 
 			res({ status: 'ok', data: result });
 		} catch (e) {
@@ -35,9 +37,41 @@ class _PhotoService {
 		}
 	}
 
-	async handleFetch() {
-		console.log(`Handle fetch`);
-		// this.photoDB.fetchPhotos();
+	async handleFetchPhotos(req: PromiseRequest<void>, res: PromiseEventResponse<GalleryPhoto[]>) {
+		try {
+			const identifier = PlayerService.getIdentifierByPlayer(req.source);
+			const photos = await this.photoDB.fetchPhotos(identifier);
+			console.log(`PhotoService.handleFetchPhotos`, photos);
+
+			res({ status: 'ok', data: photos });
+		} catch (e) {
+			console.error(`Bugo ${e}`, e.message, e);
+			res({ status: 'error' });
+		}
+	}
+
+	async handlePhotoDelete(req: PromiseRequest<PreDBGalleryPhoto>, res: PromiseEventResponse<void>) {
+		try {
+			if (!req.data) {
+				console.error(`No object found in request`);
+				return res({ status: 'error' });
+			}
+
+			const identifier = PlayerService.getIdentifierByPlayer(req.source);
+
+			const result = await this.photoDB.deletePhoto(identifier, req.data);
+			console.log(`PhotoService.handlePhotoDelete`, result);
+
+			if (!result) {
+				console.log(`No result found`);
+				return res({ status: 'error' });
+			}
+
+			res({ status: 'ok' });
+		} catch (e) {
+			console.error(`Bugo ${e}`, e.message, e);
+			res({ status: 'error' });
+		}
 	}
 }
 

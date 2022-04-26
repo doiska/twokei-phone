@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
 
+import useNuiEvent from '@common/hooks/useNuiEvent';
 import { GalleryPhoto, PhotoEvents, PhotoTakeEvents } from '@typings/gallery';
-import { useNuiCallback, useNuiEvent } from 'fivem-nui-react-lib';
+import { useNuiCallback } from 'fivem-nui-react-lib';
 
 import usePhotoAPI from '@apps/photo/hooks/usePhotoAPI';
 

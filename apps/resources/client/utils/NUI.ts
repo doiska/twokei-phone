@@ -47,6 +47,7 @@ export const emitNetPromise = <T = any>(event: string, ...data: any): Promise<T>
 };
 
 export const RegisterNUICallback = <T = any>(event: string, callback: EventCallback<T>) => {
+	console.log(`[NUI-CALLBACK] RegisterNUICallback ${event}`);
 	RegisterNuiCallbackType(event);
 	on(`__cfx_nui:${event}`, callback);
 };

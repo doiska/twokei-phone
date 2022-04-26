@@ -33,7 +33,7 @@ const Gallery: React.FC<{ title?: string }> = ({ title }) => {
 
 	const setGlobalWallpaper = useSetGlobalWallpaper();
 	useEffect(() => {
-		setGlobalWallpaper('bg-[url(./media/background/blob.svg)]');
+		setGlobalWallpaper({ background: 'url(./media/background/blob.svg)' });
 		setTimeout(() => setLoading(false), 1000);
 	}, []);
 
@@ -83,14 +83,17 @@ const Gallery: React.FC<{ title?: string }> = ({ title }) => {
 					/>
 				)}
 			</MainBody>
-			<ContextMenu isOpen={ref !== undefined && isOpen}>
+			<ContextMenu isOpen={isOpen}>
 				<GalleryContextMenu
 					presetPhoto={presetPhoto}
 					categories={unfilteredCategories}
 					toggleMenu={toggleMenu}
 					savePhoto={(photo) => {
 						if (photo.id !== undefined) return updatePhoto(photo as GalleryPhoto);
-
+						if (photo.category !== categoryFilter) {
+							setCategoryFilter(photo.category ?? '');
+						}
+                        
 						addPhoto(photo);
 						setPresetPhoto(undefined);
 					}}

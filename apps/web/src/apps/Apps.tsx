@@ -1,4 +1,5 @@
 import React from 'react';
+import { BsTwitter } from 'react-icons/bs';
 import { FcSettings } from 'react-icons/fc';
 import { RiCamera2Fill, RiContactsBook2Fill, RiHomeGearFill, RiWhatsappLine } from 'react-icons/ri';
 import { RouteObject } from 'react-router-dom';
@@ -10,6 +11,7 @@ import HomeApp from '@apps/home/Home.app';
 import MessagesRoutes from '@apps/messages/Messages.routes';
 import PhotoRoutes from '@apps/photo/Photo.routes';
 import SettingsApp from '@apps/settings/Settings.app';
+import TwitterRoutes from '@apps/twitter/Twitter.routes';
 
 export interface IApp {
 	id: string;
@@ -64,6 +66,13 @@ export const AllApps: IApp[] = [
 		disable: false,
 		icon: <RiCamera2Fill className="text-gray-600" />,
 		routes: PhotoRoutes,
+	},
+	{
+		id: 'TWITTER',
+		locale: 'APPS_TWITTER',
+		disable: false,
+		icon: <BsTwitter className="text-twitter-blue" />,
+		routes: TwitterRoutes,
 	},
 ];
 
