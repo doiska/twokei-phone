@@ -20,9 +20,10 @@ export enum PhotoTakeEvents {
 }
 
 export enum PhotoEvents {
-	SAVE_PHOTO = 'tkphone:photo:new',
 	FETCH_PHOTOS = 'tkphone:photo:fetch',
+	SAVE_PHOTO = 'tkphone:photo:new',
+	UPDATE_PHOTO = 'tkphone:photo:update',
+	DELETE_PHOTO = 'tkphone:photo:delete',
 	UPLOAD_PHOTO = 'tkphone:photo:upload',
 	LEAVE_CAMERA = 'tkphone:photo:leave',
-	DELETE_PHOTO = 'tkphone:photo:delete',
 }

@@ -39,15 +39,9 @@ async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?
 		console.error(`Failed to fetch ${eventName}`, e)
 	);
 
-	let responseData;
-
-	const isValidJSON = JSON.stringify(resp) !== '{}';
-
-	if (isValidJSON) {
-		responseData = await resp
-			?.json()
-			.catch((err) => console.error(`${eventName} -- JSON Parsing issue ${err.message}`, err));
-	}
+	const responseData = await resp
+		?.json()
+		.catch((err) => console.error(`${eventName} -- JSON Parsing issue ${err.message}`, err));
 
 	LogDebugEvent({
 		data: {

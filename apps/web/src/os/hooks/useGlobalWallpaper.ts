@@ -1,7 +1,7 @@
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 const state = {
-	wallpaper: atom<string>({
+	wallpaper: atom<string | React.CSSProperties>({
 		key: 'globalWallpaper',
 		default: '',
 	}),
