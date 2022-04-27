@@ -9,11 +9,11 @@ import {
 } from '@typings/call';
 import { ServerPromiseResp } from '@typings/common';
 import { CallService } from './cl_calls.service';
-import { emitNetPromise, emitNetTyped, onNetTyped, RegisterNUICallback } from '@utils/NUI';
+import { emitNetPromise, emitNetTyped, onNetTyped, RegisterNUICallback, RegisterNUIEvent } from '@utils/NUI';
 
 const callService = new CallService();
 
-RegisterNUICallback<InitizalizeCallDTO>(CallEvents.INITIALIZE_CALL, async (data: InitizalizeCallDTO, cb?: any) => {
+RegisterNUIEvent<InitizalizeCallDTO>(CallEvents.INITIALIZE_CALL, async (data) => {
 	try {
 		const res = await emitNetPromise<ServerPromiseResp<ActiveCall>>(CallEvents.INITIALIZE_CALL, data);
 
@@ -28,29 +28,24 @@ RegisterNUICallback<InitizalizeCallDTO>(CallEvents.INITIALIZE_CALL, async (data:
 	}
 });
 
-RegisterNUICallback<DialerDTO>(CallEvents.ACCEPT_CALL, async (data: DialerDTO, cb) => {
+RegisterNUIEvent<DialerDTO>(CallEvents.ACCEPT_CALL, async (data: DialerDTO) => {
 	console.log(`[CALL] Accepting call with data: ${JSON.stringify(data)}`);
 
 	emitNetTyped<DialerDTO>(CallEvents.ACCEPT_CALL, data);
-	cb({});
 });
 
-RegisterNUICallback<DialerDTO>(CallEvents.REJECT_CALL, async (data: DialerDTO, cb) => {
+RegisterNUIEvent<DialerDTO>(CallEvents.REJECT_CALL, async (data: DialerDTO) => {
 	console.log(`[CALL] Rejecting call with data: ${JSON.stringify(data)}`);
-
 	emitNetTyped<DialerDTO>(CallEvents.REJECT_CALL, data);
-	cb({});
 });
 
-RegisterNUICallback<EndCallDTO>(CallEvents.HANGUP_CALL, async (data, cb) => {
+RegisterNUIEvent<EndCallDTO>(CallEvents.HANGUP_CALL, async (data) => {
 	try {
 		const res: ServerPromiseResp<void> = await emitNetPromise(CallEvents.HANGUP_CALL, data);
 
 		if (res.status !== 'ok') return console.error(`CLIENT -> SERVER_ERROR`, res.errorMsg);
-
-		cb({});
 	} catch (e) {
-		cb({ status: 'error', errormsg: 'CLIENT_TIMED_OUT' });
+		console.error(`CLIENT -> SERVER_ERROR`, e);
 	}
 });
 

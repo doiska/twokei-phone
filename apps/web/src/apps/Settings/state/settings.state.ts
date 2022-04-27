@@ -1,8 +1,9 @@
+import { atom, AtomEffect, DefaultValue } from 'recoil';
+
 import SettingsConstant from '@common/constants/settings';
 import Default from '@config/default.json';
 import { SettingsEvents, IPhoneSettings } from '@typings/settings';
 import fetchNui from '@utils/fetchNui';
-import { atom, AtomEffect, DefaultValue } from 'recoil';
 
 const getDefaultPhoneSettings = () => Default.defaultPhoneSettings;
 

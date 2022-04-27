@@ -1,3 +1,5 @@
+import { ControlEvents } from '@typings/control';
+
 let disableKeys = false;
 let time = disableKeys ? 0 : 1000;
 
@@ -46,7 +48,7 @@ setInterval(() => {
 
 // }, 500);
 
-AddEventHandler('tkphone:disableControlActions', (status: boolean) => {
+AddEventHandler(ControlEvents.ENABLE_ACTIONS, (status: boolean) => {
 	console.log(`[TKPhone] Disable control actions`, status);
 	disableKeys = status;
 });

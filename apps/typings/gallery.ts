@@ -16,7 +16,7 @@ export enum CameraResponse {
 export enum PhotoTakeEvents {
 	TAKE_PHOTO = 'tkphone:photo:take',
 	TAKE_PHOTO_SUCCESS = 'tkphone:photo:take:success',
-	TAKE_PHOTO_ENDED = 'tkphone:photo:take:ended',
+	TAKE_PHOTO_FAILED = 'tkphone:photo:take:failed',
 }
 
 export enum PhotoEvents {

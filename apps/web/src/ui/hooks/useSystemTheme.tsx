@@ -21,10 +21,6 @@ export const useSystemThemeService = () => {
 		const root = window.document.documentElement;
 		const isDark = theme === Themes.DARK;
 
-		console.log('useSystemThemeService', theme, isDark);
-		console.log(isDark ? 'dark' : 'light');
-		console.log(isDark ? 'light' : 'dark');
-
 		root.classList.add(isDark ? 'dark' : 'light');
 		root.classList.remove(isDark ? 'light' : 'dark');
 

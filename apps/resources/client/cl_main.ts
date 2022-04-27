@@ -1,3 +1,4 @@
+import { ControlEvents } from '@typings/control';
 import { PhoneEvents } from '@typings/phone';
 import { animationService } from './animations/animation.controller';
 import { config } from './cl_config';
@@ -42,7 +43,7 @@ export const showPhone = async (): Promise<void> => {
 	SetNuiFocusKeepInput(true);
 	animationService.openPhone();
 
-	emit('tkphone:disableControlActions', true);
+	emit(ControlEvents.ENABLE_ACTIONS, true);
 };
 
 export const hidePhone = async (): Promise<void> => {
@@ -51,7 +52,7 @@ export const hidePhone = async (): Promise<void> => {
 	SetCursorLocation(0.5, 0.5);
 	SetNuiFocus(false, false);
 	SetNuiFocusKeepInput(false);
-	emit('tkphone:disableControlActions', false);
+	emit(ControlEvents.ENABLE_ACTIONS, false);
 };
 
 async function togglePhone(): Promise<void> {

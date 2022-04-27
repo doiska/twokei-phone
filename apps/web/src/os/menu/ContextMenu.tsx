@@ -1,6 +1,7 @@
 import React from 'react';
 
 type ContextMenuProps = {
+	children: React.ReactNode;
 	isOpen: boolean;
 };
 

@@ -32,6 +32,7 @@ PhotoSchema.init(
 		category: {
 			type: DataTypes.STRING,
 			allowNull: false,
+			defaultValue: 'Sem categoria',
 		},
 	},
 	{

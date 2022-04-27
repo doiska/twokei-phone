@@ -90,10 +90,8 @@ const Gallery: React.FC<{ title?: string }> = ({ title }) => {
 					toggleMenu={toggleMenu}
 					savePhoto={(photo) => {
 						if (photo.id !== undefined) return updatePhoto(photo as GalleryPhoto);
-						if (photo.category !== categoryFilter) {
-							setCategoryFilter(photo.category ?? '');
-						}
-                        
+						if (photo.category !== categoryFilter) setCategoryFilter(photo.category ?? '');
+
 						addPhoto(photo);
 						setPresetPhoto(undefined);
 					}}

@@ -10,4 +10,6 @@ export enum PhoneEvents {
 
 	SEND_CREDENTIALS = 'twokei:system:sendCredentials',
 	FETCH_CREDENTIALS = 'twokei:system:fetchCredentials',
+
+    SET_VISIBILITY = 'twokei:system:setVisibility',
 }

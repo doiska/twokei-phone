@@ -29,6 +29,10 @@ export class AnimationService {
 		}
 	}
 
+	async setCameraOpen(state: boolean) {
+		this.setPhoneState(AnimationState.ON_CAMERA, state);
+	}
+
 	private setPhoneState(state: AnimationState, stateValue: boolean) {
 		this.animationState = state;
 

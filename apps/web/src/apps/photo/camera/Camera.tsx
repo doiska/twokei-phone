@@ -7,7 +7,6 @@ const Camera = () => {
 	const { takePhoto } = useCamera();
 
 	useEffect(() => {
-		console.log('takePhoto');
 		takePhoto();
 	}, []);
 

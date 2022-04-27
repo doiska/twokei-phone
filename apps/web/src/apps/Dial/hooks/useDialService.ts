@@ -1,7 +1,7 @@
 import { useRecoilCallback } from 'recoil';
 
 import { CallEvents, CallHistoryItem } from '@typings/call';
-import { useNuiEvent } from 'fivem-nui-react-lib';
+import { useNuiEvent } from 'fivem-nui-lib';
 
 import { dialState, useSetDialHistory } from '@apps/dial/hooks/state';
 

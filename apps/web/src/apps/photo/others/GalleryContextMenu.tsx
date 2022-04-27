@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { IoRemoveCircleOutline, IoSaveOutline } from 'react-icons/io5';
+import { IoArrowBackOutline, IoRemoveCircleOutline, IoSaveOutline } from 'react-icons/io5';
 
 import { GalleryPhoto, PreDBGalleryPhoto } from '@typings/gallery';
 import { TriangleLoader } from '@ui/components/LoadingSpinner';
 import usePromptMenu from '@ui/hooks/usePromptMenu';
+
+import useHandleOutsideClick from '@os/hooks/useHandleOutsideClick';
 
 type ContextProps = {
 	presetPhoto?: GalleryPhoto;
@@ -25,6 +27,9 @@ export const GalleryContextMenu: React.FC<ContextProps> = ({
 	const [selectedCategory, setSelectedCategory] = useState(presetPhoto?.category ?? 'Sem categoria');
 	const { ContextMenu: PromptMenu, openMenu } = usePromptMenu();
 
+	const ref = React.useRef<HTMLDivElement>(null);
+	useHandleOutsideClick(ref, () => toggleMenu());
+
 	const commitPhoto = () => {
 		savePhoto({
 			id: presetPhoto?.id,
@@ -42,7 +47,13 @@ export const GalleryContextMenu: React.FC<ContextProps> = ({
 	};
 
 	return (
-		<div className="shadow-7xl bg-shark absolute left-[50%] top-[50%] flex h-[60%] w-[90%] translate-y-[-50%] translate-x-[-50%] flex-col items-center gap-4 rounded-lg bg-opacity-90 p-2 backdrop-blur-lg">
+		<div
+			ref={ref}
+			className="shadow-7xl bg-shark absolute left-[50%] top-[50%] flex h-[60%] w-[90%] translate-y-[-50%] translate-x-[-50%] flex-col items-center gap-4 rounded-lg bg-opacity-90 p-2 backdrop-blur-lg"
+		>
+			<span className="absolute left-4 top-3 rounded-md bg-white bg-opacity-10 p-1">
+				<IoArrowBackOutline onClick={toggleMenu} size={20} color={'white'} />
+			</span>
 			<div className="flex flex-1 flex-row items-center justify-center gap-1">
 				<img
 					onLoad={() => setEnableSave(true)}

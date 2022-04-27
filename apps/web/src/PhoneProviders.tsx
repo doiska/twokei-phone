@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 
-import { NuiProvider } from 'fivem-nui-react-lib';
+import { NuiProvider } from 'fivem-nui-lib';
 
 import { NotificationProvider } from '@os/notification/providers/NotificationProvider';
 
