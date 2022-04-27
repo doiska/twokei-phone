@@ -9,6 +9,9 @@
             ],
             "@utils/*": [
                 "./utils/*"
+            ],
+            "@animation/*": [
+                "./animations/*"
             ]
         }
     }

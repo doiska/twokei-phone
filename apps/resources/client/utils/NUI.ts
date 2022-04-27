@@ -1,4 +1,11 @@
-type EventCallback<T> = (data: T, cb: Function) => void;
+type NUIEvent<T> = (data: T) => void;
+type EventCallback<T> = (data: T, cb: (res: EventCallbackResponse) => void) => void;
+
+type EventCallbackResponse<T = {}> = {
+	status?: 'success' | 'failed';
+	errorMsg?: string;
+	data?: T;
+};
 
 type MSGPackTypes =
 	| 'string'
@@ -13,15 +20,14 @@ type MSGPackTypes =
 
 type WrappedNetEventCallback = <T extends any[]>(...args: T) => void;
 
-export const sendNUIEvent = (app: string, event: string, data: any) => {
-	return SendNUIMessage({
+export const sendNUIEvent = (app: string, event: string, data: any = {}) =>
+	SendNUIMessage({
 		app,
 		event,
 		data,
 	});
-};
 
-export const emitNetPromise = <T = any>(event: string, ...data: any): Promise<T> => {
+export const emitNetPromise = <T = any, D = any>(event: string, ...data: D[]): Promise<T> => {
 	return new Promise((resolve, reject) => {
 		let timedOut = false;
 		const NET_PROMISE_TIMEOUT = 15000;
@@ -46,10 +52,27 @@ export const emitNetPromise = <T = any>(event: string, ...data: any): Promise<T>
 	});
 };
 
-export const RegisterNUICallback = <T = any>(event: string, callback: EventCallback<T>) => {
-	console.log(`[NUI-CALLBACK] RegisterNUICallback ${event}`);
+export const RegisterNUIEvent = <T = any>(event: string, callback: NUIEvent<T>) => {
 	RegisterNuiCallbackType(event);
-	on(`__cfx_nui:${event}`, callback);
+	on(`__cfx_nui:${event}`, (data: T) => callback(data));
+};
+
+export const RegisterNUICallback = <WebData = any>(app = 'NUI', event: string, callback: EventCallback<WebData>) => {
+	console.log(`[NUI-CALLBACK] RegisterNUICallback ${event}`);
+
+	RegisterNuiCallbackType(event);
+
+	on(`__cfx_nui:${event}`, (...data: any) => {
+		callback(data, (response: EventCallbackResponse) => {
+			console.log(
+				`[NUI-CALLBACK] (${response.status || 'NO STATUS'}) ${event} response: ${JSON.stringify(response)}`
+			);
+
+			if (response.status) {
+				sendNUIEvent(app, `${event}:${response.status}`, response.data ?? {});
+			}
+		});
+	});
 };
 
 export const isPlayerLoaded = async () => {

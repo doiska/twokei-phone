@@ -15,7 +15,7 @@
 		"autoprefixer": "^10.4.2",
 		"daisyui": "^2.6.4",
 		"dayjs": "^1.11.0",
-		"fivem-nui-react-lib": "^2.2.8",
+		"fivem-nui-lib": "^1.0.0",
 		"image-js": "^0.34.0",
 		"postcss": "^8.4.8",
 		"qs": "^6.10.3",

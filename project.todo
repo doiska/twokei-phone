@@ -9,7 +9,6 @@ Server:
 Phone Web:
     Project:
         - Remover idioma dos settings;
-        - Tornar os itens do "contact/view/:id" utilizáveis (open whatsapp, share);
         - Melhorar componente de botões cancelar/salvar;
         - Adicionar defaultAvatar ao AvatarWithDefaultComponent;
         - Adicionar campo label no Conversation label;
@@ -17,6 +16,12 @@ Phone Web:
 
     Routes:
         - Adicionar Protected Route e Custom Route Object
+
+    Contacts:
+        - Tornar os itens do "contact/view/:id" utilizáveis (open whatsapp, share);
+        - Adicionar lista de bloqueados
+        - Adicionar recentes
+        - Adicionar ligação anônima
 
     Calls:
         * Aplicativo de ligações [Feito]

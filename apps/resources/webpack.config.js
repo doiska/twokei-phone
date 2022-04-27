@@ -12,6 +12,7 @@ const alias = {
 
 const clientAlias = {
 	'@utils': path.resolve(__dirname, './client/utils'),
+    '@animation': path.resolve(__dirname, './client/animations'),
 };
 
 const serverAlias = {
