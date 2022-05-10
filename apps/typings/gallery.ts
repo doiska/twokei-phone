@@ -17,6 +17,7 @@ export enum PhotoTakeEvents {
 	TAKE_PHOTO = 'tkphone:photo:take',
 	TAKE_PHOTO_SUCCESS = 'tkphone:photo:take:success',
 	TAKE_PHOTO_FAILED = 'tkphone:photo:take:failed',
+	FORCE_LEAVE_CAMERA = 'tkphone:photo:leave',
 }
 
 export enum PhotoEvents {
@@ -25,5 +26,4 @@ export enum PhotoEvents {
 	UPDATE_PHOTO = 'tkphone:photo:update',
 	DELETE_PHOTO = 'tkphone:photo:delete',
 	UPLOAD_PHOTO = 'tkphone:photo:upload',
-	LEAVE_CAMERA = 'tkphone:photo:leave',
 }

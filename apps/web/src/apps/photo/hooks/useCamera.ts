@@ -1,55 +1,40 @@
 import { useCallback, useState } from 'react';
 
-import useNuiEvent from '@common/hooks/useNuiEvent';
-import { GalleryPhoto, PhotoEvents, PhotoTakeEvents } from '@typings/gallery';
+import { GalleryPhoto, PhotoTakeEvents } from '@typings/gallery';
 import { useNuiCallback } from 'fivem-nui-lib';
 
 import usePhotoAPI from '@apps/photo/hooks/usePhotoAPI';
 
 interface IUseCamera {
 	isLoading: boolean;
+	isConcluded: boolean;
 	takePhoto: () => void;
 }
 
 export const useCamera = (): IUseCamera => {
-	const [isUploading, setUploading] = useState(false);
-
+	const [isConcluded, setIsConcluded] = useState(false);
 	const { addPhoto } = usePhotoAPI();
 
 	const onPhotoTaken = useCallback(
 		(photo: GalleryPhoto) => {
-			setUploading(false);
-			console.log(`ADD PHOTO: ${JSON.stringify(photo)}`);
 			addPhoto(photo);
+			setIsConcluded(true);
+			console.log(`ADD PHOTO: ${JSON.stringify(photo)}`);
 		},
 		[addPhoto]
 	);
 
-	const onPhotoError = useCallback((error: unknown) => {
-		setUploading(false);
-		console.error(error);
-	}, []);
+	const takePhoto = () => _takePhoto(undefined);
 
-	const [_takePhoto] = useNuiCallback<void, GalleryPhoto>(
+	const [_takePhoto, { loading }] = useNuiCallback<void, GalleryPhoto>(
 		'CAMERA',
 		PhotoTakeEvents.TAKE_PHOTO,
-		(data) => {
-			console.log(`TAKE PHOTO: ${JSON.stringify(data)}`);
-			onPhotoTaken(data);
-		},
-		(err) => {
-			console.error(err);
-			onPhotoError(err);
-		}
+		onPhotoTaken
 	);
 
-	const takePhoto = () => _takePhoto(undefined, { timeout: 60 * 1000 });
-
-	useNuiEvent('CAMERA', PhotoEvents.UPLOAD_PHOTO, () => setUploading(true));
-	useNuiEvent('CAMERA', PhotoEvents.LEAVE_CAMERA, () => setUploading(false));
-
 	return {
-		isLoading: isUploading,
+		isLoading: loading,
+		isConcluded,
 		takePhoto,
 	};
 };

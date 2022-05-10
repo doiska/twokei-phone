@@ -33,8 +33,7 @@ const showHelpText = () => {
 	EndTextCommandDisplayHelp(0, true, false, -1);
 };
 
-RegisterNUICallback<void>('CAMERA', PhotoTakeEvents.TAKE_PHOTO, async (webData, callback) => {
-	console.log(`event triggered`, JSON.stringify(webData));
+RegisterNUICallback<void>('CAMERA', PhotoTakeEvents.TAKE_PHOTO, async (_, callback) => {
 	emit(ControlEvents.ENABLE_ACTIONS, false);
 
 	animationService.setCameraOpen(true);
@@ -57,7 +56,6 @@ RegisterNUICallback<void>('CAMERA', PhotoTakeEvents.TAKE_PHOTO, async (webData, 
 			toggleFrontCam(frontCam);
 		} else if (IsControlJustPressed(1, 176)) {
 			const response = await handlePhotoKeyPress();
-			console.log(`RES: ${response}`);
 			callback({ status: 'success', data: response });
 			break;
 		} else if (IsControlJustPressed(1, 194)) {
@@ -102,7 +100,6 @@ const handlePhotoKeyPress = async () => {
 };
 
 const handleExitKeyPress = async () => {
-	sendNUIEvent('CAMERA', PhotoEvents.LEAVE_CAMERA);
 	ClearHelp(true);
 	DestroyMobilePhone();
 	CellCamActivate(false, false);

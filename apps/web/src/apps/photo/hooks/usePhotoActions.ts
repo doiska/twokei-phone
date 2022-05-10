@@ -28,7 +28,11 @@ const usePhotoActions = () => {
 		[setPhotos]
 	);
 
-	return { photos, setPhotos, addLocalPhoto, updateLocalPhoto, removeLocalPhoto };
+	const getLatestPhoto = useCallback(() => {
+		return photos[photos.length - 1];
+	}, [photos]);
+
+	return { photos, setPhotos, addLocalPhoto, updateLocalPhoto, getLatestPhoto, removeLocalPhoto };
 };
 
 export default usePhotoActions;

@@ -11,7 +11,7 @@ import usePhotoActions from '@apps/photo/hooks/usePhotoActions';
 //TODO: add update photo
 
 const usePhotoAPI = () => {
-	const { photos, setPhotos, addLocalPhoto, updateLocalPhoto, removeLocalPhoto } = usePhotoActions();
+	const { photos, setPhotos, addLocalPhoto, updateLocalPhoto, removeLocalPhoto, getLatestPhoto } = usePhotoActions();
 
 	const fetchPhotos = useCallback(() => {
 		fetchNui<ServerPromiseResp<GalleryPhoto[]>>(
@@ -36,7 +36,6 @@ const usePhotoAPI = () => {
 					'ok'
 				)
 			).then((response) => {
-				console.log('addPhoto response', response);
 				if (response.status === 'ok' && response.data) addLocalPhoto(response.data);
 			});
 		},
@@ -67,6 +66,7 @@ const usePhotoAPI = () => {
 		addPhoto,
 		updatePhoto,
 		removePhoto,
+		getLatestPhoto,
 	};
 };
 
