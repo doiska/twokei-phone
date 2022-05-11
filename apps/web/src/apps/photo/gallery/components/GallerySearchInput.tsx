@@ -14,12 +14,14 @@ const GallerySearchInput: React.FC<{ currentValue: string; onChange: (value: str
 					onChange={(e) => onChange(e.target.value)}
 					value={currentValue}
 				/>
-				<IoCloseCircleOutline
-					onClick={() => onChange('')}
-					className="cursor-pointer transition-opacity duration-300"
-					style={{ opacity: currentValue ? 1 : 0 }}
-					size={28}
-				/>
+				{currentValue && (
+					<IoCloseCircleOutline
+						onClick={() => onChange('')}
+						className="cursor-pointer transition-opacity duration-300"
+						style={{ opacity: currentValue ? 1 : 0 }}
+						size={28}
+					/>
+				)}
 			</div>
 		</div>
 	);

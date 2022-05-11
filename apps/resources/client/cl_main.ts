@@ -41,7 +41,7 @@ export const showPhone = async (): Promise<void> => {
 	SetCursorLocation(0.9, 0.922);
 	SetNuiFocus(true, true);
 	SetNuiFocusKeepInput(true);
-	animationService.openPhone();
+	await animationService.openPhone();
 
 	emit(ControlEvents.ENABLE_ACTIONS, true);
 };

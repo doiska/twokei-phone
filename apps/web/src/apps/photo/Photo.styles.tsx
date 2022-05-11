@@ -1,20 +1,28 @@
 import React from 'react';
 
-import { Navbar as BaseNavbar, NavbarItemGrid } from '@ui/components/BaseNavbar';
+import { FCWithChildren } from '@typings/ext';
 
-const Container: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, className, ...rest }) => {
+const Container: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+	children,
+	className,
+	...rest
+}) => (
+	<div {...rest} className={`flex h-full w-full flex-col ${className}`}>
+		{children}
+	</div>
+);
+
+const MainHeader: React.FC<{ title: string; children?: React.ReactNode }> = ({
+	title,
+}) => {
 	return (
-		<div {...rest} className={`flex h-full w-full flex-col ${className}`}>
-			{children}
+		<div className="flex basis-[7%] flex-row items-center justify-center px-2 text-lg font-medium">
+			{title}
 		</div>
 	);
 };
 
-const MainHeader: React.FC<{ title: string; children?: React.ReactNode }> = ({ title }) => {
-	return <div className="flex basis-[7%] flex-row items-center justify-center px-2 text-lg font-medium">{title}</div>;
-};
-
-const MainBody: React.FC<{ children?: React.ReactNode } & React.HTMLAttributes<HTMLDivElement>> = ({
+const MainBody: FCWithChildren<React.HTMLAttributes<HTMLDivElement>> = ({
 	children,
 	...rest
 }) => (
@@ -23,12 +31,4 @@ const MainBody: React.FC<{ children?: React.ReactNode } & React.HTMLAttributes<H
 	</div>
 );
 
-const Navbar: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-	<BaseNavbar>
-		<NavbarItemGrid className="shadow-6xl bg-shark w-[60%] rounded-md bg-opacity-90 py-2.5 text-2xl text-white opacity-70 transition-all hover:opacity-100">
-			{children}
-		</NavbarItemGrid>
-	</BaseNavbar>
-);
-
-export { Container, MainHeader, MainBody, Navbar };
+export { Container, MainHeader, MainBody };

@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import {
+	TwitterBody,
+	TwitterNavbar,
+	TwitterTitle,
+} from '@apps/twitter/Twitter.styles';
 import { useSetGlobalWallpaper } from '@os/hooks/useGlobalWallpaper';
-
-import { TwitterBG, TwitterNavbar } from '@apps/twitter/Twitter.styles';
 
 const Twitter = () => {
 	const setGlobalWallpaper = useSetGlobalWallpaper();
-	useEffect(() => setGlobalWallpaper('bg-twitter-light-gray dark:bg-twitter-black'), []);
+
+	useEffect(() => {
+		setGlobalWallpaper(
+			'dark:bg-twitter-black bg-white dark:text-white text-black'
+		);
+	}, []);
 
 	return (
-		<TwitterBG>
-			<TwitterNavbar
+		<TwitterBody>
+			<TwitterTitle
 				title="Página inicial"
 				username="@two2kei"
 				avatar="https://pbs.twimg.com/media/EkTogZ-X0AEBn-W.jpg"
@@ -19,7 +27,8 @@ const Twitter = () => {
 			<div className="flex-1">
 				<Outlet />
 			</div>
-		</TwitterBG>
+			<TwitterNavbar />
+		</TwitterBody>
 	);
 };
 

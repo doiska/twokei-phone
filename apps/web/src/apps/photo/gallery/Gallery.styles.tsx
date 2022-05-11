@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { GiPerpendicularRings } from 'react-icons/gi';
-import { IoCameraOutline, IoCloudUploadOutline, IoFolderOutline } from 'react-icons/io5';
+import { IoCameraOutline, IoCloudUploadOutline } from 'react-icons/io5';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
 import { HTMLAttributes } from '@typings/core';
+import { FCWithChildren } from '@typings/ext';
 import { GalleryPhoto } from '@typings/gallery';
-import { NavbarItem, NavbarItemGrid } from '@ui/components/BaseNavbar';
+import { Navbar, NavbarItem, NavbarItemGrid } from '@ui/components/BaseNavbar';
 
 import useNavigation from '@os/hooks/useNavigation';
 
-import { Navbar } from '@apps/photo/Photo.styles';
-
-const GalleryFolderView: React.FC = ({ children }) => (
+const GalleryFolderView: FCWithChildren = ({ children }) => (
 	<div className="flex w-full flex-col gap-5 px-2 py-2">
 		<ScrollContainer horizontal={false} className="flex h-[630px] flex-col gap-5 px-2">
 			{children}
@@ -71,13 +69,7 @@ const GalleryNavbar: React.FC<{ showUpload?: () => void }> = ({ showUpload }) =>
 
 	return (
 		<Navbar>
-			<NavbarItemGrid>
-				<NavbarItem className="text-red-200">
-					<GiPerpendicularRings />
-				</NavbarItem>
-				<NavbarItem>
-					<IoFolderOutline />
-				</NavbarItem>
+			<NavbarItemGrid className="shadow-6xl bg-shark w-[50%] justify-evenly rounded-md bg-opacity-90 py-2.5 text-2xl text-white opacity-80 transition-all hover:opacity-100">
 				<NavbarItem onClick={() => goTo('/photo/camera')}>
 					<IoCameraOutline />
 				</NavbarItem>

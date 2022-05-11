@@ -9,6 +9,7 @@ module.exports = {
 			},
 		],
 	},
+	darkMode: 'class',
 	theme: {
 		extend: {
 			colors: {
@@ -42,15 +43,15 @@ module.exports = {
 					800: '#12161b',
 					900: '#080c11',
 				},
-                'shark': {
-                    DEFAULT: '#272e3a'
-                },
-                'twitter-blue': '#1DA1F2',
-                'twitter-black': '#14171A',
-                'twitter-dark-gray': '#657786',
-                'twitter-light-gray': '#AAB8C2',
-                'twitter-extra-light-gray': '#E1E8ED',
-                'twitter-white': '#F5F8FA',
+				'shark': {
+					DEFAULT: '#272e3a'
+				},
+				'twitter-blue': '#1DA1F2',
+				'twitter-black': '#14171A',
+				'twitter-dark-gray': '#657786',
+				'twitter-light-gray': '#AAB8C2',
+				'twitter-extra-light-gray': '#E1E8ED',
+				'twitter-white': '#F5F8FA',
 			},
 			width: {
 				phone: '500px',

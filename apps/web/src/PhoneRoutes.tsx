@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
-import { useTransition, animated } from 'react-spring';
+import { animated, useTransition } from 'react-spring';
 
 import { TriangleLoader } from '@ui/components/LoadingSpinner';
 
@@ -9,9 +9,7 @@ import { useAppWallpaperValue } from '@os/hooks/useAppWallpaper';
 
 const Routes = () => {
 	const { apps } = useApps();
-	const routes = useRoutes(apps.map((app) => app.routes));
-
-	return routes;
+	return useRoutes(apps.map((app) => app.routes));
 };
 
 const AnimatedRoute: React.FC = ({ children }) => {
@@ -25,7 +23,10 @@ const AnimatedRoute: React.FC = ({ children }) => {
 	});
 
 	return transitions((props) => (
-		<animated.div className={`flex h-full w-full flex-col ${wallpaper}`} style={{ ...props }}>
+		<animated.div
+			className={`flex h-full w-full flex-col ${wallpaper}`}
+			style={{ ...props }}
+		>
 			<div className={`flex h-[97%] w-full flex-col`}>{children}</div>
 		</animated.div>
 	));

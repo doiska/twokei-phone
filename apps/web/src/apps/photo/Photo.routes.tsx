@@ -15,8 +15,8 @@ const PhotoRoutes = {
 			element: <Gallery />,
 			children: [
 				{
-					path: ':ref',
-					element: null,
+					path: ':ref/:photo',
+					element: <Gallery />,
 				},
 			],
 		},

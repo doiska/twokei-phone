@@ -36,7 +36,10 @@ const CreateConversation: React.FC = () => {
 			addConversation({
 				label: isGroup ? 'Group' : 'Chat',
 				isGroupChat: checked.length > 1,
-				participants: [phone, ...checked.map((contact) => contact.number)],
+				participants: [
+					phone,
+					...checked.map((contact) => contact.number),
+				],
 				source: phone,
 			});
 
@@ -63,7 +66,7 @@ const CreateConversation: React.FC = () => {
 				<CreationNavbar isGroup={isGroup} />
 			</MainHeader>
 			<MainBody className="bg-white">
-				<ConversationBody handleCheckConversation={handleCheck} />
+				<ConversationBody handleCheckConversation={handleCheck} />{' '}
 			</MainBody>
 			<OptionIconHolder>
 				<OptionIcon
