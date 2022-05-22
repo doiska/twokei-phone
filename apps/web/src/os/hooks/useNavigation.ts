@@ -1,19 +1,24 @@
-import { NavigateOptions, To, useLocation, useNavigate } from 'react-router-dom';
+import {
+	NavigateOptions,
+	To,
+	useLocation,
+	useNavigate,
+} from 'react-router-dom';
 
-const useNavigation = (onNavigate?: (to: To) => void) => {
+const useNavigation = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
 	const goTo = (to: string | number, options?: NavigateOptions) => {
-		navigate(to as To, options);
-		onNavigate?.(to as To);
+		if (location.pathname === to) return;
 
-		console.log('useNavigation.goTo', to, location.pathname);
+		navigate(to as To, options);
 	};
 
 	const goBack = () => location.pathname !== '/' && goTo(-1);
 
-	const match = (searchString: string) => location.pathname.includes(searchString);
+	const match = (searchString: string) =>
+		location.pathname.includes(searchString);
 
 	return {
 		cleanPathname: location.pathname.replace('/', ''),

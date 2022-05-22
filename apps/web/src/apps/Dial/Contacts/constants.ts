@@ -25,7 +25,8 @@ export const BrowserContactsState: Contact[] = [
 	},
 	{
 		id: 8,
-		display: 'cfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffduardin',
+		display:
+			'cfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffduardin',
 		number: '123-456-7',
 		avatar: 'https://cdn.lorem.space/images/face/.cache/500x0/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg',
 	},

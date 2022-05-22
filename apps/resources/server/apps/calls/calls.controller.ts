@@ -1,10 +1,20 @@
 import callsService from '@apps/calls/calls.service';
-import { onNetPromise } from '@lib/onNetPromise';
-import { ActiveCall, CallEvents, CallHistoryItem, DialerDTO, EndCallDTO, InitizalizeCallDTO } from '@typings/call';
+import {
+	ActiveCall,
+	CallEvents,
+	DialerDTO,
+	EndCallDTO,
+	InitizalizeCallDTO,
+} from '@typings/call';
 import { getSource, onNetTyped } from '@utils/fivem';
+import { onNetPromise } from '@lib/onNetPromise';
 
-onNetPromise<InitizalizeCallDTO, ActiveCall>(CallEvents.INITIALIZE_CALL, (req, res) =>
-	callsService.handleInitializeCall(req, res).catch(() => res({ status: 'error', errorMsg: 'SERVER_ERROR' }))
+onNetPromise<InitizalizeCallDTO, ActiveCall>(
+	CallEvents.INITIALIZE_CALL,
+	(req, res) =>
+		callsService
+			.handleInitializeCall(req, res)
+			.catch(() => res({ status: 'error', errorMsg: 'SERVER_ERROR' }))
 );
 
 onNetTyped<DialerDTO>(CallEvents.START_CALL, ({ dialerNumber }) => {

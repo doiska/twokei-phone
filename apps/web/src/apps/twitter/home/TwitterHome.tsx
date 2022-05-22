@@ -1,9 +1,12 @@
 import React from 'react';
 
-import Tweets from '@apps/twitter/home/components/Tweets';
+import TweetList from '@apps/twitter/home/components/TweetList';
+import { useTweetsValue } from '@apps/twitter/hooks/state';
 
 const TwitterHome = () => {
-	return <Tweets />;
+	const tweets = useTweetsValue();
+
+	return <TweetList tweets={tweets} />;
 };
 
 export default TwitterHome;

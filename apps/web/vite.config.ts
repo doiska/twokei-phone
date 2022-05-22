@@ -11,5 +11,11 @@ export default defineConfig({
 		// sourcemap: true,
 		write: true,
 	},
+	resolve: {
+		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+		alias: {
+			'@': './src',
+		},
+	},
 	plugins: [react(), tsconfigPaths()],
 });

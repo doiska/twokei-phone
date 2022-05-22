@@ -6,10 +6,10 @@ import { RecoilRoot } from 'recoil';
 
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
-import PhoneProviders from 'PhoneProviders';
 
 import './styles/main.css';
 import './styles/animation.css';
+import PhoneProviders from 'PhoneProviders';
 
 Sentry.init({
 	dsn: 'https://e0eff884bf5740d8940abae871bbed46@o1166650.ingest.sentry.io/6257134',

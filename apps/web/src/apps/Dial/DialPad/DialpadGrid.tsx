@@ -12,8 +12,13 @@ type Props = {
 
 const DialItem: React.FC<Props> = ({ value, onClick, className, children }) => {
 	return (
-		<span className={`cursor-pointer fill-white text-white  ${className ?? ''}`} onClick={() => onClick(value)}>
-			<span className="rounded-full p-2 px-4 transition-all hover:bg-white hover:bg-opacity-5">
+		<span
+			className={`cursor-pointer fill-white text-white  ${
+				className ?? ''
+			}`}
+			onClick={() => onClick(value)}
+		>
+			<span className="rounded-md p-2 px-4 transition-all hover:bg-white hover:bg-opacity-5">
 				{children ?? value}
 			</span>
 		</span>
@@ -33,11 +38,18 @@ const DialPadGrid: React.FC = () => {
 				i = i + 1;
 				return <DialItem key={i} value={i} onClick={() => addOne(i)} />;
 			})}
-			<DialItem value={''} className="flex h-full w-full items-center justify-center" onClick={() => removeAll()}>
+			<DialItem
+				value={''}
+				className="flex h-full w-full items-center justify-center"
+				onClick={() => removeAll()}
+			>
 				<MdClose size={32} />
 			</DialItem>
 			<DialItem value={0} onClick={() => addOne(0)} />
-			<DialItem className="flex h-full w-full items-center justify-center" onClick={() => removeOne()}>
+			<DialItem
+				className="flex h-full w-full items-center justify-center"
+				onClick={() => removeOne()}
+			>
 				<IoMdBackspace />
 			</DialItem>
 		</div>

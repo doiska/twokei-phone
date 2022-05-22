@@ -6,13 +6,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const buildPath = path.resolve(__dirname, '../../dist');
 
 const alias = {
-	'@shared': path.resolve(__dirname, '../shared'),
+	'@shared': path.resolve(__dirname, '../common'),
 	'@typings': path.resolve(__dirname, '../typings'),
 };
 
 const clientAlias = {
 	'@utils': path.resolve(__dirname, './client/utils'),
-    '@animation': path.resolve(__dirname, './client/animations'),
+	'@animation': path.resolve(__dirname, './client/animations'),
 };
 
 const serverAlias = {

@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import {
-	TwitterBody,
-	TwitterNavbar,
-	TwitterTitle,
-} from '@apps/twitter/Twitter.styles';
 import { useSetGlobalWallpaper } from '@os/hooks/useGlobalWallpaper';
+
+import TwitterNavbar from '@apps/twitter/common/navbar/TwitterNavbar';
+import { TwitterBody, TwitterTitle } from '@apps/twitter/Twitter.styles';
 
 const Twitter = () => {
 	const setGlobalWallpaper = useSetGlobalWallpaper();
