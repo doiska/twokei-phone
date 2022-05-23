@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react';
-import { MdBatteryFull } from 'react-icons/md';
-import { Md4K } from 'react-icons/md';
+import { MdBatteryFull, Md4K } from 'react-icons/md';
 
 import usePhoneTime from '@os/hooks/usePhoneTime';
 import { useNotifications } from '@os/notification/hooks/useNotifications';
@@ -43,12 +42,14 @@ const NotificationBar: React.FC = () => {
 		<>
 			<div
 				ref={notificationBarRef}
-				className="z-[100] flex w-full basis-[3%] flex-nowrap items-center justify-between px-2 [text-shadow:0_4px_8px_rgba(0,0,0,0.70)] hover:cursor-pointer"
+				className="z-[100] flex w-full basis-[3%] flex-nowrap items-center justify-between px-2 hover:cursor-pointer"
 				onClick={() => setBarUncollapsed((curr) => !curr)}
 				tabIndex={0}
 			>
 				<div className="flex basis-10/12 items-center">
-					<span className="justify-self-end pr-1">{now.toLocaleString('pt-BR', { timeStyle: 'short' })}</span>
+					<span className="justify-self-end pr-1">
+						{now.toLocaleString('pt-BR', { timeStyle: 'short' })}
+					</span>
 					{icons?.map(({ key, icon }) => {
 						return (
 							<div key={key} className="indicator text">
@@ -68,7 +69,11 @@ const NotificationBar: React.FC = () => {
 				collapsed={barUncollapsed}
 				notificationBarRef={notificationBarRef}
 				notifications={notifications}
-				onDismiss={(idx?: number) => (idx !== undefined ? removeNotification(idx) : removeAllNotifications())}
+				onDismiss={(idx?: number) =>
+					idx !== undefined
+						? removeNotification(idx)
+						: removeAllNotifications()
+				}
 			/>
 		</>
 	);

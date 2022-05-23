@@ -13,8 +13,12 @@ const HomeApp: React.FC = () => {
 	const setAppWallpaper = useSetAppWallpaper();
 	const setGlobalWallpaper = useSetGlobalWallpaper();
 
-	const [hour, minute] = now.toLocaleString('pt-BR', { timeStyle: 'short' }).split(':');
-	const [dayOfWeek, date] = now.toLocaleString('pt-BR', { year: undefined, dateStyle: 'full' }).split(',');
+	const [hour, minute] = now
+		.toLocaleString('pt-BR', { timeStyle: 'short' })
+		.split(':');
+	const [dayOfWeek, date] = now
+		.toLocaleString('pt-BR', { year: undefined, dateStyle: 'full' })
+		.split(',');
 
 	useEffect(() => {
 		setAppWallpaper('');

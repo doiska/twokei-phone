@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+	atom,
+	useRecoilState,
+	useRecoilValue,
+	useSetRecoilState,
+} from 'recoil';
 
 export enum Themes {
 	LIGHT,
@@ -10,7 +15,7 @@ export enum Themes {
 export const themeState = {
 	theme: atom<Themes>({
 		key: 'theme',
-		default: Themes.LIGHT,
+		default: Themes.DARK,
 	}),
 };
 

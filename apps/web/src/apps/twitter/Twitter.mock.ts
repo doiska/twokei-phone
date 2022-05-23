@@ -23,7 +23,7 @@ export const MockTweets: Tweet[] = [
 		message: 'Hello World',
 		isLiked: false,
 		isMine: false,
-		isRetweet: false,
+		isRetweeted: false,
 		secondsAgo: 0,
 		createdAt: new Date().toString(),
 		updatedAt: new Date().toString(),
@@ -36,10 +36,11 @@ export const MockTweets: Tweet[] = [
 		sourceProfileUsername: 'doiska',
 		sourceProfileAvatar:
 			'https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg',
-		message: 'xdxdxdxd',
+		message:
+			'xdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxd',
 		isLiked: true,
 		isMine: true,
-		isRetweet: false,
+		isRetweeted: false,
 		secondsAgo: 100,
 		createdAt: new Date().toString(),
 		updatedAt: new Date().toString(),

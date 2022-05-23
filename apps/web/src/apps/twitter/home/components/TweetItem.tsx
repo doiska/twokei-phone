@@ -1,58 +1,12 @@
 import React from 'react';
-import { AiOutlineRetweet, AiOutlineUpload, AiFillHeart } from 'react-icons/ai';
-import { IoMdMore } from 'react-icons/io';
-import { IoChatbubbleOutline } from 'react-icons/io5';
+import {
+	IoHeart,
+	AiOutlineRetweet,
+	IoChatbubble,
+	FiShare,
+} from 'react-icons/all';
 
 import { FormattedTweet } from '@typings/twitter';
-
-type Props = {
-	name: string;
-	username: string;
-	avatar: string;
-	date: string;
-	content: string;
-	children?: React.ReactNode;
-};
-
-type TweetButtonProps = {
-	isMine: boolean;
-	isLiked: boolean;
-	isRetweeted: boolean;
-
-	onLike?: () => void;
-	onRetweet?: () => void;
-	onComment?: () => void;
-	onMore?: () => void;
-};
-
-export const TweetButtons = ({
-	isLiked,
-	isRetweeted,
-	onLike,
-	onMore,
-}: TweetButtonProps) => {
-	return (
-		<>
-			<div className="text-md mt-3 flex flex-row items-center justify-between text-sm">
-				<div className="flex flex-row items-center gap-1">
-					<IoChatbubbleOutline /> <span>100</span>
-				</div>
-				<div className="flex flex-row items-center gap-1">
-					<AiOutlineRetweet /> <span>30</span>
-				</div>
-				<div className="flex flex-row items-center gap-1">
-					<AiFillHeart
-						className={isLiked ? 'fill-rose-600 text-rose-600' : ''}
-					/>
-					<span>500</span>
-				</div>
-				<div className="flex flex-row items-center gap-1">
-					<AiOutlineUpload />
-				</div>
-			</div>
-		</>
-	);
-};
 
 const TweetItem = ({
 	message,
@@ -62,50 +16,50 @@ const TweetItem = ({
 	secondsAgo,
 	...rest
 }: FormattedTweet) => {
-	const calcTime = (secondsAgo: number) => {
-		//convert seconds to minutes or hours or days
-		const minutes = Math.floor(secondsAgo / 60);
-		const hours = Math.floor(minutes / 60);
-		const days = Math.floor(hours / 24);
-
-		if (days > 0) return `${days}d`;
-		if (hours > 0) return `${hours}h`;
-		if (minutes > 0) return `${minutes}m`;
-
-		return `${secondsAgo}s`;
-	};
-
 	return (
-		<div className="border-twitter-dark-gray relative flex w-full flex-col gap-2 border-t-[0.5px] border-opacity-50 p-4 pb-2">
-			<div className="flex h-auto w-full flex-row gap-2">
-				<div className="h-auto w-full basis-[18%]">
-					<img
-						src={sourceProfileAvatar}
-						className="rounded-full object-cover"
-						alt={'User avatar'}
-					/>
+		<div className="flex w-full gap-4 p-4">
+			<div className="flex w-16 flex-col gap-2">
+				<div
+					className="h-16 w-16 rounded-full bg-cover bg-center"
+					style={{ backgroundImage: `url(${sourceProfileAvatar})` }}
+				></div>
+				<div className="flex flex-grow flex-col items-center">
+					<div className="h-full border-l-2 border-gray-500"></div>
 				</div>
-				<div className="flex flex-1 flex-col">
-					<div className="flex max-w-full flex-row items-center gap-1.5 ">
-						<span className="dark:text-twitter-white text-md font-medium">
-							{sourceProfileName}
-						</span>
-						<span className="dark:text-twitter-light-gray text-sm">
-							@{sourceProfileUsername}
-						</span>
-						<span>•</span>
-						<span className="dark:text-twitter-light-gray text-sm">
-							{calcTime(secondsAgo)}
+			</div>
+			<div className="flex-grow">
+				<h2 className="text-twitter-dark-gray flex flex-row gap-2">
+					<strong className={'text-black dark:text-white'}>
+						{sourceProfileName}
+					</strong>
+					<span>@{sourceProfileUsername}</span>
+					<span>•</span>
+					<span>{secondsAgo}s</span>
+				</h2>
+				<p className={'break-all pb-2'}>{message}</p>
+				<div className="h-32 rounded-lg bg-gray-400"></div>
+				<div className="mt-4 flex items-center justify-around">
+					<div>
+						<span className="inline-block h-5 w-5 text-blue-500">
+							<IoChatbubble />
 						</span>
 					</div>
-					<div className="dark:text-twitter-white relative max-w-full flex-1 overflow-hidden break-words">
-						<span>{message}</span>
+					<div>
+						<span className="inline-block h-5 w-5 text-green-600">
+							<AiOutlineRetweet />
+						</span>
 					</div>
-					<TweetButtons {...rest} />
+					<div>
+						<span className="inline-block h-5 w-5 text-rose-500">
+							<IoHeart />
+						</span>
+					</div>
+					<div>
+						<span className="inline-block h-5 w-5 text-gray-500 hover:text-blue-500">
+							<FiShare />
+						</span>
+					</div>
 				</div>
-				<span className="absolute right-2 top-2">
-					<IoMdMore size={20} />
-				</span>
 			</div>
 		</div>
 	);
