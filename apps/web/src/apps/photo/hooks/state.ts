@@ -1,11 +1,17 @@
-import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+	atom,
+	selector,
+	useRecoilState,
+	useRecoilValue,
+	useSetRecoilState,
+} from 'recoil';
 
 import { ServerPromiseResp } from '@typings/common';
 import { GalleryPhoto, PhotoEvents } from '@typings/gallery';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
 
-import { GalleryMockData } from '@apps/photo/gallery/Gallery.mock';
+import { GalleryMockData } from '@apps/photo/Photo.mock';
 
 export const photoState = {
 	photos: atom<GalleryPhoto[]>({
@@ -14,7 +20,9 @@ export const photoState = {
 			key: 'defaultGalleryPhtoso',
 			get: async () => {
 				try {
-					const response = await fetchNui<ServerPromiseResp<GalleryPhoto[]>>(
+					const response = await fetchNui<
+						ServerPromiseResp<GalleryPhoto[]>
+					>(
 						PhotoEvents.FETCH_PHOTOS,
 						undefined,
 						buildRespObj(GalleryMockData)
@@ -38,7 +46,11 @@ export const photoState = {
 
 			if (!search) return photos;
 
-			return photos.filter(({ category }) => category && category.toLowerCase().includes(search.toLowerCase()));
+			return photos.filter(
+				({ category }) =>
+					category &&
+					category.toLowerCase().includes(search.toLowerCase())
+			);
 		},
 	}),
 };
@@ -47,5 +59,7 @@ export const useGalleryPhotos = () => useRecoilState(photoState.photos);
 export const useSetGalleryPhotos = () => useSetRecoilState(photoState.photos);
 export const useGalleryPhotosValue = () => useRecoilValue(photoState.photos);
 
-export const usePhotoCategoryFilter = () => useRecoilState(photoState.categoryFilterValue);
-export const useFilteredPhotos = () => useRecoilValue(photoState.filteredPhotos);
+export const usePhotoCategoryFilter = () =>
+	useRecoilState(photoState.categoryFilterValue);
+export const useFilteredPhotos = () =>
+	useRecoilValue(photoState.filteredPhotos);

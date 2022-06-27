@@ -10,8 +10,12 @@ export interface Profile {
 	name: string;
 	username?: string;
 	avatar?: string;
-	createdAt: string;
-	updatedAt: string;
+	createdAt?: string;
+	updatedAt?: string;
+}
+
+export enum GENERIC_EVENTS {
+	FETCH_USER_LOCATION = 'tkphone:core:fetch-user-location',
 }
 
 export type ProfileDTO = Partial<Omit<Profile, 'id'>>;

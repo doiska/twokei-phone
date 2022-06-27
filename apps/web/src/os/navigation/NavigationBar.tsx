@@ -33,8 +33,11 @@ const NavigationBar: React.FC = () => {
 	};
 
 	return (
-		<div className="absolute bottom-0 z-[999] my-1 flex h-[3%] w-full basis-[2%] items-center justify-center">
-			<div className="h-[30%] w-[45%] cursor-pointer rounded-full bg-zinc-400" onClick={click} />
+		<div className="absolute bottom-0 z-[999] mb-0.5 flex h-[2%] w-full basis-[2%] items-center justify-center">
+			<div
+				className="h-[25%] w-[45%] cursor-pointer rounded-full bg-zinc-400"
+				onClick={click}
+			/>
 		</div>
 	);
 };

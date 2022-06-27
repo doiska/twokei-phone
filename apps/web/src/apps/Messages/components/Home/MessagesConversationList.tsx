@@ -12,7 +12,7 @@ const MessagesConversationList: React.FC = () => {
 			<MainHeader className="flex-col">
 				<ConversationListNavbar />
 			</MainHeader>
-			<MainBody className="bg-white">
+			<MainBody>
 				<ConversationList />
 			</MainBody>
 			<ConversationListIconContext />

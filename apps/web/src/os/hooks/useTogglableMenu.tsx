@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
-type UseToggableMenu = {
+export type UseToggleMenu = {
 	isOpen: boolean;
 	setOpen: (open: boolean) => void;
-	toggleMenu: () => void;
+	toggle: () => void;
 };
 
-const useToggableMenu = (): UseToggableMenu => {
+export const useToggle = (): UseToggleMenu => {
 	const [isOpen, setOpen] = useState(false);
 
 	return {
 		isOpen,
 		setOpen,
-		toggleMenu: () => setOpen((curr) => !curr),
+		toggle: () => setOpen((curr) => !curr),
 	};
 };
 
-export default useToggableMenu;
+export default useToggle;

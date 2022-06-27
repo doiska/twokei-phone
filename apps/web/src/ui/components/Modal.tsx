@@ -1,20 +1,22 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
+import { ModalOverlay } from '@ui/components/modal/ModalOverlay';
+
 type Props = {
-	isOpen: boolean;
+	isShowing: boolean;
 	toggle: () => void;
-	children: React.ReactNode;
+	children?: React.ReactNode;
 };
 
-export const Modal: React.FC<Props> = ({ isOpen, children, toggle }) => {
+export const Modal: React.FC<Props> = ({ isShowing, children, toggle }) => {
 	useEffect(() => {
 		const handleEscape = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') {
 				e.preventDefault();
 				e.stopPropagation();
 
-				isOpen && toggle();
+				isShowing && toggle();
 			}
 		};
 
@@ -23,7 +25,12 @@ export const Modal: React.FC<Props> = ({ isOpen, children, toggle }) => {
 		return () => {
 			document.removeEventListener('keydown', handleEscape);
 		};
-	}, [isOpen, toggle]);
+	}, [isShowing, toggle]);
 
-	return isOpen && ReactDOM.createPortal();
+	if (!isShowing) return null;
+
+	return ReactDOM.createPortal(
+		<ModalOverlay toggle={toggle}>{children}</ModalOverlay>,
+		document.querySelector('#phone-body') as HTMLElement
+	);
 };

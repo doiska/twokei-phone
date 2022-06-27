@@ -76,7 +76,7 @@ const ConversationListNavbar: React.FC = () => {
 				</div>
 			</div>
 			<div className="tabs w-full basis-[40%] justify-around text-white">
-				<a className={`tab w-1/3 text-gray-200`} onClick={() => goTo('/')}>
+				<a className={`tab w-1/3 text-gray-200`} onClick={() => goTo('/messages')}>
 					Conversas
 				</a>
 				<a className={`tab w-1/3 text-gray-300`} onClick={() => goTo('status')}>

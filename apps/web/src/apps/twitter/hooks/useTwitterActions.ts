@@ -5,45 +5,34 @@ import { Snapshot, useRecoilCallback } from 'recoil';
 import { ProfileDTO } from '@typings/common';
 import { FormattedTweet } from '@typings/twitter';
 
-import {
-	twitterState,
-	useSetFilteredTweets,
-	useSetTweets,
-	useSetTwitterProfile,
-} from '@apps/twitter/hooks/state';
+import { twitterState, useSetFilteredTweets, useSetTweets, useSetTwitterProfile } from '@apps/twitter/hooks/state';
 
 interface UseTwitterActions {
 	addTweet: (tweet: FormattedTweet) => void;
 	deleteTweet: (id: number) => void;
 	updateTweets: (tweets: FormattedTweet[]) => void;
-	updateFiltereredTweets: (tweets: FormattedTweet[]) => void;
-	updateProfile: (profile: ProfileDTO) => void;
+	updateFilteredTweets: (tweets: FormattedTweet[]) => void;
+	updateLocalProfile: (profile: ProfileDTO) => void;
 }
 
 const isTweetsLoading = (snapshot: Snapshot) =>
-	snapshot.getLoadable<FormattedTweet[]>(twitterState.tweets).state !==
-	'hasValue';
+	snapshot.getLoadable<FormattedTweet[]>(twitterState.tweets).state !== 'hasValue';
 
 export const useTwitterActions = (): UseTwitterActions => {
 	const setTweets = useSetTweets();
 	const setFilteredTweets = useSetFilteredTweets();
 	const setTwitterProfile = useSetTwitterProfile();
 
-	const addTweet = useRecoilCallback(
-		({ snapshot, set }) =>
-			async (tweet: FormattedTweet) => {
-				if (isTweetsLoading(snapshot)) return;
-				set(twitterState.tweets, (curr) => [...curr, tweet]);
-			}
-	);
+	const addTweet = useRecoilCallback(({ snapshot, set }) => async (tweet: FormattedTweet) => {
+		if (isTweetsLoading(snapshot)) return;
+		set(twitterState.tweets, (curr) => [...curr, tweet]);
+	});
 
 	const deleteTweet = useRecoilCallback(
 		({ snapshot, set }) =>
 			(tweetId: number) => {
 				if (isTweetsLoading(snapshot)) return;
-				set(twitterState.tweets, (curr) =>
-					curr.filter((tweet) => tweet.id !== tweetId)
-				);
+				set(twitterState.tweets, (curr) => curr.filter((tweet) => tweet.id !== tweetId));
 			},
 		[setTweets]
 	);
@@ -57,14 +46,14 @@ export const useTwitterActions = (): UseTwitterActions => {
 		[setTweets]
 	);
 
-	const updateFiltereredTweets = useCallback(
+	const updateFilteredTweets = useCallback(
 		(tweets: FormattedTweet[]) => {
 			setFilteredTweets(tweets);
 		},
 		[setFilteredTweets]
 	);
 
-	const updateProfile = useCallback(
+	const updateLocalProfile = useCallback(
 		(profile: ProfileDTO) => {
 			setTwitterProfile((curr) => {
 				if (curr) {
@@ -82,8 +71,8 @@ export const useTwitterActions = (): UseTwitterActions => {
 		addTweet,
 		deleteTweet,
 		updateTweets,
-		updateFiltereredTweets,
-		updateProfile,
+		updateFilteredTweets,
+		updateLocalProfile,
 	};
 };
 

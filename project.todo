@@ -1,3 +1,7 @@
+- Migrar para TypeORM
+- Migrar para ESBuild
+
+
 REMINDER:
     Se algum evento não funcionar ou der 404, é porque a mula provavelmente não registrou.
     Se algum state funcionar de forma estranha, checar messageState, MessageActions e useMessages para ter certeza que o Recoil está correto.
@@ -40,3 +44,8 @@ Phone Web:
         * Aplicativo de câmera
         - Utilizar screenshot script;
         - Atalho para a galeria
+
+    Tiktok:
+        * Aplicativo com sistema de like, favorito, comentários e seguidores
+        - Tela de tiktok
+        - Tela de perfil do usuário

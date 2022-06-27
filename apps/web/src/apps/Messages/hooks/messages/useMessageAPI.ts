@@ -3,17 +3,30 @@ import { useCallback } from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 
 import { ServerPromiseResp } from '@typings/common';
-import { Message, MessageConversation, MessageEvents, PreDBMessage, MessageConversationDTO } from '@typings/messages';
+import {
+	Message,
+	MessageConversation,
+	MessageEvents,
+	PreDBMessage,
+	MessageConversationDTO,
+} from '@typings/messages';
 import fetchNui from '@utils/fetchNui';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import { messageState, useSetMessages } from '@apps/messages/hooks/messages/messageState';
+import {
+	messageState,
+	useSetMessages,
+} from '@apps/messages/hooks/messages/messageState';
 import { useMessageActions } from '@apps/messages/hooks/messages/useMessageActions';
-import { MockServerResp } from '@apps/Messages/utils/constants';
+import { MockServerResp } from '@apps/messages/utils/constants';
 
 type UseMessageAPI = {
-	sendMessage: ({ conversationId, message, sourcePhoneNumber }: PreDBMessage) => void;
+	sendMessage: ({
+		conversationId,
+		message,
+		sourcePhoneNumber,
+	}: PreDBMessage) => void;
 	sendEmbeddedMessage: ({ conversationId, embed }: PreDBMessage) => void;
 	removeMessage: (message: Message) => void;
 
@@ -33,15 +46,23 @@ export const useMessageAPI = (): UseMessageAPI => {
 		setMessageReadState,
 	} = useMessageActions();
 
-	const { state: messageConversationState, contents: messageConversationContents } = useRecoilValueLoadable<
-		MessageConversation[]
-	>(messageState.conversations);
+	const {
+		state: messageConversationState,
+		contents: messageConversationContents,
+	} = useRecoilValueLoadable<MessageConversation[]>(
+		messageState.conversations
+	);
 
 	const setMessages = useSetMessages();
 	const phoneNumber = usePhoneNumber();
 
 	const sendMessage = useCallback(
-		({ conversationId, message, sourcePhoneNumber, conversationList }: PreDBMessage) => {
+		({
+			conversationId,
+			message,
+			sourcePhoneNumber,
+			conversationList,
+		}: PreDBMessage) => {
 			fetchNui<ServerPromiseResp<Message>>(
 				MessageEvents.SEND_MESSAGE,
 				{
@@ -75,14 +96,22 @@ export const useMessageAPI = (): UseMessageAPI => {
 	);
 
 	const sendEmbeddedMessage = useCallback(
-		({ conversationId, embed, sourcePhoneNumber, conversationList }: PreDBMessage) => {
-			fetchNui<ServerPromiseResp<Message>, PreDBMessage>(MessageEvents.SEND_MESSAGE, {
-				conversationId,
-				embed: JSON.stringify(embed),
-				is_embed: true,
-				sourcePhoneNumber,
-				conversationList,
-			}).then((resp) => {
+		({
+			conversationId,
+			embed,
+			sourcePhoneNumber,
+			conversationList,
+		}: PreDBMessage) => {
+			fetchNui<ServerPromiseResp<Message>, PreDBMessage>(
+				MessageEvents.SEND_MESSAGE,
+				{
+					conversationId,
+					embed: JSON.stringify(embed),
+					is_embed: true,
+					sourcePhoneNumber,
+					conversationList,
+				}
+			).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) {
 					//TODO: alert error
 					return;
@@ -96,7 +125,10 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const removeMessage = useCallback(
 		(message: Message) => {
-			fetchNui<ServerPromiseResp>(MessageEvents.DELETE_MESSAGE, message).then((resp) => {
+			fetchNui<ServerPromiseResp>(
+				MessageEvents.DELETE_MESSAGE,
+				message
+			).then((resp) => {
 				if (resp.status !== 'ok') {
 					//TODO: error
 					return;
@@ -110,24 +142,31 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 	const setMessageRead = useCallback(
 		(conversationId: number) => {
-			fetchNui<ServerPromiseResp<void>>(MessageEvents.SET_READ_MESSAGE, undefined, { status: 'ok' }).then(
-				(resp) => {
-					if (resp.status !== 'ok') {
-						//TODO: error
-						return;
-					}
-
-					console.log(`Updating ${conversationId} read state for messages`);
-					setMessageReadState(conversationId, 0);
+			fetchNui<ServerPromiseResp<void>>(
+				MessageEvents.SET_READ_MESSAGE,
+				undefined,
+				{ status: 'ok' }
+			).then((resp) => {
+				if (resp.status !== 'ok') {
+					//TODO: error
+					return;
 				}
-			);
+
+				console.log(
+					`Updating ${conversationId} read state for messages`
+				);
+				setMessageReadState(conversationId, 0);
+			});
 		},
 		[setMessageReadState]
 	);
 
 	const addConversation = useCallback(
 		(conversation: MessageConversationDTO) => {
-			fetchNui<ServerPromiseResp<MessageConversation>, MessageConversationDTO>(
+			fetchNui<
+				ServerPromiseResp<MessageConversation>,
+				MessageConversationDTO
+			>(
 				MessageEvents.CREATE_MESSAGE_CONVERSATION,
 				{
 					source: conversation.source,
@@ -149,13 +188,17 @@ export const useMessageAPI = (): UseMessageAPI => {
 			).then((resp) => {
 				if (resp.status !== 'ok' || !resp.data) return;
 
-				if (resp.errorMsg === 'MESSAGES.STATUS.MESSAGE_CONVERSATION_DUPLICATED') {
+				if (
+					resp.errorMsg ===
+					'MESSAGES.STATUS.MESSAGE_CONVERSATION_DUPLICATED'
+				) {
 					//TODO: error
 					return;
 				}
 
 				const doesConversationExist = messageConversationContents.find(
-					(c: MessageConversation) => c.conversationList === resp.data?.conversationList
+					(c: MessageConversation) =>
+						c.conversationList === resp.data?.conversationList
 				);
 
 				if (doesConversationExist) {
@@ -163,7 +206,14 @@ export const useMessageAPI = (): UseMessageAPI => {
 					return;
 				}
 
-				const { id, source, conversationList, label, isGroupChat, admins } = resp.data;
+				const {
+					id,
+					source,
+					conversationList,
+					label,
+					isGroupChat,
+					admins,
+				} = resp.data;
 
 				setLocalConversations({
 					source: source,
@@ -177,7 +227,11 @@ export const useMessageAPI = (): UseMessageAPI => {
 				});
 			});
 		},
-		[setLocalConversations, messageConversationContents, messageConversationState]
+		[
+			setLocalConversations,
+			messageConversationContents,
+			messageConversationState,
+		]
 	);
 
 	const removeConversation = useCallback(
@@ -214,10 +268,15 @@ export const useMessageAPI = (): UseMessageAPI => {
 				let content = resp.data || [];
 
 				if (conversationId !== -1 && content) {
-					content = content.filter((c) => c.conversationId === conversationId);
+					content = content.filter(
+						(c) => c.conversationId === conversationId
+					);
 				}
 
-				console.log(`[MESSAGES FETCHED] ${conversationId} - page ${page}: `, content);
+				console.log(
+					`[MESSAGES FETCHED] ${conversationId} - page ${page}: `,
+					content
+				);
 				setMessages(() => [...content]);
 			});
 		},

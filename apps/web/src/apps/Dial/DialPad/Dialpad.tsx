@@ -20,7 +20,7 @@ const Dialpad: React.FC = () => {
 	const setGlobalWallpaper = useSetGlobalWallpaper();
 
 	useEffect(() => {
-		setGlobalWallpaper('backdrop-blur-md bg-steel-slate-600 bg-opacity-50');
+		setGlobalWallpaper('backdrop-blur-md bg-steel-slate-800 bg-opacity-80');
 	}, []);
 
 	const validateInput = (input: string) => formatNumber(input);
@@ -38,7 +38,7 @@ const Dialpad: React.FC = () => {
 			>
 				<ContainerWithNavbar>
 					<DialpadContacts />
-					<Container className="tems-center basis-[65%] rounded-t-2xl pt-5">
+					<Container className="items-center basis-[65%] rounded-t-2xl pt-5">
 						<DialPadInput />
 						<DialPadGrid />
 					</Container>

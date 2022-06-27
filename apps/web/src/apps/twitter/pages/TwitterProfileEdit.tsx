@@ -9,11 +9,11 @@ import { buildRespObj } from '@utils/nuiMisc';
 
 import useNavigation from '@os/hooks/useNavigation';
 
+import { TwitterInput } from '@apps/twitter/components/profile/TwitterInput';
 import { useTwitterProfileValue } from '@apps/twitter/hooks/state';
 import useTwitterActions from '@apps/twitter/hooks/useTwitterActions';
-import { TwitterInput } from '@apps/twitter/profile/components/TwitterInput';
 
-const TwitterProfile = () => {
+const TwitterProfileEdit = () => {
 	const { goTo } = useNavigation();
 	const { username } = useQueryParams<{ username: string }>({
 		username: 'me',
@@ -80,13 +80,13 @@ const TwitterProfile = () => {
 				<div className={'flex gap-2'}>
 					<button
 						onClick={handleUpdate}
-						className="bg-twitter-blue rounded-lg border-2 border-transparent py-2 px-4 font-bold text-white transition-all hover:border-white"
+						className="bg-twitter-blue rounded-lg border-2 border-transparent p-2 font-bold text-white transition-all hover:border-white"
 					>
 						Salvar
 					</button>
 					<button
 						onClick={handleReset}
-						className={`bg-twitter-light-gray rounded-lg border-2 border-transparent py-2 px-4 font-bold text-white transition-all hover:border-white ${
+						className={`bg-twitter-light-gray rounded-lg border-2 border-transparent p-2 font-bold text-white transition-all hover:border-white ${
 							updating ? 'cursor-not-allowed opacity-50' : ''
 						}`}
 					>
@@ -98,4 +98,4 @@ const TwitterProfile = () => {
 	);
 };
 
-export default TwitterProfile;
+export default TwitterProfileEdit;

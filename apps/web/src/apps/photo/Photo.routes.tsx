@@ -3,12 +3,14 @@ import { Outlet, RouteObject } from 'react-router-dom';
 
 import AppRoute from '@os/apps/components/AppRoute';
 
-import Camera from '@apps/photo/camera/Camera';
-import Gallery from '@apps/photo/gallery/Gallery';
+import Camera from '@apps/photo/pages/Camera';
+import Gallery from '@apps/photo/pages/Gallery';
 
 const PhotoRoutes = {
 	path: 'photo',
-	element: <AppRoute id="PHOTO" component={() => <Outlet />} emitOnOpen={true} />,
+	element: (
+		<AppRoute id="PHOTO" component={() => <Outlet />} emitOnOpen={true} />
+	),
 	children: [
 		{
 			path: '',

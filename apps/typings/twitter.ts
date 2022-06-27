@@ -1,44 +1,42 @@
+import { Profile } from '@typings/common';
+
 export type SETTINGS_ALL_TWEETS = 'all';
 export type SETTINGS_MENTION = 'mentions';
 
-export interface NewTweet {
-	message: string;
-	images?: string;
-	retweet?: number;
+/**
+ *
+ * Tabela tweet_item: armazenar conteúdo, source e identificador do usuário
+ *
+ * Tabela tweet_actions: armazenar likes e retweets
+ * Tabela twitter_profile: armazenar informações do usuário
+ *
+ */
+
+export interface TwitterProfile extends Profile {
+	description?: string;
 }
 
-interface Retweet {
-	retweetId?: number;
-	retweetedBy?: string;
-	isRetweetedByUser?: boolean;
+export interface TweetDTO {
+	id?: number;
+	source?: string;
+
+	content: string;
+	images?: string[];
+
+	createdAt?: string;
+	updatedAt?: string;
 }
 
-export interface Tweet extends NewTweet {
+export interface FormattedTweet extends TweetDTO {
 	id: number;
+	profile: TwitterProfile;
 
-	source: string;
-	sourceProfileId: number;
-	sourceProfileUsername: string;
-	sourceProfileName: string;
-	sourceProfileAvatar: string;
+	likes?: number;
+	retweets?: number;
 
-	isMine: boolean;
-	isLiked: boolean;
-	isRetweeted: boolean;
-
-	secondsAgo: number;
-
-	createdAt: string;
-	updatedAt: string;
-}
-
-export interface Image {
-	id: string;
-	url: string;
-}
-
-export interface FormattedTweet extends Omit<Tweet, 'images'> {
-	images: Image[];
+	isMine?: boolean;
+	isLiked?: boolean;
+	isRetweeted?: boolean;
 }
 
 export enum TwitterEvents {
@@ -53,7 +51,7 @@ export enum TwitterEvents {
 	BROADCAST_TWEET = 'tkphone:twitter:broadcast:tweet',
 	DELETE_TWEET = 'tkphone:twitter:delete:tweet',
 
-	TOGGLE_LIKE_TWEET = 'tkphone:twitter:like:tweet',
-	RETWEET_TWEET = 'tkphone:twitter:retweet:tweet',
+	TOGGLE_LIKE = 'tkphone:twitter:like:tweet',
+	TOGGLE_RETWEET = 'tkphone:twitter:retweet:tweet',
 	REPORT_TWEET = 'tkphone:twitter:report:tweet',
 }

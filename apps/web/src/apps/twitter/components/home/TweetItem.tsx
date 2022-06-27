@@ -2,58 +2,43 @@ import React from 'react';
 import {
 	AiOutlineRetweet,
 	FiShare,
-	HiOutlineChat,
 	IoHeart,
 	IoHeartOutline,
 } from 'react-icons/all';
 
 import { FormattedTweet } from '@typings/twitter';
 
+import { TweetContainer } from '@apps/twitter/components/home/item/TweetContainer';
+import { TweetItemAvatar } from '@apps/twitter/components/home/item/TweetItemAvatar';
+import { TweetItemContent } from '@apps/twitter/components/home/item/TweetItemContent';
 import {
 	TweetButton,
 	TweetButtonContainer,
-} from '@apps/twitter/home/components/tweetItem/TweetButtons';
-import { TweetContainer } from '@apps/twitter/home/components/tweetItem/TweetContainer';
-import { TweetMessage } from '@apps/twitter/home/components/tweetItem/TweetMessage';
-import {
-	TweetProfileAvatar,
-	TweetProfileName,
-} from '@apps/twitter/home/components/tweetItem/TweetProfileAvatar';
+} from '@apps/twitter/components/home/item/TweetItemFooter';
+import { TweetItemHeader } from '@apps/twitter/components/home/item/TweetItemHeader';
 
 const TweetItem = ({
-	message,
-	sourceProfileUsername,
-	sourceProfileName,
-	sourceProfileAvatar,
-	secondsAgo,
+	content,
+	createdAt,
 	isRetweeted,
-	retweetedBy,
+	profile: { name, username, avatar },
 }: FormattedTweet) => {
-	const isRetweet = isRetweeted && !!retweetedBy;
-
 	return (
 		<TweetContainer>
-			<TweetProfileAvatar sourceProfileAvatar={sourceProfileAvatar} />
+			<TweetItemAvatar sourceProfileAvatar={avatar ?? ''} />
 			<div className={'flex-grow'}>
-				{isRetweet && (
+				{isRetweeted && (
 					<span className={'text-twitter-dark-gray text-sm'}>
-						Retweet de @{retweetedBy}
+						Retweet de @xd
 					</span>
 				)}
-				<TweetProfileName
-					sourceProfileName={sourceProfileName}
-					sourceProfileUsername={sourceProfileUsername}
-					secondsAgo={secondsAgo}
+				<TweetItemHeader
+					sourceProfileName={name}
+					sourceProfileUsername={username ?? ''}
+					createdAt={createdAt}
 				/>
-				<TweetMessage message={message} />
+				<TweetItemContent message={content} />
 				<TweetButtonContainer>
-					<TweetButton
-						count={3}
-						bgColor={'bg-cyan-700'}
-						textColor={'text-cyan-500'}
-						icon={<HiOutlineChat />}
-						isSelected={false}
-					/>
 					<TweetButton
 						count={500}
 						bgColor={'bg-green-700'}

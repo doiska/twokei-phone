@@ -5,13 +5,20 @@ import { GalleryPhoto, PhotoEvents, PreDBGalleryPhoto } from '@typings/gallery';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
 
-import { GalleryMockData } from '@apps/photo/gallery/Gallery.mock';
 import usePhotoActions from '@apps/photo/hooks/usePhotoActions';
+import { GalleryMockData } from '@apps/photo/Photo.mock';
 
 //TODO: add update photo
 
 const usePhotoAPI = () => {
-	const { photos, setPhotos, addLocalPhoto, updateLocalPhoto, removeLocalPhoto, getLatestPhoto } = usePhotoActions();
+	const {
+		photos,
+		setPhotos,
+		addLocalPhoto,
+		updateLocalPhoto,
+		removeLocalPhoto,
+		getLatestPhoto,
+	} = usePhotoActions();
 
 	const fetchPhotos = useCallback(() => {
 		fetchNui<ServerPromiseResp<GalleryPhoto[]>>(
@@ -36,7 +43,8 @@ const usePhotoAPI = () => {
 					'ok'
 				)
 			).then((response) => {
-				if (response.status === 'ok' && response.data) addLocalPhoto(response.data);
+				if (response.status === 'ok' && response.data)
+					addLocalPhoto(response.data);
 			});
 		},
 		[addLocalPhoto]
@@ -44,7 +52,10 @@ const usePhotoAPI = () => {
 
 	const updatePhoto = useCallback(
 		(photo: GalleryPhoto) => {
-			fetchNui<ServerPromiseResp<GalleryPhoto>>(PhotoEvents.UPDATE_PHOTO, photo).then((response) => {
+			fetchNui<ServerPromiseResp<GalleryPhoto>>(
+				PhotoEvents.UPDATE_PHOTO,
+				photo
+			).then((response) => {
 				if (response.status === 'ok') updateLocalPhoto(photo);
 			});
 		},
@@ -53,7 +64,10 @@ const usePhotoAPI = () => {
 
 	const removePhoto = useCallback(
 		(photo: GalleryPhoto) => {
-			fetchNui<ServerPromiseResp<GalleryPhoto>>(PhotoEvents.DELETE_PHOTO, photo).then((response) => {
+			fetchNui<ServerPromiseResp<GalleryPhoto>>(
+				PhotoEvents.DELETE_PHOTO,
+				photo
+			).then((response) => {
 				if (response.status === 'ok') removeLocalPhoto(photo);
 			});
 		},

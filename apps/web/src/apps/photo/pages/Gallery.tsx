@@ -10,15 +10,16 @@ import { useGlobalWallpaper } from '@os/hooks/useGlobalWallpaper';
 import { useToggle } from '@os/hooks/useTogglableMenu';
 import ContextMenu from '@os/menu/ContextMenu';
 
+import { GalleryContextMenu } from '@apps/photo/components/common/GalleryContextMenu';
+import { GalleryNavbar } from '@apps/photo/components/common/GalleryNavbar';
+import { GalleryBody } from '@apps/photo/components/gallery/GalleryBody';
 import GalleryDisplay from '@apps/photo/components/gallery/GalleryDisplay';
 import GallerySearchInput from '@apps/photo/components/gallery/GallerySearchInput';
-import { GalleryBody, GalleryNavbar } from '@apps/photo/gallery/Gallery.styles';
 import {
 	useFilteredPhotos,
 	usePhotoCategoryFilter,
 } from '@apps/photo/hooks/state';
 import usePhotoAPI from '@apps/photo/hooks/usePhotoAPI';
-import { GalleryContextMenu } from '@apps/photo/others/GalleryContextMenu';
 import { Container, MainBody, MainHeader } from '@apps/photo/Photo.styles';
 
 const Gallery: React.FC<{ title?: string }> = ({ title }) => {

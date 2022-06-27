@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
+import ScrollContainer from 'react-indiana-drag-scroll';
 
 import { FormattedTweet } from '@typings/twitter';
-
-import TweetItem from '@apps/twitter/home/components/TweetItem';
+import TweetItem from 'apps/twitter/components/home/TweetItem';
 
 const ShowMoreTweets = () => (
 	<div className="flex flex-row items-center justify-center">
@@ -14,12 +14,16 @@ const ShowMoreTweets = () => (
 
 const TweetList = ({ tweets }: { tweets: FormattedTweet[] }) => {
 	return (
-		<div className="flex h-full w-full flex-col gap-2">
+		<ScrollContainer
+			className={`h-[650px] cursor-grab select-none snap-y overflow-y-scroll`}
+			horizontal={false}
+		>
 			{tweets.map((tweet, index) => (
-				<TweetItem {...tweet} key={tweet.id} />
+				//TODO: resolver key
+				<TweetItem {...tweet} key={tweet.id + index + Math.random()} />
 			))}
-		</div>
+		</ScrollContainer>
 	);
 };
 
-export default TweetList;
+export default memo(TweetList);

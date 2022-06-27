@@ -2,11 +2,12 @@ const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const buildPath = path.resolve(__dirname, '../../dist');
 
 const alias = {
-	'@shared': path.resolve(__dirname, '../common'),
+	'@shared': path.resolve(__dirname, '../shared'),
 	'@typings': path.resolve(__dirname, '../typings'),
 };
 
@@ -50,13 +51,18 @@ const server = () => {
 			minimize: false,
 		},
 		resolve: {
+			plugins: [
+				new TsconfigPathsPlugin({
+					configFile: './server/tsconfig.paths.json',
+				}),
+			],
 			modules: [path.resolve(__dirname, 'server'), 'node_modules'],
 			preferRelative: true,
 			extensions: ['.tsx', '.ts', '.js'],
-			alias: {
-				...alias,
-				...serverAlias,
-			},
+			// alias: {
+			// 	...alias,
+			// 	...serverAlias,
+			// },
 		},
 		output: {
 			filename: '[contenthash].server.js',

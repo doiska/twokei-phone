@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "baseUrl": "./",
         "paths": {
             "@typings/*": [
                 "../../typings/*"
@@ -21,7 +22,7 @@
             ],
             "@common/*": [
                 "./common/*"
-            ],
+            ]
         }
     }
 }

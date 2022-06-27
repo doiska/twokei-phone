@@ -12,6 +12,9 @@ module.exports = {
 	darkMode: 'class',
 	theme: {
 		extend: {
+			zIndex: {
+				'-1': '-1',
+			},
 			colors: {
 				'whatsapp-teal': '#128C7E',
 				'whatsapp-teal-dark': '#075E54',
@@ -43,8 +46,8 @@ module.exports = {
 					800: '#12161b',
 					900: '#080c11',
 				},
-				'shark': {
-					DEFAULT: '#272e3a'
+				shark: {
+					DEFAULT: '#272e3a',
 				},
 				'twitter-blue': '#1DA1F2',
 				'twitter-black': '#14171A',

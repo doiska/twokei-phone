@@ -2,59 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .floating-input > input::placeholder {
+        color: transparent;
+    }
+
+    .floating-input > input:focus,
+    .floating-input > input:not(:placeholder-shown) {
+        @apply pt-8
+    }
+
+    .floating-input > input:focus ~ label,
+    .floating-input > input:not(:placeholder-shown) ~ label {
+        @apply opacity-75 scale-75 -translate-y-3 translate-x-1;
+    }
+}
+
 .page-enter {
-	opacity: 0;
+    opacity: 0;
 }
+
 .page-enter-active {
-	opacity: 1;
-	transition: all 250ms;
+    opacity: 1;
+    transition: all 250ms;
 }
+
 .page-exit {
-	height: 0;
-	opacity: 0;
+    height: 0;
+    opacity: 0;
 }
+
 .page-exit-active {
-	transition: all 250ms;
+    transition: all 250ms;
 }
 
 /* FADE */
 .fade-enter-active {
-	height: 0;
+    height: 0;
 }
 
 .fade-enter {
-	height: auto;
+    height: auto;
 }
 
 .fade-exit {
-	height: auto;
+    height: auto;
 }
 
 .fade-exit-active {
-	height: 0px;
+    height: 0px;
 }
 
 body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-		'Droid Sans', 'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 * {
-	-webkit-user-select: none;
-	-webkit-user-drag: none;
-	-webkit-app-region: no-drag;
-	box-sizing: border-box;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-app-region: no-drag;
+    box-sizing: border-box;
 }
 
 :root {
-	background: none;
+    background: none;
 }
 
 textarea:focus {
-	outline: none;
+    outline: none;
 }
 
 input[type='text'],
@@ -62,19 +81,21 @@ input[type='text']:focus,
 input[type='text']:active,
 input[type='text']:hover,
 input[type='text']:focus-within {
-	outline: none !important;
-	border: 0;
+    outline: none !important;
+    border: 0;
 }
 
 ::-webkit-scrollbar {
-	width: 5px;
-	height: 5px;
+    width: 5px;
+    height: 5px;
 }
+
 ::-webkit-scrollbar-track {
-	background-color: rgba(255, 255, 255, 0.1);
-	border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb {
-	background-color: #11171a;
-	border-radius: 10px;
+    background-color: #11171a;
+    border-radius: 10px;
 }

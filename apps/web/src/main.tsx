@@ -5,10 +5,13 @@ import { HashRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 import * as Sentry from '@sentry/react';
+// eslint-disable-next-line import-helpers/order-imports
 import { BrowserTracing } from '@sentry/tracing';
 
 import './styles/main.css';
 import './styles/animation.css';
+import './utils/TimeJS';
+
 import PhoneProviders from 'PhoneProviders';
 
 Sentry.init({

@@ -3,16 +3,23 @@ import { RouteObject } from 'react-router-dom';
 
 import AppRoute from '@os/apps/components/AppRoute';
 
-import TwitterHome from '@apps/twitter/home/TwitterHome';
-import Twitter from '@apps/twitter/Twitter';
+import TwitterHome from '@apps/twitter/pages/TwitterHome';
+import TwitterProfileEdit from '@apps/twitter/pages/TwitterProfileEdit';
+import TwitterWrapper from '@apps/twitter/pages/TwitterWrapper';
 
 const TwitterRoutes = {
 	path: 'twitter',
-	element: <AppRoute id="TWITTER" component={Twitter} emitOnOpen={true} />,
+	element: (
+		<AppRoute id="TWITTER" component={TwitterWrapper} emitOnOpen={true} />
+	),
 	children: [
 		{
 			path: '',
 			element: <TwitterHome />,
+		},
+		{
+			path: 'profile',
+			element: <TwitterProfileEdit />,
 		},
 	],
 } as RouteObject;

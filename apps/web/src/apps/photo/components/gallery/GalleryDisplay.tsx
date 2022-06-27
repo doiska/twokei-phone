@@ -2,7 +2,9 @@ import React from 'react';
 
 import { GalleryPhoto } from '@typings/gallery';
 
-import { GalleryBody, GalleryFolder, GalleryItem } from '@apps/photo/gallery/Gallery.styles';
+import { GalleryBody } from '@apps/photo/components/gallery/GalleryBody';
+import { GalleryFolder } from '@apps/photo/components/gallery/GalleryFolder';
+import { GalleryItem } from '@apps/photo/components/gallery/GalleryItem';
 
 type Props = {
 	filteredPhotos: GalleryPhoto[];
@@ -38,7 +40,9 @@ const GalleryDisplay: React.FC<Props> = ({
 						<GalleryFolder
 							key={category}
 							category={category}
-							photos={filteredPhotos.filter((photo) => photo.category === category)}
+							photos={filteredPhotos.filter(
+								(photo) => photo.category === category
+							)}
 							onClick={() => handleCategoryClick(category)}
 						/>
 					))}

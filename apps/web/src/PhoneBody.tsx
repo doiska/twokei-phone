@@ -9,6 +9,7 @@ const PhoneBody: React.FC = ({ children }) => {
 
 	return (
 		<div
+			id={'phone-body'}
 			className={`flex h-full w-full flex-col transition-all duration-300 ${
 				isWallpaperAString && wallpaper
 			}`}

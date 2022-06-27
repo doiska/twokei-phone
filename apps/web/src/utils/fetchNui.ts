@@ -8,11 +8,13 @@
 //  import LogDebugEvent from '../os/debug/LogDebugEvents';
 import LogDebugEvent from '@debug/LogDebugEvent';
 
-import { isEnvBrowser } from './nuiMisc';
-
 const USE_MOCK_RESP = true;
 
-async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?: T): Promise<T> {
+async function fetchNui<T = any, D = any>(
+	eventName: string,
+	data?: D,
+	mockResp?: T
+): Promise<T> {
 	const options = {
 		method: 'post',
 		headers: {
@@ -21,7 +23,7 @@ async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?
 		body: JSON.stringify(data) ?? '',
 	};
 
-	if (isEnvBrowser() && mockResp) {
+	if (USE_MOCK_RESP && mockResp) {
 		LogDebugEvent({
 			data: {
 				request: data,
@@ -33,15 +35,23 @@ async function fetchNui<T = any, D = any>(eventName: string, data?: D, mockResp?
 		if (USE_MOCK_RESP) return mockResp;
 	}
 
-	const resourceName = (window as any).GetParentResourceName ? (window as any).GetParentResourceName() : 'twokei';
+	const resourceName = (window as any).GetParentResourceName
+		? (window as any).GetParentResourceName()
+		: 'twokei';
 
-	const resp = await fetch(`https://${resourceName}/${eventName}`, options).catch((e) =>
-		console.error(`Failed to fetch ${eventName}`, e)
-	);
+	const resp = await fetch(
+		`https://${resourceName}/${eventName}`,
+		options
+	).catch((e) => console.error(`Failed to fetch ${eventName}`, e));
 
 	const responseData = await resp
 		?.json()
-		.catch((err) => console.error(`${eventName} -- JSON Parsing issue ${err.message}`, err));
+		.catch((err) =>
+			console.error(
+				`${eventName} -- JSON Parsing issue ${err.message}`,
+				err
+			)
+		);
 
 	LogDebugEvent({
 		data: {

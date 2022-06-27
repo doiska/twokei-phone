@@ -7,9 +7,14 @@ import { Message, MessageConversation } from '@typings/messages';
 
 import { usePhoneNumber } from '@os/simcard/hooks/usePhoneNumber';
 
-import useContacts from '@apps/Dial/Contacts/hooks/useContacts';
+import useContacts from '@apps/dial/contacts/hooks/useContacts';
 
-import { messageState, useConversationId, useSetConversations, useSetMessages } from './messageState';
+import {
+	messageState,
+	useConversationId,
+	useSetConversations,
+	useSetMessages,
+} from './messageState';
 
 interface MessageActions {
 	setLocalConversations: (conversation: MessageConversation) => void;
@@ -25,8 +30,11 @@ interface MessageActions {
 }
 
 export const useMessageActions = (): MessageActions => {
-	const { state: messageLoading } = useRecoilValueLoadable(messageState.messages);
-	const { state: conversationLoading, contents: conversations } = useRecoilValueLoadable(messageState.conversations);
+	const { state: messageLoading } = useRecoilValueLoadable(
+		messageState.messages
+	);
+	const { state: conversationLoading, contents: conversations } =
+		useRecoilValueLoadable(messageState.conversations);
 
 	const setConversation = useSetConversations();
 	const setMessages = useSetMessages();
@@ -50,14 +58,19 @@ export const useMessageActions = (): MessageActions => {
 
 			if (!conversations.length) return;
 
-			setConversation((curr) => [...curr].filter((conversation) => !conversationsId.includes(conversation.id)));
+			setConversation((curr) =>
+				[...curr].filter(
+					(conversation) => !conversationsId.includes(conversation.id)
+				)
+			);
 		},
 		[setConversation, conversationLoading, conversations]
 	);
 
 	const setLocalMessages = useCallback(
 		(messageDto: Message) => {
-			const { id, message, author, conversationId, embed, is_embed } = messageDto;
+			const { id, message, author, conversationId, embed, is_embed } =
+				messageDto;
 
 			if (messageLoading !== 'hasValue') return;
 			//TODO: double check it if (conversationId !== id) return;
@@ -80,7 +93,9 @@ export const useMessageActions = (): MessageActions => {
 
 	const removeLocalMessage = useCallback(
 		(messageId: number) => {
-			setMessages((curr) => [...curr].filter((message) => message.id === messageId));
+			setMessages((curr) =>
+				[...curr].filter((message) => message.id === messageId)
+			);
 		},
 		[setMessages]
 	);
@@ -128,7 +143,9 @@ export const useMessageActions = (): MessageActions => {
 	//TODO: Rechecar essa função, não parece estar certa
 	const getConversationSource = useCallback(
 		(conversationList: string) => {
-			const source = conversationList.split('+').filter((p) => p !== myPhoneNumber);
+			const source = conversationList
+				.split('+')
+				.filter((p) => p !== myPhoneNumber);
 			return getContactByNumber(source[0]);
 		},
 		[getContactByNumber, myPhoneNumber]

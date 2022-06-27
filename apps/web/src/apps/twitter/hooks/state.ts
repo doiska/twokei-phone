@@ -7,12 +7,12 @@ import {
 } from 'recoil';
 
 import { Profile, ServerPromiseResp } from '@typings/common';
-import { TwitterEvents, FormattedTweet, Tweet } from '@typings/twitter';
+import { TwitterEvents, FormattedTweet } from '@typings/twitter';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
 
 import { MockTwitterProfile, MockTweets } from '@apps/twitter/Twitter.mock';
-import { handleTweet } from '@apps/twitter/utils/tweets';
+import { handleTweet } from '@apps/twitter/utils/tweetCreation';
 
 export const twitterState = {
 	profile: atom<Profile | undefined>({
@@ -41,7 +41,9 @@ export const twitterState = {
 			key: 'twitter:default:tweets',
 			get: async () => {
 				try {
-					const response = await fetchNui<ServerPromiseResp<Tweet[]>>(
+					const response = await fetchNui<
+						ServerPromiseResp<FormattedTweet[]>
+					>(
 						TwitterEvents.FETCH_TWEETS,
 						undefined,
 						buildRespObj(MockTweets)
@@ -89,7 +91,8 @@ export const useTweetsState = () => useRecoilState(twitterState.tweets);
 export const useTweetsValue = () => useRecoilValue(twitterState.tweets);
 export const useSetTweets = () => useSetRecoilState(twitterState.tweets);
 
-export const useTwitterProfile = () => useRecoilState(twitterState.profile);
+export const useTwitterProfileState = () =>
+	useRecoilState(twitterState.profile);
 export const useTwitterProfileValue = () =>
 	useRecoilValue(twitterState.profile);
 export const useSetTwitterProfile = () =>

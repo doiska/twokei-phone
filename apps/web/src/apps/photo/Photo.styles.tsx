@@ -14,13 +14,11 @@ const Container: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 
 const MainHeader: React.FC<{ title: string; children?: React.ReactNode }> = ({
 	title,
-}) => {
-	return (
-		<div className="flex basis-[7%] flex-row items-center justify-center px-2 text-lg font-medium">
-			{title}
-		</div>
-	);
-};
+}) => (
+	<div className="flex basis-[7%] flex-row items-center justify-center px-2 text-lg font-medium">
+		{title}
+	</div>
+);
 
 const MainBody: FCWithChildren<React.HTMLAttributes<HTMLDivElement>> = ({
 	children,

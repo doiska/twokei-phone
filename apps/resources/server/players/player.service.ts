@@ -49,18 +49,25 @@ class _PlayerService {
 		return this.getPlayer(source).identifier;
 	}
 
-	async getIdentifierByPhone(phone: string, fetch?: boolean): Promise<string | null> {
-		const onlinePlayer = this.playersBySource.find((player) => player.phoneNumber === phone);
+	async getIdentifierByPhone(
+		phone: string,
+		fetch?: boolean
+	): Promise<string | null> {
+		const onlinePlayer = this.playersBySource.find(
+			(player) => player.phoneNumber === phone
+		);
 
 		if (onlinePlayer) return onlinePlayer.identifier;
 
 		if (fetch) {
-			const result = await this.playerDB.fetchIdentifierByPhone(phone).catch((err) => {
-				console.error(`Could not fetch player identifier by phone number: ${err}`);
-				return null;
-			});
-
-			return result;
+			return await this.playerDB
+				.fetchIdentifierByPhone(phone)
+				.catch((err) => {
+					console.error(
+						`Could not fetch player identifier by phone number: ${err}`
+					);
+					return null;
+				});
 		}
 
 		return null;
@@ -74,7 +81,12 @@ class _PlayerService {
 
 		const phoneNumber = await findOrGeneratePhoneNumber(identifier);
 
-		const newPlayer = new Player({ source, identifier, userName, phoneNumber });
+		const newPlayer = new Player({
+			source,
+			identifier,
+			userName,
+			phoneNumber,
+		});
 
 		this.registerPlayer(source, newPlayer);
 

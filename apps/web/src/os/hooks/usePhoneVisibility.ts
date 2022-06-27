@@ -4,13 +4,19 @@ import { useRecoilState } from 'recoil';
 
 import { useNotifications } from '@os/notification/hooks/useNotifications';
 
-import { useSettings } from '../../apps/Settings/hooks/useSettings';
+import { useSettings } from '@apps/settings/hooks/useSettings';
+
 import phoneState from './phoneState';
 
 export const usePhoneVisibility = () => {
-	const [visibility, setVisibility] = useRecoilState<boolean>(phoneState.visibility);
-	const [phoneDisabled, setPhoneDisabled] = useRecoilState<boolean>(phoneState.phoneDisabled);
-	const [notificationVisibility, setNotificationVisibility] = useState<boolean>(false);
+	const [visibility, setVisibility] = useRecoilState<boolean>(
+		phoneState.visibility
+	);
+	const [phoneDisabled, setPhoneDisabled] = useRecoilState<boolean>(
+		phoneState.phoneDisabled
+	);
+	const [notificationVisibility, setNotificationVisibility] =
+		useState<boolean>(false);
 	const notificationTimer = useRef<NodeJS.Timeout>();
 
 	const { currentAlert } = useNotifications();
@@ -32,7 +38,10 @@ export const usePhoneVisibility = () => {
 
 			if (currentAlert?.keepWhenPhoneClosed) return;
 
-			notificationTimer.current = setTimeout(() => setNotificationVisibility(false), /* TODO: DEFAULT TIME*/ 500);
+			notificationTimer.current = setTimeout(
+				() => setNotificationVisibility(false),
+				/* TODO: DEFAULT TIME*/ 500
+			);
 		}
 	}, [currentAlert, visibility, setVisibility]);
 

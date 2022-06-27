@@ -1,48 +1,49 @@
 import { Profile } from '@typings/common';
-import { Tweet } from '@typings/twitter';
+import { FormattedTweet } from '@typings/twitter';
 
 export const MockTwitterProfile: Profile = {
 	id: 0,
 	source: '1',
 	name: 'doiská',
 	username: 'doiska',
-	avatar: 'https://pbs.twimg.com/profile_images/1209829098/doiska_400x400.jpg',
+	avatar: 'https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg',
 	updatedAt: '2020-01-01T00:00:00.000Z',
 	createdAt: '2020-01-01T00:00:00.000Z',
 };
 
-export const MockTweets: Tweet[] = [
+export const MockTweets: FormattedTweet[] = [
 	{
 		id: 0,
 		source: '1231230120301230',
-		sourceProfileId: 1,
-		sourceProfileName: 'eduardin',
-		sourceProfileUsername: 'eduardin',
-		sourceProfileAvatar:
-			'https://cdn.lorem.space/images/face/.cache/500x0/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg',
-		message: 'Hello World',
+		profile: {
+			id: 1,
+			source: '1231230120301230',
+			name: 'doiská',
+			username: 'doiska',
+			avatar: 'https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg',
+		},
+		content: 'Hello World',
 		isLiked: false,
-		isMine: false,
+		isMine: true,
 		isRetweeted: false,
-		secondsAgo: 0,
-		createdAt: new Date().toString(),
+		createdAt: new Date(1232131).toString(),
 		updatedAt: new Date().toString(),
 	},
 	{
 		id: 1,
 		source: '1',
-		sourceProfileId: 0,
-		sourceProfileName: 'doiska',
-		sourceProfileUsername: 'doiska',
-		sourceProfileAvatar:
-			'https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg',
-		message:
-			'xdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxdxd',
+		profile: {
+			id: 2,
+			source: '2',
+			name: 'Eduardo',
+			username: 'eduardin',
+			avatar: 'https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg',
+		},
+		content: 'teste',
 		isLiked: true,
-		isMine: true,
-		isRetweeted: false,
-		secondsAgo: 100,
-		createdAt: new Date().toString(),
+		isMine: false,
+		isRetweeted: true,
+		createdAt: new Date(13212312321).toString(),
 		updatedAt: new Date().toString(),
 	},
 ];

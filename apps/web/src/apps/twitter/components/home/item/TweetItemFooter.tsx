@@ -11,10 +11,18 @@ type Props = {
 	selectedIcon?: React.ReactNode;
 };
 
-export const TweetButton: FCWithChildren<Props> = ({ isSelected, textColor, bgColor, count, icon, selectedIcon }) => {
+export const TweetButton: FCWithChildren<Props> = ({
+	isSelected,
+	textColor,
+	bgColor,
+	count,
+	icon,
+	selectedIcon,
+}) => {
 	const [active, setActive] = useState(false);
 
-	const selectTextColor = isSelected || active ? textColor : 'text-twitter-light-gray';
+	const selectTextColor =
+		isSelected || active ? textColor : 'text-twitter-light-gray';
 	const selectBGColor = active ? bgColor : 'bg-transparent';
 	const shouldShowCount = count && count > 0;
 	const activeIcon = isSelected ? selectedIcon : icon;
@@ -36,5 +44,5 @@ export const TweetButton: FCWithChildren<Props> = ({ isSelected, textColor, bgCo
 };
 
 export const TweetButtonContainer: FCWithChildren = ({ children }) => {
-	return <div className="mt-4 flex items-center justify-between">{children}</div>;
+	return <div className="mt-4 flex items-center gap-9">{children}</div>;
 };
