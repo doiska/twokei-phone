@@ -1,7 +1,7 @@
 import { ControlEvents } from '@typings/control';
 
 let disableKeys = false;
-let time = disableKeys ? 0 : 1000;
+const time = disableKeys ? 0 : 1000;
 
 console.log('[TKPhone] Disabled keys', disableKeys);
 

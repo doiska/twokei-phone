@@ -1,22 +1,18 @@
 import { TweetDTO, FormattedTweet } from '@typings/twitter';
-import TweetItemSchema from 'entity/twitter/tweets.schema';
+import { XiaoDS } from 'db/xiao';
+import { TweetItemModel } from 'entities/Twitter.entity';
 
 class TwitterDB {
 	async createTweet(
-		source: string,
+		source: number,
 		tweet: TweetDTO
 	): Promise<FormattedTweet> {
 		const profileId = 123;
 
-		const res = await TweetItemSchema.create(
-			{
-				source,
-				...tweet,
-			},
-			{
-				raw: true,
-			}
-		).then((res) => res.get({ plain: true }));
+		const res = await XiaoDS.getRepository(TweetItemModel).save({
+			...tweet,
+			source,
+		});
 
 		console.log(`Created tweet: ${res.id}`, res);
 

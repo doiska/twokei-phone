@@ -38,7 +38,7 @@ export const emitNetPromise = <T = any, D = any>(event: string, ...data: D[]): P
 		}, NET_PROMISE_TIMEOUT);
 
 		const uniqueId = Math.random().toString(36).substring(2);
-		const eventName: string = `${event}:${uniqueId}`;
+		const eventName = `${event}:${uniqueId}`;
 
 		emitNet(event, eventName, ...data);
 

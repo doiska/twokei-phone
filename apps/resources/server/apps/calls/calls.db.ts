@@ -1,50 +1,33 @@
-import CallSchema from '@entity/calls.schema';
-import { ActiveCall, CallHistoryItem, RawActiveCall } from '@typings/call';
-import { Op } from 'sequelize';
+import { CallHistoryItem, RawActiveCall } from '@typings/call';
+import { XiaoDS } from 'db/xiao';
+import { CallModel } from 'entities/Call.entity';
 
-class CallsRepo {
+class _CallDB {
 	async fetchCalls(phoneNumber: string, limit = 20) {
-		return CallSchema.findAll({
-			where: {
-				[Op.or]: [
-					{
-						dialer: phoneNumber,
-					},
-					{
-						receiver: phoneNumber,
-					},
-				],
-			},
-			order: [['start', 'DESC']],
-			limit,
+		return XiaoDS.getRepository(CallModel).find({
+			where: [{ dialer: phoneNumber }, { receiver: phoneNumber }],
+			take: limit,
+			order: { start: 'DESC' },
 		});
 	}
 
-	async saveCall({ identifier, dialer, receiver, start }: CallHistoryItem | RawActiveCall) {
-		return CallSchema.create({
-			identifier,
-			dialer,
-			receiver,
-			start,
-		});
+	async saveCall(call: CallHistoryItem | RawActiveCall) {
+		return XiaoDS.getRepository(CallModel).save({ ...call });
 	}
 
-	async updateCall({ identifier }: CallHistoryItem | RawActiveCall, isAccepted: boolean, end: number) {
-		return CallSchema.update(
+	async updateCall(
+		{ identifier }: CallHistoryItem | RawActiveCall,
+		isAccepted: boolean,
+		end: number
+	) {
+		return XiaoDS.getRepository(CallModel).update(
+			{ identifier },
 			{
-				isAccepted: isAccepted,
-				end: end,
-			},
-			{
-				where: {
-					identifier: identifier,
-				},
+				isAccepted,
+				end,
 			}
 		);
 	}
 }
 
-export { CallsRepo };
-
-const CallsDB = new CallsRepo();
-export default CallsDB;
+export default new _CallDB();

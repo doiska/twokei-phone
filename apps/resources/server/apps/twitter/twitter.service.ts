@@ -1,5 +1,6 @@
-import { PromiseRequest, PromiseEventResponse } from 'lib/promise.types';
 import { TweetDTO, TwitterEvents } from '@typings/twitter';
+import { PromiseRequest, PromiseEventResponse } from 'lib/promise.types';
+
 import TwitterDB from './twitter.db';
 
 class TwitterService {
@@ -15,7 +16,7 @@ class TwitterService {
 	) {
 		try {
 			const create = await this.twitterDB.createTweet(
-				req.source.toString(),
+				req.source,
 				req.data
 			);
 

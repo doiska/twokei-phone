@@ -6,15 +6,39 @@ export class TweetItemModel {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column()
+	@Column({ type: 'varchar', length: 255, nullable: false })
 	source: number;
 
 	@Column()
 	content: string;
 
 	@Column()
-	images: string[];
+	images: string; // TODO: parse array
 
 	@Column()
+	created_at: string;
+}
+
+@Entity({ name: 'twokei_phone_twitter_profile' })
+export class TwitterProfileModel {
+	@PrimaryGeneratedColumn()
+	id: number;
+
+	@Column({ type: 'varchar', length: 255, nullable: false })
+	source: number;
+
+	@Column({ type: 'varchar', length: 255, nullable: false })
+	name: string;
+
+	@Column({ type: 'varchar', length: 255, nullable: false })
+	username: string;
+
+	@Column({ type: 'varchar', length: 255, nullable: false })
+	avatar: string;
+
+	@Column({ type: 'varchar', length: 255, nullable: false })
+	bio: string;
+
+	@Column({ type: 'varchar', length: 255, nullable: false })
 	created_at: string;
 }

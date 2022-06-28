@@ -1,20 +1,26 @@
-import { ActiveCall, CallEvents, CallHistoryItem, EndCallDTO, InitizalizeCallDTO, RawActiveCall } from '@typings/call';
-import Collection from '@discordjs/collection';
-import CallsDB, { CallsRepo } from '@apps/calls/calls.db';
-import { PromiseEventResponse, PromiseRequest } from '@lib/promise.types';
 import Service from '@common/service';
-import PlayerService from 'players/player.service';
+import Collection from '@discordjs/collection';
+import { PromiseEventResponse, PromiseRequest } from '@lib/promise.types';
+import {
+	ActiveCall,
+	CallEvents,
+	CallHistoryItem,
+	EndCallDTO,
+	InitizalizeCallDTO,
+	RawActiveCall,
+} from '@typings/call';
 import { emitNetTyped } from '@utils/fivem';
+import PlayerService from 'players/player.service';
+
+import CallsDB from '@apps/calls/calls.db';
 
 class CallsService extends Service {
 	private callMap: Collection<string, RawActiveCall>;
-	private readonly callsDB: CallsRepo;
 
 	constructor() {
 		super('Calls');
 
 		this.callMap = new Collection();
-		this.callsDB = CallsDB;
 	}
 
 	async setToMap(dialer: string, raw: RawActiveCall) {
@@ -22,11 +28,17 @@ class CallsService extends Service {
 		this.logger.debug(`Added call to map: ${dialer} -> ${raw}`);
 	}
 
-	async handleInitializeCall(req: PromiseRequest<InitizalizeCallDTO>, res: PromiseEventResponse<ActiveCall>) {
+	async handleInitializeCall(
+		req: PromiseRequest<InitizalizeCallDTO>,
+		res: PromiseEventResponse<ActiveCall>
+	) {
 		const dialerPlayer = PlayerService.getPlayer(req.source);
 		const dialerNumber = dialerPlayer.phoneNumber;
 
-		const receiverIdentifier = await PlayerService.getIdentifierByPhone(req.data.receiverNumber, true);
+		const receiverIdentifier = await PlayerService.getIdentifierByPhone(
+			req.data.receiverNumber,
+			true
+		);
 
 		const startCallTime = Math.floor(new Date().getTime() / 1000);
 
@@ -43,7 +55,7 @@ class CallsService extends Service {
 
 		if (!receiverIdentifier) {
 			console.error(`Receiver ${req.data.receiverNumber} was not found.`);
-			await this.callsDB.saveCall(rawTempCall);
+			await CallsDB.saveCall(rawTempCall);
 
 			return res({
 				status: 'ok',
@@ -59,11 +71,12 @@ class CallsService extends Service {
 			});
 		}
 
-		const receiverPlayer = PlayerService.getPlayerByIdentifier(receiverIdentifier);
+		const receiverPlayer =
+			PlayerService.getPlayerByIdentifier(receiverIdentifier);
 
 		if (!receiverPlayer) {
 			console.error(`Receiver 2 ${receiverIdentifier} was not found.`);
-			await this.callsDB.saveCall(rawTempCall);
+			await CallsDB.saveCall(rawTempCall);
 			return res({
 				status: 'ok',
 				data: {
@@ -87,14 +100,14 @@ class CallsService extends Service {
 			dialerSource: dialerPlayer.source,
 			receiver: req.data.receiverNumber,
 			receiverSource: receiverPlayer.source,
-			start: startCallTime.toString(),
+			start: startCallTime,
 			isAccepted: false,
 		};
 
-		this.setToMap(call.dialer, call);
+		await this.setToMap(call.dialer, call);
 
 		try {
-			await this.callsDB.saveCall(call);
+			await CallsDB.saveCall(call);
 		} catch (e) {
 			this.logger.error(e);
 			res({ status: 'error', errorMsg: 'DATABASE_ERROR' });
@@ -130,9 +143,12 @@ class CallsService extends Service {
 
 		const channelId = target.dialerSource;
 
-		await this.callsDB.updateCall(target, true, null);
+		await CallsDB.updateCall(target, true, null);
 
-		console.log(`Call accepted: ${dialerNumber} -> ${target.receiver}`, target);
+		console.log(
+			`Call accepted: ${dialerNumber} -> ${target.receiver}`,
+			target
+		);
 
 		emitNetTyped<ActiveCall>(
 			CallEvents.WAS_ACCEPTED,
@@ -146,7 +162,9 @@ class CallsService extends Service {
 			target.receiverSource
 		);
 
-		this.logger.debug(`Call ${target.identifier} was accepted ${target.dialer} -> ${target.receiver} ${target}`);
+		this.logger.debug(
+			`Call ${target.identifier} was accepted ${target.dialer} -> ${target.receiver} ${target}`
+		);
 	}
 
 	async handleRejectCall(source: number, dialerNumber: string) {
@@ -164,12 +182,15 @@ class CallsService extends Service {
 		emitNet(CallEvents.WAS_REJECTED, current.dialerSource, current);
 		emitNet(CallEvents.WAS_REJECTED, current.receiverSource, current);
 
-		await this.callsDB.updateCall(current, false, endUnix);
+		await CallsDB.updateCall(current, false, endUnix);
 
 		this.callMap.delete(dialerNumber);
 	}
 
-	async handleCallHangup(req: PromiseRequest<EndCallDTO>, res: PromiseEventResponse<void>) {
+	async handleCallHangup(
+		req: PromiseRequest<EndCallDTO>,
+		res: PromiseEventResponse<void>
+	) {
 		const dialerNumber = req.data.dialerNumber;
 
 		const endUnix = Math.floor(new Date().getTime() / 1000);
@@ -193,13 +214,17 @@ class CallsService extends Service {
 				emitNet(CallEvents.WAS_ENDED, current.dialerSource, current);
 			} else {
 				emitNet(CallEvents.WAS_REJECTED, current.dialerSource, current);
-				emitNet(CallEvents.WAS_REJECTED, current.receiverSource, current);
+				emitNet(
+					CallEvents.WAS_REJECTED,
+					current.receiverSource,
+					current
+				);
 			}
 		}
 
 		res({ status: 'ok' });
 
-		await this.callsDB.updateCall(current, current?.isAccepted, endUnix);
+		await CallsDB.updateCall(current, current?.isAccepted, endUnix);
 		this.callMap.delete(dialerNumber);
 	}
 }

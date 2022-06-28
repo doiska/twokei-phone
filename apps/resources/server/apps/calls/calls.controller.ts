@@ -1,4 +1,4 @@
-import callsService from '@apps/calls/calls.service';
+import { onNetPromise } from '@lib/onNetPromise';
 import {
 	ActiveCall,
 	CallEvents,
@@ -7,7 +7,8 @@ import {
 	InitizalizeCallDTO,
 } from '@typings/call';
 import { getSource, onNetTyped } from '@utils/fivem';
-import { onNetPromise } from '@lib/onNetPromise';
+
+import callsService from '@apps/calls/calls.service';
 
 onNetPromise<InitizalizeCallDTO, ActiveCall>(
 	CallEvents.INITIALIZE_CALL,
@@ -19,7 +20,9 @@ onNetPromise<InitizalizeCallDTO, ActiveCall>(
 
 onNetTyped<DialerDTO>(CallEvents.START_CALL, ({ dialerNumber }) => {
 	console.log(`DIALER DTO START_CALL ${dialerNumber}`);
-	callsService.handleAcceptCall(getSource(), dialerNumber).catch((e) => console.error('SERVER_ERROR', e));
+	callsService
+		.handleAcceptCall(getSource(), dialerNumber)
+		.catch((e) => console.error('SERVER_ERROR', e));
 });
 
 onNetTyped<DialerDTO>(CallEvents.ACCEPT_CALL, ({ dialerNumber }) => {
@@ -29,7 +32,9 @@ onNetTyped<DialerDTO>(CallEvents.ACCEPT_CALL, ({ dialerNumber }) => {
 
 onNetTyped<DialerDTO>(CallEvents.REJECT_CALL, ({ dialerNumber }) => {
 	console.log(`DIALER DTO REJECT_CALL ${dialerNumber}`);
-	callsService.handleRejectCall(getSource(), dialerNumber).catch((e) => console.error('SERVER_ERROR', e));
+	callsService
+		.handleRejectCall(getSource(), dialerNumber)
+		.catch((e) => console.error('SERVER_ERROR', e));
 });
 
 onNetPromise<EndCallDTO, void>(CallEvents.HANGUP_CALL, (req, res) => {

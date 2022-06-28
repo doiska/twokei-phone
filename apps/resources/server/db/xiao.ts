@@ -1,7 +1,8 @@
-import { Sequelize } from 'sequelize';
+import { TweetItemModel } from 'entities/Twitter.entity';
 import mysql from 'mysql2';
-import { DataSource } from 'typeorm';
 import path from 'path';
+import { Sequelize } from 'sequelize';
+import { DataSource } from 'typeorm';
 
 const Xiao = new Sequelize({
 	host: '0.0.0.0',
@@ -22,7 +23,7 @@ const Xiao = new Sequelize({
 
 const __dirname = path.resolve();
 
-const XiaoDS = new DataSource({
+export const XiaoDS = new DataSource({
 	type: 'mariadb',
 	database: 'twokei',
 	host: 'localhost',
@@ -30,7 +31,7 @@ const XiaoDS = new DataSource({
 	username: 'root',
 	password: 'doiska',
 	logging: true,
-	entities: [__dirname + '/**/*.entity{.js}'],
+	entities: [TweetItemModel],
 });
 
 XiaoDS.initialize()
