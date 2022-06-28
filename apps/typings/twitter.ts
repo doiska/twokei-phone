@@ -18,10 +18,10 @@ export interface TwitterProfile extends Profile {
 
 export interface TweetDTO {
 	id?: number;
-	source?: string;
+	source?: number;
 
 	content: string;
-	images?: string[];
+	images?: string;
 
 	createdAt?: string;
 	updatedAt?: string;

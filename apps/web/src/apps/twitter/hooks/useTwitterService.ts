@@ -55,5 +55,10 @@ const useTwitterService = () => {
 		_setFilteredTweets
 	);
 
-	useNuiEvent('TWITTER', TwitterEvents.BROADCAST_TWEET, handleTweetBroadcast);
+	useNuiEvent('TWITTER', TwitterEvents.BROADCAST_TWEET, (tweet: TweetDTO) => {
+		console.log(`handleTweetBroadcast: ${JSON.stringify(tweet)}`);
+		handleTweetBroadcast(tweet);
+	});
 };
+
+export default useTwitterService;

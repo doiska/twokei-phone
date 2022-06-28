@@ -9,7 +9,8 @@ export default defineConfig({
 	build: {
 		outDir: '../../dist/web',
 		// sourcemap: true,
-		write: true,
+		// write: true,
+		chunkSizeWarningLimit: 900,
 	},
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],

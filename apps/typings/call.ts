@@ -4,12 +4,12 @@ export interface RawActiveCall {
 	dialerSource?: number;
 	receiver: string;
 	receiverSource?: number;
-	start: string;
+	start: number;
 	isAccepted: boolean;
 }
 
 export interface ActiveCall {
-	start?: string | number;
+	start?: number;
 
 	isAccepted: boolean;
 	isDialer: boolean;
@@ -34,14 +34,14 @@ export interface EndCallDTO {
 }
 
 export interface CallHistoryItem {
-	id?: number | string;
+	id?: number;
 	identifier?: string;
 	dialer: string;
 	dialerSource?: number;
 	receiver: string;
 	receiverSource?: number;
-	start: number | string;
-	end?: number | string;
+	start: number;
+	end?: number;
 	isAccepted: boolean;
 }
 

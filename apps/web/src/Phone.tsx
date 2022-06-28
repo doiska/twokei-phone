@@ -8,6 +8,8 @@ import NavigationBar from '@os/navigation/NavigationBar';
 import NotificationBar from '@os/notification/components/NotificationBar';
 import { useSimcardService } from '@os/simcard/hooks/useSimcardService';
 
+import useTwitterService from '@apps/twitter/hooks/useTwitterService';
+
 import PhoneBody from './PhoneBody';
 import PhoneRoutes from './PhoneRoutes';
 import PhoneWrapper from './PhoneWrapper';
@@ -17,6 +19,7 @@ const Phone = () => {
 	useSystemThemeService();
 	useSimcardService();
 	useCallService();
+	useTwitterService();
 
 	return (
 		<PhoneWrapper>

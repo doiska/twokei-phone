@@ -6,7 +6,7 @@ export interface ServerPromiseResp<T = undefined> {
 
 export interface Profile {
 	id: number;
-	source: string;
+	source: number;
 	name: string;
 	username?: string;
 	avatar?: string;
