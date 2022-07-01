@@ -5,7 +5,7 @@ export const MockMessageConversations: MessageConversation[] = [
 	{
 		id: 0,
 		conversationList: '0147-0147+123-4567',
-		source: '0147-0147',
+		sourcePhone: '0147-0147',
 		unread: 5,
 		label: '',
 		updatedAt: 5,
@@ -15,7 +15,7 @@ export const MockMessageConversations: MessageConversation[] = [
 		id: 1,
 		conversationList: '123-4567+0147-0147',
 		avatar: 'https://i.servimg.com/u/f37/19/40/02/41/0logo_10.gif',
-		source: '123-4567',
+		sourcePhone: '123-4567',
 		unread: 0,
 		label: 'Família Fighter',
 		updatedAt: 5,

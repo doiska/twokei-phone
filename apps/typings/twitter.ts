@@ -43,9 +43,9 @@ export enum TwitterEvents {
 	FETCH_TWEETS = 'tkphone:twitter:fetch',
 	FETCH_TWEETS_WITH_FILTER = 'tkphone:twitter:fetch:with:filter',
 
-	CREATE_PROFILE = 'tkphone:twitter:create:profile',
-	GET_OR_CREATE_PROFILE = 'tkphone:twitter:get:or:create:profile',
-	UPDATE_PROFILE = 'tkphone:twitter:update:profile',
+	// CREATE_PROFILE = 'tkphone:twitter:create:profile',
+	GET_PROFILE = 'tkphone:twitter:get:or:create:profile',
+	UPDATE_OR_CREATE_PROFILE = 'tkphone:twitter:update_create:profile',
 
 	CREATE_TWEET = 'tkphone:twitter:create:tweet',
 	BROADCAST_TWEET = 'tkphone:twitter:broadcast:tweet',

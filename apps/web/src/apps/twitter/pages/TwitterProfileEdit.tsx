@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 import { useQueryParams } from '@common/hooks/useQueryParams';
-import { TwitterEvents } from '@typings/twitter';
+import { ServerPromiseResp } from '@typings/common';
+import { TwitterEvents, TwitterProfile } from '@typings/twitter';
 import ImageWithDefaultComponentFallback from '@ui/components/ImageWithComponentFallback';
 import { TriangleLoader } from '@ui/components/LoadingSpinner';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
-
-import useNavigation from '@os/hooks/useNavigation';
 
 import { TwitterInput } from '@apps/twitter/components/profile/TwitterInput';
 import { useTwitterProfileValue } from '@apps/twitter/hooks/state';
 import useTwitterActions from '@apps/twitter/hooks/useTwitterActions';
 
 const TwitterProfileEdit = () => {
-	const { goTo } = useNavigation();
-	const { username } = useQueryParams<{ username: string }>({
-		username: 'me',
-	});
-
 	const { updateLocalProfile } = useTwitterActions();
 
 	const currentProfile = useTwitterProfileValue();
@@ -27,24 +21,22 @@ const TwitterProfileEdit = () => {
 	const [name, setName] = useState(currentProfile?.name || '');
 	const [avatar, setAvatar] = useState(currentProfile?.avatar || '');
 
-	useEffect(() => {
-		if (username !== 'me' && !currentProfile) goTo('/twitter');
-	}, [username, currentProfile]);
+	const hasProfile = !!currentProfile;
 
 	const handleUpdate = () => {
 		setUpdating(true);
 
-		fetchNui(
-			TwitterEvents.UPDATE_PROFILE,
+		fetchNui<ServerPromiseResp<TwitterProfile>>(
+			TwitterEvents.UPDATE_OR_CREATE_PROFILE,
 			{
 				name,
 				avatar,
-			},
-			buildRespObj({}, 'error')
+			}
 		)
 			.then(() => {
+				//TODO: add username and name to local profile
 				updateLocalProfile({
-					name,
+					username: name,
 					avatar,
 				});
 			})
@@ -82,7 +74,7 @@ const TwitterProfileEdit = () => {
 						onClick={handleUpdate}
 						className="bg-twitter-blue rounded-lg border-2 border-transparent p-2 font-bold text-white transition-all hover:border-white"
 					>
-						Salvar
+						{hasProfile ? 'Salvar' : 'Criar'}
 					</button>
 					<button
 						onClick={handleReset}

@@ -5,10 +5,10 @@ export interface ServerPromiseResp<T = undefined> {
 }
 
 export interface Profile {
-	id: number;
-	source: number;
-	name: string;
-	username?: string;
+	id?: number;
+	source?: number;
+	name?: string;
+	username: string;
 	avatar?: string;
 	createdAt?: string;
 	updatedAt?: string;
@@ -17,5 +17,3 @@ export interface Profile {
 export enum GENERIC_EVENTS {
 	FETCH_USER_LOCATION = 'tkphone:core:fetch-user-location',
 }
-
-export type ProfileDTO = Partial<Omit<Profile, 'id'>>;

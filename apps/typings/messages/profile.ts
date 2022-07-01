@@ -1,5 +1,5 @@
 export interface Profile {
-	source: string;
+	source: number;
 	display?: string;
 	avatar?: string;
 }

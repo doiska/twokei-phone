@@ -1,4 +1,5 @@
 import { PhoneEvents } from '@typings/phone';
+
 import { getSource } from '../utils/fivem';
 import PlayerService from './player.service';
 
@@ -28,12 +29,14 @@ on('playerDropped', async () => {
 
 on('onServerResourceStart', async (resource: string) => {
 	if (resource === GetCurrentResourceName()) {
+		console.log('[PHONE] Phone resource started.');
 		setTimeout(() => {
 			const online = getPlayers();
 
 			for (const p of online) {
+				console.log(`[PLAYER] Player ${p} is online.`);
 				PlayerService.handleNewPlayer(parseInt(p));
 			}
-		}, 1000);
+		}, 5000);
 	}
 });

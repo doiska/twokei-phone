@@ -16,13 +16,16 @@ const NOTIFICATION_ID = 'messages:broadcast';
 
 export const useMessageNotifications = () => {
 	const { getConversationById } = useMessages();
-	const { removeId, addNotification, addNotificationAlert } = useNotifications();
+	const { removeId, addNotification, addNotificationAlert } =
+		useNotifications();
 
 	const messagesApp = useApp('MESSAGES');
 
 	const setNotification = (messageNotification: IMessageNotification) => {
-		const { conversationName, conversationId, message } = messageNotification;
-		const group: MessageConversation | undefined = getConversationById(conversationId);
+		const { conversationName, conversationId, message } =
+			messageNotification;
+		const group: MessageConversation | undefined =
+			getConversationById(conversationId);
 
 		if (!group) return;
 
@@ -44,7 +47,7 @@ export const useMessageNotifications = () => {
 			if (group.unread && group.unread > 1) {
 				addNotification({
 					...n,
-					title: group.source ?? group.label,
+					title: group.sourcePhone ?? group.label,
 					content: 'Unread messages ' + group.unread,
 				});
 			}

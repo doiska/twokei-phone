@@ -1,6 +1,6 @@
-import Service from '@common/service';
-import Collection from '@discordjs/collection';
+import { CallDB } from '@apps/calls/calls.db';
 import { PromiseEventResponse, PromiseRequest } from '@lib/promise.types';
+
 import {
 	ActiveCall,
 	CallEvents,
@@ -9,17 +9,20 @@ import {
 	InitizalizeCallDTO,
 	RawActiveCall,
 } from '@typings/call';
-import { emitNetTyped } from '@utils/fivem';
-import PlayerService from 'players/player.service';
 
-import CallsDB from '@apps/calls/calls.db';
+import Service from '@common/service';
+import Collection from '@discordjs/collection';
+import PlayerService from '@players/player.service';
+import { emitNetTyped } from '@utils/fivem';
+import { uuid } from 'uuidv4';
 
 class CallsService extends Service {
+	private callDB: CallDB;
 	private callMap: Collection<string, RawActiveCall>;
 
 	constructor() {
 		super('Calls');
-
+		this.callDB = new CallDB();
 		this.callMap = new Collection();
 	}
 
@@ -43,7 +46,7 @@ class CallsService extends Service {
 		const startCallTime = Math.floor(new Date().getTime() / 1000);
 
 		//TODO: uuidv4
-		const callIdentifier = `${dialerNumber}-${receiverIdentifier}-${startCallTime}`;
+		const callIdentifier = uuid();
 
 		const rawTempCall = {
 			identifier: callIdentifier,
@@ -55,7 +58,7 @@ class CallsService extends Service {
 
 		if (!receiverIdentifier) {
 			console.error(`Receiver ${req.data.receiverNumber} was not found.`);
-			await CallsDB.saveCall(rawTempCall);
+			await this.callDB.saveCall(rawTempCall);
 
 			return res({
 				status: 'ok',
@@ -76,7 +79,7 @@ class CallsService extends Service {
 
 		if (!receiverPlayer) {
 			console.error(`Receiver 2 ${receiverIdentifier} was not found.`);
-			await CallsDB.saveCall(rawTempCall);
+			await this.callDB.saveCall(rawTempCall);
 			return res({
 				status: 'ok',
 				data: {
@@ -107,7 +110,7 @@ class CallsService extends Service {
 		await this.setToMap(call.dialer, call);
 
 		try {
-			await CallsDB.saveCall(call);
+			await this.callDB.saveCall(call);
 		} catch (e) {
 			this.logger.error(e);
 			res({ status: 'error', errorMsg: 'DATABASE_ERROR' });
@@ -143,7 +146,7 @@ class CallsService extends Service {
 
 		const channelId = target.dialerSource;
 
-		await CallsDB.updateCall(target, true, null);
+		await this.callDB.updateCall(target, true, null);
 
 		console.log(
 			`Call accepted: ${dialerNumber} -> ${target.receiver}`,
@@ -182,7 +185,7 @@ class CallsService extends Service {
 		emitNet(CallEvents.WAS_REJECTED, current.dialerSource, current);
 		emitNet(CallEvents.WAS_REJECTED, current.receiverSource, current);
 
-		await CallsDB.updateCall(current, false, endUnix);
+		await this.callDB.updateCall(current, false, endUnix);
 
 		this.callMap.delete(dialerNumber);
 	}
@@ -224,7 +227,7 @@ class CallsService extends Service {
 
 		res({ status: 'ok' });
 
-		await CallsDB.updateCall(current, current?.isAccepted, endUnix);
+		await this.callDB.updateCall(current, current?.isAccepted, endUnix);
 		this.callMap.delete(dialerNumber);
 	}
 }

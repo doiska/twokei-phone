@@ -1,13 +1,15 @@
-import DBWrapper from '../db/wrapper';
-import { config } from '../server';
+import { FiveUserModel } from '@models/FiveUserModel';
 
-export async function findOrGeneratePhoneNumber(identifier: string): Promise<string> {
+import { XiaoDS } from 'db/xiao';
+import PlayerDb from 'players/player.db';
+import { config } from 'server';
+
+export async function findOrGeneratePhoneNumber(
+	identifier: string
+): Promise<string> {
 	console.log(`Config`, typeof config, config.database.players_table);
 
-	const [{ phone_number }] = await DBWrapper.fetch<{ phone_number: string }>(
-		`SELECT phone_number FROM ${config.database.players_table} WHERE identifier = ?`,
-		[identifier]
-	);
+	const phone_number = await PlayerDb.fetchPhoneByIdentifier(identifier);
 
 	if (phone_number) {
 		console.log(`Phone number found`, phone_number);
@@ -18,12 +20,10 @@ export async function findOrGeneratePhoneNumber(identifier: string): Promise<str
 
 	console.log(`Phone generated ${phone}`);
 
-	const result = await DBWrapper.insert(
-		`INSERT INTO ${config.database.players_table} (identifier, phone_number) VALUES (?, ?)`,
-		[identifier, phone]
-	);
-
-	console.log(result);
+	await XiaoDS.getRepository(FiveUserModel).save({
+		identifier,
+		phoneNumber: phone,
+	});
 
 	return phone;
 }
@@ -51,10 +51,9 @@ const generateUsNumber = (): string => {
 export async function generateUniquePhoneNumber(): Promise<string> {
 	const phoneNumber = generateUsNumber();
 
-	const [response] = await DBWrapper.fetch<string>(
-		`SELECT * FROM ${config.database.players_table} WHERE phone_number = ?`,
-		[phoneNumber]
-	);
+	const response = await XiaoDS.getRepository(FiveUserModel).findOne({
+		where: { phoneNumber },
+	});
 
 	if (response) return generateUniquePhoneNumber();
 

@@ -3,12 +3,14 @@ Soon to be a private project.
 # TypeScript
 
 # Frontend
+
 - React
-- Tailwind
+- Tailwind and DaisyUi
 - Recoil
 - Vite
 
 # Backend
+
 - Node
-- Sequelize
+- TypeORM ~~Sequelize~~
 - Webpack

@@ -1,12 +1,10 @@
 import logger from '../logger';
 
-class Service {
-	public name = 'Unnamed service';
+abstract class Service {
 	public logger;
 
-	public constructor(name?: string) {
+	protected constructor(public name = 'Unamed Service') {
 		this.name = name;
-
 		this.logger = logger.child({ module: 'Service' });
 	}
 }

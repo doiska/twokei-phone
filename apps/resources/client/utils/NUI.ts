@@ -1,5 +1,8 @@
 type NUIEvent<T> = (data: T) => void;
-type EventCallback<T> = (data: T, cb: (res: EventCallbackResponse) => void) => void;
+type EventCallback<T> = (
+	data: T,
+	cb: (res: EventCallbackResponse) => void
+) => void;
 
 type EventCallbackResponse<T = {}> = {
 	status?: 'success' | 'failed';
@@ -27,7 +30,10 @@ export const sendNUIEvent = (app: string, event: string, data: any = {}) =>
 		data,
 	});
 
-export const emitNetPromise = <T = any, D = any>(event: string, ...data: D[]): Promise<T> => {
+export const emitNetPromise = <T = any, D = any>(
+	event: string,
+	...data: D[]
+): Promise<T> => {
 	return new Promise((resolve, reject) => {
 		let timedOut = false;
 		const NET_PROMISE_TIMEOUT = 15000;
@@ -52,12 +58,19 @@ export const emitNetPromise = <T = any, D = any>(event: string, ...data: D[]): P
 	});
 };
 
-export const RegisterNUIEvent = <T = any>(event: string, callback: NUIEvent<T>) => {
+export const RegisterNUIEvent = <T = any>(
+	event: string,
+	callback: NUIEvent<T>
+) => {
 	RegisterNuiCallbackType(event);
 	on(`__cfx_nui:${event}`, (data: T) => callback(data));
 };
 
-export const RegisterNUICallback = <WebData = any>(app = 'NUI', event: string, callback: EventCallback<WebData>) => {
+export const RegisterNUICallback = <WebData = any>(
+	app = 'NUI',
+	event: string,
+	callback: EventCallback<WebData>
+) => {
 	console.log(`[NUI-CALLBACK] RegisterNUICallback ${event}`);
 
 	RegisterNuiCallbackType(event);
@@ -65,11 +78,17 @@ export const RegisterNUICallback = <WebData = any>(app = 'NUI', event: string, c
 	on(`__cfx_nui:${event}`, (...data: any) => {
 		callback(data, (response: EventCallbackResponse) => {
 			console.log(
-				`[NUI-CALLBACK] (${response.status || 'NO STATUS'}) ${event} response: ${JSON.stringify(response)}`
+				`[NUI-CALLBACK] (${
+					response.status || 'NO STATUS'
+				}) ${event} response: ${JSON.stringify(response)}`
 			);
 
 			if (response.status) {
-				sendNUIEvent(app, `${event}:${response.status}`, response.data ?? {});
+				sendNUIEvent(
+					app,
+					`${event}:${response.status}`,
+					response.data ?? {}
+				);
 			}
 		});
 	});
@@ -88,28 +107,39 @@ export const RegisterNUIProxy = (event: string) => {
 
 	RegisterNuiCallbackType(event);
 
-	on(`__cfx_nui:${event}`, async (data: unknown, cb: Function) => {
-		if (!global.isPlayerLoaded) {
-			console.log(`Player not loaded, awaiting`);
-			await isPlayerLoaded();
-		}
+	on(
+		`__cfx_nui:${event}`,
+		async (data: unknown, cb: (...args: any[]) => void) => {
+			if (!global.isPlayerLoaded) {
+				console.log(`Player not loaded, awaiting`);
+				await isPlayerLoaded();
+			}
 
-		try {
-			console.log(`Proxied ${event} with data: ${JSON.stringify(data)}`);
-			const res = await emitNetPromise(event, data);
-			cb(res);
-		} catch (e) {
-			cb({ status: 'error' });
+			try {
+				console.log(
+					`Proxied ${event} with data: ${JSON.stringify(data)}`
+				);
+				const res = await emitNetPromise(event, data);
+				cb(res);
+			} catch (e) {
+				cb({ status: 'error' });
+			}
 		}
-	});
+	);
 };
 
-export const onPhoneEvent = (event: string, cb: WrappedNetEventCallback) => onNet(event, cb);
+export const onPhoneEvent = (event: string, cb: WrappedNetEventCallback) =>
+	onNet(event, cb);
 
 type onNetTypedCallback<T> = (data: T) => void;
-export const onNetTyped = <T = any>(event: string, cb: onNetTypedCallback<T>) => onNet(event, cb);
+export const onNetTyped = <T = any>(event: string, cb: onNetTypedCallback<T>) =>
+	onNet(event, cb);
 
-export const emitNetTyped = <T = any>(event: string, data: T, source?: number) => {
+export const emitNetTyped = <T = any>(
+	event: string,
+	data: T,
+	source?: number
+) => {
 	if (source) {
 		return emitNet(event, data, source);
 	}
@@ -117,8 +147,16 @@ export const emitNetTyped = <T = any>(event: string, data: T, source?: number) =
 	emitNet(event, data);
 };
 
-export const verifyArgumentType = (exportName: string, args: unknown, types: MSGPackTypes[]) => {
+export const verifyArgumentType = (
+	exportName: string,
+	args: unknown,
+	types: MSGPackTypes[]
+) => {
 	if (!types.includes(typeof args)) {
-		throw new TypeError(`${exportName}: Expected type ${types.join(' or ')} but got ${typeof args}`);
+		throw new TypeError(
+			`${exportName}: Expected type ${types.join(
+				' or '
+			)} but got ${typeof args}`
+		);
 	}
 };

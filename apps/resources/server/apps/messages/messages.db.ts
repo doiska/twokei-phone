@@ -1,28 +1,34 @@
+import { XiaoDS } from '@db/xiao';
+import {
+	ConversationModel,
+	ParticipantModel,
+	MessageModel,
+} from '@models/Messages.model';
+
 import {
 	CreateMessageDTO,
-	Message,
 	MessageConversation,
 	MessagesRequest,
 	MessageConversationDTO,
 } from '@typings/messages';
-import ConversationsSchema from '@entity/conversations.schema';
-import MessagesSchema from '@entity/messages.schema';
-import ParticipantsSchema from '@entity/participants.schema';
 
 const MAX_MESSAGES_PER_CONVERSATION = 10;
 
 export class MessageDB {
-	async createConversation(conversation: MessageConversationDTO & { conversationList: string }): Promise<number> {
-		const insertConversation = await ConversationsSchema.create({ ...conversation, label: conversation.label });
+	async createConversation(
+		conversation: MessageConversationDTO & { conversationList: string }
+	): Promise<number> {
+		const insertConversation = await XiaoDS.getRepository(
+			ConversationModel
+		).save({ ...conversation, label: conversation.label });
 
 		const participants = conversation.participants;
+		const participantModels = participants.map((participant) => ({
+			conversation_id: insertConversation.id,
+			participant: participant,
+		}));
 
-		ParticipantsSchema.bulkCreate(
-			participants.map((p) => ({
-				participant: p,
-				conversation_id: insertConversation.id,
-			}))
-		);
+		await XiaoDS.getRepository(ParticipantModel).save(participantModels);
 
 		return insertConversation.id;
 	}
@@ -35,7 +41,7 @@ export class MessageDB {
 		is_embed,
 		message,
 	}: CreateMessageDTO) {
-		return MessagesSchema.create({
+		return XiaoDS.getRepository(MessageModel).save({
 			conversationId: conversationId,
 			sourceIdentifier: sourceIdentifier,
 			sourcePhoneNumber: sourcePhoneNumber,
@@ -45,77 +51,90 @@ export class MessageDB {
 		});
 	}
 
-	async getConversations(phoneNumber: string): Promise<MessageConversation[]> {
-		return ConversationsSchema.findAll({
-			include: [
-				{
-					model: ParticipantsSchema,
-					where: { participant: phoneNumber },
-				},
-			],
-			raw: true,
-			nest: true,
-		});
+	async getConversations(
+		phoneNumber: string
+	): Promise<MessageConversation[]> {
+		const result = await XiaoDS.getRepository(ConversationModel)
+			.createQueryBuilder('conversation')
+			.innerJoin(
+				'conversation.participants',
+				'participant',
+				'participant.participant = :phoneNumber',
+				{ phoneNumber }
+			)
+			.getMany();
+
+		console.log(`FOR PLAYER CONVERSATIONS ${JSON.stringify(result)}.`);
+
+		return result as MessageConversation[];
 	}
 
-	async getConversation(conversationId: number): Promise<MessageConversation> {
-		return ConversationsSchema.findOne({
+	async getConversation(
+		conversationId: number
+	): Promise<ConversationModel | null> {
+		return XiaoDS.getRepository(ConversationModel).findOne({
 			where: { id: conversationId },
 		});
 	}
 
 	async getConversationIdByList(conversationList: string): Promise<number> {
-		const result = await ConversationsSchema.findOne({ where: { conversationList: conversationList } });
-		return result.id;
+		return XiaoDS.getRepository(ConversationModel)
+			.findOne({
+				where: { conversationList },
+			})
+			.then((result) => result.id);
 	}
 
 	async getMessages({ conversationId, page }: MessagesRequest) {
 		const offset = page * 10;
 
-		const result = await ConversationsSchema.findAll({
+		return XiaoDS.getRepository(ConversationModel).find({
 			where: { id: conversationId },
-			order: [['conversation_id', 'DESC']],
-			limit: MAX_MESSAGES_PER_CONVERSATION,
-			offset: offset,
+			order: { id: 'DESC' },
+			take: MAX_MESSAGES_PER_CONVERSATION,
+			skip: offset,
 		});
-
-		return result;
 	}
 
-	async addParticipantToConversation(conversationList: string, phoneNumber: string) {
-		const conversationId = await this.getConversationIdByList(conversationList);
+	async addParticipantToConversation(
+		conversationList: string,
+		phoneNumber: string
+	) {
+		const conversationId = await this.getConversationIdByList(
+			conversationList
+		);
 
-		await ParticipantsSchema.create({
-			conversation_id: conversationId,
-			participant: phoneNumber,
-		});
-
-		return conversationId;
+		return XiaoDS.getRepository(ParticipantModel)
+			.save({
+				conversationId,
+				participant: phoneNumber,
+			})
+			.then((result) => result.id);
 	}
 
 	async doesConversationExists(conversationList: string): Promise<boolean> {
-		const count = await ConversationsSchema.count({
-			include: [{ model: ParticipantsSchema }],
+		const count = await XiaoDS.getRepository(ConversationModel).count({
 			where: { conversationList: conversationList },
 		});
 
-		console.log(`FOR CONVERSATION ${count}.`);
+		console.log(`COUNT OF CONVERSATION ${count}.`);
 
 		return count > 0;
 	}
 
-	async doesConversationExistsForPlayer(conversationList: string, phoneNumber: string): Promise<boolean> {
-		const count = await ConversationsSchema.count({
-			include: [
-				{
-					model: ParticipantsSchema,
-					where: { participant: phoneNumber },
-				},
-			],
-			where: {
-				conversationList: conversationList,
-			},
-		});
+	async doesConversationExistsForPlayer(
+		conversationList: string,
+		phoneNumber: string
+	): Promise<boolean> {
+		const count = await XiaoDS.getRepository(ConversationModel)
+			.createQueryBuilder('conversation')
+			.innerJoin(
+				'conversation.participants',
+				'participant',
+				'participant.participant = :phoneNumber',
+				{ phoneNumber }
+			)
+			.getCount();
 
 		console.log(`FOR PLAYER CONVERSATION ${count}.`);
 

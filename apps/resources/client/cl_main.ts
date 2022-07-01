@@ -1,5 +1,6 @@
 import { ControlEvents } from '@typings/control';
 import { PhoneEvents } from '@typings/phone';
+
 import { animationService } from './animations/animation.controller';
 import { config } from './cl_config';
 import { sendNUIEvent } from './utils/NUI';

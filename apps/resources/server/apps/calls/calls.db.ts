@@ -1,8 +1,9 @@
-import { CallHistoryItem, RawActiveCall } from '@typings/call';
-import { XiaoDS } from 'db/xiao';
-import { CallModel } from 'entities/Call.entity';
+import { XiaoDS } from '@db/xiao';
+import { CallModel } from '@models/Call.model';
 
-class _CallDB {
+import { CallHistoryItem, RawActiveCall } from '@typings/call';
+
+export class CallDB {
 	async fetchCalls(phoneNumber: string, limit = 20) {
 		return XiaoDS.getRepository(CallModel).find({
 			where: [{ dialer: phoneNumber }, { receiver: phoneNumber }],
@@ -29,5 +30,3 @@ class _CallDB {
 		);
 	}
 }
-
-export default new _CallDB();

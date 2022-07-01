@@ -1,21 +1,26 @@
-import DBWrapper from '../db/wrapper';
+import { XiaoDS } from '@db/xiao';
+
+import { FiveUserModel } from 'models/FiveUserModel';
 
 export class PlayerDB {
 	async fetchIdentifierByPhone(phone: string): Promise<string | null> {
-		const [{ identifier }] = await DBWrapper.fetch<{ identifier: string }>(
-			`SELECT identifier FROM users WHERE phone_number = ?`,
-			[phone]
-		);
-
-		return identifier;
+		return XiaoDS.getRepository(FiveUserModel)
+			.findOne({
+				where: { phoneNumber: phone },
+			})
+			.then((user) => {
+				return user ? user.identifier : null;
+			});
 	}
 
 	async fetchPhoneByIdentifier(identifier: string): Promise<string | null> {
-		const [{ phone }] = await DBWrapper.fetch<{ phone: string }>(`SELECT phone FROM users WHERE identifier = ?`, [
-			identifier,
-		]);
-
-		return phone;
+		return XiaoDS.getRepository(FiveUserModel)
+			.findOne({
+				where: { identifier },
+			})
+			.then((user) => {
+				return user ? user.phoneNumber : null;
+			});
 	}
 }
 

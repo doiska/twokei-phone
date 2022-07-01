@@ -1,13 +1,27 @@
-import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+	atom,
+	selector,
+	useRecoilState,
+	useRecoilValue,
+	useSetRecoilState,
+} from 'recoil';
 
 import { ServerPromiseResp } from '@typings/common';
-import { Message, CreateConversationGroupResult, MessageConversation, MessageEvents } from '@typings/messages';
+import {
+	Message,
+	CreateConversationGroupResult,
+	MessageConversation,
+	MessageEvents,
+} from '@typings/messages';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
 
 import { MockMessageConversations } from '../../utils/constants';
 
-const currentConversationId = atom<number | null>({ key: 'currentConversationId', default: null });
+const currentConversationId = atom<number | null>({
+	key: 'currentConversationId',
+	default: null,
+});
 
 export const messageState = {
 	conversations: atom<MessageConversation[]>({
@@ -16,14 +30,18 @@ export const messageState = {
 			key: 'defaultMessageConversation',
 			get: async () => {
 				try {
-					const resp = await fetchNui<ServerPromiseResp<MessageConversation[]>>(
+					const resp = await fetchNui<
+						ServerPromiseResp<MessageConversation[]>
+					>(
 						MessageEvents.FETCH_MESSAGE_CONVERSATIONS,
 						undefined,
 						buildRespObj(MockMessageConversations)
 					);
 					return resp.data ?? [];
 				} catch (e) {
-					console.error(`Failed to fetch message conversations: ${e}`);
+					console.error(
+						`Failed to fetch message conversations: ${e}`
+					);
 					return [];
 				}
 			},
@@ -37,14 +55,18 @@ export const messageState = {
 		key: 'defaultFilteredConversations',
 		get: ({ get }) => {
 			const search: string = get(messageState.filterValue);
-			const conversations: MessageConversation[] = get(messageState.conversations);
+			const conversations: MessageConversation[] = get(
+				messageState.conversations
+			);
 
 			if (!search) return conversations;
 
 			const regExp = new RegExp(search, 'gi');
 
 			return conversations.filter(
-				(conversation) => conversation.source?.match(regExp) || conversation.label.match(regExp)
+				(conversation) =>
+					conversation.sourcePhone?.match(regExp) ||
+					conversation.label.match(regExp)
 			);
 		},
 	}),
@@ -86,28 +108,40 @@ export const messageState = {
 	}),
 };
 
-export const useConversationValue = () => useRecoilValue(messageState.conversations);
-export const useSetConversations = () => useSetRecoilState(messageState.conversations);
-export const useConversations = () => useRecoilState(messageState.conversations);
+export const useConversationValue = () =>
+	useRecoilValue(messageState.conversations);
+export const useSetConversations = () =>
+	useSetRecoilState(messageState.conversations);
+export const useConversations = () =>
+	useRecoilState(messageState.conversations);
 
 export const useMessagesState = () => useRecoilState(messageState.messages);
 export const useMessagesValue = () => useRecoilValue(messageState.messages);
 export const useSetMessages = () => useSetRecoilState(messageState.messages);
 
-export const useActiveConversation = () => useRecoilValue(messageState.activeConversation);
+export const useActiveConversation = () =>
+	useRecoilValue(messageState.activeConversation);
 
-export const useSetConversationId = () => useSetRecoilState(currentConversationId);
+export const useSetConversationId = () =>
+	useSetRecoilState(currentConversationId);
 export const useConversationId = () => useRecoilValue(currentConversationId);
 
-export const useFilterValueState = () => useRecoilState(messageState.filterValue);
-export const useSetFilterValue = () => useSetRecoilState(messageState.filterValue);
-export const useFilteredConversationsValue = () => useRecoilValue(messageState.filteredConversations);
+export const useFilterValueState = () =>
+	useRecoilState(messageState.filterValue);
+export const useSetFilterValue = () =>
+	useSetRecoilState(messageState.filterValue);
+export const useFilteredConversationsValue = () =>
+	useRecoilValue(messageState.filteredConversations);
 
-export const useSetSelectedMessage = () => useSetRecoilState(messageState.selectedMessage);
-export const useSelectedMessageValue = () => useRecoilValue(messageState.selectedMessage);
+export const useSetSelectedMessage = () =>
+	useSetRecoilState(messageState.selectedMessage);
+export const useSelectedMessageValue = () =>
+	useRecoilValue(messageState.selectedMessage);
 
-export const useCheckedConversations = () => useRecoilState(messageState.checkedConversations);
-export const useCheckedConversationsValue = () => useRecoilValue(messageState.checkedConversations);
+export const useCheckedConversations = () =>
+	useRecoilState(messageState.checkedConversations);
+export const useCheckedConversationsValue = () =>
+	useRecoilValue(messageState.checkedConversations);
 
 export const useIsEditing = () => useRecoilState(messageState.isEditing);
 export const useIsEditingValue = () => useRecoilValue(messageState.isEditing);

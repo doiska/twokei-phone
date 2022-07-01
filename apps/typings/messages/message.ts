@@ -27,6 +27,6 @@ export interface CreateMessageDTO {
 }
 
 export interface MessagesRequest {
-	conversationId: string;
+	conversationId: number;
 	page: number;
 }

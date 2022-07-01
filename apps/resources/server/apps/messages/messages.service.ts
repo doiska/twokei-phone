@@ -1,7 +1,13 @@
-import { MessageConversation, MessageEvents, MessageConversationDTO } from '@typings/messages';
+import {
+	MessageConversation,
+	MessageEvents,
+	MessageConversationDTO,
+} from '@typings/messages';
+
+import { emitNetTyped } from '@utils/fivem';
 import { PromiseEventResponse, PromiseRequest } from 'lib/promise.types';
 import PlayerService from 'players/player.service';
-import { emitNetTyped } from '@utils/fivem';
+
 import { MessageDB } from './messages.db';
 import { createConversationHash } from './messages.utils';
 
@@ -17,7 +23,9 @@ class _MessageService {
 		req: PromiseRequest<MessageConversationDTO>,
 		resp: PromiseEventResponse<MessageConversation>
 	) {
-		const playerNumber = PlayerService.getPlayer(req.source).phoneNumber;
+		const sourcePhoneNumber = PlayerService.getPlayer(
+			req.source
+		).phoneNumber;
 		const { label, participants, isGroupChat } = req.data;
 
 		console.log(`Current Participants ${participants}`);
@@ -25,38 +33,51 @@ class _MessageService {
 		const hashedList = createConversationHash(participants);
 		console.log(`Hashed Participants ${hashedList}`);
 
-		const doesConversationExists = await this.MessageDB.doesConversationExists(hashedList);
+		const doesConversationExists =
+			await this.MessageDB.doesConversationExists(hashedList);
 
 		if (doesConversationExists) {
 			console.debug(`Conversation already exists.`);
 
-			const playerHasConversation = await this.MessageDB.doesConversationExistsForPlayer(
-				hashedList,
-				playerNumber
-			);
+			const playerHasConversation =
+				await this.MessageDB.doesConversationExistsForPlayer(
+					hashedList,
+					sourcePhoneNumber
+				);
 
 			if (playerHasConversation) {
 				console.debug(`Player already has this conversation.`);
-				return resp({ status: 'error', errorMsg: 'MESSAGES_CONVERSATION_DUPLICATE' });
+				return resp({
+					status: 'error',
+					errorMsg: 'MESSAGES_CONVERSATION_DUPLICATE',
+				});
 			}
 
-			const conversationId = await this.MessageDB.addParticipantToConversation(hashedList, playerNumber);
+			const conversationId =
+				await this.MessageDB.addParticipantToConversation(
+					hashedList,
+					sourcePhoneNumber
+				);
 
 			const response = {
 				id: conversationId,
-				label: label,
+				label,
 				conversationList: hashedList,
 				isGroupChat,
-			};
+				sourcePhone: sourcePhoneNumber,
+			} as MessageConversation;
 
-			return resp({ status: 'ok', data: { ...response, source: playerNumber } });
+			return resp({
+				status: 'ok',
+				data: response,
+			});
 		}
 
 		console.debug(`Creating new conversation.`);
 
 		try {
 			const conversationId = await this.MessageDB.createConversation({
-				source: playerNumber,
+				sourcePhone: sourcePhoneNumber,
 				label,
 				conversationList: hashedList,
 				participants,
@@ -70,19 +91,25 @@ class _MessageService {
 				isGroupChat,
 			};
 
-			resp({ status: 'ok', data: { ...response, source: playerNumber } });
+			resp({
+				status: 'ok',
+				data: { ...response, sourcePhone: sourcePhoneNumber },
+			});
 
 			for (const participant of participants) {
-				if (participant !== playerNumber) {
-					const identifier = await PlayerService.getIdentifierByPhone(participant);
-					const player = PlayerService.getPlayerByIdentifier(identifier);
+				if (participant !== sourcePhoneNumber) {
+					const identifier = await PlayerService.getIdentifierByPhone(
+						participant
+					);
+					const player =
+						PlayerService.getPlayerByIdentifier(identifier);
 
 					if (player) {
 						emitNetTyped<MessageConversation>(
 							MessageEvents.CREATE_MESSAGE_CONVERSATION_SUCCESS,
 							{
 								...response,
-								source: playerNumber, //TODO: checar por que usa-se o participant como source aqui
+								sourcePhone: sourcePhoneNumber, //TODO: checar por que usa-se o participant como source aqui
 							},
 							player.source
 						);
@@ -94,13 +121,20 @@ class _MessageService {
 		}
 	}
 
-	async fetchMessageConversation(req: PromiseRequest<void>, resp: PromiseEventResponse<MessageConversation[]>) {
+	async fetchMessageConversation(
+		req: PromiseRequest<void>,
+		resp: PromiseEventResponse<MessageConversation[]>
+	) {
 		const phoneNumber = PlayerService.getPlayer(req.source).phoneNumber;
 
-		console.log(`Received fetchMessageConversation request from ${phoneNumber}`);
+		console.log(
+			`Received fetchMessageConversation request from ${phoneNumber}`
+		);
 
 		try {
-			const conversations = await this.MessageDB.getConversations(phoneNumber);
+			const conversations = await this.MessageDB.getConversations(
+				phoneNumber
+			);
 			resp({ status: 'ok', data: conversations });
 		} catch (e) {
 			resp({ status: 'error', errorMsg: e.message });

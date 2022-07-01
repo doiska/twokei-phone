@@ -15,8 +15,13 @@ export const useMessagesService = () => {
 
 	const activeConversation = useActiveConversation();
 
-	const handleMessageBroadcast = ({ conversationName, conversationId, message }: any) => {
-		if (pathname.includes(`/messages/conversation/${conversationId}`)) return;
+	const handleMessageBroadcast = ({
+		conversationName,
+		conversationId,
+		message,
+	}: any) => {
+		if (pathname.includes(`/messages/conversation/${conversationId}`))
+			return;
 
 		setNotification({ conversationName, conversationId, message });
 	};
@@ -35,8 +40,8 @@ export const useMessagesService = () => {
 			setLocalConversations({
 				id: conversation.id,
 				label: conversation.label,
-				source: conversation.source,
-				admins: [conversation.source],
+				sourcePhone: conversation.sourcePhone,
+				admins: [conversation.sourcePhone],
 				conversationList: conversation.conversationList,
 				isGroupChat: conversation.isGroupChat,
 				unread: 0,
@@ -45,7 +50,19 @@ export const useMessagesService = () => {
 		[setLocalConversations]
 	);
 
-	useNuiEvent('MESSAGES', MessageEvents.CREATE_MESSAGE_BROADCAST, handleMessageBroadcast);
-	useNuiEvent('MESSAGES', MessageEvents.SEND_MESSAGE_SUCCESS, handleSetMessages);
-	useNuiEvent('MESSAGES', MessageEvents.CREATE_MESSAGE_CONVERSATION_SUCCESS, handleAddConversation);
+	useNuiEvent(
+		'MESSAGES',
+		MessageEvents.CREATE_MESSAGE_BROADCAST,
+		handleMessageBroadcast
+	);
+	useNuiEvent(
+		'MESSAGES',
+		MessageEvents.SEND_MESSAGE_SUCCESS,
+		handleSetMessages
+	);
+	useNuiEvent(
+		'MESSAGES',
+		MessageEvents.CREATE_MESSAGE_CONVERSATION_SUCCESS,
+		handleAddConversation
+	);
 };

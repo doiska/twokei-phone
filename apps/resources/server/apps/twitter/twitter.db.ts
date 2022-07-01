@@ -1,33 +1,51 @@
-import { TweetDTO, FormattedTweet } from '@typings/twitter';
-import { XiaoDS } from 'db/xiao';
-import { TweetItemModel } from 'entities/Twitter.entity';
+import { Profile } from '@typings/common';
+import { TweetDTO, FormattedTweet, TwitterProfile } from '@typings/twitter';
 
-class TwitterDB {
+import { XiaoDS } from 'db/xiao';
+import { TweetItemModel, TwitterProfileModel } from 'models/Twitter.model';
+
+export class TwitterDB {
+	async createProfile(
+		source: number,
+		profile?: Profile
+	): Promise<TwitterProfile> {
+		return XiaoDS.getRepository(TwitterProfileModel).save({
+			source,
+			...profile,
+		});
+	}
+
+	async updateProfile(
+		source: number,
+		profile: Profile
+	): Promise<TwitterProfile> {
+		return XiaoDS.getRepository(TwitterProfileModel).save({
+			source,
+			...profile,
+		});
+	}
+
+	async getProfile(source: number): Promise<TwitterProfile> {
+		return XiaoDS.getRepository(TwitterProfileModel).findOne({
+			where: { source },
+		});
+	}
+
 	async createTweet(
 		source: number,
 		tweet: TweetDTO
 	): Promise<FormattedTweet> {
-		const profileId = 123;
+		const profile = await this.getProfile(source);
 
 		const res = await XiaoDS.getRepository(TweetItemModel).save({
 			...tweet,
 			source,
 		});
 
-		console.log(`Created tweet: ${res.id}`, res);
-
 		return {
 			...res,
-			id: res.id,
-			profile: {
-				id: profileId,
-				source,
-				name: 'doiska',
-				username: 'doiska',
-			},
+			profile,
 			isMine: true,
 		};
 	}
 }
-
-export default TwitterDB;

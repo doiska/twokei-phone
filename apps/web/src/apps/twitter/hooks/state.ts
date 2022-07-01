@@ -11,7 +11,7 @@ import { TwitterEvents, FormattedTweet } from '@typings/twitter';
 import fetchNui from '@utils/fetchNui';
 import { buildRespObj } from '@utils/nuiMisc';
 
-import { MockTwitterProfile, MockTweets } from '@apps/twitter/Twitter.mock';
+import { MockTweets } from '@apps/twitter/Twitter.mock';
 import { handleTweet } from '@apps/twitter/utils/tweetCreation';
 
 export const twitterState = {
@@ -22,9 +22,9 @@ export const twitterState = {
 			get: async () => {
 				try {
 					const response = await fetchNui<ServerPromiseResp<Profile>>(
-						TwitterEvents.GET_OR_CREATE_PROFILE,
-						undefined,
-						buildRespObj(MockTwitterProfile)
+						TwitterEvents.GET_PROFILE,
+						undefined
+						// buildRespObj(MockTwitterProfile)
 					);
 					return response.data;
 				} catch (error) {
@@ -49,7 +49,7 @@ export const twitterState = {
 						buildRespObj(MockTweets)
 					);
 
-					if (response.data)
+					if (response && response.status === 'ok' && response.data)
 						return response.data.map((tweet) => handleTweet(tweet));
 
 					return [];

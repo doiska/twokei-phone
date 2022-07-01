@@ -2,43 +2,47 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity({ name: 'twokei_phone_tweet_item' })
 export class TweetItemModel {
-	//id, source, content, images, created_at
 	@PrimaryGeneratedColumn()
-	id: number;
+		id: number;
 
 	@Column({ type: 'varchar', length: 255, nullable: false })
-	source: number;
+		source: number;
 
 	@Column()
-	content: string;
+		content: string;
 
 	@Column()
-	images: string; // TODO: parse array
+		images: string; // TODO: parse array
 
 	@Column()
-	created_at: string;
+		created_at: string;
 }
 
 @Entity({ name: 'twokei_phone_twitter_profile' })
 export class TwitterProfileModel {
 	@PrimaryGeneratedColumn()
-	id: number;
+		id: number;
 
 	@Column({ type: 'varchar', length: 255, nullable: false })
-	source: number;
+		source: number;
 
 	@Column({ type: 'varchar', length: 255, nullable: false })
-	name: string;
+		name: string;
 
 	@Column({ type: 'varchar', length: 255, nullable: false })
-	username: string;
+		username: string;
 
-	@Column({ type: 'varchar', length: 255, nullable: false })
-	avatar: string;
+	@Column({ type: 'varchar', length: 255, nullable: true })
+		avatar: string;
 
-	@Column({ type: 'varchar', length: 255, nullable: false })
-	bio: string;
+	@Column({ type: 'varchar', length: 255, nullable: true, default: '' })
+		bio: string;
 
-	@Column({ type: 'varchar', length: 255, nullable: false })
-	created_at: string;
+	@Column({
+		type: 'varchar',
+		length: 255,
+		nullable: false,
+		default: new Date().getTime(),
+	})
+		created_at: number;
 }

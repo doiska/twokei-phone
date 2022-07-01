@@ -182,7 +182,7 @@ export const useMessageAPI = (): UseMessageAPI => {
 						isGroupChat: conversation.isGroupChat,
 						admins: [conversation.participants[0]],
 						label: 'Conversation label',
-						source: conversation.participants[0],
+						sourcePhone: conversation.participants[0],
 					},
 				}
 			).then((resp) => {
@@ -208,7 +208,7 @@ export const useMessageAPI = (): UseMessageAPI => {
 
 				const {
 					id,
-					source,
+					sourcePhone,
 					conversationList,
 					label,
 					isGroupChat,
@@ -216,7 +216,7 @@ export const useMessageAPI = (): UseMessageAPI => {
 				} = resp.data;
 
 				setLocalConversations({
-					source: source,
+					sourcePhone: sourcePhone,
 					id: id,
 					conversationList: conversationList,
 					admins: admins,

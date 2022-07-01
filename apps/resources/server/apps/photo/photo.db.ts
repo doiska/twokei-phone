@@ -1,57 +1,33 @@
-import PhotoSchema from '@entity/gallery/photo.schema';
-import { PromiseEventResponse, PromiseRequest } from '@lib/promise.types';
-import { GalleryPhoto, PreDBGalleryPhoto } from '@typings/gallery';
+import { XiaoDS } from '@db/xiao';
+import { GalleryItemModel } from '@models/Gallery.model';
+
+import { PreDBGalleryPhoto } from '@typings/gallery';
 
 export class _PhotoDB {
 	async fetchPhotos(identifier: string) {
-		const result = await PhotoSchema.findAll({
+		return XiaoDS.getRepository(GalleryItemModel).find({
 			where: {
-				identifier: identifier,
+				identifier,
 			},
-			raw: true,
 		});
-
-		return result;
 	}
 
 	async savePhoto(identifier: string, photo: PreDBGalleryPhoto) {
-		const result = await PhotoSchema.create(
-			{
-				identifier: identifier,
-				category: photo.category,
-				image: photo.image,
-			},
-			{ raw: true }
-		);
-
-		return result.toJSON();
+		return XiaoDS.getRepository(GalleryItemModel).save(photo);
 	}
 
 	async updatePhoto(identifier: string, photo: PreDBGalleryPhoto) {
-		const result = await PhotoSchema.update(
-			{
-				category: photo.category,
-				image: photo.image,
-			},
-			{
-				where: {
-					id: photo.id,
-					identifier: identifier,
-				},
-			}
+		return XiaoDS.getRepository(GalleryItemModel).update(
+			{ identifier, id: photo.id },
+			photo
 		);
-
-		return result;
 	}
 
 	async deletePhoto(identifier: string, photo: PreDBGalleryPhoto) {
-		const result = await PhotoSchema.destroy({
-			where: {
-				id: photo.id,
-				identifier: identifier,
-			},
+		return XiaoDS.getRepository(GalleryItemModel).delete({
+			identifier,
+			...photo,
 		});
-		return result;
 	}
 }
 

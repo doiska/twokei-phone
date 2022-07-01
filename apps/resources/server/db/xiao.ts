@@ -1,27 +1,18 @@
-import { TweetItemModel } from 'entities/Twitter.entity';
-import mysql from 'mysql2';
-import path from 'path';
-import { Sequelize } from 'sequelize';
+import { CallModel } from '@models/Call.model';
+import { ContactModel } from '@models/Contact.model';
+import { FiveUserModel } from '@models/FiveUserModel';
+import { GalleryItemModel } from '@models/Gallery.model';
+import {
+	ConversationModel,
+	ParticipantModel,
+	MessageModel,
+} from '@models/Messages.model';
+import { TweetItemModel, TwitterProfileModel } from '@models/Twitter.model';
+
+import * as path from 'path';
 import { DataSource } from 'typeorm';
 
-const Xiao = new Sequelize({
-	host: '0.0.0.0',
-	username: 'root',
-	password: 'doiska',
-	port: 3306,
-	database: 'twokei',
-	dialect: 'mysql',
-	dialectModule: mysql,
-
-	query: {
-		raw: true,
-		benchmark: true,
-		logging: true,
-		plain: true,
-	},
-});
-
-const __dirname = path.resolve();
+const _dirname = path.resolve();
 
 export const XiaoDS = new DataSource({
 	type: 'mariadb',
@@ -31,20 +22,16 @@ export const XiaoDS = new DataSource({
 	username: 'root',
 	password: 'doiska',
 	logging: true,
-	entities: [TweetItemModel],
+	logger: 'advanced-console',
+	entities: [
+		FiveUserModel,
+		TweetItemModel,
+		TwitterProfileModel,
+		ContactModel,
+		GalleryItemModel,
+		ConversationModel,
+		ParticipantModel,
+		MessageModel,
+		CallModel,
+	],
 });
-
-XiaoDS.initialize()
-	.then(() => console.log('XiaoDS initialized'))
-	.catch((err) => console.log(err));
-
-(async () => {
-	try {
-		await Xiao.authenticate();
-		console.log('CONNECTED');
-	} catch (e) {
-		console.error(e);
-	}
-})();
-
-export default Xiao;

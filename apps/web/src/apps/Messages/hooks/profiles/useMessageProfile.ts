@@ -5,7 +5,9 @@ import { findParticipants } from '@apps/messages/utils/helpers';
 import { useMessageProfileActions } from './useMessageProfileActions';
 
 interface UseMessageProfile {
-	getAnyValidAvatar: (conversation: MessageConversation) => string | undefined;
+	getAnyValidAvatar: (
+		conversation: MessageConversation
+	) => string | undefined;
 }
 
 const useMessageProfile = (): UseMessageProfile => {
@@ -14,7 +16,10 @@ const useMessageProfile = (): UseMessageProfile => {
 	const getAnyValidAvatar = (conversation: MessageConversation) => {
 		if (conversation.isGroupChat) return conversation.avatar;
 
-		const participants = findParticipants(conversation.conversationList, conversation.source);
+		const participants = findParticipants(
+			conversation.conversationList,
+			conversation.sourcePhone
+		);
 
 		if (!participants.length) return;
 

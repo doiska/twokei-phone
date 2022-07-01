@@ -1,6 +1,6 @@
 export interface MessageConversationDTO {
 	label?: string;
-	source: string;
+	sourcePhone: string;
 	participants: string[];
 	isGroupChat: boolean;
 }
@@ -9,7 +9,7 @@ export interface MessageConversation {
 	id: number;
 	label: string;
 	avatar?: string;
-	source: string;
+	sourcePhone: string;
 	admins?: string[];
 	conversationList: string;
 	isGroupChat: boolean;
@@ -25,7 +25,7 @@ export interface CreateConversationGroupResult {
 	duplicate?: boolean;
 	conversationId?: string;
 	mine?: boolean;
-	source: string;
+	source: number;
 	identifiers: string[];
 	doesExist: null;
 }

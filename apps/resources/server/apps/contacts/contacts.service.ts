@@ -1,8 +1,13 @@
-import { Contact, ContactDeleteDTO, ContactErrors, ContactEvents, PreDBContact } from '@typings/contacts';
-import PlayerService from '../../players/player.service';
-import { PromiseEventResponse, PromiseRequest } from '../../lib/promise.types';
+import PlayerService from '@players/player.service';
+import {
+	Contact,
+	ContactDeleteDTO,
+	ContactErrors,
+	PreDBContact,
+} from '@typings/contacts';
+import { PromiseEventResponse, PromiseRequest } from 'lib/promise.types';
+
 import ContactsDBWrapper, { _ContactsWrapper } from './contacts.db';
-import Service from '@common/service';
 
 class _ContactService {
 	private readonly contactsDBWrapper: _ContactsWrapper;
@@ -12,11 +17,16 @@ class _ContactService {
 		console.info(`Contacts service started`);
 	}
 
-	async fetchAllContacts(req: PromiseRequest<void>, resp: PromiseEventResponse<Contact[]>): Promise<void> {
+	async fetchAllContacts(
+		req: PromiseRequest<void>,
+		resp: PromiseEventResponse<Contact[]>
+	): Promise<void> {
 		const identifier = PlayerService.getIdentifierByPlayer(req.source);
 
 		try {
-			const contacts = await this.contactsDBWrapper.fetchAllContacts(identifier);
+			const contacts = await this.contactsDBWrapper.fetchAllContacts(
+				identifier
+			);
 
 			resp({ status: 'ok', data: contacts });
 		} catch (e) {
@@ -25,13 +35,19 @@ class _ContactService {
 		}
 	}
 
-	async handleContactAdd(req: PromiseRequest<PreDBContact>, resp: PromiseEventResponse<Contact>): Promise<void> {
+	async handleContactAdd(
+		req: PromiseRequest<PreDBContact>,
+		resp: PromiseEventResponse<Contact>
+	): Promise<void> {
 		const identifier = PlayerService.getIdentifierByPlayer(req.source);
 
 		try {
 			//TODO: filter url;
 
-			const contact = await this.contactsDBWrapper.addContact(identifier, req.data);
+			const contact = await this.contactsDBWrapper.addContact(
+				identifier,
+				req.data
+			);
 			resp({ status: 'ok', data: contact });
 		} catch (e) {
 			console.error(e);
@@ -39,15 +55,17 @@ class _ContactService {
 		}
 	}
 
-	async handleContactUpdate(req: PromiseRequest<Contact>, resp: PromiseEventResponse<void>): Promise<void> {
+	async handleContactUpdate(
+		req: PromiseRequest<Contact>,
+		resp: PromiseEventResponse<void>
+	): Promise<void> {
 		const identifier = PlayerService.getIdentifierByPlayer(req.source);
 
 		try {
 			const url = req.data.avatar; //TODO: check if url is valid
 
-			if (url == null) {
+			if (url == null)
 				return resp({ status: 'error', errorMsg: 'ERROR_INVALID_URL' });
-			}
 
 			await this.contactsDBWrapper.updateContact(identifier, req.data);
 			resp({ status: 'ok' });
@@ -57,7 +75,10 @@ class _ContactService {
 		}
 	}
 
-	async handleContactDelete(req: PromiseRequest<ContactDeleteDTO>, resp: PromiseEventResponse<void>): Promise<void> {
+	async handleContactDelete(
+		req: PromiseRequest<ContactDeleteDTO>,
+		resp: PromiseEventResponse<void>
+	): Promise<void> {
 		const identifier = PlayerService.getIdentifierByPlayer(req.source);
 
 		try {

@@ -120,7 +120,7 @@ export const useMessageActions = (): MessageActions => {
 	const getLabelOrContactDisplay = useCallback(
 		(conversation: MessageConversation): string => {
 			const label = conversation.label;
-			const source = conversation.source;
+			const source = conversation.sourcePhone;
 			const list = conversation.conversationList.split('+');
 
 			if (conversation.isGroupChat) {

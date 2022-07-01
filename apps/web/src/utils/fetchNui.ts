@@ -8,7 +8,7 @@
 //  import LogDebugEvent from '../os/debug/LogDebugEvents';
 import LogDebugEvent from '@debug/LogDebugEvent';
 
-const USE_MOCK_RESP = true;
+const USE_MOCK_RESP = false;
 
 async function fetchNui<T = any, D = any>(
 	eventName: string,

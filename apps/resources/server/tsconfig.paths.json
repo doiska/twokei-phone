@@ -1,28 +1,37 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "@typings/*": [
-                "../../typings/*"
-            ],
-            "@shared/*": [
-                "../../shared/*"
-            ],
-            "@apps/*": [
-                "./apps/*"
-            ],
-            "@lib/*": [
-                "./lib/*"
-            ],
-            "@utils/*": [
-                "./utils/*"
-            ],
-            "@entity/*": [
-                "./entity/*"
-            ],
-            "@common/*": [
-                "./common/*"
-            ]
-        }
-    }
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@db/*": [
+				"./db/*"
+			],
+			"@typings/*": [
+				"../../typings/*"
+			],
+			"@shared/*": [
+				"../../shared/*"
+			],
+			"@apps/*": [
+				"./apps/*"
+			],
+			"@lib/*": [
+				"./lib/*"
+			],
+			"@utils/*": [
+				"./utils/*"
+			],
+			"@entity/*": [
+				"./entity/*"
+			],
+			"@models/*": [
+				"./models/*"
+			],
+			"@players/*": [
+				"./players/*"
+			],
+			"@common/*": [
+				"./common/*"
+			]
+		}
+	}
 }
