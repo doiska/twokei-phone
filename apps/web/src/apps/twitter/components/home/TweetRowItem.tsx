@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-	AiOutlineRetweet,
-	FiShare,
-	IoHeart,
-	IoHeartOutline,
-} from 'react-icons/all';
+import { AiOutlineRetweet, FiShare } from 'react-icons/all';
 
-import { FormattedTweet } from '@typings/twitter';
+import { TweetItem } from '@typings/twitter';
+import { LikeButton } from 'apps/twitter/components/buttons/LikeButton';
 
 import { TweetContainer } from '@apps/twitter/components/home/item/TweetContainer';
 import { TweetItemAvatar } from '@apps/twitter/components/home/item/TweetItemAvatar';
@@ -17,42 +13,41 @@ import {
 } from '@apps/twitter/components/home/item/TweetItemFooter';
 import { TweetItemHeader } from '@apps/twitter/components/home/item/TweetItemHeader';
 
-const TweetItem = ({
+export const TweetSingleItem = ({
+	id,
 	content,
 	createdAt,
+	isLiked,
+	likeCount,
 	isRetweeted,
+	retweetCount,
 	profile: { name, username, avatar },
-}: FormattedTweet) => {
+}: TweetItem) => {
 	return (
 		<TweetContainer>
-			<TweetItemAvatar sourceProfileAvatar={avatar ?? ''} />
+			<TweetItemAvatar
+				name={username.slice(0, 1).toUpperCase()}
+				sourceProfileAvatar={avatar ?? ''}
+			/>
 			<div className={'flex-grow'}>
-				{isRetweeted && (
-					<span className={'text-twitter-dark-gray text-sm'}>
-						Retweet de @xd
-					</span>
-				)}
 				<TweetItemHeader
-					sourceProfileName={name}
+					sourceProfileName={name ?? username}
 					sourceProfileUsername={username ?? ''}
 					createdAt={createdAt}
 				/>
-				<TweetItemContent message={content} />
+				<TweetItemContent message={content ?? ''} />
 				<TweetButtonContainer>
 					<TweetButton
-						count={500}
+						count={retweetCount}
 						bgColor={'bg-green-700'}
 						textColor={'text-green-400'}
 						icon={<AiOutlineRetweet />}
-						isSelected={true}
+						isSelected={isRetweeted}
 					/>
-					<TweetButton
-						count={10}
-						bgColor={'bg-rose-700'}
-						textColor={'text-rose-500'}
-						icon={<IoHeartOutline />}
-						selectedIcon={<IoHeart />}
-						isSelected={true}
+					<LikeButton
+						tweetId={id}
+						isLiked={isLiked}
+						count={likeCount}
 					/>
 					<TweetButton
 						bgColor={'bg-blue-300'}
@@ -64,5 +59,3 @@ const TweetItem = ({
 		</TweetContainer>
 	);
 };
-
-export default TweetItem;
