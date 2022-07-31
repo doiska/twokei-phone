@@ -40,8 +40,8 @@ export interface CallHistoryItem {
 	dialerSource?: number;
 	receiver: string;
 	receiverSource?: number;
-	start: number;
-	end?: number;
+	start: string;
+	end?: string;
 	isAccepted: boolean;
 }
 

@@ -11,7 +11,6 @@ import HomeApp from '@apps/home/Home.app';
 import MessagesRoutes from '@apps/messages/Messages.routes';
 import PhotoRoutes from '@apps/photo/Photo.routes';
 import SettingsApp from '@apps/settings/Settings.app';
-import TwitterRoutes from '@apps/twitter/Twitter.routes';
 
 export interface IApp {
 	id: string;
@@ -29,50 +28,43 @@ export const AllApps: IApp[] = [
 		locale: 'APPS_HOME',
 		disable: false,
 		hidden: true,
-		icon: <RiHomeGearFill />,
+		icon: <RiHomeGearFill/>,
 		routes: {
 			path: '/',
 			index: true,
-			element: <AppRoute id="HOME" emitOnOpen={false} component={HomeApp} />,
+			element: <AppRoute id="HOME" emitOnOpen={false} component={HomeApp}/>,
 		},
 	},
 	{
 		id: 'DIAL',
 		locale: 'APPS_DIAL',
 		disable: false,
-		icon: <RiContactsBook2Fill className="text-gray-600" />,
+		icon: <RiContactsBook2Fill className="text-gray-600"/>,
 		routes: DialRoutes,
 	},
 	{
 		id: 'SETTINGS',
 		locale: 'APPS_SETTINGS',
 		disable: false,
-		icon: <FcSettings />,
+		icon: <FcSettings/>,
 		routes: {
 			path: '/settings',
-			element: <AppRoute id="SETTINGS" emitOnOpen={true} component={SettingsApp} />,
+			element: <AppRoute id="SETTINGS" emitOnOpen={true} component={SettingsApp}/>,
 		},
 	},
 	{
 		id: 'WHATSAPP',
 		locale: 'APPS_WHATSAPP',
 		disable: false,
-		icon: <RiWhatsappLine className="text-whatsapp-light-green" />,
+		icon: <RiWhatsappLine className="text-whatsapp-light-green"/>,
 		routes: MessagesRoutes,
 	},
 	{
 		id: 'PHOTO',
 		locale: 'APPS_PHOTO',
 		disable: false,
-		icon: <RiCamera2Fill className="text-gray-600" />,
+		icon: <RiCamera2Fill className="text-gray-600"/>,
 		routes: PhotoRoutes,
-	},
-	{
-		id: 'TWITTER',
-		locale: 'APPS_TWITTER',
-		disable: false,
-		icon: <BsTwitter className="text-twitter-blue" />,
-		routes: TwitterRoutes,
 	},
 ];
 
