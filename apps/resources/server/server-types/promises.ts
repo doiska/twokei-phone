@@ -3,6 +3,7 @@ import { ServerPromiseResp } from '@typings/common';
 export interface PromiseRequest<T = any> {
 	data: T;
 	source: number;
+	identifier: string;
 }
 
 export type PromiseEventResponse<T> = (returnData: ServerPromiseResp<T>) => void;

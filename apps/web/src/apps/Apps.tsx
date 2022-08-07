@@ -8,9 +8,8 @@ import AppRoute from '@os/apps/components/AppRoute';
 
 import DialRoutes from '@apps/dial/Dial.routes';
 import HomeApp from '@apps/home/Home.app';
-import MessagesRoutes from '@apps/messages/Messages.routes';
 import PhotoRoutes from '@apps/photo/Photo.routes';
-import SettingsApp from '@apps/settings/Settings.app';
+import SettingsApp from "@apps/settings/Settings.app";
 
 export interface IApp {
 	id: string;
@@ -53,19 +52,12 @@ export const AllApps: IApp[] = [
 		},
 	},
 	{
-		id: 'WHATSAPP',
-		locale: 'APPS_WHATSAPP',
-		disable: false,
-		icon: <RiWhatsappLine className="text-whatsapp-light-green"/>,
-		routes: MessagesRoutes,
-	},
-	{
 		id: 'PHOTO',
 		locale: 'APPS_PHOTO',
 		disable: false,
 		icon: <RiCamera2Fill className="text-gray-600"/>,
 		routes: PhotoRoutes,
-	},
+	}
 ];
 
 export const Apps = AllApps.filter(({ disable }) => !disable);

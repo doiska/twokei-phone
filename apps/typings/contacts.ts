@@ -11,6 +11,7 @@ export interface PreDBContact {
 	number: string;
 	avatar?: string;
 }
+
 export interface Contact extends PreDBContact {
 	id: number;
 }

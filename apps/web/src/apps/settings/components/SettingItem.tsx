@@ -26,7 +26,7 @@ const SettingsItemRange: React.FC<Props & { min?: number; max?: number; step?: n
 
 	return (
 		<SettingsItemBody icon={icon}>
-			<SettingsItemLabel label={title ?? label} value={range} />
+			<SettingsItemLabel label={title ?? label} value={range}/>
 			<SettingsItemOption>
 				<input
 					value={range}
@@ -46,7 +46,7 @@ const SettingsItemRange: React.FC<Props & { min?: number; max?: number; step?: n
 const SettingsItemToggle: React.FC<Props> = ({ title, label, icon, value, onCommit }) => {
 	return (
 		<SettingsItemBody icon={icon}>
-			<SettingsItemLabel label={title ?? label} />
+			<SettingsItemLabel label={title ?? label}/>
 			<SettingsItemOption>
 				<input
 					className="toggle self-end"

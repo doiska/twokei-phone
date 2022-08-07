@@ -45,7 +45,7 @@ const useSystemContextMenu = (_title?: string, _options?: IContextMenuOption[]):
 		openMenu,
 		setOptions: _setOptions,
 		closeMenu,
-		ContextMenu: () => <ContextMenu isOpen={open} onClose={closeMenu} options={currentOptions} title={title} />,
+		ContextMenu: () => <ContextMenu isOpen={open} onClose={closeMenu} options={currentOptions} title={title}/>,
 		isOpen: open,
 	};
 };

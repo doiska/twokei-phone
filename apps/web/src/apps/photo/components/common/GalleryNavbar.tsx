@@ -12,12 +12,13 @@ const GalleryNavbar: React.FC<{ showUpload?: () => void }> = ({
 
 	return (
 		<Navbar>
-			<NavbarItemGrid className="shadow-6xl bg-shark w-[50%] justify-evenly rounded-md bg-opacity-90 py-2.5 text-2xl text-white opacity-80 transition-all hover:opacity-100">
+			<NavbarItemGrid
+				className="shadow-6xl bg-shark w-[50%] justify-evenly rounded-md bg-opacity-90 py-2.5 text-2xl text-white opacity-80 transition-all hover:opacity-100">
 				<NavbarItem onClick={() => goTo('/photo/camera')}>
-					<IoCameraOutline />
+					<IoCameraOutline/>
 				</NavbarItem>
 				<NavbarItem>
-					<IoCloudUploadOutline onClick={showUpload} />
+					<IoCloudUploadOutline onClick={showUpload}/>
 				</NavbarItem>
 			</NavbarItemGrid>
 		</Navbar>

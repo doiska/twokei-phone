@@ -8,9 +8,9 @@ import GenericHeader from '@ui/os/GenericHeader';
 const ContactsApp: React.FC = () => {
 	return (
 		<GenericApp>
-			<GenericHeader title={'Contacts'} />
+			<GenericHeader title={'Contacts'}/>
 			<GenericBody>
-				<Outlet />
+				<Outlet/>
 			</GenericBody>
 		</GenericApp>
 	);

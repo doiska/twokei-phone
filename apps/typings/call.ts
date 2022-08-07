@@ -4,12 +4,12 @@ export interface RawActiveCall {
 	dialerSource?: number;
 	receiver: string;
 	receiverSource?: number;
-	start: number;
+	start: string;
 	isAccepted: boolean;
 }
 
 export interface ActiveCall {
-	start?: number;
+	start?: string;
 
 	isAccepted: boolean;
 	isDialer: boolean;

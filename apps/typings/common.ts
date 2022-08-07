@@ -6,12 +6,18 @@ export interface ServerPromiseResp<T = undefined> {
 
 export interface Profile {
 	id?: number;
-	source?: number;
+	identifier?: string;
 	name?: string;
 	username: string;
 	avatar?: string;
 	createdAt?: string;
 	updatedAt?: string;
+}
+
+export type ProfileDTO = {
+	name?: string;
+	username: string;
+	avatar?: string;
 }
 
 export enum GENERIC_EVENTS {

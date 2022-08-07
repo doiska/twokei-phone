@@ -1,7 +1,10 @@
 import { ServerPromiseResp } from '@typings/common';
+
+import PlayerService from "@players/player.service";
+import { PromiseCB, PromiseEventResponse, PromiseRequest } from '@server-types/promises';
 import { getSource } from '@utils/fivem';
+
 import { GlobalRateLimit, LimiterOptions } from './GlobalRateLimit';
-import { PromiseCB, PromiseEventResponse, PromiseRequest } from './promise.types';
 
 const rateLimiter = new GlobalRateLimit(250);
 
@@ -20,8 +23,15 @@ export function onNetPromise<T = any, P = any>(eventName: string, cb: PromiseCB<
 			return;
 		}
 
+		const identifier = PlayerService.getPlayer(source).identifier;
+
+		if (!identifier) {
+			console.error(`Promise event ${eventName} was called with wrong structure by ${source} (without identifier).`);
+		}
+
 		const promiseRequest: PromiseRequest<T> = {
 			source,
+			identifier,
 			data,
 		};
 

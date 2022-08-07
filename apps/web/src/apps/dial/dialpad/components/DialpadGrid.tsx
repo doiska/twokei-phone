@@ -36,21 +36,21 @@ const DialPadGrid: React.FC = () => {
 		<div className="grid w-full flex-1 grid-cols-3 items-center text-center text-3xl">
 			{[...Array(9)].map((_, i) => {
 				i = i + 1;
-				return <DialItem key={i} value={i} onClick={() => addOne(i)} />;
+				return <DialItem key={i} value={i} onClick={() => addOne(i)}/>;
 			})}
 			<DialItem
 				value={''}
 				className="flex h-full w-full items-center justify-center"
 				onClick={() => removeAll()}
 			>
-				<MdClose size={32} />
+				<MdClose size={32}/>
 			</DialItem>
-			<DialItem value={0} onClick={() => addOne(0)} />
+			<DialItem value={0} onClick={() => addOne(0)}/>
 			<DialItem
 				className="flex h-full w-full items-center justify-center"
 				onClick={() => removeOne()}
 			>
-				<IoMdBackspace />
+				<IoMdBackspace/>
 			</DialItem>
 		</div>
 	);

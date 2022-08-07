@@ -7,12 +7,10 @@ import {
 	ParticipantModel,
 	MessageModel,
 } from '@models/Messages.model';
-import { TweetItemModel, TwitterProfileModel } from '@models/Twitter.model';
+import { TweetItemModel, TwitterProfileModel, TwitterActionModel } from '@models/Twitter.model';
 
 import * as path from 'path';
 import { DataSource } from 'typeorm';
-
-const _dirname = path.resolve();
 
 export const XiaoDS = new DataSource({
 	type: 'mariadb',
@@ -20,12 +18,13 @@ export const XiaoDS = new DataSource({
 	host: 'localhost',
 	port: 3306,
 	username: 'root',
-	password: 'doiska',
+	password: 'twokei',
 	logging: true,
 	logger: 'advanced-console',
 	entities: [
 		FiveUserModel,
 		TweetItemModel,
+		TwitterActionModel,
 		TwitterProfileModel,
 		ContactModel,
 		GalleryItemModel,

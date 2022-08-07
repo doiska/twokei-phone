@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 
 import { HTMLAttributes } from '@typings/core';
 
-export const GalleryItem: React.FC<
-	{ checked?: boolean; content: string } & HTMLAttributes
-> = ({ content, className, ...rest }) => {
+export const GalleryItem: React.FC<{ checked?: boolean; content: string } & HTMLAttributes> = ({ content, className, ...rest }) => {
 	const [loaded, setLoaded] = useState(false);
 
 	return (

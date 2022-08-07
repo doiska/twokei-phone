@@ -11,7 +11,7 @@ type AppElementParams = {
 const AppRoute: React.FC<AppElementParams> = ({ id, emitOnOpen, component: Component }) => {
 	return (
 		<AppWithFetch id={id} emitOnOpen={false}>
-			<Component />
+			<Component/>
 		</AppWithFetch>
 	);
 };

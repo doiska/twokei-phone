@@ -19,7 +19,7 @@ export class CallDB {
 	async updateCall(
 		{ identifier }: CallHistoryItem | RawActiveCall,
 		isAccepted: boolean,
-		end: number
+		end: string
 	) {
 		return XiaoDS.getRepository(CallModel).update(
 			{ identifier },

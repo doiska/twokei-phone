@@ -14,6 +14,7 @@ export interface IContextMenuOption {
 	selected?: boolean;
 	icon?: React.ReactNode;
 	optionType?: 'input' | 'option';
+
 	onCommit?(e: unknown, option: unknown): void;
 }
 

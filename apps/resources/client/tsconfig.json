@@ -1,31 +1,37 @@
 {
-    "extends": "./tsconfig.paths.json",
-    "compilerOptions": {
-        "baseUrl": ".",
-        "outDir": "./dist/client",
-        "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es2016",
-        "lib": [
-            "es2017"
-        ],
-        "types": [
-            "@citizenfx/client",
-            "@types/node"
-        ],
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "noEmit": false,
-    },
-    "include": [
-        "./**/*",
-        "../common/**/*",
-        "../../typings/*",
-        "../../shared/*",
-        "../../config.default.json"
-    ],
-    "exclude": [
-        "**/node_modules"
-    ]
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@typings/*": [
+				"../../typings/*"
+			],
+			"@shared/*": [
+				"../../shared/*"
+			],
+			"@utils/*": [
+				"./utils/*"
+			],
+			"@animation/*": [
+				"./animations/*"
+			]
+		},
+		"noImplicitAny": true,
+		"module": "commonjs",
+		"target": "es2016",
+		"lib": [
+			"es2017"
+		],
+		"types": [
+			"@citizenfx/client",
+			"@types/node"
+		],
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"noEmit": false
+	},
+	"exclude": [
+		"node_modules",
+		"**/node_modules"
+	]
 }

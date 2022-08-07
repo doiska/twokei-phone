@@ -44,22 +44,22 @@ const useCallService = () => {
 		// }
 
 		switch (modalState) {
-			case ModalState.OPEN: {
-				if (!match('dial/call')) {
-					goTo(call?.isDialer ? '/dial/call/calling' : '/dial/call/incoming');
-				}
-				break;
+		case ModalState.OPEN: {
+			if (!match('dial/call')) {
+				goTo(call?.isDialer ? '/dial/call/calling' : '/dial/call/incoming');
 			}
+			break;
+		}
 
-			case ModalState.CLOSED: {
-				if (match('dial/call')) goTo('/');
-				break;
-			}
+		case ModalState.CLOSED: {
+			if (match('dial/call')) goTo('/');
+			break;
+		}
 
-			case ModalState.ONGOING: {
-				goTo('/dial/call/ongoing');
-				break;
-			}
+		case ModalState.ONGOING: {
+			goTo('/dial/call/ongoing');
+			break;
+		}
 		}
 	}, [modalState]);
 

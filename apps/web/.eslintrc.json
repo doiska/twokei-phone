@@ -1,55 +1,55 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "prettier",
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "prettier",
-        "react",
-        "@typescript-eslint",
-        "eslint-plugin-import-helpers"
-    ],
-    "rules": {
-        "import-helpers/order-imports": [
-            "warn",
-            {
-                "newlinesBetween": "always",
-                "groups": [
-                    "/^react/",
-                    "/^recoil/",
-                    "module",
-                    "/^@shared/",
-                    "/^@os/",
-                    "/^@apps/",
-                    [
-                        "parent",
-                        "sibling",
-                        "index"
-                    ]
-                ],
-                "alphabetize": {
-                    "order": "asc",
-                    "ignoreCase": true
-                }
-            }
-        ],
-        "react/prop-types": "off"
-    },
-    "ignorePatterns": [
-        "*.js"
-    ]
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": [
+		"prettier",
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": [
+		"prettier",
+		"react",
+		"@typescript-eslint",
+		"eslint-plugin-import-helpers"
+	],
+	"rules": {
+		"import-helpers/order-imports": [
+			"warn",
+			{
+				"newlinesBetween": "always",
+				"groups": [
+					"/^react/",
+					"/^recoil/",
+					"module",
+					"/^@shared/",
+					"/^@os/",
+					"/^@apps/",
+					[
+						"parent",
+						"sibling",
+						"index"
+					]
+				],
+				"alphabetize": {
+					"order": "asc",
+					"ignoreCase": true
+				}
+			}
+		],
+		"react/prop-types": "off"
+	},
+	"ignorePatterns": [
+		"*.js"
+	]
 }

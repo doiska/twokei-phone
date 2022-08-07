@@ -35,14 +35,23 @@ interface NotificationContextProvider {
 	currentAlert?: INotificationAlert;
 	icons: INotificationIcon[];
 	count: number;
+
 	removeAlerts(): void;
+
 	addNotification(notification: INotification): void;
+
 	removeNotification(idx: number): void;
+
 	removeAllNotifications(): void;
+
 	updateId(id: string, value: Partial<INotification>): void;
+
 	removeId(id: string): void;
+
 	hasNotification(id: string): INotification | null;
+
 	hasAppNotification(appId: string): number;
+
 	addNotificationAlert(n: INotification, cb?: (n: INotification) => void): void;
 }
 

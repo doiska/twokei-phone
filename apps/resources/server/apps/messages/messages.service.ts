@@ -4,8 +4,8 @@ import {
 	MessageConversationDTO,
 } from '@typings/messages';
 
+import { PromiseEventResponse, PromiseRequest } from '@server-types/promises';
 import { emitNetTyped } from '@utils/fivem';
-import { PromiseEventResponse, PromiseRequest } from 'lib/promise.types';
 import PlayerService from 'players/player.service';
 
 import { MessageDB } from './messages.db';

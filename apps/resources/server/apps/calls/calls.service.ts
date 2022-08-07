@@ -1,5 +1,5 @@
 import { CallDB } from '@apps/calls/calls.db';
-import { PromiseEventResponse, PromiseRequest } from '@lib/promise.types';
+
 
 import {
 	ActiveCall,
@@ -13,6 +13,7 @@ import {
 import Service from '@common/service';
 import Collection from '@discordjs/collection';
 import PlayerService from '@players/player.service';
+import { PromiseEventResponse, PromiseRequest } from "@server-types/promises";
 import { emitNetTyped } from '@utils/fivem';
 import { uuid } from 'uuidv4';
 
@@ -43,7 +44,7 @@ class CallsService extends Service {
 			true
 		);
 
-		const startCallTime = Math.floor(new Date().getTime() / 1000);
+		const startCallTime = new Date().toISOString();
 
 		//TODO: uuidv4
 		const callIdentifier = uuid();
@@ -175,7 +176,7 @@ class CallsService extends Service {
 
 		const current = this.callMap.get(dialerNumber);
 
-		const endUnix = Math.floor(new Date().getTime() / 1000);
+		const endUnix = new Date().toISOString();
 
 		if (!current) {
 			this.logger.error(`Call ${dialerNumber} was not found.`);
@@ -196,7 +197,7 @@ class CallsService extends Service {
 	) {
 		const dialerNumber = req.data.dialerNumber;
 
-		const endUnix = Math.floor(new Date().getTime() / 1000);
+		const endUnix = new Date().toISOString();
 
 		if (req.data.isUnavailable) {
 			emitNet(CallEvents.WAS_ENDED, req.source);

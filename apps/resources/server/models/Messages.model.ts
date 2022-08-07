@@ -65,7 +65,7 @@ export class MessageModel {
 		id: number;
 
 	@Column({ name: 'conversation_id' })
-	// @ManyToOne(() => ConversationModel, (conversation) => conversation.id)
+		// @ManyToOne(() => ConversationModel, (conversation) => conversation.id)
 		conversationId: number;
 
 	@Column()

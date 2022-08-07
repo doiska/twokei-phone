@@ -21,7 +21,7 @@ const SelectWithInput: React.FC<Props> = ({ className, values, onChange }) => {
 			) : (
 				<div className="flex flex-row items-center gap-2">
 					<span onClick={() => setShowInput(false)}>X</span>
-					<input className="px-2 text-black focus:outline-none" onChange={onChange} />
+					<input className="px-2 text-black focus:outline-none" onChange={onChange}/>
 				</div>
 			)}
 		</>

@@ -22,9 +22,9 @@ export class CallModel {
 	})
 		isAccepted: boolean | number;
 
-	@Column({ type: 'bigint', nullable: false })
-		start: number;
+	@Column({ type: 'varchar', nullable: false })
+		start: string;
 
-	@Column({ type: 'bigint', nullable: true, default: null })
-		end: number;
+	@Column({ type: 'varchar', nullable: true, default: null })
+		end: string;
 }

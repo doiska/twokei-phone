@@ -36,9 +36,9 @@ const PhoneRoutes: React.FC = () => {
 	const location = useLocation();
 
 	return (
-		<React.Suspense key={location.key} fallback={<TriangleLoader />}>
+		<React.Suspense key={location.key} fallback={<TriangleLoader/>}>
 			<AnimatedRoute>
-				<Routes />
+				<Routes/>
 			</AnimatedRoute>
 		</React.Suspense>
 	);

@@ -9,22 +9,22 @@ import Gallery from '@apps/photo/pages/Gallery';
 const PhotoRoutes = {
 	path: 'photo',
 	element: (
-		<AppRoute id="PHOTO" component={() => <Outlet />} emitOnOpen={true} />
+		<AppRoute id="PHOTO" component={() => <Outlet/>} emitOnOpen={true}/>
 	),
 	children: [
 		{
 			path: '',
-			element: <Gallery />,
+			element: <Gallery/>,
 			children: [
 				{
 					path: ':ref/:photo',
-					element: <Gallery />,
+					element: <Gallery/>,
 				},
 			],
 		},
 		{
 			path: 'camera',
-			element: <Camera />,
+			element: <Camera/>,
 		},
 	],
 } as RouteObject;

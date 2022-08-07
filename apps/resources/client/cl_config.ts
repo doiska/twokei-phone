@@ -1,5 +1,7 @@
-import { ResourceConfig } from '@typings/config';
 import { deepMergeObjects } from '@shared/utils/deepMergeObject';
+
+import { ResourceConfig } from "@typings/config";
+
 import defaultConfig from '../../config.default.json';
 
 export const config = (() => {

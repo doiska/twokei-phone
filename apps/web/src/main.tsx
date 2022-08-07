@@ -28,7 +28,7 @@ ReactDOM.render(
 	<React.StrictMode>
 		<HashRouter>
 			<RecoilRoot>
-				<PhoneProviders />
+				<PhoneProviders/>
 			</RecoilRoot>
 		</HashRouter>
 	</React.StrictMode>,

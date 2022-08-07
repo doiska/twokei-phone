@@ -1,18 +1,21 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity({ name: 'twokei_phone_tweet_item' })
+@Entity({ name: 'twokei_phone_twitter_content' })
 export class TweetItemModel {
 	@PrimaryGeneratedColumn()
 		id: number;
 
 	@Column({ type: 'varchar', length: 255, nullable: false })
-		source: number;
+		identifier: string;
+
+	@Column({ type: 'int', nullable: true })
+		retweet?: number;
 
 	@Column()
 		content: string;
 
 	@Column()
-		images: string; // TODO: parse array
+		images: string;
 
 	@Column()
 		created_at: string;
@@ -24,7 +27,7 @@ export class TwitterProfileModel {
 		id: number;
 
 	@Column({ type: 'varchar', length: 255, nullable: false })
-		source: number;
+		identifier: string;
 
 	@Column({ type: 'varchar', length: 255, nullable: false })
 		name: string;
@@ -35,8 +38,8 @@ export class TwitterProfileModel {
 	@Column({ type: 'varchar', length: 255, nullable: true })
 		avatar: string;
 
-	@Column({ type: 'varchar', length: 255, nullable: true, default: '' })
-		bio: string;
+	@Column({ type: 'varchar', length: 255, nullable: true })
+		description: string;
 
 	@Column({
 		type: 'varchar',
@@ -45,4 +48,22 @@ export class TwitterProfileModel {
 		default: new Date().getTime(),
 	})
 		created_at: number;
+}
+
+@Entity({ name: 'twokei_phone_twitter_action' })
+export class TwitterActionModel {
+	@PrimaryGeneratedColumn()
+		id: number;
+
+	@Column({ type: 'int' })
+		tweet_id: number;
+
+	@Column({ type: 'varchar', length: 255, nullable: false })
+		identifier: string;
+
+	@Column({ type: 'varchar', length: 255, nullable: false })
+		action: string;
+
+	@Column({ type: 'varchar', length: 255, nullable: false })
+		created_at: string;
 }

@@ -1,42 +1,35 @@
-import { Profile } from '@typings/common';
+import { Profile } from "./common";
 
 export type SETTINGS_ALL_TWEETS = 'all';
 export type SETTINGS_MENTION = 'mentions';
 
-/**
- *
- * Tabela tweet_item: armazenar conteúdo, source e identificador do usuário
- *
- * Tabela tweet_actions: armazenar likes e retweets
- * Tabela twitter_profile: armazenar informações do usuário
- *
- */
-
-export interface TwitterProfile extends Profile {
-	description?: string;
-}
-
-export interface TweetDTO {
-	id?: number;
-	source?: number;
-
+export type TweetDTO = {
+	retweet_id?: number;
 	content: string;
-	images?: string;
-
-	createdAt?: string;
-	updatedAt?: string;
+	images?: string[];
 }
 
-export interface FormattedTweet extends TweetDTO {
+export type Tweet = {
 	id: number;
-	profile: TwitterProfile;
+	identifier: string;
+	content: string;
+	profile: Profile;
+	retweet?: number;
+	status: {
+		mine: boolean;
+		liked: boolean;
+		retweeted: boolean;
+	},
+	count: {
+		likes: number;
+		retweets: number;
+	},
+	created_at: string;
+	updated_at?: string;
+}
 
-	likes?: number;
-	retweets?: number;
-
-	isMine?: boolean;
-	isLiked?: boolean;
-	isRetweeted?: boolean;
+export type TwitterProfile = Profile & {
+	description?: string;
 }
 
 export enum TwitterEvents {

@@ -28,7 +28,7 @@ const NotificationBar: React.FC = () => {
 			addNotification({
 				id: `appstyle_${i % 2}`,
 				app: `appstyle_${i % 2}`,
-				notificationIcon: <Md4K />,
+				notificationIcon: <Md4K/>,
 				title: 'Notification Title' + i,
 			});
 		}
@@ -61,7 +61,7 @@ const NotificationBar: React.FC = () => {
 				<div className="flex basis-2/12 items-center justify-end">
 					<span>95%</span>
 					<span>
-						<MdBatteryFull />
+						<MdBatteryFull/>
 					</span>
 				</div>
 			</div>

@@ -1,16 +1,16 @@
 {
-    "phone": {
-        "toggleKey": "f1",
-        "toggleCommand": "phone"
-    },
-    "database": {
-        "identifier": "license",
-        "remapIdentifier": "char1",
-        "players_table": "users",
-        "profileQueries": true
-    },
-    "debug": {
-        "enabled": true,
-        "level": "verbose"
-    }
+	"phone": {
+		"toggleKey": "f1",
+		"toggleCommand": "phone"
+	},
+	"database": {
+		"identifier": "license",
+		"remapIdentifier": "char1",
+		"players_table": "users",
+		"profileQueries": true
+	},
+	"debug": {
+		"enabled": true,
+		"level": "verbose"
+	}
 }

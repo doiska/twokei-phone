@@ -52,7 +52,7 @@ export const GalleryContextMenu: React.FC<ContextProps> = ({
 			className="shadow-7xl bg-shark absolute left-[50%] top-[50%] flex h-[60%] w-[90%] translate-y-[-50%] translate-x-[-50%] flex-col items-center gap-4 rounded-lg bg-opacity-90 p-2 backdrop-blur-lg"
 		>
 			<span className="absolute left-4 top-3 cursor-pointer rounded-md bg-white bg-opacity-10 p-1">
-				<IoArrowBackOutline onClick={toggleMenu} size={20} color={'white'} />
+				<IoArrowBackOutline onClick={toggleMenu} size={20} color={'white'}/>
 			</span>
 			<div className="flex flex-1 flex-row items-center justify-center gap-1">
 				<img
@@ -61,7 +61,7 @@ export const GalleryContextMenu: React.FC<ContextProps> = ({
 					className={`${!enableSave && 'hidden'} h-auto max-w-[60%]`}
 					src={image}
 				/>
-				{!enableSave && <TriangleLoader />}
+				{!enableSave && <TriangleLoader/>}
 			</div>
 
 			<input
@@ -90,7 +90,7 @@ export const GalleryContextMenu: React.FC<ContextProps> = ({
 					className="bg-shark shadow-3xl flex flex-row items-center gap-2 rounded-md border-2 border-transparent p-2 transition-all hover:border-zinc-300"
 					onClick={() => openMenu(`Apagar foto?`, deletePhoto, () => toggleMenu())}
 				>
-					<IoRemoveCircleOutline />
+					<IoRemoveCircleOutline/>
 					<span>Apagar</span>
 				</button>
 				<button
@@ -99,11 +99,11 @@ export const GalleryContextMenu: React.FC<ContextProps> = ({
 					}`}
 					onClick={() => openMenu(`Salvar foto?`, commitPhoto, () => toggleMenu())}
 				>
-					<IoSaveOutline />
+					<IoSaveOutline/>
 					<span>Salvar</span>
 				</button>
 			</div>
-			<PromptMenu />
+			<PromptMenu/>
 		</div>
 	);
 };

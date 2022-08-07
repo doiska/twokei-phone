@@ -77,12 +77,12 @@ const Gallery: React.FC<{ title?: string }> = ({ title }) => {
 
 	const isRefSet = ref && ref !== 'undefined';
 
-	if (loading) return <TriangleLoader />;
+	if (loading) return <TriangleLoader/>;
 
 	return (
 		<Container>
 			<MainHeader title={title ?? 'Sua galeria'}>
-				<IoCloudUploadOutline />
+				<IoCloudUploadOutline/>
 			</MainHeader>
 			<MainBody className="flex w-full flex-1 flex-col items-center gap-3">
 				<GallerySearchInput

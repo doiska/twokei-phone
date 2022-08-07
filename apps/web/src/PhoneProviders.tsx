@@ -10,7 +10,7 @@ const PhoneProviders: React.FC = () => {
 		<Suspense fallback={<div>Loading... </div>}>
 			<NuiProvider resource="phone">
 				<NotificationProvider>
-					<Phone />
+					<Phone/>
 				</NotificationProvider>
 			</NuiProvider>
 		</Suspense>

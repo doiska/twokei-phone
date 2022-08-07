@@ -1,31 +1,62 @@
 {
-    "extends": "./tsconfig.paths.json",
-    "compilerOptions": {
-        "outDir": "./dist/server",
-        "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es2016",
-        "allowJs": false,
-        "lib": [
-            "es2015",
-            "DOM"
-        ],
-        "types": [
-            "@citizenfx/server",
-            "@types/node"
-        ],
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "noEmit": true
-    },
-    "include": [
-        "./**/*",
-        "./common/**/*"
-    ],
-    "exclude": [
-        "**/node_modules"
-    ]
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@db/*": [
+				"db/*"
+			],
+			"@server-types/*": [
+				"./server-types/*"
+			],
+			"@typings/*": [
+				"../../typings/*"
+			],
+			"@shared/*": [
+				"../../shared/*"
+			],
+			"@apps/*": [
+				"./apps/*"
+			],
+			"@lib/*": [
+				"./lib/*"
+			],
+			"@utils/*": [
+				"./utils/*"
+			],
+			"@entity/*": [
+				"./entity/*"
+			],
+			"@models/*": [
+				"./models/*"
+			],
+			"@players/*": [
+				"./players/*"
+			],
+			"@common/*": [
+				"./common/*"
+			]
+		},
+		"noImplicitAny": true,
+		"module": "commonjs",
+		"target": "es2016",
+		"allowJs": false,
+		"lib": [
+			"es2015",
+			"DOM"
+		],
+		"types": [
+			"@citizenfx/server",
+			"@types/node"
+		],
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"noEmit": true
+	},
+	"exclude": [
+		"node_modules",
+		"**/node_modules"
+	]
 }

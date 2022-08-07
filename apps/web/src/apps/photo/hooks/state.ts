@@ -20,9 +20,7 @@ export const photoState = {
 			key: 'defaultGalleryPhtoso',
 			get: async () => {
 				try {
-					const response = await fetchNui<
-						ServerPromiseResp<GalleryPhoto[]>
-					>(
+					const response = await fetchNui<ServerPromiseResp<GalleryPhoto[]>>(
 						PhotoEvents.FETCH_PHOTOS,
 						undefined,
 						buildRespObj(GalleryMockData)

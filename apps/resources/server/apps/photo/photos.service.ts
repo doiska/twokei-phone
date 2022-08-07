@@ -1,7 +1,10 @@
-import { PromiseEventResponse, PromiseRequest } from '@lib/promise.types';
 import { GalleryPhoto, PreDBGalleryPhoto } from '@typings/gallery';
-import PhotoDB from './photo.db';
+
+import { PromiseEventResponse, PromiseRequest } from '@server-types/promises';
 import PlayerService from 'players/player.service';
+
+import PhotoDB from './photo.db';
+
 
 class _PhotoService {
 	private readonly photoDB;

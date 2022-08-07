@@ -1,11 +1,12 @@
-import PlayerService from '@players/player.service';
 import {
 	Contact,
 	ContactDeleteDTO,
 	ContactErrors,
 	PreDBContact,
 } from '@typings/contacts';
-import { PromiseEventResponse, PromiseRequest } from 'lib/promise.types';
+
+import PlayerService from '@players/player.service';
+import { PromiseEventResponse, PromiseRequest } from '@server-types/promises';
 
 import ContactsDBWrapper, { _ContactsWrapper } from './contacts.db';
 

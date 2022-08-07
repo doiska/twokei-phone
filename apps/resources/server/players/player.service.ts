@@ -1,9 +1,12 @@
-import { Player } from './player.class';
-import Collection from '@discordjs/collection';
-import { PlayerDB } from './player.db';
-import { findOrGeneratePhoneNumber } from '../phone/helper';
 import { PhoneEvents } from '@typings/phone';
+
+import Collection from '@discordjs/collection';
 import { getPlayerGameLicense } from '@utils/fivem';
+
+import { findOrGeneratePhoneNumber } from '../phone/helper';
+import { Player } from './player.class';
+import { PlayerDB } from './player.db';
+
 
 class _PlayerService {
 	private readonly playersBySource: Collection<number, Player>;
