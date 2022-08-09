@@ -9,6 +9,13 @@ export type TweetDTO = {
 	images?: string[];
 }
 
+export type TwitterAction = 'like' | 'retweet';
+
+export type ToggleAction = {
+	tweetId: number;
+	action: TwitterAction;
+}
+
 export type Tweet = {
 	id: number;
 	identifier: string;
@@ -44,7 +51,6 @@ export enum TwitterEvents {
 	BROADCAST_TWEET = 'tkphone:twitter:broadcast:tweet',
 	DELETE_TWEET = 'tkphone:twitter:delete:tweet',
 
-	TOGGLE_LIKE = 'tkphone:twitter:like:tweet',
-	TOGGLE_RETWEET = 'tkphone:twitter:retweet:tweet',
+	TOGGLE_ACTION = 'tkphone:twitter:toggle:action',
 	REPORT_TWEET = 'tkphone:twitter:report:tweet',
 }

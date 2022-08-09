@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("./cl_config");
+require("./cl_main");
+require("./cl_controls");
+require("./cl_contacts");
+require("./cl_messages");
+require("./cl_photo");
+require("./cl_twitter");
+require("./calls/cl_calls.controller");
+require("./settings/settings.controller");
+emitNet('hot-reload:watch', 'phone');
+emitNet('hot-reload:list');
+console.log(`[TKPhone] Resource successfully loaded.`);

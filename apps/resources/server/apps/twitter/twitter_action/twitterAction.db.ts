@@ -1,6 +1,8 @@
 import { XiaoDS } from "@db/xiao";
 import { TwitterActionModel } from "@models/Twitter.model";
 
+import { TwitterAction } from "@typings/twitter";
+
 type CountResult = {
 	likes: number;
 	retweets: number;
@@ -12,7 +14,22 @@ type LikedOrRetweeted = {
 	retweeted: boolean;
 }
 
+export type Action = 'like' | 'retweet';
+
 class _TwitterActionDB {
+
+	async createAction(identifier: string, tweetId: number, action: TwitterAction): Promise<void> {
+		await XiaoDS.getRepository(TwitterActionModel).save({ identifier, tweet_id: tweetId, action });
+	}
+
+	async removeAction(identifier: string, tweetId: number, action: TwitterAction): Promise<void> {
+		await XiaoDS.getRepository(TwitterActionModel).delete({ identifier, tweet_id: tweetId, action });
+	}
+
+	async getActionStatus(identifier: string, tweetId: number, action: TwitterAction): Promise<boolean> {
+		const result = await XiaoDS.getRepository(TwitterActionModel).find({ where: { identifier, tweet_id: tweetId, action } });
+		return result.length > 0;
+	}
 
 	async fetchBothActionsByTweetId(tweetId: number): Promise<CountResult> {
 		const { total, retweets, likes } = await XiaoDS.getRepository(TwitterActionModel)
@@ -31,7 +48,7 @@ class _TwitterActionDB {
 		};
 	}
 
-	fetchActionByTweetId(tweetId: number, action: string): Promise<number> {
+	fetchActionByTweetId(tweetId: number, action: Action): Promise<number> {
 		return XiaoDS.getRepository(TwitterActionModel).count({ where: { tweet_id: tweetId, action } });
 	}
 

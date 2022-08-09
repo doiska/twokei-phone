@@ -1,24 +1,10 @@
 import { XiaoDS } from "@db/xiao";
-import { TweetItemModel, TwitterProfileModel, TwitterActionModel } from "@models/Twitter.model";
+import { TweetItemModel } from "@models/Twitter.model";
 
-import { TwitterProfileDB } from "@apps/twitter/profile/twitterProfile.db";
 import { TwitterActionDB } from "@apps/twitter/twitter_action/twitterAction.db";
+import { TwitterProfileDB } from "@apps/twitter/twitter_profile/twitterProfile.db";
 
 import { TweetDTO, Tweet } from "@typings/twitter";
-
-type JoinedTweet = {
-	tweet_id: number;
-	tweet_identifier: string;
-	tweet_content: string;
-	tweet_images?: string[];
-	tweet_created_at: string;
-	profile_id: number;
-	profile_identifier: string;
-	profile_name: string;
-	profile_username: string;
-	profile_avatar: string;
-	profile_created_at: string;
-}
 
 class _TwitterContentDB {
 

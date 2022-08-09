@@ -1,0 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MessageEvents = void 0;
+var MessageEvents;
+(function (MessageEvents) {
+    MessageEvents["FETCH_MESSAGES"] = "tkphone:messages:fetch";
+    MessageEvents["FETCH_MESSAGE_CONVERSATIONS"] = "tkphone:messages:fetchMessageGroups";
+    MessageEvents["FETCH_MESSAGE_CONVERSATIONS_SUCCESS"] = "tkphone:messages:fetchMessageGroups:success";
+    MessageEvents["FETCH_MESSAGE_CONVERSATIONS_FAILED"] = "tkphone:messages:fetchMessageGroups:failed";
+    MessageEvents["CREATE_MESSAGE_CONVERSATION"] = "tkphone:messages:createMessageGroup";
+    MessageEvents["CREATE_MESSAGE_CONVERSATION_SUCCESS"] = "tkphone:messages:createMessageGroup:success";
+    MessageEvents["CREATE_MESSAGE_CONVERSATION_FAILED"] = "tkphone:messages:createMessageGroup:failed";
+    MessageEvents["UPDATE_MESSAGE_CONVERSATION"] = "tkphone:messages:updateMessageGroup";
+    MessageEvents["DELETE_MESSAGE_CONVERSATION"] = "tkphone:messages:deleteMessageGroup";
+    MessageEvents["SEND_MESSAGE"] = "tkphone:messages:sendMessage";
+    MessageEvents["SEND_EMBED_MESSAGE"] = "tkphone:messages:sendEmbeddedMessage";
+    MessageEvents["SEND_MESSAGE_SUCCESS"] = "tkphone:messages:sendMessage:success";
+    MessageEvents["SEND_MESSAGE_FAILED"] = "tkphone:messages:sendMessage:failed";
+    MessageEvents["DELETE_MESSAGE"] = "tkphone:messages:deleteMessage";
+    MessageEvents["SET_READ_MESSAGE"] = "tkphone:messages:setReadMessage";
+    MessageEvents["CREATE_MESSAGE_BROADCAST"] = "tkphone:messages:broadcast";
+    MessageEvents["SET_PROFILE"] = "tkphone:messages:setProfile";
+    MessageEvents["FETCH_PROFILE"] = "tkphone:messages:fetchProfile";
+    MessageEvents["FETCH_ALL_PROFILES"] = "tkphone:messages:fetchAllProfiles";
+})(MessageEvents = exports.MessageEvents || (exports.MessageEvents = {}));
