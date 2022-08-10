@@ -34,3 +34,5 @@ dist-ssr
 web/yarn.lock
 web/package-lock.json
 web/yarn.lock
+/.yarn/
+/.yarn/
