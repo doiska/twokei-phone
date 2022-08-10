@@ -4,6 +4,7 @@ import 'reflect-metadata';
 
 import { XiaoDS } from "@db/xiao";
 
+import { handleRetweet } from "@apps/twitter/twitter_action/twitterAction.service";
 import { TwitterContentDB } from "@apps/twitter/twitter_content/twitterContent.db";
 import { TwitterProfileDB } from "@apps/twitter/twitter_profile/twitterProfile.db";
 
@@ -35,31 +36,6 @@ import { config as ResourceConfig } from './config';
 			console.log(`[PLAYER] Player ${p} is online.`);
 			await PlayerService.handleNewPlayer(parseInt(p));
 		}
-
-
-		const profile = await TwitterProfileDB.createProfile('char1:2a0758ea547fb1dd5b5f8e8e57d24c78cf83ae8d', { username: 'char1' });
-
-		console.group('[TWITTER] Profile');
-		console.log(`Created profile ${profile.id}`);
-		console.log(profile);
-		console.groupEnd();
-
-		console.group('[TWITTER] Profile fetch');
-		const fetchedProfile = await TwitterProfileDB.fetchProfile('char1:2a0758ea547fb1dd5b5f8e8e57d24c78cf83ae8d');
-		console.log(`Fetched profile ${fetchedProfile.id}`);
-		console.log(fetchedProfile);
-		console.groupEnd();
-
-		console.group('[TWITTER] Tweet create');
-		const newTweet = await TwitterContentDB.createTweet(profile.identifier, { content: 'Hello world!', images: [] });
-		console.log(`Created tweet ${newTweet.id}`);
-		console.log(newTweet);
-		console.groupEnd();
-
-		// const tweets = await TwitterContentDB.fetchTweets('char1:2a0758ea547fb1dd5b5f8e8e57d24c78cf83ae7d', 10);
-		//
-		// console.log(`[TWEET] Fetching tweets`, tweets);
-
 	}, 1000);
 })();
 

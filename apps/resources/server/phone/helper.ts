@@ -28,15 +28,15 @@ export async function findOrGeneratePhoneNumber(
 	return phone;
 }
 
-const genNumber = (lenght: number): string => {
+const genNumber = (length: number): string => {
 	const add = 1;
 	const max = 11;
 
-	if (lenght > max) {
-		return genNumber(max) + genNumber(lenght - max);
+	if (length > max) {
+		return genNumber(max) + genNumber(length - max);
 	}
 
-	const num = Math.floor(Math.random() * Math.pow(10, lenght + add));
+	const num = Math.floor(Math.random() * Math.pow(10, length + add));
 
 	const str = '' + num;
 

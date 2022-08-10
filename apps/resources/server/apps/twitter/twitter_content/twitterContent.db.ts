@@ -8,13 +8,13 @@ import { TweetDTO, Tweet } from "@typings/twitter";
 
 class _TwitterContentDB {
 
-	async createTweet(identifier: string, tweet: TweetDTO): Promise<Tweet> {
+	async createTweet(identifier: string, { content, images, retweet_id }: TweetDTO): Promise<Tweet> {
 
 		const insert = {
 			identifier,
-			content: tweet.content,
-			images: tweet.images.join('|||'),
-			retweet: tweet.retweet_id,
+			content: content,
+			images: images.join('|||'),
+			retweet: retweet_id,
 		} as TweetItemModel;
 
 		const result = await XiaoDS.getRepository(TweetItemModel).save(insert);
@@ -32,6 +32,10 @@ class _TwitterContentDB {
 				retweets: 0,
 			}
 		};
+	}
+
+	async fetchTweet(tweetId: number) {
+		return await XiaoDS.getRepository(TweetItemModel).findOne({ where: { id: tweetId } });
 	}
 
 	async deleteTweet(tweetId: number) {
@@ -53,12 +57,7 @@ class _TwitterContentDB {
 		console.log(`[TWEET] Fetching tweets`, result);
 
 		const promises = result.map(async item => {
-
 			const [profile, actions, isLikedOrRetweeted] = await this.fetchTweetDetails(identifier, item.id);
-
-			console.log(`[TWEET] Fetching profile`, profile);
-			console.log(`[TWEET] Fetching tweet actions`, actions);
-			console.log(`[TWEET] Is liked or retweeted?`, isLikedOrRetweeted);
 
 			return {
 				...item,

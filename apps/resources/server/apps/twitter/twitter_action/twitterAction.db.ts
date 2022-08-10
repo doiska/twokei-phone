@@ -1,5 +1,5 @@
 import { XiaoDS } from "@db/xiao";
-import { TwitterActionModel } from "@models/Twitter.model";
+import { TwitterActionModel, TweetItemModel } from "@models/Twitter.model";
 
 import { TwitterAction } from "@typings/twitter";
 
@@ -29,6 +29,14 @@ class _TwitterActionDB {
 	async getActionStatus(identifier: string, tweetId: number, action: TwitterAction): Promise<boolean> {
 		const result = await XiaoDS.getRepository(TwitterActionModel).find({ where: { identifier, tweet_id: tweetId, action } });
 		return result.length > 0;
+	}
+
+	async fetchRetweet(identifier: string, retweetId: number): Promise<TweetItemModel> {
+		return await XiaoDS.getRepository(TweetItemModel).findOne({ where: { identifier, retweet: retweetId } });
+	}
+
+	async deleteRetweet(identifier: string, retweetId: number): Promise<void> {
+		await XiaoDS.getRepository(TweetItemModel).delete({ identifier, retweet: retweetId });
 	}
 
 	async fetchBothActionsByTweetId(tweetId: number): Promise<CountResult> {
