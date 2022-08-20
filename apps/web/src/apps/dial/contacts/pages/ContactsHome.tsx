@@ -11,14 +11,6 @@ import { ContactCategory } from "@apps/dial/contacts/components/ContactCategory"
 const ContactsHome: React.FC = () => {
 	const filteredContacts = useFilteredContactsByInitial();
 
-	const contacts = Object.entries(filteredContacts).map(([category, contacts]) => (
-		<ContactCategory key={category} title={category}>
-			{contacts.map((props) => (
-				<ContactListItem key={`${category}-${props.id}`} {...props} />
-			))}
-		</ContactCategory>
-	));
-
 	return (
 		<>
 			<SearchContacts/>
@@ -27,7 +19,15 @@ const ContactsHome: React.FC = () => {
 				className="h-phone-body select-none snap-y overflow-y-scroll"
 				horizontal={false}
 			>
-				{contacts}
+				{
+					Object.entries(filteredContacts).map(([category, contacts]) => (
+						<ContactCategory key={category} title={category}>
+							{contacts.map((props) => (
+								<ContactListItem key={`${category}-${props.id}`} {...props} />
+							))}
+						</ContactCategory>
+					))
+				}
 			</ScrollContainer>
 		</>
 	);

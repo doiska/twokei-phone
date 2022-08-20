@@ -22,7 +22,7 @@ setInterval(() => {
 		DisableControlAction(0, 47, true); // Detonate
 		DisableControlAction(0, 55, true); // Dive
 		DisableControlAction(0, 75, true); // Exit Vehicle
-		DisableControlAction(0, 76, true); // Vehicle Handbrake
+		DisableControlAction(0, 76, true); // Vehicle Handbrake 
 		DisableControlAction(0, 81, true); // Next Radio (Vehicle)
 		DisableControlAction(0, 82, true); // Previous Radio (Vehicle)
 		DisableControlAction(0, 91, true); // Passenger Aim (Vehicle)

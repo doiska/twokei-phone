@@ -12,6 +12,7 @@ import './styles/main.css';
 import './styles/animation.css';
 import './utils/TimeJS';
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import PhoneProviders from 'PhoneProviders';
 
 Sentry.init({
@@ -24,12 +25,17 @@ Sentry.init({
 	tracesSampleRate: 0.2,
 });
 
+const queryClient = new QueryClient();
+
+
 ReactDOM.render(
 	<React.StrictMode>
 		<HashRouter>
-			<RecoilRoot>
-				<PhoneProviders/>
-			</RecoilRoot>
+			<QueryClientProvider client={queryClient}>
+				<RecoilRoot>
+					<PhoneProviders/>
+				</RecoilRoot>
+			</QueryClientProvider>
 		</HashRouter>
 	</React.StrictMode>,
 	document.getElementById('root')

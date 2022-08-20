@@ -7,7 +7,6 @@
 	"private": true,
 	"scripts": {
 		"web": "cd apps/web && npm run dev",
-		"watch:web": "cd apps/web && npm run build:web",
 		"watch:sv": "cd apps/resources && npm run build:dev",
 		"build:prod": "yarn workspaces foreach -p -i run build:prod",
 		"build:dev": "yarn workspaces foreach -p -i run build:dev",

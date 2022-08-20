@@ -71,7 +71,7 @@ class _TwitterContentDB {
 			} as Tweet;
 		});
 
-		return await Promise.all(promises);
+		return Promise.all(promises);
 	}
 }
 

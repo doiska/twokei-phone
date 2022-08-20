@@ -3,7 +3,6 @@ vite-env.d.ts
 
 package-lock.json
 *.lock
-*.lock
 
 .yarn
 
@@ -15,8 +14,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
-node_modules
 dist
 dist-ssr
 *.local
@@ -33,6 +30,4 @@ dist-ssr
 *.sw?
 web/yarn.lock
 web/package-lock.json
-web/yarn.lock
-/.yarn/
 /.yarn/

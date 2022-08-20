@@ -1,9 +1,10 @@
 import { ControlEvents } from '@typings/control';
 import { GalleryPhoto, PhotoEvents, PhotoTakeEvents, PreDBGalleryPhoto } from '@typings/gallery';
 import { PhoneEvents } from '@typings/phone';
+
+import { animationService } from '@animation/animation.controller';
 import { Delay } from '@utils/misc';
 import { emitNetPromise, RegisterNUICallback, RegisterNUIProxy, sendNUIEvent } from '@utils/NUI';
-import { animationService } from '@animation/animation.controller';
 
 RegisterNUIProxy(PhotoEvents.SAVE_PHOTO);
 RegisterNUIProxy(PhotoEvents.UPDATE_PHOTO);

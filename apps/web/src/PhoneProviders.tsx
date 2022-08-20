@@ -1,9 +1,11 @@
 import React, { Suspense } from 'react';
 
+import { QueryClient } from "@tanstack/react-query";
 import { NuiProvider } from 'fivem-nui-lib';
 import Phone from 'Phone';
 
 import { NotificationProvider } from '@os/notification/providers/NotificationProvider';
+
 
 const PhoneProviders: React.FC = () => {
 	return (
