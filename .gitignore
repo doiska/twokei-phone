@@ -1,3 +1,4 @@
+.yarn/
 node_modules
 vite-env.d.ts
 
@@ -30,4 +31,5 @@ dist-ssr
 *.sw?
 web/yarn.lock
 web/package-lock.json
+/.yarn/
 /.yarn/
